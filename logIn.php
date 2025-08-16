@@ -1,3 +1,32 @@
+<?php
+session_start();
+include 'connect.php'; // Ensuring this file is connected to the database
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+}
+
+$sql = "SELECT * FROM users WHERE username = ?"; // SQL query to select user by username
+$stmt = $conn->prepare($sql);
+   
+    if ($stmt){
+        $stmt->bind_param("s", $username);
+        $stmt->execute(); // run the statement
+        $result = $stmt->get_result(); //retrieve the result of the query
+
+        if ($result->num_rows >0){  // Check if the user exists
+            $row = $result->fetch_assoc(); // fetch the row from the result
+            if (hash('sha256', $password) === $username['password']){ // Verify the password
+               echo 'Welcome';
+        } else{
+            echo "<p style='color:red;'>Wrong credentials</p>";
+        }
+    }
+    
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,11 +77,13 @@
                         <label for="password"> Password </label>
                         <input type="password" id="passwowrd" name="password" placeholder="Enter password" required>
                     </div>
-                    <button type="submit"> Log In </button> 
+                    <form method="POST" action="logIn.php">
+                    <button onclick="login()">Log In </button>
                     <p class="signip-link"> Don't have an account? <a href="#"> Sign Up</a></p>
                 </form>
             </div>
         </section>
+        <script src ="login.js"></script>
 </body>
 
 
@@ -60,3 +91,4 @@
 
 </html>
 </html>
+?
