@@ -7,7 +7,7 @@
 body{
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #ffffff;
+    background-color: #ced6e0;
     color: #333;
 }
 header {
@@ -16,7 +16,7 @@ header {
     padding: 10px;
     text-align: center;
 }
-main {
+section {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
