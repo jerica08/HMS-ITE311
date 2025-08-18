@@ -4,12 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" contentwidth="device-width, initial-scale=1.0">
 	<title>Learning Management System</title>
-	<link href="style.css">
 	<style>
+		body{
+			font-family: 'Inter', sond-serif;
+			background-color: #f0f4f8;
+			display:flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+
 		.header{
 			background-color: #1a4484;
 			color: #ffffff;
-			padding: 16px;
+			justify-content:center;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		.header-container{
 			max-width: 14px;
@@ -17,7 +27,10 @@
 			margin-right: auto;
 		}
 		.header h1{
-			font-size: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 30px;
 			line-height:28px;
 			 font-weight: 600;
 			 letter-spacing: 0.8px;		
@@ -29,6 +42,60 @@
 			justify-content:center;
 			padding:16px;
 		}
+		.login-card{
+			background-color: #dbe9f6;
+			padding: 36px;
+			border-top-left-radius: 12px;
+			border-top-right-radius: 12px;
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0,0,0, 0.6);
+			width:auto;
+			
+		}
+		.login-card-header{
+			background-color: #7599e0;
+			padding: 2px 2px;
+			margin-bottom: 24px;
+		}
+		.login-card-header h2{
+			text-align: center;
+			font-size: 20px;
+			line-height: 28px;
+			font-weight: 700;
+			color: #080808;
+		}
+		.form-group{
+			margin-bottom: 16px;
+		}
+		.form-group-label{
+			display: block;
+			color: #4b5563;
+			font-weight: 600;
+			margin-bottom: 8px;			
+		}
+		.form-group input, .form-group select{
+			width: 100%;
+			padding: 8px 12px;
+			border: 1px solid #d1d5db;
+			border-radius: 6px;
+			outline: none;
+		}
+		.button-group{
+			display: flex;
+			justify-content: center;
+		}
+		.btn-login{
+			background-color: #4a8fe0;
+			color:#ffffff;
+			padding: 8px 24px;
+			border-radius: 6px;
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			transition: background-color 0.3s ease;
+		}
+		.btn-login:hover{
+			background-color: #3b82f6;
+
+		}
+		
 	</style>
 </head>
 <body class="flex flex-col min-h-screen">
