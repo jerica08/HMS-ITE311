@@ -13,28 +13,28 @@ class Auth extends BaseController
 
     public function loginSubmit()
     {
-        $username = $this->request->getPost('username');
+        $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
+        $role = $this->request->getPost('role');
 
         $userModel = new UserModel();
-        $user = $userModel->where('username', $username)->first();
+        $user = $userModel->where('email', $email)->first();
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && password_verify($password, $user['password']) && $user['role'] === $role) {
             // Set session
             $this->session->set([
+                'email'     => $user['email'],
                 'username'  => $user['username'],
                 'role'      => $user['role'],
                 'logged_in' => true
             ]);
             
             // Redirect based on role
-            if ($user['role'] === 'admin') {
-                return redirect()->to('/admin/dashboard');
-            }
+            return redirect()->to('/' . $role . '/dashboard');
         }
 
-        // If login fails, redirect back to login
-        return redirect()->to('/login')->with('error', 'Invalid credentials');
+        // If login fails, redirect back to login with error message
+        return redirect()->to('/login')->with('error', 'Invalid username and password');
     }
 
     public function logout()

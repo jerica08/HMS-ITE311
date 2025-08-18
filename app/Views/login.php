@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" contentwidth="device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Hospital Management System</title>
 	<style>
 		body{
-			font-family: 'Inter', sond-serif;
+			font-family: 'Inter', sans-serif;
 			background-color: #f0f4f8;
 			display:flex;
 			flex-direction: column;
@@ -95,7 +95,15 @@
 			background-color: #3b82f6;
 
 		}
-		
+		.error-message {
+			background-color: #fee2e2;
+			color: #dc2626;
+			padding: 12px;
+			border-radius: 6px;
+			margin-bottom: 16px;
+			text-align: center;
+			font-weight: 600;
+		}
 	</style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -111,34 +119,37 @@
 				<h2>Log In</h2> 
 			</div>
 
-			<form action="#" method="POST">
+			<form action="/auth/loginSubmit" method="POST">
 				<!--DISPLAY VALIDATION ERRORS-->
-
-
+				<?php if (session()->getFlashdata('error')): ?>
+					<div class="error-message">
+						<?= session()->getFlashdata('error') ?>
+					</div>
+				<?php endif; ?>
 
 				<div class="form-group">
-					<label for="role"> User</label>
-					<select id="role" name="role">
+					<label for="role">User Role</label>
+					<select id="role" name="role" required>
 						<option value="">Select role to log in</option>
-						<option value="">Admin</option>
-						<option value="">Doctor</option>
-						<option value="">Nurse</option>
-						<option value="">Receptonist</option>
-						<option value="">Pharmacist</option>
-						<option value="">Laboratorist</option>
-						<option value="">Accountants</option>
-						<option value="">IT Staff</option>
+						<option value="admin">Admin</option>
+						<option value="doctor">Doctor</option>
+						<option value="nurse">Nurse</option>
+						<option value="receptionist">Receptionist</option>
+						<option value="pharmacist">Pharmacist</option>
+						<option value="laboratorist">Laboratorist</option>
+						<option value="accountant">Accountant</option>
+						<option value="it_staff">IT Staff</option>
 					</select>
 				</div>
 
 				<div class="form-group">
-					<label for="email"> Email</label>
-					<input type="email" id="email" name="email" placeholder="Enter you email" required>	
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" placeholder="Enter your email" required>	
 				</div>
 
 				<div class="form-group">
-					<label for="password"> Password</label>
-					<input type="password" id="password" name="password" placeholder="Enter you password" required>	
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" placeholder="Enter your password" required>	
 				</div>
 
 				<div class="button-group">

@@ -8,6 +8,6 @@ class UserModel extends Model  // Define the UserModel class that extends the ba
 {
     protected $table = 'users';  // Specify the database table name
     protected $primaryKey = 'id';  // Specify the primary key of the table
-    protected $allowedFields = ['username', 'email', 'password'];  // Specify the fields that can be mass-assigned
+    protected $allowedFields = ['username', 'email', 'password', 'role'];  // Specify the fields that can be mass-assigned
 }
  
