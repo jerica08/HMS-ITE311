@@ -22,16 +22,19 @@ class Auth extends BaseController
         if ($user && password_verify($password, $user['password'])) {
             // Set session
             $this->session->set([
-                'user_id' => $user['id'],
-                'username' => $user['username'],
-                'role' => $user['role'],
+                'username'  => $user['username'],
+                'role'      => $user['role'],
                 'logged_in' => true
             ]);
-
-            return redirect()->to('/admin');
-        } else {
-            return redirect()->back()->with('error', 'Invalid username or password');
+            
+            // Redirect based on role
+            if ($user['role'] === 'admin') {
+                return redirect()->to('/admin/dashboard');
+            }
         }
+
+        // If login fails, redirect back to login
+        return redirect()->to('/login')->with('error', 'Invalid credentials');
     }
 
     public function logout()
