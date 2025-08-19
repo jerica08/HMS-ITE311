@@ -20,7 +20,7 @@
         .sidebar{
             width:250px;
             background-color: #ffffff;
-            border-right: 1px solid #d1d5db;
+            border-right: 1px solid #d2d3d5;
             padding: 16px;
             flex-shrink: 0;
             display:flex;
@@ -93,7 +93,7 @@
         .dashboard-header{
             font-size: 50px;
             font-weight: 700;
-            color:#000000;
+            color:#1f2937;
             margin-bottom: 30px;
             margin-top:0px;
         }
@@ -138,9 +138,9 @@
                 <div class="sidebar-profile">
                     <div class="sidebar-profile-circle"></div>
                 </div>
+                <a href="" class="sidebar-menu-item"> Dashboard</a>
                 <a href="" class="sidebar-menu-item"> User Management</a>
                 <a href="" class="sidebar-menu-item"> Patient Management</a>
-                <a href="" class="sidebar-menu-item"> Doctor and Staff</a>
                 <a href="" class="sidebar-menu-item"> Appointments</a>
                 <a href="" class="sidebar-menu-item"> Departments</a>
                 <a href="" class="sidebar-menu-item"> Billing and Payment</a>
