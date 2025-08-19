@@ -103,6 +103,30 @@
 			margin-bottom: 16px;
 			text-align: center;
 			font-weight: 600;
+			border: 1px solid #fca5a5;
+			box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+		}
+		
+		.success-message {
+			background-color: #dcfce7;
+			color: #16a34a;
+			padding: 12px;
+			border-radius: 6px;
+			margin-bottom: 16px;
+			text-align: center;
+			font-weight: 600;
+			border: 1px solid #86efac;
+			box-shadow: 0 2px 4px rgba(22, 163, 74, 0.1);
+		}
+		
+		.form-group input:focus, .form-group select:focus {
+			border-color: #3b82f6;
+			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+		}
+		
+		.form-group input.error, .form-group select.error {
+			border-color: #dc2626;
+			box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 		}
 	</style>
 </head>
@@ -123,10 +147,9 @@
 				<!--DISPLAY VALIDATION ERRORS-->
 				<?php if (session()->getFlashdata('error')): ?>
 					<div class="error-message">
-						<?= session()->getFlashdata('error') ?>
+					<?= session()->getFlashdata('error') ?>
 					</div>
 				<?php endif; ?>
-
 				<div class="form-group">
 					<label for="role">User Role</label>
 					<select id="role" name="role" required>
@@ -160,5 +183,42 @@
 			</form>
 		</div>
 	</main>
+	
+	<script>
+		// Clear error messages when user starts typing
+		document.addEventListener('DOMContentLoaded', function() {
+			const inputs = document.querySelectorAll('input, select');
+			const errorMessage = document.querySelector('.error-message');
+			const successMessage = document.querySelector('.success-message');
+			
+			// Clear error/success messages when user starts typing
+			inputs.forEach(input => {
+				input.addEventListener('input', function() {
+					if (errorMessage) {
+						errorMessage.style.display = 'none';
+					}
+					if (successMessage) {
+						successMessage.style.display = 'none';
+					}
+					
+					// Remove error styling
+					this.classList.remove('error');
+				});
+				
+				// Add focus effects
+				input.addEventListener('focus', function() {
+					this.classList.remove('error');
+				});
+			});
+			
+			// Auto-hide messages after 5 seconds
+			if (errorMessage || successMessage) {
+				setTimeout(function() {
+					if (errorMessage) errorMessage.style.display = 'none';
+					if (successMessage) successMessage.style.display = 'none';
+				}, 5000);
+			}
+		});
+	</script>
 </body>
 </html>

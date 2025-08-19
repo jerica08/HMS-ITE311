@@ -3,16 +3,29 @@
 use CodeIgniter\Router\RouteCollection;
 
 /**
- * @var RouteCollection $routes
+ * Routes Configuration File
+ * This file defines all the URL routes for your Hospital Management System
+ * Routes map URLs to controller methods
  */
-$routes->get('/', 'Home::index');
-$routes->get('/login', 'Auth::login');
-$routes->post('/auth/loginSubmit', 'Auth::loginSubmit');
-$routes->get('/logout', 'Auth::logout');
 
-// Admin routes with authentication filter
+/**
+ * @var RouteCollection $routes - CodeIgniter's route collection object
+ * This variable holds all the route definitions
+ */
+$routes->get('/', 'Home::index');                    // Homepage route - maps root URL to Home controller's index method
+$routes->get('/login', 'Auth::login');              // Login page route - maps /login to Auth controller's login method
+$routes->get('/auth', 'Auth::login');               // Alternative login route - redirects /auth to login page
+$routes->post('auth/loginSubmit', 'Auth::loginSubmit');   // Login form submission route - handles POST requests for login
+
+// Admin routes group - All admin routes are protected by adminAuth filter
+// This means users must be authenticated and have admin role to access these routes
 $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
-    $routes->get('dashboard', 'Admin::index');
-    $routes->get('users', 'Admin::users');
-    $routes->get('profile', 'Admin::profile');
+    $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index
+    $routes->get('users', 'Admin::users');          // User management - maps /admin/users to Admin::users
+    $routes->get('profile', 'Admin::profile');      // Admin profile - maps /admin/profile to Admin::profile
+    $routes->get('logout', 'Admin::logout');        // Admin logout - maps /admin/logout to Admin::logout
 });
+
+// Logout route accessible without filter (for direct logout access)
+// This allows users to logout even if they're not on admin pages
+$routes->get('logout', 'Admin::logout');            // Global logout route - maps /logout to Admin::logout
