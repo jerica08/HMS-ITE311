@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+	<meta name="viewport" contentwidth="device-width, initial-scale=1.0">
+	<title>Nurse Dashboard</title>
+    </head>
+    <style>
+        body{
+            font-family:'Inter', sond-serif;
+            margin:0;
+            padding:0;
+            background-color: #f0f4f8;
+			min-height: 100vh;
+        }
+     
+    </style>
+    <body>
+        <header class="top-header">
+            <div style="display:flex;align-items:center;gap:16px;">
+                <span class="top-header-title"> LOGO</span>
+                <span class="top-header-title"> NURSE DASHBOARD</span>
+            </div>
+            <div class="top-header-circle"></div>
+        </header>  
+        <div class="container">
+
+            <aside class="sidebar">
+                <a href="" class="sidebar-menu-item active">Dashboard</a> 
+                <a href="" class="sidebar-menu-item ">Patient</a> 
+                <a href="" class="sidebar-menu-item ">Medication</a> 
+                <a href="" class="sidebar-menu-item ">Task and Appointments</a> 
+                <a href="" class="sidebar-menu-item ">Reports</a> 
+                <a href="" class="sidebar-menu-item ">Communication</a> 
+                <a href="" class="sidebar-menu-item ">Profile Setting</a> 
+            </aside>
+
+            <main class="main-content">
+                <div class="top-cotrols">
+                    <label>Search:</label>
+                    <input type="text" placeholder="Search...">
+                    <label>Date:</label>
+                    <input type="date">
+                    <label>Current Shift:</label>
+                    <select id="shift" name="shift">
+                        <option value="day"> Day Shift</option>
+                        <option value="night"> Night Shift</option>
+                    </select>
+                </div>
+
+                <div class="summary-grid">
+                    
+                </div>
+            </main>
+        </div>             
+    </body>
+</html>
