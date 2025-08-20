@@ -67,6 +67,25 @@
             background-color: #d1d5db;
             transform: translateY(-2px);
         }
+        .logout-button{
+            display: block;
+            width:auto;
+            text-align: center;
+            padding:0px;
+            border-radius: 8px;
+            background-color: #dc2626;
+            color:#ffffff;
+            text-decoration:none;
+            font-weight: 600;
+            border: 16px solid #dc2626;
+            box-shadow: 0 1px 2px rgba(0.0.0.05);
+            margin-top: auto;
+        }
+        .logout-button:hover{
+            background-color: #b91c1c;
+            border-color: #b91c1c;
+            transform: translateY(-2px);
+        }
         .main-content{
             flex-grow: 1;
             padding: 32px;
@@ -131,6 +150,7 @@
                 <a href="" class="sidebar-menu-item"> Inventory and Supplies</a>
                 <a href="" class="sidebar-menu-item"> Reports and Analytics</a>
                 <a href="" class="sidebar-menu-item"> System Setting</a>
+                <a href="<?= base_url('auth/logout') ?>" class="logout-button">Logout</a>
             </aside>
 
             <main class="main-content">

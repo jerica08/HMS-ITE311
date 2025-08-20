@@ -16,6 +16,7 @@ $routes->get('/', 'Home::index');                    // Homepage route - maps ro
 $routes->get('/login', 'Auth::login');              // Login page route - maps /login to Auth controller's login method
 $routes->get('/auth', 'Auth::login');               // Alternative login route - redirects /auth to login page
 $routes->post('auth/loginSubmit', 'Auth::loginSubmit');   // Login form submission route - handles POST requests for login
+$routes->get('auth/logout', 'Auth::logout');        // Logout route - maps /auth/logout to Auth controller's logout method
 
 // Admin routes group - All admin routes are protected by adminAuth filter
 // This means users must be authenticated and have admin role to access these routes
