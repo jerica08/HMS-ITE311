@@ -11,11 +11,13 @@ class Auth extends BaseController
 		// If user is already logged in, redirect to appropriate dashboard
 		if (session()->get('logged_in')) {
 			$role = session()->get('role');
-			if ($role === 'admin') {
-				return redirect()->to('/admin/dashboard');
+			switch ($role) {
+				case 'admin':
+					return redirect()->to('/admin/dashboard');
+				case 'nurse':
+					return redirect()->to('/nurse/dashboard');
+				
 			}
-			// For other roles, you can add specific redirects later
-			return redirect()->to('/admin/dashboard');
 		}
 		
 		return view('login');
@@ -60,13 +62,14 @@ class Auth extends BaseController
 		]);
 
 		// Redirect based on role
-		if ($role === 'admin') {
-			return redirect()->to('/admin/dashboard')->with('success', 'Welcome back, ' . $user['username'] . '!');
-		} else {
-			// For other roles, redirect to admin dashboard for now
-			// You can add specific redirects for different roles later
-			return redirect()->to('/admin/dashboard')->with('success', 'Welcome back, ' . $user['username'] . '!');
+		switch ($user['role']){
+			case 'admin':
+				return redirect()->to('/admin/dashboard');
+			case 'doctor':
+				return redirect()->to('/doctor/dashboard');
 		}
+
+		
 	}
 
 	public function logout()

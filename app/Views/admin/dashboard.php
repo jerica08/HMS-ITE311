@@ -1,198 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-	<meta name="viewport" contentwidth="device-width, initial-scale=1.0">
-	<title>Admin Dashboard</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="">
     </head>
-    <style>
-        body{
-            font-family:'Inter', sond-serif;
-            margin:0;
-            padding:0;
-            background-color: #f0f4f8;
-			min-height: 100vh;
-        }
-        .container{
-            display:flex;
-            flex-grow: 1;
-        }
-        .sidebar{
-            width:250px;
-            background-color: #ffffff;
-            border-right: 1px solid #d2d3d5;
-            padding: 16px;
-            flex-shrink: 0;
-            display:flex;
-            flex-direction:column;
-            gap:16px;
-            box-shadow: 2px 0 5px rgba(0.0.0.0.1);
-            max-height: calc(100vh - 8rem); 
-            overflow-y: auto;
-        }
-        .sidebar-header{
-            background-color: #1a4484;
-            color:white;
-            padding: 32px 16px;
-            font-size: 24px;
-            font-weight: 700;
-            text-align: left;
-        }
-        .sidebar-profile{
-            display:flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 16px;        
-        }
-        .sidebar-profile-circle{
-            width:60px;
-            height:60px;
-            background-color: black;
-            border-radius: 50%;
-        }
-        .sidebar-menu-item{
-            display: block;
-            width:auto;
-            text-align: center;
-            padding:0px;
-            border-radius: 8px;
-            background-color:  #e5e7eb;
-            color:#000000;
-            text-decoration:none;
-            font-weight: 600;
-            border: 16px solid #d1d5db;
-            box-shadow: 0 1px 2px rgba(0.0.0.05);
-        }
-        .sidebar-menu-item:hover{
-            background-color: #d1d5db;
-            transform: translateY(-2px);
-        }
-        .logout-button{
-            display: block;
-            width:auto;
-            text-align: center;
-            padding:0px;
-            border-radius: 8px;
-            background-color: #dc2626;
-            color:#ffffff;
-            text-decoration:none;
-            font-weight: 600;
-            border: 16px solid #dc2626;
-            box-shadow: 0 1px 2px rgba(0.0.0.05);
-            margin-top: auto;
-        }
-        .logout-button:hover{
-            background-color: #b91c1c;
-            border-color: #b91c1c;
-            transform: translateY(-2px);
-        }
-        .main-content{
-            flex-grow: 1;
-            padding: 32px;
-        }
-        .dashboard-header{
-            font-size: 50px;
-            font-weight: 700;
-            color:#1f2937;
-            margin-bottom: 30px;
-            margin-top:0px;
-        }
-        .dashboard-grid{
-            display:grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));    
-            gap: 24px;     
-        }
-        .stat-card{
-            background-color: #dbe9f6;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow:0 4px 6px rgba(0,0,0,0.1);
-            display:flex;
-            flex-direction:column;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-            height: 100px;
-        }
-        .stat-card-icon{
-            width:60px;
-            height:60px;
-            background-color: #93c5fd;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-        .stat-card-text{
-            color: #000000;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-
-    </style>
-    <body>
-        <header class="sidebar-header">
-            Logo
+    <body class="admin">
+        <!--Header-->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-hospital"></i> Administrator</h1>                    
+                </div>
+                <div class="user-info">
+                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div>
+                        <div style="font-weight: 600;">Dr.Jerica Marquez</div>
+                        <div style="font-size: 0.9rem;opacity:0.8">Hospital Administrator</div>
+                    </div>
+                    <a href="/auth/logout" style="text-decoration: none; color: inherit;">
+                        <button class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </a>
+                </div>
+            </div>
         </header>
-        <div class="container">
-            <aside class="sidebar">
-                <div class="sidebar-profile">
-                    <div class="sidebar-profile-circle"></div>
+        <div class="main-container">
+            <!--sidebar-->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="" class="nav-link active">
+                        <li class="fas fa-tachometer-alt- nav-icon"></li>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <li class="fas fa-users nav-icon"></li>
+                        User Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <li class="fas fa-network-wired nav-icon"></li>
+                        Branch Integration
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        Analytics & Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-cogs nav-icon"></i>
+                       System Settings
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-shield-alt nav-icon"></i>
+                       Security & Access
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-clipboard-list nav-icon"></i>
+                       Audit Logs
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--main content-->
+        <main class="content">
+            <h1 class="page-title"> Administrator Dashboard</h1>
+
+            <!--Dashboard overview cards-->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3 class="car-title">User Management</h3>
+                            <p class="card-content"> Manage all system users and roles</p>
+                        </div>                        
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">100</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">Active Roles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="" class="btn btn-primary">Add User</a>
+                        <a href="" class="btn btn-secondary">Manage Roles</a>
+                    </div>
                 </div>
-                <a href="" class="sidebar-menu-item"> Dashboard</a>
-                <a href="" class="sidebar-menu-item"> User Management</a>
-                <a href="" class="sidebar-menu-item"> Patient Management</a>
-                <a href="" class="sidebar-menu-item"> Appointments</a>
-                <a href="" class="sidebar-menu-item"> Departments</a>
-                <a href="" class="sidebar-menu-item"> Billing and Payment</a>
-                <a href="" class="sidebar-menu-item"> Pharmacy</a>
-                <a href="" class="sidebar-menu-item"> Laboratory</a>
-                <a href="" class="sidebar-menu-item"> Bed and Ward</a>
-                <a href="" class="sidebar-menu-item"> Inventory and Supplies</a>
-                <a href="" class="sidebar-menu-item"> Reports and Analytics</a>
-                <a href="" class="sidebar-menu-item"> System Setting</a>
-                <a href="<?= base_url('auth/logout') ?>" class="logout-button">Logout</a>
-            </aside>
 
-            <main class="main-content">
-                <h1 class="dashboard-header"> ADMIN DASHBOARD</h1>
-                <div class="dashboard-grid">
-
-                    <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Total Patient</span>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title"> Branch Integration</h3>
+                            <p class="card-content"> Monitor all connected branches</p>
+                        </div>                      
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Available Beds</span>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label"> Active Branches</div>
+                        </div>
+                        <div class="stat-item">
+                             <div class="stat-number">95%</div>
+                            <div class="stat-label"> Uptime</div>
+                        </div>
+                        <div class="stat-item">
+                             <div class="stat-number">2GB%</div>
+                            <div class="stat-label">Data Sync</div>
+                        </div>
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Today's Appointment</span>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Revenue Summary</span>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Pending Bills</span>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Inventory Alert</span>
-                    </div>
-                    
-                     <div class="stat-card">
-                        <div class="stat-card-icon"></div>
-                        <span class="stat-card-text">Staff on Duty</span>
+                    <div class="quick-actions">
+                            <a href="" class="btn btn-success">View Status</a>
+                            <a href="" class="btn btn-warning">Sync Data</a>
                     </div>
                 </div>
-            </main>
+
+                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title"> System Analytics</h3>
+                            <p class="card-content"> Comprehensive System Reports</p>
+                        </div>                      
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">2500</div>
+                            <div class="stat-label"> Patients</div>
+                        </div>
+                        <div class="stat-item">
+                             <div class="stat-number">230%</div>
+                            <div class="stat-label"> Today's Visits</div>
+                        </div>
+                        <div class="stat-item">
+                             <div class="stat-number">4M</div>
+                            <div class="stat-label">Revenue</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                            <a href="" class="btn btn-primary">View Reports</a>
+                            <a href="" class="btn btn-secondary">Export Data</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-shiled-alt"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title"> Security & Access</h3>
+                            <p class="card-content"> Monitor System Security</p>
+                        </div>                      
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">100</div>
+                            <div class="stat-label"> Active Session</div>
+                        </div>
+                        <div class="stat-item">
+                             <div class="stat-number">4</div>
+                            <div class="stat-label"> Failed Login</div>
+                        </div>
+                        <div class="stat-item">
+                             <div class="stat-number">99.9%</div>
+                            <div class="stat-label">Security Score</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                            <a href="" class="btn btn-danger">Security Audit</a>
+                            <a href="" class="btn btn-warning">Access Logs</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            
+        </main>
+
+
+
         </div>
+    
+        
     </body>
 </html>
