@@ -80,6 +80,34 @@ class UserSeeder extends Seeder
                 'hire_date' => '2024-02-15'
             ],
             
+            // Nurse Users
+            [
+                'username' => 'nurse.johnson',
+                'password' => password_hash('123', PASSWORD_DEFAULT),
+                'role' => 'nurse',
+                'email' => 'nurse@hospital.com',
+                'first_name' => 'Sarah',
+                'last_name' => 'Johnson',
+                'phone' => '+1234567803',
+                'department' => 'General Ward',
+                'employee_id' => 'NUR001',
+                'status' => 'active',
+                'hire_date' => '2024-01-12'
+            ],
+            [
+                'username' => 'nurse.williams',
+                'password' => password_hash('123', PASSWORD_DEFAULT),
+                'role' => 'nurse',
+                'email' => 'nurse2@hospital.com',
+                'first_name' => 'Jennifer',
+                'last_name' => 'Williams',
+                'phone' => '+1234567804',
+                'department' => 'ICU',
+                'employee_id' => 'NUR002',
+                'status' => 'active',
+                'hire_date' => '2024-02-08'
+            ],
+            
             // Pharmacist Users
             [
                 'username' => 'pharm.davis',
