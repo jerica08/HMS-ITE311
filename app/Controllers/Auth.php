@@ -56,20 +56,25 @@ class Auth extends BaseController
 		session()->set([
 			'user_id'   => $user['id'],
 			'email'     => $user['email'],
-			'username'  => $user['username'],
 			'role'      => $user['role'],
 			'logged_in' => true,
 		]);
 
 		// Redirect based on role
-		switch ($user['role']){
+		switch ($user['role']) {
 			case 'admin':
 				return redirect()->to('/admin/dashboard');
 			case 'doctor':
 				return redirect()->to('/doctor/dashboard');
+			case 'nurse':
+				return redirect()->to('/nurse/dashboard');
+			case 'receptionist':
+				return redirect()->to('/receptionist/dashboard');
+			case 'pharmacist':
+				return redirect()->to('/pharmacist/dashboard');
+			default:
+				return redirect()->to('/login')->with('error', 'Invalid role');
 		}
-
-		
 	}
 
 	public function logout()

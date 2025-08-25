@@ -36,6 +36,9 @@ class Filters extends BaseFilters
         'performance'   => PerformanceMetrics::class,
         'adminAuth' => \App\Filters\AdminAuth::class,
         'doctorAuth' => \App\Filters\DoctorAuth::class,
+        'nurseAuth' => \App\Filters\NurseAuth::class,
+        'receptionistAuth' => \App\Filters\ReceptionistAuth::class,
+        'pharmacistAuth' => \App\Filters\PharmacistAuth::class
     ];
 
     /**
