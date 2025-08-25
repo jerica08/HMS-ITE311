@@ -8,7 +8,7 @@ class AddUserFields extends Migration
 {
     public function up()
     {
-        // Add additional fields that might be useful for HMS
+      
         $fields = [
             'first_name' => [
                 'type' => 'VARCHAR',
