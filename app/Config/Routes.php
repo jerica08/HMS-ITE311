@@ -24,7 +24,6 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
 });
 
 
-$routes->group('doctor', ['filter' => 'nurseAuth'], function($routes) {
+$routes->group('doctor', function($routes) {
     $routes->get('dashboard', 'Doctor::index');     
-
 });

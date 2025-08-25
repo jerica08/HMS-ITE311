@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8s">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
-        <title>Admin Dashboard</title>
+        <title>Doctor Dashboard</title>
         <link rel="stylesheet" href="/assets/css/dashboard-common.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
-    <body class="admin">
+    <body class="doctor">
         <!--Header-->
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-hospital"></i> Administrator</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor Dashboard</h1>                    
                 </div>
                 <div class="user-info">
                     <div href="" class="fas fa-avatar" href=""></div>
                     <div>
-                        <div style="font-weight: 600;">Dr.Jerica Marquez</div>
-                        <div style="font-size: 0.9rem;opacity:0.8">Hospital Administrator</div>
+                        <div style="font-weight: 600;">Dr. Jerica Marquez</div>
+                        <div style="font-size: 0.9rem;opacity:0.8">Cardiologist</div>
                     </div>
                     <button class="logout-btn">
                         <i class="fas fa-sign-out-alt"></i>
@@ -30,200 +30,198 @@
         <div class="main-container">
             <!--sidebar-->
             <nav class="sidebar">
-              
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="admin-dashboard.html" class="nav-link active">
+                        <a href="doctor_dashboard.html" class="nav-link active">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-user-management.html" class="nav-link">
+                        <a href="doctor-patients.html" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
-                            User Management
+                            My Patients
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-analytics.html" class="nav-link">
-                            <i class="fas fa-chart-bar nav-icon"></i>
-                            Analytics & Reports
+                        <a href="doctor-appointments.html" class="nav-link">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            Appointments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-system-settings.html" class="nav-link">
-                            <i class="fas fa-cogs nav-icon"></i>
-                            System Settings
+                        <a href="doctor-prescriptions.html" class="nav-link">
+                            <i class="fas fa-prescription-bottle nav-icon"></i>
+                            Prescriptions
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-security.html" class="nav-link">
-                            <i class="fas fa-shield-alt nav-icon"></i>
-                            Security & Access
+                        <a href="doctor-medical-records.html" class="nav-link">
+                            <i class="fas fa-file-medical nav-icon"></i>
+                            Medical Records
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-audit-logs.html" class="nav-link">
-                            <i class="fas fa-clipboard-list nav-icon"></i>
-                            Audit Logs
+                        <a href="doctor-lab-results.html" class="nav-link">
+                            <i class="fas fa-flask nav-icon"></i>
+                            Lab Results
                         </a>
                     </li>
-                </ul>
-            
+                </ul>      
             </nav>
         <!--main content-->
         <main class="content">
-            <h1 class="page-title"> Administrator Dashboard</h1>
+            <h1 class="page-title">Doctor Dashboard</h1>
 
             <!--Dashboard overview cards-->
             <div class="dashboard-overview">
-                <!-- User Management Card -->
+                <!-- Today's Appointments Card -->
                 <div class="overview-card">
                     <div class="card-header-modern">
                         <div class="card-icon-modern blue">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-calendar-check"></i>
                         </div>
                         <div class="card-info">
-                            <h3 class="card-title-modern">User Management</h3>
-                            <p class="card-subtitle">Manage all system users and roles</p>
+                            <h3 class="card-title-modern">Today's Appointments</h3>
+                            <p class="card-subtitle">Manage your daily schedule</p>
                         </div>
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue">247</div>
-                            <div class="metric-label">Total Users</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value blue">8</div>
-                            <div class="metric-label">Active Roles</div>
-                        </div>
-                        <div class="metric">
                             <div class="metric-value blue">12</div>
+                            <div class="metric-label">Scheduled</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">8</div>
+                            <div class="metric-label">Completed</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value orange">4</div>
                             <div class="metric-label">Pending</div>
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn primary">Add User</button>
-                        <button class="action-btn secondary">Manage Roles</button>
+                        <button class="action-btn primary">View Schedule</button>
+                        <button class="action-btn secondary">Add Appointment</button>
                     </div>
                 </div>
 
-                <!-- System Analytics Card -->
+                <!-- Patient Management Card -->
                 <div class="overview-card">
                     <div class="card-header-modern">
                         <div class="card-icon-modern purple">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-user-injured"></i>
                         </div>
                         <div class="card-info">
-                            <h3 class="card-title-modern">System Analytics</h3>
-                            <p class="card-subtitle">Comprehensive system reports</p>
-                        </div>
-                    </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple">1,847</div>
-                            <div class="metric-label">Patients</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value purple">342</div>
-                            <div class="metric-label">Today's Visits</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value green">$47K</div>
-                            <div class="metric-label">Revenue</div>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-btn primary">View Reports</button>
-                        <button class="action-btn secondary">Export Data</button>
-                    </div>
-                </div>
-
-                <!-- Security & Access Card -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Security & Access</h3>
-                            <p class="card-subtitle">Monitor system security</p>
+                            <h3 class="card-title-modern">Patient Management</h3>
+                            <p class="card-subtitle">Monitor patient care</p>
                         </div>
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
                             <div class="metric-value purple">156</div>
-                            <div class="metric-label">Active Sessions</div>
+                            <div class="metric-label">Total Patients</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value purple">3</div>
-                            <div class="metric-label">Failed Logins</div>
+                            <div class="metric-value purple">23</div>
+                            <div class="metric-label">New This Week</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value purple">99.9%</div>
-                            <div class="metric-label">Security Score</div>
+                            <div class="metric-value red">5</div>
+                            <div class="metric-label">Critical</div>
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn danger">Security Audit</button>
-                        <button class="action-btn warning">Access Logs</button>
+                        <button class="action-btn primary">View Patients</button>
+                        <button class="action-btn secondary">Add Patient</button>
+                    </div>
+                </div>
+
+                <!-- Medical Records Card -->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern green">
+                            <i class="fas fa-file-medical-alt"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Medical Records</h3>
+                            <p class="card-subtitle">Patient health records</p>
+                        </div>
+                    </div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value green">89</div>
+                            <div class="metric-label">Updated Today</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">12</div>
+                            <div class="metric-label">Pending Review</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">456</div>
+                            <div class="metric-label">Total Records</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn primary">View Records</button>
+                        <button class="action-btn secondary">Create Record</button>
                     </div>
                 </div>
             </div>
 
             <!--Recent activity table-->
             <div class="table-container">
-                <h3 style="margin-bottom: 1.5rem;"> Recent System Activities</h3>
+                <h3 style="margin-bottom: 1.5rem;">Recent Patient Activities</h3>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>Time</th>
-                            <th>User</th>
+                            <th>Patient</th>
                             <th>Action</th>
-                            <th>Module</th>
+                            <th>Type</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>09:15 AM</td>
+                            <td>Maria Santos</td>
+                            <td>Consultation Completed</td>
+                            <td>Appointment</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>09:00 AM</td>
+                            <td>John Doe</td>
+                            <td>Prescription Updated</td>
+                            <td>Medication</td>
+                            <td><span class="badge badge-success">Updated</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
                             <td>08:45 AM</td>
-                            <td>Dr. GAGNI</td>
-                            <td>Patient Record Updated</td>
-                            <td>EHR System</td>
-                            <td><span class="badge badge-success">Success</span></td>
-                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>08:42 AM</td>
-                            <td>Nurse Xyril</td>
-                            <td>Medication Administered</td>
-                            <td>Patient Care</td>
-                            <td><span class="badge badge-success">Success</span></td>
-                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>08:38 AM</td>
-                            <td>Lab Tech</td>
-                            <td>Test Results Uploaded</td>
+                            <td>Sarah Johnson</td>
+                            <td>Lab Results Reviewed</td>
                             <td>Laboratory</td>
-                            <td><span class="badge badge-success">Success</span></td>
+                            <td><span class="badge badge-success">Reviewed</span></td>
                             <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>08:35 AM</td>
-                            <td>System</td>
-                            <td>Branch Sync Failed</td>
-                            <td>Integration</td>
-                            <td><span class="badge badge-danger">Failed</span></td>
-                            <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Retry</a></td>
                         </tr>
                         <tr>
                             <td>08:30 AM</td>
-                            <td>Pharmacist</td>
-                            <td>Inventory Updated</td>
-                            <td>Pharmacy</td>
-                            <td><span class="badge badge-success">Success</span></td>
+                            <td>Michael Brown</td>
+                            <td>Appointment Scheduled</td>
+                            <td>Appointment</td>
+                            <td><span class="badge badge-warning">Scheduled</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>08:15 AM</td>
+                            <td>Emma Wilson</td>
+                            <td>Medical Record Updated</td>
+                            <td>Record</td>
+                            <td><span class="badge badge-success">Updated</span></td>
                             <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
                         </tr>             
                     </tbody>
@@ -234,39 +232,39 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon">
-                            <i class="fas fa-server"></i>
+                            <i class="fas fa-heartbeat"></i>
                         </div>
                         <div>
-                            <h3 class="card-title"> System Health</h3>
-                            <p class="card-content">Real-time system monitoring</p>
+                            <h3 class="card-title">Patient Vitals Overview</h3>
+                            <p class="card-content">Critical patient monitoring</p>
                         </div>
                     </div>
                     <div class="card-content">
                         <div class="margin-bottom:1rem;">
                             <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
-                                <span>CPU Usage</span>
-                                <span>45%</span>
+                                <span>Normal Vitals</span>
+                                <span>85%</span>
                             </div>
                             <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #48bb78; height: 100%; width: 45%; border-radius: 4px;"></div>
+                                <div style="background: #48bb78; height: 100%; width: 85%; border-radius: 4px;"></div>
                             </div>
                         </div>
                         <div style="margin-bottom: 1rem;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Memory Usage</span>
-                                <span>67%</span>
+                                <span>Attention Needed</span>
+                                <span>12%</span>
                             </div>
                             <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #ed8936; height: 100%; width: 67%; border-radius: 4px;"></div>
+                                <div style="background: #ed8936; height: 100%; width: 12%; border-radius: 4px;"></div>
                             </div>
                         </div>
                          <div>
                             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Storage Usage</span>
-                                <span>23%</span>
+                                <span>Critical</span>
+                                <span>3%</span>
                             </div>
                             <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #4299e1; height: 100%; width: 23%; border-radius: 4px;"></div>
+                                <div style="background: #f56565; height: 100%; width: 3%; border-radius: 4px;"></div>
                             </div>
                         </div>
                     </div>
@@ -275,22 +273,22 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>                          
+                            <i class="fas fa-bell"></i>                          
                         </div>
                          <div>
-                            <h3 class="card-title">System Alerts</h3>
+                            <h3 class="card-title">Patient Alerts</h3>
                             <p class="card-content">Important notifications</p>
                         </div>
                     </div>
                     <div class="card-content">
                         <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                            <strong>High Priority:</strong> Branch 3 connection unstable
+                            <strong>Urgent:</strong> Patient Maria Santos - Blood pressure critical
                         </div>
                         <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                            <strong>Medium:</strong> Backup scheduled for tonight
+                            <strong>Reminder:</strong> Lab results pending for John Doe
                         </div>
                         <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <strong>Info:</strong> System update available
+                            <strong>Info:</strong> 3 appointments scheduled for tomorrow
                         </div>
                     </div>
                 </div>
