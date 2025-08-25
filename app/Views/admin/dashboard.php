@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Admin Dashboard</title>
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body class="admin">
         <!--Header-->
@@ -19,199 +20,300 @@
                         <div style="font-weight: 600;">Dr.Jerica Marquez</div>
                         <div style="font-size: 0.9rem;opacity:0.8">Hospital Administrator</div>
                     </div>
-                    <a href="/auth/logout" style="text-decoration: none; color: inherit;">
-                        <button class="logout-btn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Logout
-                        </button>
-                    </a>
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
                 </div>
             </div>
         </header>
         <div class="main-container">
             <!--sidebar-->
-        <nav class="sidebar">
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="" class="nav-link active">
-                        <li class="fas fa-tachometer-alt- nav-icon"></li>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <li class="fas fa-users nav-icon"></li>
-                        User Management
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <li class="fas fa-network-wired nav-icon"></li>
-                        Branch Integration
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-chart-bar nav-icon"></i>
-                        Analytics & Reports
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-cogs nav-icon"></i>
-                       System Settings
-                    </a>
-                </li>
-                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-shield-alt nav-icon"></i>
-                       Security & Access
-                    </a>
-                </li>
-                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-clipboard-list nav-icon"></i>
-                       Audit Logs
-                    </a>
-                </li>
-            </ul>
-        </nav>
+            <nav class="sidebar">
+              
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link active">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-user-management.html" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            User Management
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-analytics.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            Analytics & Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-system-settings.html" class="nav-link">
+                            <i class="fas fa-cogs nav-icon"></i>
+                            System Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-security.html" class="nav-link">
+                            <i class="fas fa-shield-alt nav-icon"></i>
+                            Security & Access
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-audit-logs.html" class="nav-link">
+                            <i class="fas fa-clipboard-list nav-icon"></i>
+                            Audit Logs
+                        </a>
+                    </li>
+                </ul>
+            
+            </nav>
         <!--main content-->
         <main class="content">
             <h1 class="page-title"> Administrator Dashboard</h1>
 
             <!--Dashboard overview cards-->
-            <div class="dashboard-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
+            <div class="dashboard-overview">
+                <!-- User Management Card -->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue">
                             <i class="fas fa-users"></i>
                         </div>
-                        <div>
-                            <h3 class="car-title">User Management</h3>
-                            <p class="card-content"> Manage all system users and roles</p>
-                        </div>                        
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">100</div>
-                            <div class="stat-label">Total Users</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">10</div>
-                            <div class="stat-label">Active Roles</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">Pending</div>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">User Management</h3>
+                            <p class="card-subtitle">Manage all system users and roles</p>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <a href="" class="btn btn-primary">Add User</a>
-                        <a href="" class="btn btn-secondary">Manage Roles</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-network-wired"></i>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value blue">247</div>
+                            <div class="metric-label">Total Users</div>
                         </div>
-                        <div>
-                            <h3 class="card-title"> Branch Integration</h3>
-                            <p class="card-content"> Monitor all connected branches</p>
-                        </div>                      
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">6</div>
-                            <div class="stat-label"> Active Branches</div>
+                        <div class="metric">
+                            <div class="metric-value blue">8</div>
+                            <div class="metric-label">Active Roles</div>
                         </div>
-                        <div class="stat-item">
-                             <div class="stat-number">95%</div>
-                            <div class="stat-label"> Uptime</div>
-                        </div>
-                        <div class="stat-item">
-                             <div class="stat-number">2GB%</div>
-                            <div class="stat-label">Data Sync</div>
+                        <div class="metric">
+                            <div class="metric-value blue">12</div>
+                            <div class="metric-label">Pending</div>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                            <a href="" class="btn btn-success">View Status</a>
-                            <a href="" class="btn btn-warning">Sync Data</a>
+                    <div class="card-actions">
+                        <button class="action-btn primary">Add User</button>
+                        <button class="action-btn secondary">Manage Roles</button>
                     </div>
                 </div>
 
-                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
+                <!-- System Analytics Card -->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern purple">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <div>
-                            <h3 class="card-title"> System Analytics</h3>
-                            <p class="card-content"> Comprehensive System Reports</p>
-                        </div>                      
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">2500</div>
-                            <div class="stat-label"> Patients</div>
-                        </div>
-                        <div class="stat-item">
-                             <div class="stat-number">230%</div>
-                            <div class="stat-label"> Today's Visits</div>
-                        </div>
-                        <div class="stat-item">
-                             <div class="stat-number">4M</div>
-                            <div class="stat-label">Revenue</div>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">System Analytics</h3>
+                            <p class="card-subtitle">Comprehensive system reports</p>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                            <a href="" class="btn btn-primary">View Reports</a>
-                            <a href="" class="btn btn-secondary">Export Data</a>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">1,847</div>
+                            <div class="metric-label">Patients</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value purple">342</div>
+                            <div class="metric-label">Today's Visits</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">$47K</div>
+                            <div class="metric-label">Revenue</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn primary">View Reports</button>
+                        <button class="action-btn secondary">Export Data</button>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-shiled-alt"></i>
+                <!-- Security & Access Card -->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern purple">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div>
-                            <h3 class="card-title"> Security & Access</h3>
-                            <p class="card-content"> Monitor System Security</p>
-                        </div>                      
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">100</div>
-                            <div class="stat-label"> Active Session</div>
-                        </div>
-                        <div class="stat-item">
-                             <div class="stat-number">4</div>
-                            <div class="stat-label"> Failed Login</div>
-                        </div>
-                        <div class="stat-item">
-                             <div class="stat-number">99.9%</div>
-                            <div class="stat-label">Security Score</div>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Security & Access</h3>
+                            <p class="card-subtitle">Monitor system security</p>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                            <a href="" class="btn btn-danger">Security Audit</a>
-                            <a href="" class="btn btn-warning">Access Logs</a>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">156</div>
+                            <div class="metric-label">Active Sessions</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value purple">3</div>
+                            <div class="metric-label">Failed Logins</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value purple">99.9%</div>
+                            <div class="metric-label">Security Score</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn danger">Security Audit</button>
+                        <button class="action-btn warning">Access Logs</button>
                     </div>
                 </div>
             </div>
 
+            <!--Recent activity table-->
+            <div class="table-container">
+                <h3 style="margin-bottom: 1.5rem;"> Recent System Activities</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Module</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08:45 AM</td>
+                            <td>Dr. GAGNI</td>
+                            <td>Patient Record Updated</td>
+                            <td>EHR System</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>08:42 AM</td>
+                            <td>Nurse Xyril</td>
+                            <td>Medication Administered</td>
+                            <td>Patient Care</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>08:38 AM</td>
+                            <td>Lab Tech</td>
+                            <td>Test Results Uploaded</td>
+                            <td>Laboratory</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>08:35 AM</td>
+                            <td>System</td>
+                            <td>Branch Sync Failed</td>
+                            <td>Integration</td>
+                            <td><span class="badge badge-danger">Failed</span></td>
+                            <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Retry</a></td>
+                        </tr>
+                        <tr>
+                            <td>08:30 AM</td>
+                            <td>Pharmacist</td>
+                            <td>Inventory Updated</td>
+                            <td>Pharmacy</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
+                        </tr>             
+                    </tbody>
+                </table>
+            </div>
 
+            <div class="dashboard-grid"style="margin-top:2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title"> System Health</h3>
+                            <p class="card-content">Real-time system monitoring</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="margin-bottom:1rem;">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+                                <span>CPU Usage</span>
+                                <span>45%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #48bb78; height: 100%; width: 45%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Memory Usage</span>
+                                <span>67%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #ed8936; height: 100%; width: 67%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                         <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Storage Usage</span>
+                                <span>23%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #4299e1; height: 100%; width: 23%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-            
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>                          
+                        </div>
+                         <div>
+                            <h3 class="card-title">System Alerts</h3>
+                            <p class="card-content">Important notifications</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                            <strong>High Priority:</strong> Branch 3 connection unstable
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
+                            <strong>Medium:</strong> Backup scheduled for tonight
+                        </div>
+                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
+                            <strong>Info:</strong> System update available
+                        </div>
+                    </div>
+                </div>
+            </div>        
         </main>
+    </div>
+     <script>
+        // Simple navigation functionality - removed preventDefault to allow page navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Allow navigation to proceed - don't prevent default
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
 
-
-
-        </div>
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '/auth/logout';
+            }
+        });
+    </script>
     
         
     </body>
