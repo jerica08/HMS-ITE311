@@ -12,25 +12,7 @@ body {
 
 /* Header Styles */
 .header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-/* Header Styles */
-.header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #4682B4;
     color: white;
     padding: 1rem 2rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -49,7 +31,7 @@ body {
 
 .logo h1 {
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: 600;   
 }
 
 .user-info {
@@ -89,9 +71,11 @@ body {
     min-height: calc(100vh - 80px);
 }
 .sidebar{
+
     width:250px;
     background-color: rgb(206, 224, 238);
     box-shadow: 2px 0 10px rgba(0,0,0,0.1) ;
+      border-radius: 25px;
 }
 .nav-menu{
     list-style: none;
