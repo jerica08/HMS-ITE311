@@ -254,9 +254,212 @@
                 </table>
             </div>
 
+            <!--Sample Processing Queue-->
+             <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Sample Processing Queue</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sample ID</th>
+                            <th>Patient</th>
+                            <th>Test Type</th>
+                            <th>Sample Type</th>
+                            <th>Status</th>
+                            <th>Estimated Completion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LAB-2025-004</td>
+                            <td>Maria Garcia</td>
+                            <td>Complete Blood Count</td>
+                            <td>Blood</td>
+                            <td><span class="badge badge-warning">Processing</span></td>
+                            <td>10:30 AM</td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Update</a></td>
+                        </tr>
+                        <tr>
+                            <td>LAB-2025-005</td>
+                            <td>David Lee</td>
+                            <td>Lipid Panel</td>
+                            <td>Serum</td>
+                            <td><span class="badge badge-info">Queued</span></td>
+                            <td>11:00 AM</td>
+                            <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Start</a></td>
+                        </tr>
+                        <tr>
+                            <td>LAB-2025-006</td>
+                            <td>Lisa Anderson</td>
+                            <td>Urinalysis</td>
+                            <td>Urine</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td>Completed</td>
+                            <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Review</a></td>
+                        </tr>
+                        <tr>
+                            <td>LAB-2025-007</td>
+                            <td>James Brown</td>
+                            <td>Liver Function Tests</td>
+                            <td>Serum</td>
+                            <td><span class="badge badge-warning">Processing</span></td>
+                            <td>11:15 AM</td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Update</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+           <!--Equipment Status and Quality Control-->
+           <div class="dashboard-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Equipment Status</h3>
+                            <p class="card-content">Current equipment status</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Hematology Analyzer</span>
+                                <span class="badge badge-success">Online</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Chemistry Analyzer</span>
+                                <span class="badge badge-success">Online</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Microscope Station 1</span>
+                                <span class="badge badge-warning">Maintenance</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Centrifuge</span>
+                                <span class="badge badge-danger">Offline</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-warning">Service Request</a>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Quality Control</h3>
+                            <p class="card-content">QC status and results</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="padding: 0.8rem; background: #c6f6d5; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #48bb78;">
+                            <strong>Passed:</strong> Daily QC - Chemistry Panel
+                        </div>
+                        <div style="padding: 0.8rem; background: #c6f6d5; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #48bb78;">
+                            <strong>Passed:</strong> Weekly QC - Hematology
+                        </div>
+                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; border-left: 4px solid #ed8936;">
+                            <strong>Due:</strong> Monthly QC - Microbiology
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="#" class="btn btn-primary">Run QC</a>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Lab Statistics</h3>
+                            <p class="card-content">Today's performance</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Tests Completed</span>
+                                <span>87%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #48bb78; height: 100%; width: 87%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Turnaround Time</span>
+                                <span>92%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #4299e1; height: 100%; width: 92%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Quality Score</span>
+                                <span>96%</span>
+                            </div>
+                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                <div style="background: #9f7aea; height: 100%; width: 96%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Critical Result Alert-->
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; color: #f56565;">
+                    <i class="fas fa-exclamation-circle"></i> Critical Results Requiring Immediate Notification
+                </h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sample ID</th>
+                            <th>Patient</th>
+                            <th>Test</th>
+                            <th>Result</th>
+                            <th>Reference Range</th>
+                            <th>Ordering Physician</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>LAB-2025-008</strong></td>
+                            <td>Patricia Davis</td>
+                            <td>Troponin I</td>
+                            <td>15.2 ng/mL</td>
+                            <td>0.04 ng/mL</td>
+                            <td>Dr. Johnson</td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Call Now</a></td>
+                        </tr>
+                        <tr style="background: #fed7d7;">
+                            <td><strong>LAB-2025-009</strong></td>
+                            <td>Michael Wilson</td>
+                            <td>Potassium</td>
+                            <td>6.8 mEq/L</td>
+                            <td>3.5-5.0 mEq/L</td>
+                            <td>Dr. Smith</td>
+                            <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Call Now</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             </main>
         </div>
     </body>
