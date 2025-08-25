@@ -39,3 +39,7 @@ $routes->group('receptionist', function($routes) {
 $routes->group('pharmacist', function($routes) {
     $routes->get('dashboard', 'Pharmacist::index');
 });
+
+$routes->group('accountant', function($routes) {
+    $routes->get('dashboard', 'Accountant::index');
+});
