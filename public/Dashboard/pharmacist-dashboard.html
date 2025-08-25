@@ -74,128 +74,130 @@
                 </li>
             </ul>
         </nav>
+        <!--Main Content-->
         <main class="content">
             <h1 class="page-title">Pharmacy Dashboard</h1>
 
             <!-- Dashboard Overview Cards -->
-            <div class="dashboard-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
+            <div class="dashboard-overview">
+                <!--Prescription Queue-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue">
                             <i class="fas fa-prescription"></i>
                         </div>
-                        <div>
-                            <h3 class="card-title">Prescription Queue</h3>
-                            <p class="card-content">Pending prescriptions</p>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Prescription Queue</h3>
+                            <p class="card-subtitle">Pending prescriptions</p>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">34</div>
-                            <div class="stat-label">Pending</div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value blue">34</div>
+                            <div class="metric-label">Pending</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">12</div>
-                            <div class="stat-label">Priority</div>
+                        <div class="metric">
+                            <div class="metric-value green">12</div>
+                            <div class="metric-label">Priority</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">22</div>
-                            <div class="stat-label">Routine</div>
+                        <div class="metric">
+                            <div class="metric-value orange">22</div>
+                            <div class="metric-label">Routine</div>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-danger">Process Priority</a>
-                        <a href="#" class="btn btn-primary">View Queue</a>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn primary">Process Priority</a>
+                        <a href="#" class="action-btn secondary">View Queue</a>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
+                <!--Inventory Status-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern purple">
                             <i class="fas fa-boxes"></i>
                         </div>
-                        <div>
-                            <h3 class="card-title">Inventory Status</h3>
-                            <p class="card-content">Stock levels and alerts</p>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Inventory Status</h3>
+                            <p class="card-subtitle">Stock levels and alerts</p>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">847</div>
-                            <div class="stat-label">Items</div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">847</div>
+                            <div class="metric-label">Items</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">23</div>
-                            <div class="stat-label">Low Stock</div>
+                        <div class="metric">
+                            <div class="metric-value green">23</div>
+                            <div class="metric-label">Low Stock</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">Expired</div>
-                        </div>
-                    </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-warning">Check Low Stock</a>
-                        <a href="#" class="btn btn-danger">Remove Expired</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-hand-holding-medical"></i>
-                        </div>
-                        <div>
-                            <h3 class="card-title">Dispensed Today</h3>
-                            <p class="card-content">Medications dispensed</p>
+                        <div class="metric">
+                            <div class="metric-value">8</div>
+                            <div class="metric-label">Expired</div>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">156</div>
-                            <div class="stat-label">Total</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">142</div>
-                            <div class="stat-label">Outpatient</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">14</div>
-                            <div class="stat-label">Inpatient</div>
-                        </div>
-                    </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-success">Dispense Medication</a>
-                        <a href="#" class="btn btn-secondary">View History</a>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn warning">Check Low Stock</a>
+                        <a href="#" class="action-btn danger">Remove Expired</a>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
+                <!--Dispensed Today-->
+                 <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern purple">
+                            <i class="fas fa-boxes"></i>
                         </div>
-                        <div>
-                            <h3 class="card-title">Drug Interactions</h3>
-                            <p class="card-content">Safety alerts</p>
-                        </div>
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">7</div>
-                            <div class="stat-label">Alerts</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">3</div>
-                            <div class="stat-label">Critical</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">Moderate</div>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Dispense Today</h3>
+                            <p class="card-subtitle">Medications dispensed</p>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-danger">Review Critical</a>
-                        <a href="#" class="btn btn-warning">Check All</a>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">156</div>
+                            <div class="metric-label">Total</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">142</div>
+                            <div class="metric-label">Outpatient</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">14</div>
+                            <div class="metric-label">Inpatient</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn warning">Dispense Medication</a>
+                        <a href="#" class="action-btn danger">View History</a>
+                    </div>
+                </div>
+                <!--Drug Interaction-->
+               <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern purple">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Drug Interaction</h3>
+                            <p class="card-subtitle">Safety Alerts</p>
+                        </div>
+                    </div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">7</div>
+                            <div class="metric-label">Alerts</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">3</div>
+                            <div class="metric-label">Critical</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">4</div>
+                            <div class="metric-label">Moderate</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn warning">Review Critical</a>
+                        <a href="#" class="action-btn danger">Check All</a>
                     </div>
                 </div>
             </div>
