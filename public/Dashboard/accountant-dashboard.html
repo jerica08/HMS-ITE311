@@ -80,124 +80,125 @@
             <h1 class="page-title">Accounting Dashboard</h1>
 
             <!-- Dashboard Overview Cards -->
-            <div class="dashboard-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
+            <div class="dashboard-overview">              
+                <!--Daily Revenue Card-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
-                        <div>
-                            <h3 class="card-title">Daily Revenue</h3>
-                            <p class="card-content">Today's financial summary</p>
+                        <div class="card-info">
+                            <h3 class="card-title-modern">Daily Revenue</h3>
+                            <p class="card-subtitle">Today's financial summary</p>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">$47,235</div>
-                            <div class="stat-label">Total</div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value blue">$47,235</div>
+                            <div class="metric-label">Total</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">$32,180</div>
-                            <div class="stat-label">Collected</div>
+                        <div class="metric">
+                            <div class="metric-value green">$32,180</div>
+                            <div class="metric-label">Collected</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">$15,055</div>
-                            <div class="stat-label">Pending</div>
+                        <div class="metric">
+                            <div class="metric-value orange">$15,055</div>
+                            <div class="metric-label">Pending</div>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-primary">View Details</a>
-                        <a href="#" class="btn btn-success">Generate Report</a>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn primary">View Details</a>
+                        <a href="#" class="action-btn success">Generate Report</a>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
+                <!--Billing Status-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
                         <div class="card-icon">
                             <i class="fas fa-file-invoice"></i>
                         </div>
-                        <div>
+                        <div class="card-info">
                             <h3 class="card-title">Billing Status</h3>
-                            <p class="card-content">Invoice processing</p>
+                            <p class="card-subtitle">Invoice processing</p>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">156</div>
-                            <div class="stat-label">Generated</div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">156</div>
+                            <div class="metric-label">Generated</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">23</div>
-                            <div class="stat-label">Pending</div>
+                        <div class="metric">
+                            <div class="metric-value green">23</div>
+                            <div class="metric-label">Pending</div> 
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">Disputed</div>
-                        </div>
-                    </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-warning">Process Pending</a>
-                        <a href="#" class="btn btn-danger">Resolve Disputes</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div>
-                            <h3 class="card-title">Insurance Claims</h3>
-                            <p class="card-content">Claims processing status</p>
+                        <div class="metric">
+                            <div class="metric-value red">8</div>
+                            <div class="metric-label">Disputed</div>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">89</div>
-                            <div class="stat-label">Submitted</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">67</div>
-                            <div class="stat-label">Approved</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">12</div>
-                            <div class="stat-label">Denied</div>
-                        </div>
-                    </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-primary">Submit Claims</a>
-                        <a href="#" class="btn btn-warning">Appeal Denials</a>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn warning">Process Pending</a>
+                        <a href="#" class="action-btn danger">Resolve Disputes</a>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
+                <!--Insurance Claim-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern green">
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <div>
-                            <h3 class="card-title">Accounts Receivable</h3>
-                            <p class="card-content">Outstanding balances</p>
+                            <h3 class="card-title-modern">Insurance Claim</h3>
+                            <p class="card-subtitle">Claimsmprocessing status</p>
                         </div>
                     </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">$234K</div>
-                            <div class="stat-label">Total AR</div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">89</div>
+                            <div class="metric-label">Submitted</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">$89K</div>
-                            <div class="stat-label">0-30 Days</div>
+                        <div class="metric">
+                            <div class="metric-value green">67</div>
+                            <div class="metric-label">Approved</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">$45K</div>
-                            <div class="stat-label">Over 90 Days</div>
+                        <div class="metric">
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">Denied</div>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <a href="#" class="btn btn-warning">Aging Report</a>
-                        <a href="#" class="btn btn-danger">Collections</a>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn warning">Submit Claims</a>
+                        <a href="#" class="action-btn danger">Appeal Denials</a>
+                    </div>
+                </div>
+                <!--Accounting Receivable-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern green">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title-modern">Accounts Receivable</h3>
+                            <p class="card-subtitle">Outstanding balances</p>
+                        </div>
+                    </div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <div class="metric-value purple">$234K</div>
+                            <div class="metric-label">Total AR</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">$89K</div>
+                            <div class="metric-label">0-30 Days</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value ">$45K</div>
+                            <div class="metric-label">Over 90 Days</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#" class="action-btn warning">Aging Report</a>
+                        <a href="#" class="action-btn danger">Collections</a>
                     </div>
                 </div>
             </div>
