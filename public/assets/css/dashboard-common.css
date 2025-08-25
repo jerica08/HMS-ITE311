@@ -121,12 +121,12 @@ body {
     gap:2rem;
     margin-bottom: 2rem;
 }
-.card{
-    background:white;
-    border-radius:10px;
-    padding:2rem;
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition:transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 .card:hover{
     transform:translateY(-5px);
