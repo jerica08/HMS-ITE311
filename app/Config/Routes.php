@@ -19,11 +19,15 @@ $routes->post('auth/loginSubmit', 'Auth::loginSubmit');   // Login form submissi
 $routes->get('auth/logout', 'Auth::logout');        // Logout route - maps /auth/logout to Auth controller's logout method
 
 
-$routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
+$routes->group('admin',  function($routes) {
     $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index       // Admin logout - maps /admin/logout to Admin::logout
 });
 
 
 $routes->group('doctor', function($routes) {
     $routes->get('dashboard', 'Doctor::index');     
+});
+
+$routes->group('nurse', function($routes) {
+    $routes->get('dashboard', 'Nurse::index');
 });
