@@ -31,3 +31,7 @@ $routes->group('doctor', function($routes) {
 $routes->group('nurse', function($routes) {
     $routes->get('dashboard', 'Nurse::index');
 });
+
+$routes->group('receptionist', function($routes) {
+    $routes->get('dashboard', 'Receptionist::index');
+});
