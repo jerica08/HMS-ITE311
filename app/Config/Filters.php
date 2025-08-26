@@ -40,6 +40,7 @@ class Filters extends BaseFilters
         'receptionistAuth' => \App\Filters\ReceptionistAuth::class,
         'pharmacistAuth' => \App\Filters\PharmacistAuth::class,
         'accountantAuth' => \App\Filters\AccountantAuth::class
+        
     ];
 
     /**
