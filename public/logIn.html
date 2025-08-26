@@ -226,51 +226,5 @@
             </form>
             </div>
         </div>
-        <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const role = document.getElementById('role').value;
-            
-            // Simple demo authentication
-            if (username === 'demo' && password === 'demo123' && role) {
-                // Store user info in sessionStorage
-                sessionStorage.setItem('hms_user', JSON.stringify({
-                    username: username,
-                    role: role,
-                    loginTime: new Date().toISOString()
-                }));
-                
-                // Redirect to appropriate dashboard
-                const dashboardMap = {
-                    'admin': 'dashboards/admin-dashboard.html',
-                    'doctor': 'dashboards/doctor-dashboard.html',
-                    'nurse': 'dashboards/nurse-dashboard.html',
-                    'receptionist': 'dashboards/receptionist-dashboard.html',
-                    'lab': 'dashboards/lab-dashboard.html',
-                    'pharmacist': 'dashboards/pharmacist-dashboard.html',
-                    'accountant': 'dashboards/accountant-dashboard.html',
-                    'it': 'dashboards/it-dashboard.html'
-                };
-                
-                window.location.href = dashboardMap[role];
-            } else {
-                alert('Invalid credentials. Please use demo/demo123 and select a role.');
-            }
-        });
-
-        // Add input animations
-        document.querySelectorAll('.form-input, .form-select').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateX(5px)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'translateX(0)';
-            });
-        });
-    </script>
     </body>
 </html>
