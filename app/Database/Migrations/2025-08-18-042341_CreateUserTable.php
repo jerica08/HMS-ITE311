@@ -9,7 +9,7 @@ class CreateUserTable extends Migration
     public function up()
     {
         // Create table only if it doesn't exist
-       if (!in_array('users', $this->db->listTables()))
+       if (!in_array('users', $this->db->listTables())) {
             $this->forge->addField([
                 'id' => [
                     'type' => 'INT',
@@ -67,3 +67,4 @@ class CreateUserTable extends Migration
         }
     }
 
+}
