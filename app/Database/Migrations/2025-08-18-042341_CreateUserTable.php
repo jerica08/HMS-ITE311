@@ -42,8 +42,7 @@ class CreateUserTable extends Migration
             
             // Create the table
             $this->forge->createTable('users');
-        }
-         else {
+        } else {
             // Ensure 'email' column exists
             $result = $this->db->query(
                 "SELECT COUNT(*) AS cnt FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'email'"
@@ -67,4 +66,4 @@ class CreateUserTable extends Migration
             $this->forge->dropTable('users');
         }
     }
-}
+
