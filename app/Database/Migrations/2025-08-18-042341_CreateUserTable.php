@@ -9,7 +9,7 @@ class CreateUserTable extends Migration
     public function up()
     {
         // Create table only if it doesn't exist
-       if (!in_array('users', $this->db->listTables())) {
+       
             $this->forge->addField([
                 'id' => [
                     'type' => 'INT',
@@ -42,29 +42,12 @@ class CreateUserTable extends Migration
             
             // Create the table
             $this->forge->createTable('users');
-        } else {
-            // Ensure 'email' column exists
-            $result = $this->db->query(
-                "SELECT COUNT(*) AS cnt FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'email'"
-            )->getRow();
-
-            if ((int) ($result->cnt ?? 0) === 0) {
-                $this->forge->addColumn('users', [
-                    'email' => [
-                        'type'       => 'VARCHAR',
-                        'constraint' => 100,
-                        'null'       => false,
-                    ],
-                ]);
-            }
-        }
     }
+        public function down()
+        {
 
-    public function down()
-    {
-        if ($this->db->tableExists('users')) {
             $this->forge->dropTable('users');
+            
         }
-    }
 
 }
