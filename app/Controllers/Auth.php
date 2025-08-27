@@ -72,6 +72,8 @@ class Auth extends BaseController
 				return redirect()->to('/receptionist/dashboard');
 			case 'pharmacist':
 				return redirect()->to('/pharmacist/dashboard');
+			case 'accountant':
+				return redirect()->to('/accountant/dashboard');
 			default:
 				return redirect()->to('/login')->with('error', 'Invalid role');
 		}
