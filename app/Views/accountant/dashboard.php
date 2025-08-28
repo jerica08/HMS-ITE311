@@ -184,15 +184,15 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">$234K</div>
+                            <div class="metric-value purple">P234K</div>
                             <div class="metric-label">Total AR</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value green">$89K</div>
+                            <div class="metric-value green">P89K</div>
                             <div class="metric-label">0-30 Days</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value green">$45K</div>
+                            <div class="metric-value green">P45K</div>
                             <div class="metric-label">Over 90 Days</div>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                         <tr style="background: #fed7d7;">
                             <td><strong>John Martinez</strong></td>
                             <td>INV-2025-1234</td>
-                            <td>$4,567.89</td>
+                            <td>P4,567.89</td>
                             <td>120 days</td>
                             <td>Blue Cross</td>
                             <td>07/15/25</td>
@@ -232,7 +232,7 @@
                         <tr style="background: #feebc8;">
                             <td><strong>Sarah Wilson</strong></td>
                             <td>INV-2025-1235</td>
-                            <td>$2,345.67</td>
+                            <td>P2,345.67</td>
                             <td>95 days</td>
                             <td>Aetna</td>
                             <td>08/01/25</td>
@@ -241,7 +241,7 @@
                         <tr style="background: #fed7d7;">
                             <td><strong>Robert Chen</strong></td>
                             <td>INV-2025-1236</td>
-                            <td>$8,901.23</td>
+                            <td>P8,901.23</td>
                             <td>150 days</td>
                             <td>Self-Pay</td>
                             <td>06/30/25</td>
@@ -270,7 +270,7 @@
                         <tr>
                             <td>09:15 AM</td>
                             <td>Maria Garcia</td>
-                            <td>$125.00</td>
+                            <td>P125.00</td>
                             <td>Credit Card</td>
                             <td>INV-2025-1237</td>
                             <td><span class="badge badge-success">Processed</span></td>
@@ -279,7 +279,7 @@
                         <tr>
                             <td>09:08 AM</td>
                             <td>David Lee</td>
-                            <td>$89.50</td>
+                            <td>P89.50</td>
                             <td>Cash</td>
                             <td>INV-2025-1238</td>
                             <td><span class="badge badge-success">Processed</span></td>
@@ -288,7 +288,7 @@
                         <tr>
                             <td>08:52 AM</td>
                             <td>Lisa Anderson</td>
-                            <td>$456.78</td>
+                            <td>P456.78</td>
                             <td>Insurance</td>
                             <td>INV-2025-1239</td>
                             <td><span class="badge badge-warning">Pending</span></td>
@@ -297,7 +297,7 @@
                         <tr>
                             <td>08:45 AM</td>
                             <td>James Brown</td>
-                            <td>$234.56</td>
+                            <td>P234.56</td>
                             <td>Check</td>
                             <td>INV-2025-1240</td>
                             <td><span class="badge badge-info">Deposited</span></td>
@@ -308,7 +308,7 @@
             </div>
 
             <!-- Financial Analytics and Reports -->
-            <div class="dashboard-grid" style="margin-top: 2rem;">
+            <div class="dashboard-overview" style="margin-top: 2rem;">
                 <!--Revenue Breakdown-->
                 <div class="card">
                     <div class="card-header">

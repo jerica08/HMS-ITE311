@@ -265,7 +265,7 @@
                 </div>
     
                 <!-- Patient Check-in Queue -->
-                <div class="dashboard-grid" style="margin-top: 2rem;">
+                <div class="dashboard-overview" style="margin-top: 2rem;">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">

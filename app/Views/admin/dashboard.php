@@ -230,48 +230,8 @@
                 </table>
             </div>
 
-            <div class="dashboard-grid"style="margin-top:2rem;">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <div>
-                            <h3 class="card-title"> System Health</h3>
-                            <p class="card-content">Real-time system monitoring</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="margin-bottom:1rem;">
-                            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
-                                <span>CPU Usage</span>
-                                <span>45%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #48bb78; height: 100%; width: 45%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Memory Usage</span>
-                                <span>67%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #ed8936; height: 100%; width: 67%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-                         <div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Storage Usage</span>
-                                <span>23%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #4299e1; height: 100%; width: 23%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="dashboard-overview"style="margin-top:2rem;">
+                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon">
