@@ -43,3 +43,23 @@ $routes->group('pharmacist', function($routes) {
 $routes->group('accountant', function($routes) {
     $routes->get('dashboard', 'Accountant::index');
 });
+
+// IT Staff routes
+$routes->group('itstaff', function($routes) {
+    $routes->get('/', 'ITStaff::index');                    // GET /itstaff - List all IT staff
+    $routes->get('create', 'ITStaff::create');              // GET /itstaff/create - Show create form
+    $routes->post('/', 'ITStaff::store');                   // POST /itstaff - Store new IT staff
+    $routes->get('edit/(:num)', 'ITStaff::edit/$1');        // GET /itstaff/edit/{id} - Show edit form
+    $routes->post('update/(:num)', 'ITStaff::update/$1');   // POST /itstaff/update/{id} - Update IT staff
+    $routes->get('delete/(:num)', 'ITStaff::delete/$1');    // GET /itstaff/delete/{id} - Delete IT staff
+});
+
+// Laboratories routes
+$routes->group('laboratories', function($routes) {
+    $routes->get('/', 'Laboratories::index');                    // GET /laboratories - List all laboratories
+    $routes->get('create', 'Laboratories::create');              // GET /laboratories/create - Show create form
+    $routes->post('/', 'Laboratories::store');                   // POST /laboratories - Store new laboratory
+    $routes->get('edit/(:num)', 'Laboratories::edit/$1');        // GET /laboratories/edit/{id} - Show edit form
+    $routes->post('update/(:num)', 'Laboratories::update/$1');   // POST /laboratories/update/{id} - Update laboratory
+    $routes->get('delete/(:num)', 'Laboratories::delete/$1');    // GET /laboratories/delete/{id} - Delete laboratory
+});
