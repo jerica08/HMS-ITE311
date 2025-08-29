@@ -39,8 +39,9 @@ class Filters extends BaseFilters
         'nurseAuth' => \App\Filters\NurseAuth::class,
         'receptionistAuth' => \App\Filters\ReceptionistAuth::class,
         'pharmacistAuth' => \App\Filters\PharmacistAuth::class,
-        'accountantAuth' => \App\Filters\AccountantAuth::class
-        
+        'accountantAuth' => \App\Filters\AccountantAuth::class,
+        'laboratoristAuth' => \App\Filters\LaboratoristAuth::class,
+        'itStaffAuth' => \App\Filters\ITStaffAuth::class
     ];
 
     /**
