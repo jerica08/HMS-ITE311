@@ -244,7 +244,7 @@
                             <option value="doctor">Doctor</option>
                             <option value="nurse">Nurse</option>
                             <option value="receptionist">Receptionist</option>
-                            <option value="lab">Laboratory Staff</option>
+                            <option value="laboratorist">Laboratory Staff</option>
                             <option value="pharmacist">Pharmacist</option>
                             <option value="accountant">Accountant</option>
                             <option value="it_staff">IT Staff</option>
