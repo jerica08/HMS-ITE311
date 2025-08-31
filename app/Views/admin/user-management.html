@@ -6,6 +6,20 @@
     <title>User Management - HMS Admin</title>
     <link rel="stylesheet" href="assets\css\dashboard-common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .user-filter{
+            display:flex;
+            gap:1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-group{
+            display:flex;
+            flex-direction:column;
+            gap:0.5rem;
+        }
+
+    </style>
 </head>
 <body class="admin">
 
@@ -171,8 +185,18 @@
                         <option value="it">IT Staff</option>
                      </select>
                 </div>
-                
+                <div class="filter-group">
+                    <label>Status Filter</label>
+                    <select class="filter-input" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
             </div>
+
+            
         </main>
     </div>
 </body>
