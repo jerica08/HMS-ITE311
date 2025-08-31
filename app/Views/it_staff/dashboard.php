@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>IT Staff Dashboard - HMS</title>
-        <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+        <link rel="stylesheet" href="/assets/css/dashboard-common.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body class="it-theme">
@@ -204,5 +204,22 @@
             </div>
         </main>
         </div>
+        <script>
+        // Simple navigation functionality - removed preventDefault to allow page navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Allow navigation to proceed - don't prevent default
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '/auth/logout';
+            }
+        });
+    </script>
     </body>
 </html>

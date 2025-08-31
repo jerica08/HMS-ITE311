@@ -47,10 +47,10 @@ $routes->group('accountant', function($routes) {
 
 
 $routes->group('it_staff', function($routes) {
-    $routes->get('dashboard', 'ITStaff::index');
+    $routes->get('dashboard', 'it_staff::index');
 });
 
-// Laboratorist routes
+
 $routes->group('laboratorist', function($routes) {
     $routes->get('dashboard', 'Laboratorist::index');
 });
