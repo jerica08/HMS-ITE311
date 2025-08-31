@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-user-management.html" class="nav-link">
+                        <a href="user-management.html" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
                             User Management
                         </a>
