@@ -247,7 +247,7 @@
                             <option value="lab">Laboratory Staff</option>
                             <option value="pharmacist">Pharmacist</option>
                             <option value="accountant">Accountant</option>
-                            <option value="it">IT Staff</option>
+                            <option value="it_staff">IT Staff</option>
                         </select>
                     </div>
                     
