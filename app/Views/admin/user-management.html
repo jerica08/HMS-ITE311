@@ -196,7 +196,46 @@
                 </div>
             </div>
 
-            
+            <div class="user-action">
+                <button class="btn btn-primary" onclick="openAddUserModal()">
+                    <i class="btn btn-primary"></i> Add New User
+                </button>
+                <button class="btn btn-secondary" onclick="exportUser()">
+                    <i class="fas fa-download"></i> Export Users
+                </button >
+                <buttonclass="btn btn-warning" onclick="bulkActions()">
+                    <i class="fas fa-tasks"></i> Bulk Actions
+                </button>
+            </div>
+
+            <!--users Table-->
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Last Login</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr class="user-row">
+                            <td><input type="checkbox" class="user-checkbox" data-user-id="1></td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
         </main>
     </div>
 </body>
