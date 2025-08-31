@@ -44,8 +44,9 @@ $routes->group('accountant', function($routes) {
     $routes->get('dashboard', 'Accountant::index');
 });
 
-// IT Staff routes
-$routes->group('itstaff', function($routes) {
+
+
+$routes->group('it_staff', function($routes) {
     $routes->get('dashboard', 'ITStaff::index');
 });
 
@@ -53,3 +54,4 @@ $routes->group('itstaff', function($routes) {
 $routes->group('laboratorist', function($routes) {
     $routes->get('dashboard', 'Laboratorist::index');
 });
+
