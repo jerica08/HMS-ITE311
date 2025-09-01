@@ -201,7 +201,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-analytics.html" class="nav-link">
+                    <a href="<?= base_url('admin/analytics') ?>" class="nav-link">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             Analytics & Reports
                         </a>
@@ -247,7 +247,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue">247</div>
+                            <div class="metric-value blue"><?= $stats['total_users'] ?? 0 ?></div>
                         </div>
                     </div>
                 </div>
@@ -259,31 +259,31 @@
                             <i class="fas fa-user-check"></i>
                         </div>
                         <div class="card-info">
-                            <h3 class="card-title-modern">Actice User</h3>
+                            <h3 class="card-title-modern">Active Users</h3>
                             <p class="card-subtitle">Currently active</p>
                         </div>
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">1,847</div>
+                            <div class="metric-value purple"><?= $stats['active_users'] ?? 0 ?></div>
                         </div>
                     </div>   
                 </div>
 
-                <!-- Pending Approval Card -->
+                <!-- Inactive User Card -->
                 <div class="overview-card">
                     <div class="card-header-modern">
                         <div class="card-icon-modern purple">
-                            <i class="fas fa-user-clock"></i>
+                            <i class="fas fa-user-times"></i>
                         </div>
                         <div class="card-info">
-                            <h3 class="card-title-modern">Pending Approval</h3>
-                            <p class="card-subtitle">Awaiting activation</p>
+                            <h3 class="card-title-modern">Inactive Users</h3>
+                            <p class="card-subtitle">Currently inactive</p>
                         </div>
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">156</div>
+                            <div class="metric-value purple"><?= $stats['inactive_users'] ?? 0 ?></div>
                         </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">156</div>
+                            <div class="metric-value purple"><?= $stats['admin_users'] ?? 0 ?></div>
                         </div>
                     </div>
                 </div>
@@ -310,43 +310,37 @@
             <div class="user-filter">
                 <div class="filter-group">
                     <label> Search Users</label>
-                    <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." id="searchInput">
+                    <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
+                           id="searchInput" value="<?= esc($search ?? '') ?>">
                 </div>
                 <div class="filter-group">
                      <label> Role Filter</label>
                      <select class="filter-input" id="roleFilter">
                         <option value="">All Roles</option>
-                        <option value="admin">Administrator</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="nurse">Nurse</option>
-                        <option value="receptionist">Receptionist</option>
-                        <option value="lab">Laboratory Staff</option>
-                        <option value="pharmacist">Pharmacist</option>
-                        <option value="accountant">Accountant</option>
-                        <option value="it">IT Staff</option>
+                        <option value="admin" <?= ($roleFilter ?? '') === 'admin' ? 'selected' : '' ?>>Administrator</option>
+                        <option value="doctor" <?= ($roleFilter ?? '') === 'doctor' ? 'selected' : '' ?>>Doctor</option>
+                        <option value="nurse" <?= ($roleFilter ?? '') === 'nurse' ? 'selected' : '' ?>>Nurse</option>
+                        <option value="receptionist" <?= ($roleFilter ?? '') === 'receptionist' ? 'selected' : '' ?>>Receptionist</option>
+                        <option value="laboratorist" <?= ($roleFilter ?? '') === 'laboratorist' ? 'selected' : '' ?>>Laboratory Staff</option>
+                        <option value="pharmacist" <?= ($roleFilter ?? '') === 'pharmacist' ? 'selected' : '' ?>>Pharmacist</option>
+                        <option value="accountant" <?= ($roleFilter ?? '') === 'accountant' ? 'selected' : '' ?>>Accountant</option>
+                        <option value="it_staff" <?= ($roleFilter ?? '') === 'it_staff' ? 'selected' : '' ?>>IT Staff</option>
                      </select>
                 </div>
                 <div class="filter-group">
                     <label>Status Filter</label>
                     <select class="filter-input" id="statusFilter">
                         <option value="">All Status</option>
-                        <option value="Active">Active</option>
-                        <option value="inactive">Inactive</option>
-                        <option value="pending">Pending</option>
+                        <option value="active" <?= ($statusFilter ?? '') === 'active' ? 'selected' : '' ?>>Active</option>
+                        <option value="inactive" <?= ($statusFilter ?? '') === 'inactive' ? 'selected' : '' ?>>Inactive</option>
                     </select>
                 </div>
-            </div>
-
-            <div class="user-action">
-                <button class="btn btn-primary" onclick="openAddUserModal()">
-                    <i class="fas fa-plus"></i> Add New User
-                </button>
-                <button class="btn btn-secondary" onclick="exportUser()">
-                    <i class="fas fa-download"></i> Export Users
-                </button >
-                <buttonclass="btn btn-warning" onclick="bulkActions()">
-                    <i class="fas fa-tasks"></i> Bulk Actions
-                </button>
+                <div class="filter-group">
+                    <label>&nbsp;</label>
+                    <button type="button" class="filter-input btn btn-primary" onclick="applyFilters()" style="background: #007bff; color: white; border: none;">
+                        <i class="fas fa-search"></i> Apply Filters
+                    </button>
+                </div>
             </div>
 
             <!--users Table-->
@@ -808,6 +802,7 @@
 
             try {
                 showLoading(true);
+                
                 const response = await fetch(`/api/users/${userId}`, {
                     method: 'DELETE',
                     headers: {
