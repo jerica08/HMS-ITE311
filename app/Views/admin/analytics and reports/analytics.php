@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics & Reports Management - HMS Admin</title>
-    <link rel="stylesheet" href="assets\css\dashboard-common.css">
+    <link rel="stylesheet" href="/assets/css/dashboard-common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
 
@@ -37,37 +37,37 @@
               
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="admin-dashboard.html" class="nav-link">
+                        <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-user-management.html" class="nav-link ">
+                        <a href="<?= base_url('admin/users') ?>" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
                             User Management
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-analytics.html" class="nav-link active">
+                        <a href="<?= base_url('admin/analytics') ?>" class="nav-link active">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             Analytics & Reports
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-system-settings.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-cogs nav-icon"></i>
                             System Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-security.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Security & Access
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-audit-logs.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-clipboard-list nav-icon"></i>
                             Audit Logs
                         </a>
@@ -338,7 +338,7 @@
             </div>
         </main>
     </div>
-    <script src="js/analytics.js"></script>
-    <script src="js/logout.js"></script>
+    <script src="/js/analytics.js"></script>
+    <script src="/js/logout.js"></script>
 </body>
 </html>
