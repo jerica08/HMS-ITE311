@@ -168,98 +168,64 @@
                 </div>
             </div>
 
-            <!--Filter and Actions-->    
-            <div class="user-filter">
-                <div class="filter-group">
-                    <label> Search Users</label>
-                    <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." id="searchInput">
-                </div>
-                <div class="filter-group">
-                     <label> Role Filter</label>
-                     <select class="filter-input" id="roleFilter">
-                        <option value="">All Roles</option>
-                        <option value="admin">Administrator</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="nurse">Nurse</option>
-                        <option value="receptionist">Receptionist</option>
-                        <option value="lab">Laboratory Staff</option>
-                        <option value="pharmacist">Pharmacist</option>
-                        <option value="accountant">Accountant</option>
-                        <option value="it">IT Staff</option>
-                     </select>
-                </div>
-                <div class="filter-group">
-                    <label>Status Filter</label>
-                    <select class="filter-input" id="statusFilter">
-                        <option value="">All Status</option>
-                        <option value="Active">Active</option>
-                        <option value="inactive">Inactive</option>
-                        <option value="pending">Pending</option>
-                    </select>
+            <!--Report Filters-->    
+           <div class="report-filters">
+                <h3 style="margin-bottom: 1rem;">Report Filters</h3>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <select clsas="filter-input" id="dateRange">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="quarter">This Quarter</option>
+                            <option value="year">This Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Department</label>
+                        <select class="filter-input" id="department">
+                            <option value="">All Department</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="laboratory">Laboratory</option>
+                            <option value="pharmacy">Pharmacy</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Report Type</label>
+                        <select class="filter-input" id="reportType">
+                            <option value="overview">Overview</option>
+                            <option value="financial">Financial</option>
+                            <option value="operational">Operational</option>
+                            <option value="clinical">Clinical</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-primary" onclick="applyFilters()">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>  
+                <div class="report-actions">
+                    <button class="btn btn-success" onclick="exportReport('pdf')">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportReport('excel')">
+                        <i class="fas fa-file-excel"></i> Export Excel
+                    </button>
+                    <button class="btn btn-warning" onclick="scheduleReport()">
+                        <i class="fas fa-clock"></i> Schedule Report
+                    </button>
+                    <button class="btn btn-info" onclick="shareReport()">
+                        <i class="fas fa-share"></i> Share Report
+                    </button>
                 </div>
             </div>
 
-            <div class="user-action">
-                <button class="btn btn-primary" onclick="openAddUserModal()">
-                    <i class="btn btn-primary"></i> Add New User
-                </button>
-                <button class="btn btn-secondary" onclick="exportUser()">
-                    <i class="fas fa-download"></i> Export Users
-                </button >
-                <buttonclass="btn btn-warning" onclick="bulkActions()">
-                    <i class="fas fa-tasks"></i> Bulk Actions
-                </button>
-            </div>
-
-            <!--users Table-->
-            <div class="table-container">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="selectAll"></th>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                            <th>Last Login</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-                         <tr class="user-row">
-                            <td><input type="checkbox" class="user-checkbox" data-user-id="1"></td>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div class="user-avatar">DJ</div>
-                                    <div>
-                                        <div style="font-weight: 600;">Dr. John Smith</div>
-                                        <div style="font-size: 0.8rem; color: #6b7280;">john.smith@hospital.com</div>
-                                        <div style="font-size: 0.8rem; color: #6b7280;">ID: HMS001</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="role-badge role-doctor">Doctor</span></td>
-                            <td>Cardiology</td>
-                            <td><i class="fas fa-circle status-active"></i> Active</td>
-                            <td>2 hours ago</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn btn-edit" onclick="editUser(1)">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button class="action-btn btn-reset" onclick="resetPassword(1)">
-                                        <i class="fas fa-key"></i> Reset
-                                    </button>
-                                    <button class="action-btn btn-delete" onclick="deleteUser(1)">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+            
         </main>
     </div>
 </body>
