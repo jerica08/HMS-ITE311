@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets\css\dashboard-common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        
+
     </style>
 </head>
 <body class="admin">
@@ -222,6 +222,54 @@
                     <button class="btn btn-info" onclick="shareReport()">
                         <i class="fas fa-share"></i> Share Report
                     </button>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="analytics-grid">
+                <!-- Patient Flow Chart -->
+                <div class="chart-container full-width">
+                    <div class="chart-header">
+                        <div class="chart-title">Patient Flow Trends</div>
+                        <div class="chart-period">Last 30 Days</div>
+                    </div>
+                    
+                </div>
+
+                <!-- Revenue Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Monthly Revenue</div>
+                        <div class="chart-period">This Year</div>
+                    </div>
+                   
+                </div>
+
+                <!-- Department Performance -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Department Performance</div>
+                        <div class="chart-period">This Month</div>
+                    </div>
+                    <canvas id="departmentChart" width="400" height="300"></canvas>
+                </div>
+
+                <!-- Bed Occupancy -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Bed Occupancy Rate</div>
+                        <div class="chart-period">Real-time</div>
+                    </div>
+                    <canvas id="occupancyChart" width="400" height="300"></canvas>
+                </div>
+
+                <!-- Staff Utilization -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Staff Utilization</div>
+                        <div class="chart-period">This Week</div>
+                    </div>
+                    <canvas id="staffChart" width="400" height="300"></canvas>
                 </div>
             </div>
 
