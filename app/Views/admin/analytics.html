@@ -225,7 +225,70 @@
                 </div>
             </div>
 
-            
+            <!--Detailed Report Table-->
+            <div class="data-table-contianer">
+                <div class="table-contianer">
+                    <h3>Performance Reports</h3>
+                    <button class="btn btn-secondary" onclick="refreshReports()">
+                        <i class="fas fa-refresh"></i> Refresh
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Metrics</th>
+                            <th>Current Value</th>
+                            <th>Previous period</th>
+                            <th>Change</th>
+                            <th>Target</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Average Wait Time</td>
+                            <td>23 minutes</td>
+                            <td>28 minutes</td>
+                            <td class="kpi-positive">-18%</td>
+                            <td>20 minutes</td>
+                            <td><span class="badge badge-warning">Near Target</span></td>
+                        </tr>
+                        <tr>
+                            <td>Patient Satisfaction</td>
+                            <td>94.5%</td>
+                            <td>96.2%</td>
+                            <td class="kpi-negative">-1.7%</td>
+                            <td>95%</td>
+                            <td><span class="badge badge-success">On Target</span></td>
+                        </tr>
+                        <tr>
+                            <td>Readmission Rate</td>
+                            <td>8.2%</td>
+                            <td>9.1%</td>
+                            <td class="kpi-positive">-9.9%</td>
+                            <td>8%</td>
+                            <td><span class="badge badge-warning">Near Target</span></td>
+                        </tr>
+                        <tr>
+                            <td>Staff Overtime</td>
+                            <td>12.5%</td>
+                            <td>15.3%</td>
+                            <td class="kpi-positive">-18%</td>
+                            <td>10%</td>
+                            <td><span class="badge badge-warning">Above Target</span></td>
+                        </tr>
+                        <tr>
+                            <td>Equipment Utilization</td>
+                            <td>78%</td>
+                            <td>72%</td>
+                            <td class="kpi-positive">+8.3%</td>
+                            <td>75%</td>
+                            <td><span class="badge badge-success">Above Target</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </main>
     </div>
 </body>
