@@ -26,7 +26,7 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        return view('admin/dashboard');
+        return view('admin/dashboard/index');
     }
     
     public function users()
