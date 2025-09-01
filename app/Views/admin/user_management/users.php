@@ -358,36 +358,79 @@
                         </tr>
                     </thead>
                     <tbody id="usersTableBody">
-                         <tr class="user-row">
-                            <td><input type="checkbox" class="user-checkbox" data-user-id="1"></td>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div class="user-avatar">DJ</div>
-                                    <div>
-                                        <div style="font-weight: 600;">Dr. John Smith</div>
-                                        <div style="font-size: 0.8rem; color: #6b7280;">john.smith@hospital.com</div>
-                                        <div style="font-size: 0.8rem; color: #6b7280;">ID: HMS001</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="role-badge role-doctor">Doctor</span></td>
-                            <td>Cardiology</td>
-                            <td><i class="fas fa-circle status-active"></i> Active</td>
-                            <td>2 hours ago</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="action-btn btn-edit" onclick="editUser(1)">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button class="action-btn btn-reset" onclick="resetPassword(1)">
-                                        <i class="fas fa-key"></i> Reset
-                                    </button>
-                                    <button class="action-btn btn-delete" onclick="deleteUser(1)">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php if (!empty($users)): ?>
+                            <?php foreach ($users as $user): ?>
+                                <tr class="user-row">
+                                    <td><input type="checkbox" class="user-checkbox" data-user-id="<?= $user['id'] ?>"></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div class="user-avatar">
+                                                <?= strtoupper(substr($user['first_name'] ?? 'U', 0, 1) . substr($user['last_name'] ?? 'U', 0, 1)) ?>
+                                            </div>
+                                            <div>
+                                                <div style="font-weight: 600;">
+                                                    <?= esc(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?>
+                                                </div>
+                                                <div style="font-size: 0.8rem; color: #6b7280;">
+                                                    <?= esc($user['email'] ?? '') ?>
+                                                </div>
+                                                <div style="font-size: 0.8rem; color: #6b7280;">
+                                                    ID: <?= esc($user['employee_id'] ?? $user['username'] ?? 'N/A') ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="role-badge role-<?= str_replace('_', '-', $user['role'] ?? 'user') ?>">
+                                            <?= ucfirst(str_replace('_', ' ', esc($user['role'] ?? 'User'))) ?>
+                                        </span>
+                                    </td>
+                                    <td><?= esc($user['department'] ?? 'N/A') ?></td>
+                                    <td>
+                                        <i class="fas fa-circle status-<?= $user['status'] ?? 'inactive' ?>"></i> 
+                                        <?= ucfirst(esc($user['status'] ?? 'Inactive')) ?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                        $lastLogin = $user['updated_at'] ?? $user['created_at'] ?? null;
+                                        if ($lastLogin): 
+                                            $diff = time() - strtotime($lastLogin);
+                                            if ($diff < 3600): echo 'Less than 1 hour ago';
+                                            elseif ($diff < 86400): echo floor($diff/3600) . ' hours ago';
+                                            else: echo date('M j, Y', strtotime($lastLogin));
+                                            endif;
+                                        else: echo 'Never';
+                                        endif;
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn btn-edit" onclick="editUser(<?= $user['id'] ?>)">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+                                            <button class="action-btn btn-reset" onclick="resetPassword(<?= $user['id'] ?>)">
+                                                <i class="fas fa-key"></i> Reset
+                                            </button>
+                                            <button class="action-btn btn-delete" onclick="deleteUser(<?= $user['id'] ?>)">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 2rem;">
+                                    <i class="fas fa-users" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                                    <p>No users found.</p>
+                                    <?php if (!empty($search) || !empty($roleFilter) || !empty($statusFilter)): ?>
+                                        <button onclick="clearFilters()" class="btn btn-secondary">
+                                            <i class="fas fa-times"></i> Clear Filters
+                                        </button>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

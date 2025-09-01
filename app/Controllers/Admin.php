@@ -100,7 +100,7 @@ class Admin extends BaseController
                 ]
             ];
             
-            return view('admin/users', $data);
+            return view('admin/user_management/users', $data);
             
         } catch (\Exception $e) {
             // Log the specific error for debugging
@@ -123,7 +123,7 @@ class Admin extends BaseController
                 'error' => 'Database error: ' . $e->getMessage()
             ];
             
-            return view('admin/users', $data);
+            return view('admin/user_management/users', $data);
         }
     }
 }
