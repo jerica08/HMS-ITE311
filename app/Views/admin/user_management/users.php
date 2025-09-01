@@ -364,6 +364,8 @@
                 </div>
             </div>
             <script src="/js/users.js"></script>
+            <script src="/js/logout.js"></script>
+
         </main>
     </div>
 </body>

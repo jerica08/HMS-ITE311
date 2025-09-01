@@ -257,24 +257,8 @@
             </div>        
         </main>
     </div>
-     <script>
-        // Simple navigation functionality - removed preventDefault to allow page navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Allow navigation to proceed - don't prevent default
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Logout functionality
-        document.querySelector('.logout-btn').addEventListener('click', function() {
-            if(confirm('Are you sure you want to logout?')) {
-                window.location.href = '<?= base_url('auth/logout') ?>';
-            }
-        });
-    </script>
-    
-        
+     
+    <script src="/js/index.js"></script>
+    <script src="/js/logout.js"></script>
     </body>
 </html>
