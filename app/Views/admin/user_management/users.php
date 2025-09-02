@@ -367,6 +367,6 @@
             <script src="/js/logout.js"></script>
 
         </main>
-    </div>
+        </div>
 </body>
 </html>
