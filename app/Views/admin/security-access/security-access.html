@@ -140,9 +140,43 @@
                 <!--Security Metrics-->
                 <div class="security-section">
                     <div class="section-header">
-                        
+                        <div class="section-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Security Metrics</div>
+                        </div>
+                    </div>
+
+                    <div class="security-metric">
+                        <div class="metric-label">Password Strength</div>
+                        <div class="metric-value metric-good">Strong</div>
+                    </div>
+                     <div class="security-metric">
+                        <div class="metric-label">Failed Login Attempts</div>
+                        <div class="metric-value metric-good">10</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Firewall Status</div>
+                        <div class="metric-value metric-good">Active</div>
+                    </div>
+                    <div class="security-metric">
+                        <div class="metric-label">Vulnerability Scan</div>
+                        <div class="metric-value metric-good">Clean</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="runSecurityScan()">
+                            <i class="fs fa-file-alt"></i>Security Scan
+                        </button>
+                        <button class="btn btn-primary btn-small" onclick="generateSecurityReport()">
+                            <i class="fs fa-file-alt"></i>Generate Report
+                        </button>
                     </div>
                 </div>
+
+
+                
             </div>
 
         </main>
