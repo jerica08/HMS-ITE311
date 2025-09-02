@@ -33,37 +33,37 @@
               
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="admin-dashboard.html" class="nav-link active">
+                        <a href="<?= base_url('admin/dashboard') ?>" class="nav-link active">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="user-management.html" class="nav-link">
+                        <a href="<?= base_url('admin/users') ?>" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
                             User Management
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-analytics.html" class="nav-link">
+                        <a href="<?= base_url('admin/analytics') ?>" class="nav-link">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             Analytics & Reports
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-system-settings.html" class="nav-link">
+                        <a href="<?= base_url('admin/system-settings') ?>" class="nav-link">
                             <i class="fas fa-cogs nav-icon"></i>
                             System Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-security.html" class="nav-link">
+                        <a href="<?= base_url('admin/security') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Security & Access
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-audit-logs.html" class="nav-link">
+                        <a href="<?= base_url('admin/audit-logs') ?>" class="nav-link">
                             <i class="fas fa-clipboard-list nav-icon"></i>
                             Audit Logs
                         </a>
@@ -103,8 +103,8 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn primary">Add User</button>
-                        <button class="action-btn secondary">Manage Roles</button>
+                        <button class="action-btn primary" onclick="window.location.href='<?= base_url('admin/users/create') ?>'">Add User</button>
+                        <button class="action-btn secondary" onclick="window.location.href='<?= base_url('admin/roles') ?>'">Manage Roles</button>
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn primary">View Reports</button>
+                        <button class="action-btn primary" onclick="window.location.href='<?= base_url('admin/analytics') ?>'">View Reports</button>
                         <button class="action-btn secondary">Export Data</button>
                     </div>
                 </div>
@@ -165,8 +165,8 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn danger">Security Audit</button>
-                        <button class="action-btn warning">Access Logs</button>
+                        <button class="action-btn danger" onclick="window.location.href='<?= base_url('admin/security') ?>'">Security Audit</button>
+                        <button class="action-btn warning" onclick="window.location.href='<?= base_url('admin/audit-logs') ?>'">Access Logs</button>
                     </div>
                 </div>
             </div>
@@ -257,24 +257,8 @@
             </div>        
         </main>
     </div>
-     <script>
-        // Simple navigation functionality - removed preventDefault to allow page navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Allow navigation to proceed - don't prevent default
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Logout functionality
-        document.querySelector('.logout-btn').addEventListener('click', function() {
-            if(confirm('Are you sure you want to logout?')) {
-                window.location.href = '/auth/logout';
-            }
-        });
-    </script>
-    
-        
+     
+    <script src="/js/index.js"></script>
+    <script src="/js/logout.js"></script>
     </body>
 </html>

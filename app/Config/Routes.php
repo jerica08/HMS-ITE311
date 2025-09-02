@@ -19,8 +19,27 @@ $routes->post('auth/loginSubmit', 'Auth::loginSubmit');   // Login form submissi
 $routes->get('auth/logout', 'Auth::logout');        // Logout route - maps /auth/logout to Auth controller's logout method
 
 
-$routes->group('admin',  function($routes) {
-    $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index       // Admin logout - maps /admin/logout to Admin::logout
+$routes->group('admin', function($routes) {
+    $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index
+
+    // User Management Routes
+    $routes->get('users', 'Admin::users');                    // View all users
+    $routes->get('users/create', 'Admin::createUser');        // Show create user form
+    $routes->post('users/store', 'Admin::storeUser');         // Store new user
+    $routes->get('users/(:num)', 'Admin::viewUser/$1');       // View specific user
+    $routes->get('users/(:num)/edit', 'Admin::editUser/$1');  // Show edit user form
+    $routes->post('users/(:num)/update', 'Admin::updateUser/$1'); // Update user
+    $routes->delete('users/(:num)/delete', 'Admin::deleteUser/$1'); // Delete user (admin only)
+    $routes->post('users/(:num)/toggle-status', 'Admin::toggleUserStatus/$1'); // Toggle user status
+    $routes->post('users/(:num)/reset-password', 'Admin::resetPassword/$1'); // Reset user password
+
+    // Analytics & Reports Routes
+    $routes->get('analytics', 'Admin::analytics');                    // Analytics dashboard
+    $routes->get('reports', 'Admin::reports');                        // Reports overview
+    $routes->get('reports/generate', 'Admin::generateReport');        // Generate custom report
+    $routes->post('reports/export', 'Admin::exportReport');           // Export report (PDF/Excel)
+    $routes->get('reports/schedule', 'Admin::scheduleReport');        // Schedule automated reports
+    $routes->post('reports/schedule', 'Admin::storeScheduledReport'); // Store scheduled report
 });
 
 
