@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Services\UserService;
 
 class Admin extends BaseController
 {
     protected $userModel;
+    protected $userService;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->userService = new UserService();
     }
 
     private function checkAdminAuth()
@@ -192,5 +195,96 @@ class Admin extends BaseController
     public function getReportMetrics()
     {
         // This method has been removed as per user request.
+    }
+
+    // User CRUD Methods
+    public function createUser()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        if ($this->request->getMethod() !== 'POST') {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
+        }
+
+        $data = $this->request->getJSON(true);
+        $result = $this->userService->createUser($data);
+        
+        return $this->response->setJSON($result);
+    }
+
+    public function editUser($userId)
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $result = $this->userService->getUserById($userId);
+        return $this->response->setJSON($result);
+    }
+
+    public function updateUser($userId)
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        if ($this->request->getMethod() !== 'PUT' && $this->request->getMethod() !== 'POST') {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
+        }
+
+        $data = $this->request->getJSON(true);
+        $result = $this->userService->updateUser($userId, $data);
+        
+        return $this->response->setJSON($result);
+    }
+
+    public function deleteUser($userId)
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        if ($this->request->getMethod() !== 'DELETE') {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
+        }
+
+        $currentUserId = session()->get('user_id');
+        $result = $this->userService->deleteUser($userId, $currentUserId);
+        
+        return $this->response->setJSON($result);
+    }
+
+    public function resetPassword($userId)
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        if ($this->request->getMethod() !== 'POST') {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
+        }
+
+        $result = $this->userService->resetPassword($userId);
+        return $this->response->setJSON($result);
+    }
+
+    // API Methods for AJAX calls
+    public function getUsersApi()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $search = $this->request->getGet('search') ?? '';
+        $roleFilter = $this->request->getGet('role') ?? '';
+        $statusFilter = $this->request->getGet('status') ?? '';
+
+        $result = $this->userService->getAllUsers($search, $roleFilter, $statusFilter);
+        return $this->response->setJSON($result);
+    }
+
+    public function getUserStatistics()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $result = $this->userService->getUserStats();
+        return $this->response->setJSON($result);
     }
 }

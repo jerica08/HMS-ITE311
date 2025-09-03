@@ -54,12 +54,14 @@ class AddUserFields extends Migration
             ],
             'created_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
+                'null' => false,
+                'default' => 'CURRENT_TIMESTAMP',
                 'after' => 'hire_date'
             ],
             'updated_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
+                'null' => false,
+                'default' => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
                 'after' => 'created_at'
             ]
         ];

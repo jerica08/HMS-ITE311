@@ -10,7 +10,8 @@ class UserModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'username', 'email', 'password', 'role', 'first_name', 'last_name', 
-        'phone', 'department', 'employee_id', 'status', 'hire_date'
+        'phone', 'department', 'employee_id', 'status', 'hire_date',
+        'read_access', 'write_access', 'delete_access', 'admin_access'
     ];
     
     protected $useTimestamps = true;

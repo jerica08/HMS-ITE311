@@ -22,16 +22,21 @@ $routes->get('auth/logout', 'Auth::logout');        // Logout route - maps /auth
 $routes->group('admin', function($routes) {
     $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index
 
-    // User Management Routes
+    // User Management Routes - Fixed to match JavaScript API calls
     $routes->get('users', 'Admin::users');                    // View all users
-    $routes->get('users/create', 'Admin::createUser');        // Show create user form
-    $routes->post('users/store', 'Admin::storeUser');         // Store new user
-    $routes->get('users/(:num)', 'Admin::viewUser/$1');       // View specific user
-    $routes->get('users/(:num)/edit', 'Admin::editUser/$1');  // Show edit user form
-    $routes->post('users/(:num)/update', 'Admin::updateUser/$1'); // Update user
-    $routes->delete('users/(:num)/delete', 'Admin::deleteUser/$1'); // Delete user (admin only)
+    $routes->get('users/api', 'Admin::getUsersApi');          // Get users data (API)
+    $routes->get('users/statistics', 'Admin::getUserStatistics'); // Get user statistics (API)
+    $routes->post('users', 'Admin::createUser');              // Create new user (API)
+    $routes->get('users/(:num)', 'Admin::editUser/$1');       // Get user data for editing (API)
+    $routes->put('users/(:num)', 'Admin::updateUser/$1');     // Update user (API)
+    $routes->post('users/(:num)', 'Admin::updateUser/$1');    // Update user (fallback for browsers that don't support PUT)
+    $routes->delete('users/(:num)', 'Admin::deleteUser/$1');  // Delete user (API)
+    $routes->post('users/(:num)/reset-password', 'Admin::resetPassword/$1'); // Reset user password (API)
+    
+    // Legacy routes for form-based operations (if needed)
+    $routes->get('users/create', 'Admin::createUserForm');        // Show create user form
+    $routes->get('users/(:num)/edit', 'Admin::editUserForm/$1');  // Show edit user form
     $routes->post('users/(:num)/toggle-status', 'Admin::toggleUserStatus/$1'); // Toggle user status
-    $routes->post('users/(:num)/reset-password', 'Admin::resetPassword/$1'); // Reset user password
 
     // Analytics & Reports Routes
     $routes->get('analytics', 'Admin::analytics');                    // Analytics dashboard
@@ -73,4 +78,3 @@ $routes->group('it_staff', function($routes) {
 $routes->group('laboratorist', function($routes) {
     $routes->get('dashboard', 'Laboratorist::index');
 });
-

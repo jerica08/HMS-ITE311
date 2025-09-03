@@ -293,11 +293,11 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label> First Name*</label>
-                                <input type="text" class="form-input" id="firstname" name="firstname" required>
+                                <input type="text" class="form-input" id="first_name" name="first_name" required>
                             </div>  
                             <div class="form-group">
                                 <label> Last Name*</label>
-                                <input type="text" class="form-input" id="lastname" name="lastname" required>
+                                <input type="text" class="form-input" id="last_name" name="last_name" required>
                             </div> 
                             <div class="form-group">
                                 <label> Email*</label>
@@ -311,14 +311,14 @@
                                 <label>Role *</label>
                                 <select class="form-input" id="role" name="role" required>
                                     <option value="">Select Role</option>
-                                    <option value="hospital_administrator">Administrator</option>
-                                    <option value="doctor">Doctor</option>
-                                    <option value="nurse">Nurse</option>
-                                    <option value="receptionist">Receptionist</option>
-                                    <option value="laboratory_staff">Laboratory Staff</option>
-                                    <option value="pharmacist">Pharmacist</option>
-                                    <option value="accountant">Accountant</option>
-                                    <option value="it_staff">IT Staff</option>
+                                    <option value="admin">admin</option>
+                                    <option value="doctor">doctor</option>
+                                    <option value="nurse">nurse</option>
+                                    <option value="receptionist">receptionist</option>
+                                    <option value="laboratorist">laboratorist</option>
+                                    <option value="pharmacist">pharmacist</option>
+                                    <option value="accountant">accountant</option>
+                                    <option value="it_staff">it_staff</option>
                                 </select>
                             </div>
                             <div class="form-group">
