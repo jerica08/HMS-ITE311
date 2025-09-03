@@ -6,18 +6,163 @@
     <title>Security Access - HMS Admin</title>
     <link rel="stylesheet" href="assets\css\dashboard-common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-         .security-grid {
+     <style>
+        .security-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
-         .security-section {
+        .security-section {
             background: white;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .security-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .security-metric:last-child {
+            border-bottom: none;
+        }
+        .metric-label {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        .metric-value {
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        .metric-good { background: #dcfce7; color: #166534; }
+        .metric-warning { background: #fef3c7; color: #92400e; }
+        .metric-danger { background: #fecaca; color: #991b1b; }
+        .access-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table-header {
+            background: #f8fafc;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .permission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .permission-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .permission-icon {
+            font-size: 2rem;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        .permission-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .permission-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .security-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #ef4444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+        .alert-content {
+            color: #7f1d1d;
+            font-size: 0.9rem;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+        .login-attempt {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .login-attempt:last-child {
+            border-bottom: none;
+        }
+        .attempt-status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .status-success { background: #dcfce7; color: #166534; }
+        .status-failed { background: #fecaca; color: #991b1b; }
+        .status-blocked { background: #fed7cc; color: #c2410c; }
+        .ip-address {
+            font-family: monospace;
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -87,7 +232,7 @@
             </nav>
 
             <main class="content">
-            <h1 class="page-title"> User Management</h1>
+            <h1 class="page-title"> Security Access</h1>
 
             <!--Dashboard overview cards-->
             <div class="dashboard-overview">
@@ -193,7 +338,7 @@
                 <div class="security-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-user-lock"></i>
                         </div>
                         <div>
                             <div class="section-title">Access Permissions</div>
@@ -245,7 +390,7 @@
                 <div class="security-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-sign-in-alt"></i>
                         </div>
                         <div>
                             <div class="section-title">Login Security</div>
@@ -283,7 +428,7 @@
                 <div class="security-section">
                     <div class="section-header">
                         <div class="section-icon">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-network-wired"></i>
                         </div>
                         <div>
                             <div class="section-title">Network Security</div>
@@ -316,8 +461,33 @@
                         </button>
                     </div>
                 </div>
+            </div>
 
-
+            <!--Display here the Recent Login Attemps-->
+            <div class="access-table">
+                <div class="table-header">
+                    <h3> Recent Login Attemps</h3>
+                    <div style="display:flex;gap:0.5rem;">
+                        <button class="btn btn-secondary btn-small" onlcick="refreshLoginAttempts()">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
+                         <button class="btn btn-warning btn-small" onclick="blockSuspiciousIPs()">
+                            <i class="fas fa-ban"></i> Block Suspicious
+                        </button>
+                    </div>
+                </div>   
+                
+                 <div style="max-height: 400px; overflow-y: auto;">
+                    <div class="login-attempt">
+                        <div>
+                            <strong>Dr. John Smith</strong><br>
+                            <small>this is an example</small>
+                        </div>
+                        <div class="ip-address">192.168.1.45</div>
+                        <div>2 minutes ago</div>
+                        <div class="attempt-status status-success">Success</div>
+                    </div>                  
+                </div>
             </div>
 
         </main>
