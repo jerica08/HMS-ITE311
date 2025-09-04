@@ -190,6 +190,21 @@
                 </div>
             </div>
 
+            <!-- Action Buttons -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
+                        <i class="fas fa-plus"></i> Add New User
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="bulkActions()">
+                        <i class="fas fa-cogs"></i> Bulk Actions
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="exportUsers()">
+                        <i class="fas fa-download"></i> Export Users
+                    </button>
+                </div>
+            </div>
+
             <!--users Table-->
             <div class="table-container">
                 <table class="table">
@@ -287,7 +302,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 id="modalTitle">Add New User</h2>
-                        <button class="close-btn" on-click="closeUserModal()">&times;</button>
+                        <button class="close-btn" onclick="closeUserModal()">&times;</button>
                     </div>
                     <form id="userForm">
                         <div class="form-grid">
@@ -363,8 +378,9 @@
                     </form>
                 </div>
             </div>
-            <script src="/js/users.js"></script>
-            <script src="/js/logout.js"></script>
+            <script src="<?= base_url('js/utils.js') ?>"></script>
+            <script src="<?= base_url('js/edit-user.js') ?>"></script>
+            <script src="<?= base_url('js/logout.js') ?>"></script>
 
         </main>
         </div>
