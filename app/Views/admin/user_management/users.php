@@ -323,6 +323,10 @@
                                 <input type="text" class="form-input" id="phone" name="phone" required>
                             </div> 
                             <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-input" id="password" name="password" placeholder="Leave blank to keep current password">
+                            </div>
+                            <div class="form-group">
                                 <label>Role *</label>
                                 <select class="form-input" id="role" name="role" required>
                                     <option value="">Select Role</option>

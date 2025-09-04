@@ -41,6 +41,8 @@ async function editUser(userId) {
             document.getElementById('phone').value = user.phone || '';
             document.getElementById('role').value = user.role || '';
             document.getElementById('department').value = user.department || '';
+            // Clear password field for security (don't show existing password)
+            document.getElementById('password').value = '';
             
             console.log('Form fields populated');
             
@@ -232,7 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 email: formData.get('email') || document.getElementById('email').value,
                 phone: formData.get('phone') || document.getElementById('phone').value,
                 role: formData.get('role') || document.getElementById('role').value,
-                department: formData.get('department') || document.getElementById('department').value
+                department: formData.get('department') || document.getElementById('department').value,
+                password: formData.get('password') || document.getElementById('password').value
             };
 
             console.log('Form data being sent:', userData);
@@ -265,9 +268,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             } else {
                 // For create mode, validate required fields
-                if (!userData.first_name || !userData.last_name || !userData.email || !userData.role) {
+                if (!userData.first_name || !userData.last_name || !userData.email || !userData.role || !userData.password) {
                     console.error('Validation failed: Missing required fields');
-                    showNotification('Please fill in all required fields', 'error');
+                    showNotification('Please fill in all required fields including password', 'error');
+                    return;
+                }
+                
+                // Validate password strength for new users
+                if (userData.password && userData.password.length < 6) {
+                    console.error('Validation failed: Password too short');
+                    showNotification('Password must be at least 6 characters long', 'error');
                     return;
                 }
                 
