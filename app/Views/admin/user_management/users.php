@@ -36,7 +36,7 @@
               
                 <ul class="nav-menu">
                     <li class="nav-item">
-                    <a href="<?= base_url('admin/dashboard') ?>" class="nav-link active">
+                    <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
