@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn primary" onclick="window.location.href='<?= base_url('admin/users/create') ?>'">Add User</button>
+                        <button class="action-btn primary" onclick="openAddUserModal()">Add User</button>
                         <button class="action-btn secondary" onclick="window.location.href='<?= base_url('admin/roles') ?>'">Manage Roles</button>
                     </div>
                 </div>
@@ -230,6 +230,137 @@
                 </table>
             </div>
 
+            <!-- Add User Modal -->
+            <div id="userModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="modalTitle">Add New User</h2>
+                        <button class="close-btn" onclick="closeUserModal()">&times;</button>
+                    </div>
+                    <form id="userForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>First Name*</label>
+                                <input type="text" class="form-input" id="first_name" name="first_name" required>
+                            </div>  
+                            <div class="form-group">
+                                <label>Last Name*</label>
+                                <input type="text" class="form-input" id="last_name" name="last_name" required>
+                            </div> 
+                            <div class="form-group">
+                                <label>Email*</label>
+                                <input type="email" class="form-input" id="email" name="email" required>
+                            </div> 
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-input" id="phone" name="phone">
+                            </div> 
+                            <div class="form-group">
+                                <label>Role*</label>
+                                <select class="form-input" id="role" name="role" required>
+                                    <option value="">Select Role</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="nurse">Nurse</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="laboratorist">Laboratory Staff</option>
+                                    <option value="pharmacist">Pharmacist</option>
+                                    <option value="accountant">Accountant</option>
+                                    <option value="it_staff">IT Staff</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-input" id="department" name="department">
+                                    <option value="">Select Department</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Emergency">Emergency</option>
+                                    <option value="Laboratory">Laboratory</option>
+                                    <option value="Pharmacy">Pharmacy</option>
+                                    <option value="Administration">Administration</option>
+                                    <option value="IT Department">IT Department</option>
+                                    <option value="Accounting">Accounting</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:2rem;">
+                            <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                .modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                }
+                .modal-content {
+                    background: white;
+                    margin: 5% auto;
+                    padding: 2rem;
+                    border-radius: 8px;
+                    width: 90%;
+                    max-width: 600px;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                }
+                .modal-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid #e2e8f0;
+                }
+                .close-btn {
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: #6b7280;
+                }
+                .form-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+                }
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+                .form-input {
+                    padding: 0.75rem;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 5px;
+                    font-size: 0.9rem;
+                }
+                .btn {
+                    padding: 0.75rem 1.5rem;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                }
+                .btn-primary {
+                    background: #3b82f6;
+                    color: white;
+                }
+                .btn-secondary {
+                    background: #6b7280;
+                    color: white;
+                }
+            </style>
+
             <div class="dashboard-overview"style="margin-top:2rem;">
                 
                 <div class="card">
@@ -257,7 +388,8 @@
             </div>        
         </main>
     </div>
-     
+    <script src="/js/utils.js"></script>
+    <script src="/js/admin-dashboard.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/logout.js"></script>
     </body>

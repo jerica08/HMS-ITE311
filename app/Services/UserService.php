@@ -18,6 +18,8 @@ class UserService
      */
     public function createUser(array $data): array
     {
+        log_message('info', 'UserService::createUser called with data: ' . json_encode($data));
+        
         // Validation
         $validation = \Config\Services::validation();
         $validation->setRules([
@@ -30,6 +32,7 @@ class UserService
         ]);
 
         if (!$validation->run($data)) {
+            log_message('error', 'Validation failed: ' . json_encode($validation->getErrors()));
             return [
                 'status' => 'error',
                 'message' => 'Validation failed',
@@ -38,9 +41,20 @@ class UserService
         }
 
         try {
-            // Generate username and temporary password
-            $username = strtolower($data['first_name'] . '.' . $data['last_name']);
+            // Generate unique username
+            $baseUsername = strtolower($data['first_name'] . '.' . $data['last_name']);
+            $username = $baseUsername;
+            $counter = 1;
+            
+            // Check for username uniqueness
+            while ($this->userModel->where('username', $username)->first()) {
+                $username = $baseUsername . $counter;
+                $counter++;
+            }
+            
             $tempPassword = bin2hex(random_bytes(4)); // 8 character temp password
+            
+            log_message('info', 'Generated username: ' . $username . ', temp password: ' . $tempPassword);
             
             $userData = [
                 'username' => $username,
@@ -56,9 +70,17 @@ class UserService
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
-            $userId = $this->userModel->insert($userData);
+            log_message('info', 'Attempting to insert user data: ' . json_encode($userData));
+
+            // Try direct database insert to avoid model validation issues
+            $db = \Config\Database::connect();
+            $builder = $db->table('users');
+            $result = $builder->insert($userData);
             
-            if ($userId) {
+            if ($result) {
+                $userId = $db->insertID();
+                log_message('info', 'User created successfully with ID: ' . $userId);
+                
                 return [
                     'status' => 'success',
                     'message' => 'User created successfully',
@@ -66,16 +88,19 @@ class UserService
                     'user_id' => $userId
                 ];
             } else {
+                $error = $db->error();
+                log_message('error', 'Database insert failed. Error: ' . json_encode($error));
+                
                 return [
                     'status' => 'error',
-                    'message' => 'Failed to create user'
+                    'message' => 'Failed to create user - Database error: ' . ($error['message'] ?? 'Unknown error')
                 ];
             }
         } catch (\Exception $e) {
-            log_message('error', 'Error creating user: ' . $e->getMessage());
+            log_message('error', 'Exception in createUser: ' . $e->getMessage() . ' | Trace: ' . $e->getTraceAsString());
             return [
                 'status' => 'error',
-                'message' => 'Database error occurred'
+                'message' => 'Database error occurred: ' . $e->getMessage()
             ];
         }
     }
