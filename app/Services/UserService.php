@@ -28,7 +28,8 @@ class UserService
             'email' => 'required|valid_email|is_unique[users.email]',
             'role' => 'required|in_list[admin,doctor,nurse,receptionist,laboratorist,pharmacist,accountant,it_staff]',
             'phone' => 'permit_empty|min_length[10]|max_length[15]',
-            'department' => 'permit_empty|max_length[100]'
+            'department' => 'permit_empty|max_length[100]',
+            'password' => 'required|min_length[6]' // Require password with minimum 6 characters
         ]);
 
         if (!$validation->run($data)) {
@@ -52,14 +53,15 @@ class UserService
                 $counter++;
             }
             
-            $tempPassword = bin2hex(random_bytes(4)); // 8 character temp password
+            // Use provided password
+            $password = $data['password'];
             
-            log_message('info', 'Generated username: ' . $username . ', temp password: ' . $tempPassword);
+            log_message('info', 'Generated username: ' . $username . ', password set: ' . $password);
             
             $userData = [
                 'username' => $username,
                 'email' => $data['email'],
-                'password' => password_hash($tempPassword, PASSWORD_DEFAULT),
+                'password' => password_hash($password, PASSWORD_DEFAULT),
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'phone' => $data['phone'] ?? null,
@@ -84,7 +86,6 @@ class UserService
                 return [
                     'status' => 'success',
                     'message' => 'User created successfully',
-                    'temp_password' => $tempPassword,
                     'user_id' => $userId
                 ];
             } else {

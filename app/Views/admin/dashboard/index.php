@@ -256,6 +256,10 @@
                                 <input type="text" class="form-input" id="phone" name="phone">
                             </div> 
                             <div class="form-group">
+                                <label>Password*</label>
+                                <input type="password" class="form-input" id="password" name="password" required placeholder="Enter password (min 6 characters)">
+                            </div>
+                            <div class="form-group">
                                 <label>Role*</label>
                                 <select class="form-input" id="role" name="role" required>
                                     <option value="">Select Role</option>

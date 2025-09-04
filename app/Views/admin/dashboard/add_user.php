@@ -19,6 +19,14 @@
                 <input type="text" id="phone" name="phone" style="width:100%;">
             </div>
             <div style="margin-bottom:1rem;">
+                <label for="password">Password*</label>
+                <input type="password" id="password" name="password" required placeholder="Enter password (min 6 characters)" style="width:100%;">
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label for="confirm_password">Confirm Password*</label>
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Re-enter password" style="width:100%;">
+            </div>
+            <div style="margin-bottom:1rem;">
                 <label for="role">Role*</label>
                 <select id="role" name="role" required style="width:100%;">
                     <option value="">Select Role</option>

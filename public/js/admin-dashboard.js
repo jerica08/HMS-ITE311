@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 last_name: formData.get('last_name') || document.getElementById('last_name').value,
                 email: formData.get('email') || document.getElementById('email').value,
                 phone: formData.get('phone') || document.getElementById('phone').value,
+                password: formData.get('password') || document.getElementById('password').value,
                 role: formData.get('role') || document.getElementById('role').value,
                 department: formData.get('department') || document.getElementById('department').value
             };
@@ -35,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Form data being sent:', userData);
 
             // Validate Required Fields
-            if (!userData.first_name || !userData.last_name || !userData.email || !userData.role) {
+            if (!userData.first_name || !userData.last_name || !userData.email || !userData.role || !userData.password) {
                 console.error('Validation failed: Missing required fields');
-                showNotification('Please fill in all required fields', 'error');
+                showNotification('Please fill in all required fields including password', 'error');
                 return;
             }
 
@@ -46,6 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!emailRegex.test(userData.email)) {
                 console.error('Validation failed: Invalid email format');
                 showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Validate password length
+            if (userData.password && userData.password.length < 6) {
+                console.error('Validation failed: Password too short');
+                showNotification('Password must be at least 6 characters long', 'error');
                 return;
             }
 
@@ -70,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Server response:', result);
 
                 if (response.ok && result.status === 'success') {
-                    showNotification('User created successfully! Temporary password: ' + result.temp_password, 'success');
+                    showNotification('User created successfully!', 'success');
                     closeUserModal();
                     // Redirect to user management page to see the new user
                     setTimeout(() => {
