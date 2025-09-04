@@ -45,6 +45,34 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-user-tie nav-icon"></i>
+                            Staff Management
+                        </a>
+                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-hospital nav-icon"></i>
+                             Resource Management
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-dollar-sign nav-icon"></i>
+                            Financial Management
+                        </a>
+                        <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patient Management
+                        </a>
+                        
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-comments nav-icon"></i>
+                             Communication
+                        </a>
+                    <li class="nav-item">
                         <a href="<?= base_url('admin/analytics') ?>" class="nav-link">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             Analytics & Reports
@@ -68,6 +96,8 @@
                             Audit Logs
                         </a>
                     </li>
+                   
+
                 </ul>
             
             </nav>

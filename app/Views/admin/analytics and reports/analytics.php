@@ -49,29 +49,59 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-user-tie nav-icon"></i>
+                            Staff Management
+                        </a>
+                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-hospital nav-icon"></i>
+                             Resource Management
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-dollar-sign nav-icon"></i>
+                            Financial Management
+                        </a>
+                        <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patient Management
+                        </a>
+                        
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-comments nav-icon"></i>
+                             Communication
+                        </a>
+                    <li class="nav-item">
                         <a href="<?= base_url('admin/analytics') ?>" class="nav-link active">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             Analytics & Reports
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="<?= base_url('admin/system-settings') ?>" class="nav-link">
                             <i class="fas fa-cogs nav-icon"></i>
                             System Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="<?= base_url('admin/security') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Security & Access
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="<?= base_url('admin/audit-logs') ?>" class="nav-link">
                             <i class="fas fa-clipboard-list nav-icon"></i>
                             Audit Logs
                         </a>
                     </li>
+                   
+
                 </ul>
             
             </nav>
