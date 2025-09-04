@@ -13,7 +13,8 @@ function openAddUserModal() {
 
 // Enhanced editUser function with full functionality
 async function editUser(userId) {
-    console.log('Editing user with ID:', userId);
+    console.log('=== EDIT USER DEBUG ===');
+    console.log('editUser called with userId:', userId, 'Type:', typeof userId);
     
     try {
         showLoading(true);
@@ -28,7 +29,10 @@ async function editUser(userId) {
             
             // Set modal title and form data attribute for edit mode
             document.getElementById('modalTitle').textContent = 'Edit User';
-            document.getElementById('userForm').setAttribute('data-user-id', userId);
+            const form = document.getElementById('userForm');
+            form.setAttribute('data-user-id', userId);
+            console.log('Set data-user-id attribute to:', userId);
+            console.log('Form data-user-id after setting:', form.getAttribute('data-user-id'));
             
             // Populate form fields
             document.getElementById('first_name').value = user.first_name || '';
@@ -38,6 +42,8 @@ async function editUser(userId) {
             document.getElementById('role').value = user.role || '';
             document.getElementById('department').value = user.department || '';
             
+            console.log('Form fields populated');
+            
             // Show modal
             document.getElementById('userModal').style.display = 'block';
         } else {
@@ -46,69 +52,6 @@ async function editUser(userId) {
         }
     } catch (error) {
         console.error('Error loading user data:', error);
-        showNotification('Network error. Please try again.', 'error');
-    } finally {
-        showLoading(false);
-    }
-}
-
-// Enhanced delete function with API integration
-async function deleteUser(userId) {
-    if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-        return;
-    }
-
-    try {
-        showLoading(true);
-        
-        const response = await fetch(`/admin/users/${userId}`, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.status === 'success') {
-            showNotification('User deleted successfully', 'success');
-            loadUsers();
-            updateUserStats();
-        } else {
-            showNotification(result.message || 'Failed to delete user', 'error');
-        }
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        showNotification('Network error. Please try again.', 'error');
-    } finally {
-        showLoading(false);
-    }
-}
-
-// Enhanced reset password function
-async function resetPassword(userId) {
-    if (!confirm('Are you sure you want to reset this user\'s password?')) {
-        return;
-    }
-
-    try {
-        showLoading(true);
-        const response = await fetch(`/admin/users/${userId}/reset-password`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.status === 'success') {
-            showNotification(`Password reset successfully! New password: ${result.temp_password}`, 'success');
-        } else {
-            showNotification(result.message || 'Failed to reset password', 'error');
-        }
-    } catch (error) {
-        console.error('Error resetting password:', error);
         showNotification('Network error. Please try again.', 'error');
     } finally {
         showLoading(false);
@@ -229,16 +172,6 @@ function formatLastLogin(lastLogin) {
 function filterUsers() {
     console.log('Filtering users...');
     // Implement filtering logic here
-}
-
-// Bulk actions functionality
-function bulkActions() {
-    const selected = document.querySelectorAll('.user-checkbox:checked');
-    if (selected.length === 0) {
-        alert('Please select users first');
-        return;
-    }
-    alert(`Bulk actions for ${selected.length} selected users`);
 }
 
 // Export users functionality
