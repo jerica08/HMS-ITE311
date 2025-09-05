@@ -128,7 +128,7 @@
                             <div class="metric-label">Active Roles</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value blue">12</div>
+                            <div class="metric-value blue">0</div>
 
                             <div class="metric-label">Pending</div>
                         </div>
@@ -160,7 +160,7 @@
                             <div class="metric-label">Today's Visits</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value purple">₱47K</div>
+                            <div class="metric-value purple">₱0</div>
 
                             <div class="metric-label">Revenue</div>
                         </div>
@@ -411,13 +411,13 @@
                     </div>
                     <div class="card-content">
                         <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                            <strong>High Priority:</strong> Branch 3 connection unstable
+                            <strong>High Priority:</strong> Example notification
                         </div>
                         <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                            <strong>Medium:</strong> Backup scheduled for tonight
+                            <strong>Medium:</strong> Example notification
                         </div>
                         <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <strong>Info:</strong> System update available
+                            <strong>Info:</strong> Example notification
                         </div>
                     </div>
                 </div>

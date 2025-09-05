@@ -308,7 +308,7 @@
           </nav>
             
             <main class="content">
-                <h1 class="page-title"> Hospital Resource Management</h1>
+                <h1 class="page-title">Resource Management</h1>
                 
               <!--Dashboard overview cards-->
             <div class="dashboard-overview">

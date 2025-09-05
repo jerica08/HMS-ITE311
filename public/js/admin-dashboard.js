@@ -1,7 +1,6 @@
 // Admin Dashboard JavaScript Functions
 console.log('Admin dashboard JS loaded');
 
-<<<<<<< HEAD
 // Function to fetch and update dashboard metrics
 async function updateDashboardMetrics() {
     try {
@@ -47,9 +46,6 @@ async function updateDashboardMetrics() {
         console.error('Error updating dashboard metrics:', error);
     }
 }
-
-=======
->>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
 // Modal Functions
 function openAddUserModal() {
     console.log('Opening add user modal');
@@ -64,7 +60,6 @@ function closeUserModal() {
     document.getElementById('userModal').style.display = 'none';
 }
 
-<<<<<<< HEAD
 // Initialize dashboard on page load
 document.addEventListener('DOMContentLoaded', function() {
     // Update dashboard metrics on page load
@@ -72,11 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set up real-time updates every 30 seconds
     setInterval(updateDashboardMetrics, 30000);
-
-=======
-// Form Submission for dashboard modal
-document.addEventListener('DOMContentLoaded', function() {
->>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
     const userForm = document.getElementById('userForm');
     if (userForm) {
         userForm.addEventListener('submit', async function(e) {
