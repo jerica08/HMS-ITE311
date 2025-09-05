@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/assets/css/dashboard-common.css">
     <link rel="stylesheet" href="/assets/css/users.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+     <style>
         .patient-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -20,7 +20,7 @@
             padding: 1.5rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-         .section-header {
+        .section-header {
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -38,6 +38,46 @@
             justify-content: center;
             color: white;
             font-size: 1.2rem;
+        }
+        .patient-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .patient-item:last-child {
+            border-bottom: none;
+        }
+        .patient-info {
+            flex: 1;
+        }
+        .patient-name {
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        .patient-details {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        .patient-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .status-admitted { background: #fef3c7; color: #92400e; }
+        .status-discharged { background: #dcfce7; color: #166534; }
+        .status-critical { background: #fecaca; color: #991b1b; }
+        .status-stable { background: #dbeafe; color: #1e40af; }
+        .status-emergency { background: #fed7cc; color: #c2410c; }
+        .search-filters {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
         }
         .filter-row {
             display: flex;
@@ -57,6 +97,62 @@
             border-radius: 5px;
             font-size: 0.9rem;
         }
+        .patient-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table-header {
+            background: #f8fafc;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .patient-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4299e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+        .critical-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #ef4444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+        .alert-content {
+            color: #7f1d1d;
+            font-size: 0.9rem;
+        }
         .quick-actions {
             background: white;
             border-radius: 8px;
@@ -69,6 +165,20 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
+        }
+        .patient-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .flow-number {
+            font-weight: bold;
+            color: #3b82f6;
         }
     </style>
 </head>
@@ -174,7 +284,7 @@
 
             <!--Dashboard overview cards-->
             <div class="dashboard-overview">
-                <!-- Total User Cards -->
+                <!-- Total Patient Cards -->
                 <div class="overview-card">
                     <div class="card-header-modern">
                         <div class="card-icon-modern blue">
@@ -187,7 +297,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue">10,986</div>
+                            <div class="metric-value blue">0</div>
                         </div>
                     </div>
                 </div>
@@ -205,7 +315,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">634</div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>   
                 </div>
@@ -223,7 +333,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">531</div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>
                 </div>
@@ -240,7 +350,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">562</div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>
                 </div>
@@ -346,19 +456,19 @@
 
                     <div class="patient-flow">
                         <span>Emergency Admissions</span>
-                        <span class="flow-number">8</span>
+                        <span class="flow-number">0</span>
                     </div>
                     <div class="patient-flow">
                         <span>Scheduled Admissions</span>
-                        <span class="flow-number">15</span>
+                        <span class="flow-number">0</span>
                     </div>
                     <div class="patient-flow">
                         <span>Transfers In</span>
-                        <span class="flow-number">3</span>
+                        <span class="flow-number">0</span>
                     </div>
                     <div class="patient-flow">
                         <span>Discharges Today</span>
-                        <span class="flow-number">18</span>
+                        <span class="flow-number">0</span>
                     </div>
                     <div class="patient-flow">
                         <span>Transfers Out</span>
@@ -388,7 +498,7 @@
 
                     <div class="patient-item">
                         <div class="patient-info">
-                            <div class="patient-name">Maria Santos</div>
+                            <div class="patient-name">Example1</div>
                             <div class="patient-details">ICU - Room 301 | Cardiac Arrest</div>
                         </div>
                         <div class="patient-status status-critical">Critical</div>
@@ -396,7 +506,7 @@
 
                     <div class="patient-item">
                         <div class="patient-info">
-                            <div class="patient-name">John Rodriguez</div>
+                            <div class="patient-name">Example2</div>
                             <div class="patient-details">ICU - Room 305 | Respiratory Failure</div>
                         </div>
                         <div class="patient-status status-critical">Critical</div>
@@ -404,7 +514,7 @@
 
                     <div class="patient-item">
                         <div class="patient-info">
-                            <div class="patient-name">Sarah Johnson</div>
+                            <div class="patient-name">Example3</div>
                             <div class="patient-details">ICU - Room 308 | Stroke</div>
                         </div>
                         <div class="patient-status status-critical">Critical</div>
@@ -433,7 +543,7 @@
 
                     <div class="patient-item">
                         <div class="patient-info">
-                            <div class="patient-name">Michael Brown</div>
+                            <div class="patient-name">Example1</div>
                             <div class="patient-details">General Ward - Room 205 | Surgery</div>
                         </div>
                         <div class="patient-status status-admitted">Admitted</div>
@@ -441,7 +551,7 @@
 
                     <div class="patient-item">
                         <div class="patient-info">
-                            <div class="patient-name">Emma Wilson</div>
+                            <div class="patient-name">Example2</div>
                             <div class="patient-details">Cardiology - Room 412 | Chest Pain</div>
                         </div>
                         <div class="patient-status status-stable">Stable</div>
@@ -449,7 +559,7 @@
 
                     <div class="patient-item">
                         <div class="patient-info">
-                            <div class="patient-name">Robert Davis</div>
+                            <div class="patient-name">Example3</div>
                             <div class="patient-details">Emergency - Bay 3 | Accident</div>
                         </div>
                         <div class="patient-status status-emergency">Emergency</div>
@@ -481,7 +591,7 @@
                             <div class="patient-name">Total Records</div>
                             <div class="patient-details">Digital medical records</div>
                         </div>
-                        <div class="patient-status status-stable">45,678</div>
+                        <div class="patient-status status-stable">0</div>
                     </div>
 
                     <div class="patient-item">
@@ -489,7 +599,7 @@
                             <div class="patient-name">Updated Today</div>
                             <div class="patient-details">Records modified</div>
                         </div>
-                        <div class="patient-status status-admitted">127</div>
+                        <div class="patient-status status-admitted">0</div>
                     </div>
 
                     <div class="patient-item">
@@ -497,7 +607,7 @@
                             <div class="patient-name">Pending Review</div>
                             <div class="patient-details">Awaiting approval</div>
                         </div>
-                        <div class="patient-status status-emergency">23</div>
+                        <div class="patient-status status-emergency">0</div>
                     </div>
 
                     <div class="action-buttons">
@@ -510,6 +620,8 @@
                     </div>
                 </div>
             </div>
+
+            <!--Patient List Table-->
             
 
         </main>
