@@ -621,9 +621,54 @@
                 </div>
             </div>
 
-            <!--Patient List Table-->
-            
-
+           <!-- Patient List Table -->
+            <div class="patient-table">
+                <div class="table-header">
+                    <h3>Patient Directory</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary btn-small" onclick="refreshPatients()">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
+                        <button class="btn btn-primary btn-small" onclick="addPatient()">
+                            <i class="fas fa-plus"></i> Add Patient
+                        </button>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>ID</th>
+                            <th>Age</th>
+                            <th>Department</th>
+                            <th>Room</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <div class="patient-avatar">MS</div>
+                                    <div>
+                                        <div style="font-weight: 500;">Example1</div>
+                                        <div style="font-size: 0.8rem; color: #6b7280;">example@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>P-2024-0156</td>
+                            <td>45</td>
+                            <td>ICU</td>
+                            <td>301</td>
+                            <td><span class="patient-status status-critical">Critical</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-small">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
         </div>
 </body>
