@@ -150,7 +150,21 @@ class Admin extends BaseController
             'title' => 'System Settings'
         ];
 
-        return view('admin/system-setting/system_settings', $data);
+        return view('admin/system-setting/system_setting', $data);
+    }
+
+    // Audit Logs method
+    public function auditLogs()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch audit logs from database
+        $data = [
+            'title' => 'Audit Logs'
+        ];
+
+        return view('admin/audit/audit_logs', $data);
     }
 
     // Placeholder methods for reports

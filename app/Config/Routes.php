@@ -44,9 +44,13 @@ $routes->group('admin', function($routes) {
     $routes->get('reports/generate', 'Admin::generateReport');        // Generate custom report
     $routes->post('reports/export', 'Admin::exportReport');           // Export report (PDF/Excel)
     $routes->get('reports/schedule', 'Admin::scheduleReport');        // Schedule automated reports
-    $routes->post('reports/schedule', 'Admin::storeScheduledReport');
+    $routes->post('reports/schedule', 'Admin::storeScheduledReport'); // Store scheduled report
+    
     // System Settings Routes
-    $routes->get('system-settings', 'Admin::systemSettings');         // System settings page // Store scheduled report
+    $routes->get('system-settings', 'Admin::systemSettings');         // System settings page
+    
+    // Audit Logs Routes
+    $routes->get('audit-logs', 'Admin::auditLogs');                   // Audit logs page
 });
 
 
