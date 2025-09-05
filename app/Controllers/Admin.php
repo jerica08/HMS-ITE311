@@ -167,6 +167,20 @@ class Admin extends BaseController
         return view('admin/audit/audit_logs', $data);
     }
 
+    // Financial Management method
+    public function financial()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch financial data from database
+        $data = [
+            'title' => 'Financial Management'
+        ];
+
+        return view('admin/financial/financial_management', $data);
+    }
+
     // Placeholder methods for reports
     public function reports()
     {

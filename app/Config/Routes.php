@@ -51,6 +51,9 @@ $routes->group('admin', function($routes) {
     
     // Audit Logs Routes
     $routes->get('audit-logs', 'Admin::auditLogs');                   // Audit logs page
+    
+    // Financial Management Routes
+    $routes->get('financial', 'Admin::financial');                    // Financial management page
 });
 
 

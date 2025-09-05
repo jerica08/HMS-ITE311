@@ -56,7 +56,7 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/financial') ?>" class="nav-link">
                             <i class="fas fa-dollar-sign nav-icon"></i>
                             Financial Management
                         </a>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            
+
 <div class="metric-value purple" id="totalPatients">0</div>
                             <div class="metric-label">Patients</div>
                         </div>
