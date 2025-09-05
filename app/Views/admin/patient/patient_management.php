@@ -8,6 +8,37 @@
     <link rel="stylesheet" href="/assets/css/users.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        .patient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .patient-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+         .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
         .filter-row {
             display: flex;
             gap: 1rem;
@@ -300,6 +331,186 @@
                 </div>          
             </div>
 
+            <!--Patient Management Grid-->
+             <div class="patient-grid">
+                <!-- Patient Flow Management -->
+                <div class="patient-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #d5df10ff;">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Patient Flow</div>
+                        </div>
+                    </div>
+
+                    <div class="patient-flow">
+                        <span>Emergency Admissions</span>
+                        <span class="flow-number">8</span>
+                    </div>
+                    <div class="patient-flow">
+                        <span>Scheduled Admissions</span>
+                        <span class="flow-number">15</span>
+                    </div>
+                    <div class="patient-flow">
+                        <span>Transfers In</span>
+                        <span class="flow-number">3</span>
+                    </div>
+                    <div class="patient-flow">
+                        <span>Discharges Today</span>
+                        <span class="flow-number">18</span>
+                    </div>
+                    <div class="patient-flow">
+                        <span>Transfers Out</span>
+                        <span class="flow-number">2</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="manageFlow()">
+                            <i class="fas fa-cog"></i> Manage Flow
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="flowReports()">
+                            <i class="fas fa-chart-line"></i> Flow Reports
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Critical Patients -->
+                <div class="patient-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #ef4444;">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Critical Patients</div>
+                        </div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Maria Santos</div>
+                            <div class="patient-details">ICU - Room 301 | Cardiac Arrest</div>
+                        </div>
+                        <div class="patient-status status-critical">Critical</div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">John Rodriguez</div>
+                            <div class="patient-details">ICU - Room 305 | Respiratory Failure</div>
+                        </div>
+                        <div class="patient-status status-critical">Critical</div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Sarah Johnson</div>
+                            <div class="patient-details">ICU - Room 308 | Stroke</div>
+                        </div>
+                        <div class="patient-status status-critical">Critical</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-danger btn-small" onclick="criticalAlert()">
+                            <i class="fas fa-exclamation-triangle"></i> Alert Team
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="criticalReports()">
+                            <i class="fas fa-file-medical"></i> Reports
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Admissions -->
+                <div class="patient-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #22c55e;">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Recent Admissions</div>
+                        </div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Michael Brown</div>
+                            <div class="patient-details">General Ward - Room 205 | Surgery</div>
+                        </div>
+                        <div class="patient-status status-admitted">Admitted</div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Emma Wilson</div>
+                            <div class="patient-details">Cardiology - Room 412 | Chest Pain</div>
+                        </div>
+                        <div class="patient-status status-stable">Stable</div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Robert Davis</div>
+                            <div class="patient-details">Emergency - Bay 3 | Accident</div>
+                        </div>
+                        <div class="patient-status status-emergency">Emergency</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="viewAdmissions()">
+                            <i class="fas fa-list"></i> View All
+                        </button>
+                        <button class="btn btn-success btn-small" onclick="admitNew()">
+                            <i class="fas fa-plus"></i> New Admission
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Medical Records Archive -->
+                <div class="patient-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #8b5cf6;">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Medical Records</div>
+                        </div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Total Records</div>
+                            <div class="patient-details">Digital medical records</div>
+                        </div>
+                        <div class="patient-status status-stable">45,678</div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Updated Today</div>
+                            <div class="patient-details">Records modified</div>
+                        </div>
+                        <div class="patient-status status-admitted">127</div>
+                    </div>
+
+                    <div class="patient-item">
+                        <div class="patient-info">
+                            <div class="patient-name">Pending Review</div>
+                            <div class="patient-details">Awaiting approval</div>
+                        </div>
+                        <div class="patient-status status-emergency">23</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="manageRecords()">
+                            <i class="fas fa-folder-open"></i> Manage Records
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="archiveReports()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
 
         </main>
         </div>
