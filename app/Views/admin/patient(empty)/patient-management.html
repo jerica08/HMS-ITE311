@@ -7,7 +7,39 @@
     <link rel="stylesheet" href="/assets/css/dashboard-common.css">
     <link rel="stylesheet" href="/assets/css/users.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <style>
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 150px;
+        }
+        .filter-input {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .quick-actions {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body class="admin">
 
@@ -206,246 +238,68 @@
                             <i class="fas fa-plus"></i> Manage Departments  
                         </button>
                     </div>
-                </div>
-
-                
+                </div>          
             <!--Filter and Actions-->    
-            <div class="user-filter">
-                <div class="filter-group">
-                    <label> Search Patient</label>
-                    <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
-                           id="searchInput" value="">
-                </div>
-                 <div class="filter-group">
-                    <label>Status Filter</label>
-                    <select class="filter-input" id="statusFilter">
-                        <option value="">All Status</option>
-                        <option value="admitted" <?= ($statusFilter ?? '') === 'admitted' ? 'selected' : '' ?>Admitted</option>
-                        <option value="discharged" <?= ($statusFilter ?? '') === 'discharged' ? 'selected' : '' ?>Dishcarge</option>
-                        <option value="critical" <?= ($statusFilter ?? '') === 'critical' ? 'selected' : '' ?>Critical</option>
-                        <option value="emergency" <?= ($statusFilter ?? '') === 'emergency' ? 'selected' : '' ?>Emergency</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                     <label> Role Filter</label>
-                     <select class="filter-input" id="roleFilter">
-                        <option value="">All Roles</option>
-                        <option value="admin" <?= ($roleFilter ?? '') === 'admin' ? 'selected' : '' ?>>Administrator</option>
-                        <option value="doctor" <?= ($roleFilter ?? '') === 'doctor' ? 'selected' : '' ?>>Doctor</option>
-                        <option value="nurse" <?= ($roleFilter ?? '') === 'nurse' ? 'selected' : '' ?>>Nurse</option>
-                        <option value="receptionist" <?= ($roleFilter ?? '') === 'receptionist' ? 'selected' : '' ?>>Receptionist</option>
-                        <option value="laboratorist" <?= ($roleFilter ?? '') === 'laboratorist' ? 'selected' : '' ?>>Laboratory Staff</option>
-                        <option value="pharmacist" <?= ($roleFilter ?? '') === 'pharmacist' ? 'selected' : '' ?>>Pharmacist</option>
-                        <option value="accountant" <?= ($roleFilter ?? '') === 'accountant' ? 'selected' : '' ?>>Accountant</option>
-                        <option value="it_staff" <?= ($roleFilter ?? '') === 'it_staff' ? 'selected' : '' ?>>IT Staff</option>
-                     </select>
-                </div>
-               
-                <div class="filter-group">
-                    <label>&nbsp;</label>
-                    <button type="button" class="filter-input btn btn-primary" onclick="applyFilters()" style="background: #007bff; color: white; border: none;">
-                        <i class="fas fa-search"></i> Apply Filters
-                    </button>
-                </div>
-            </div>
-
-
-            <!-- Action Buttons -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
-                <div>
-                    <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
-                        <i class="fas fa-plus"></i> Add New User
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="bulkActions()">
-                        <i class="fas fa-cogs"></i> Bulk Actions
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="exportUsers()">
-                        <i class="fas fa-download"></i> Export Users
-                    </button>
-                </div>
-            </div>
-
-            <!--users Table-->
-            <div class="table-container">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="selectAll"></th>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                            <th>Last Login</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-                        <?php if (!empty($users)): ?>
-                            <?php foreach ($users as $user): ?>
-                                <tr class="user-row">
-                                    <td><input type="checkbox" class="user-checkbox" data-user-id="<?= $user['id'] ?>"></td>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 1rem;">
-                                            <div class="user-avatar">
-                                                <?= strtoupper(substr($user['first_name'] ?? 'U', 0, 1) . substr($user['last_name'] ?? 'U', 0, 1)) ?>
-                                            </div>
-                                            <div>
-                                                <div style="font-weight: 600;">
-                                                    <?= esc(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?>
-                                                </div>
-                                                <div style="font-size: 0.8rem; color: #6b7280;">
-                                                    <?= esc($user['email'] ?? '') ?>
-                                                </div>
-                                                <div style="font-size: 0.8rem; color: #6b7280;">
-                                                    ID: <?= esc($user['employee_id'] ?? $user['username'] ?? 'N/A') ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="role-badge role-<?= str_replace('_', '-', $user['role'] ?? 'user') ?>">
-                                            <?= ucfirst(str_replace('_', ' ', esc($user['role'] ?? 'User'))) ?>
-                                        </span>
-                                    </td>
-                                    <td><?= esc($user['department'] ?? 'N/A') ?></td>
-                                    <td>
-                                        <i class="fas fa-circle status-<?= $user['status'] ?? 'inactive' ?>"></i> 
-                                        <?= ucfirst(esc($user['status'] ?? 'Inactive')) ?>
-                                    </td>
-                                    <td>
-                                        <?php 
-                                        $lastLogin = $user['updated_at'] ?? $user['created_at'] ?? null;
-                                        if ($lastLogin): 
-                                            $diff = time() - strtotime($lastLogin);
-                                            if ($diff < 3600): echo 'Less than 1 hour ago';
-                                            elseif ($diff < 86400): echo floor($diff/3600) . ' hours ago';
-                                            else: echo date('M j, Y', strtotime($lastLogin));
-                                            endif;
-                                        else: echo 'Never';
-                                        endif;
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="action-btn btn-edit" onclick="editUser(<?= $user['id'] ?>)">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                            <button class="action-btn btn-reset" onclick="resetPassword(<?= $user['id'] ?>)">
-                                                <i class="fas fa-key"></i> Reset
-                                            </button>
-                                            <button class="action-btn btn-delete" onclick="deleteUser(<?= $user['id'] ?>)">
-                                                <i class="fas fa-trash"></i> Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="7" style="text-align: center; padding: 2rem;">
-                                    <i class="fas fa-users" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
-                                    <p>No users found.</p>
-                                    <?php if (!empty($search) || !empty($roleFilter) || !empty($statusFilter)): ?>
-                                        <button onclick="clearFilters()" class="btn btn-secondary">
-                                            <i class="fas fa-times"></i> Clear Filters
-                                        </button>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <!--Add/Edit User Modal-->
-            <div id="userModal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 id="modalTitle">Add New User</h2>
-                        <button class="close-btn" onclick="closeUserModal()">&times;</button>
+            <div class="search-filter">
+                <h3 style="margin-bottom: 1rem;">Patient Search & Filters</h3>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label> Search Patient</label>
+                        <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
+                            id="searchInput" value="">
                     </div>
-                    <form id="userForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label> First Name*</label>
-                                <input type="text" class="form-input" id="first_name" name="first_name" required>
-                            </div>  
-                            <div class="form-group">
-                                <label> Last Name*</label>
-                                <input type="text" class="form-input" id="last_name" name="last_name" required>
-                            </div> 
-                            <div class="form-group">
-                                <label> Email*</label>
-                                <input type="text" class="form-input" id="email" name="email" required>
-                            </div> 
-                            <div class="form-group">
-                                <label>Phone*</label>
-                                <input type="text" class="form-input" id="phone" name="phone" required>
-                            </div> 
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-input" id="password" name="password" placeholder="Leave blank to keep current password">
-                            </div>
-                            <div class="form-group">
-                                <label>Role *</label>
-                                <select class="form-input" id="role" name="role" required>
-                                    <option value="">Select Role</option>
-                                    <option value="admin">admin</option>
-                                    <option value="doctor">doctor</option>
-                                    <option value="nurse">nurse</option>
-                                    <option value="receptionist">receptionist</option>
-                                    <option value="laboratorist">laboratorist</option>
-                                    <option value="pharmacist">pharmacist</option>
-                                    <option value="accountant">accountant</option>
-                                    <option value="it_staff">it_staff</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Department</label>
-                                <select class="form-input" id="department" name="department" required>
-                                    <option value="">Select Department</option>
-                                    <option value="Cardiology">Cardiology</option>
-                                    <option value="Emergency">Emergency</option>
-                                    <option value="Laboratory">Laboratory</option>
-                                    <option value="Pharmacy">Pharmacy</option>
-                                    <option value="Administration">Administration</option>
-                                    <option value="IT Department">IT Department</option>
-                                    <option value="Accounting">Accounting</option>
-                                </select>
-                            </div>
-                          <div class="form-group full-width">
-                            <label>Permission</label>
-                                <div class="checkbox-group">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox">
-                                        <label for="perm-read">Read Access</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="perm-write" value="write">
-                                        <label for="perm-write">Write Access</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="perm-delete" value="delete">
-                                        <label for="perm-delete">Delete Access</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="perm-admin" value="admin">
-                                        <label for="perm-admin">Admin Access</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:2rem;">
-                            <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save User</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="filter-group">
+                        <label>Status Filter</label>
+                        <select class="filter-input" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="admitted">Admitted</option>
+                            <option value="discharged">Dishcarge</option>
+                            <option value="critical">Critical</option>
+                            <option value="emergency">Emergency</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label> Role Filter</label>
+                        <select class="filter-input" id="roleFilter">
+                            <option value="">All Roles</option>
+                            <option value="admin">Administrator</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="nurse">Nurse</option>
+                            <option value="receptionist">Receptionist</option>
+                            <option value="laboratorist">Laboratory Staff</option>
+                            <option value="pharmacist">Pharmacist</option>
+                            <option value="accountant">Accountant</option>
+                            <option value="it_staff">IT Staff</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Department</label>
+                        <select class="filter-input" id="departmentFilter">
+                            <option value="">All Departments</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="icu">ICU</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="general">General Ward</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <select class="filter-input" id="dateFilter">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-primary" onclick="applyFilters()">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>     
+                </div>          
             </div>
-            <script src="<?= base_url('js/utils.js') ?>"></script>
-            <script src="<?= base_url('js/edit-user.js') ?>"></script>
-            <script src="<?= base_url('js/delete-user.js') ?>"></script>
-            <script src="<?= base_url('js/logout.js') ?>"></script>
+
 
         </main>
         </div>
