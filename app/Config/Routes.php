@@ -59,11 +59,17 @@ $routes->group('admin', function($routes) {
     $routes->get('patient', 'Admin::patient'); 
     $routes->get('patients', 'Admin::patient');
 
+    // Staff Management Routes
+    $routes->get('staff', 'Admin::staff');
+
     // Resource Management Routes
     $routes->get('resource', 'Admin::resource'); 
 
     //Security Access Routes
-    $routes->get('security', 'Admin::securityAccess'); 
+    $routes->get('security', 'Admin::securityAccess');
+
+    //Communication Routes
+    $routes->get('communication', 'Admin::communication'); 
 });
 
 
