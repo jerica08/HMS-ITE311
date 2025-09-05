@@ -139,6 +139,20 @@ class Admin extends BaseController
         return view('admin/analytics and reports/analytics');
     }
 
+    // System Settings method
+    public function systemSettings()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch current system settings from database
+        $data = [
+            'title' => 'System Settings'
+        ];
+
+        return view('admin/system-setting/system_settings', $data);
+    }
+
     // Placeholder methods for reports
     public function reports()
     {
