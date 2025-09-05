@@ -242,8 +242,8 @@
         <!--Main Content-->
         <main class="content">
             <h1 class="page-title"> Analytics & Reports</h1>
-
-            <!--Total Patients cards-->
+        
+            <!--Overview Cards-->
             <div class="dashboard-overview">
                 <!-- Total User Cards -->
                 <div class="overview-card">
@@ -254,7 +254,7 @@
                         <div class="card-info">
                             <h3 class="card-title-modern">Total Patients</h3>                         
                         </div>
-                    </div>
+                    </div>  
                     <div class="card-metrics">
                         <div class="metric">
                             <div class="metric-value blue">1452</div>
