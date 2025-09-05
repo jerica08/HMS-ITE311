@@ -150,7 +150,7 @@ class Admin extends BaseController
             'title' => 'System Settings'
         ];
 
-        return view('admin/system-setting/system_setting', $data);
+        return view('admin/system-setting/system_settings', $data);
     }
 
     // Audit Logs method
@@ -165,6 +165,44 @@ class Admin extends BaseController
         ];
 
         return view('admin/audit/audit_logs', $data);
+    }
+
+    // Financial Management method
+    public function financial()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch financial data from database
+        $data = [
+            'title' => 'Financial Management'
+        ];
+
+        return view('admin/financial/financial_management', $data);
+    }
+
+    public function resource(){
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch resource data from database
+        $data = [
+            'title' => 'Resource Management'
+        ];
+
+        return view('admin/resource/resource_management', $data);
+    }
+
+    public function patient(){
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch patient data from database
+        $data = [
+            'title' => 'Patient Management'
+        ];
+
+        return view('admin/patient/patient_management', $data);
     }
 
     // Placeholder methods for reports
