@@ -187,25 +187,25 @@
                             Staff Management
                         </a>
                      <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/resource_management') ?>" class="nav-link">
                             <i class="fas fa-hospital nav-icon"></i>
                              Resource Management
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/financial_management') ?>" class="nav-link">
                             <i class="fas fa-dollar-sign nav-icon"></i>
                             Financial Management
                         </a>
                         <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/patient_management') ?>" class="nav-link">
                             <i class="fas fa-user-injured nav-icon"></i>
                             Patient Management
                         </a>
                         
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/communication') ?>" class="nav-link">
                             <i class="fas fa-comments nav-icon"></i>
                              Communication
                         </a>
@@ -222,13 +222,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/security') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/security_access') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Security & Access
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/audit-logs') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/audit_logs') ?>" class="nav-link">
                             <i class="fas fa-clipboard-list nav-icon"></i>
                             Audit Logs
                         </a>
