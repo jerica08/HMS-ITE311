@@ -48,9 +48,11 @@ $routes->group('admin', function($routes) {
     
     // System Settings Routes
     $routes->get('system-settings', 'Admin::systemSettings');         // System settings page
+    $routes->get('systemSettings', 'Admin::systemSettings');          // Alternative route for camelCase URL
     
     // Audit Logs Routes
     $routes->get('audit-logs', 'Admin::auditLogs');                   // Audit logs page
+    $routes->get('auditLogs', 'Admin::auditLogs');                    // Alternative route for camelCase URL
     
     // Financial Management Routes
     $routes->get('financial', 'Admin::financial'); 
@@ -67,6 +69,7 @@ $routes->group('admin', function($routes) {
 
     //Security Access Routes
     $routes->get('security', 'Admin::securityAccess');
+    $routes->get('securityAccess', 'Admin::securityAccess');
 
     //Communication Routes
     $routes->get('communication', 'Admin::communication'); 

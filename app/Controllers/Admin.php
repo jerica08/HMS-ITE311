@@ -226,7 +226,7 @@ class Admin extends BaseController
             'title' => 'Communication & Notifications'
         ];
 
-        return view('admin/communication(empty)/communication', $data);
+        return view('admin/communication/communication', $data);
     }
 
     public function staff(){
