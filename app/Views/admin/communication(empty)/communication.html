@@ -170,7 +170,205 @@
                 </div>
             </div>
 
-            
+            <div class="comm-grid">
+
+                <!-- Recent Messages -->
+                <div class="comm-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-inbox"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Recent Messages</div>
+                        </div>
+                    </div>
+
+                    <div class="message-item">
+                        <div class="message-avatar">DS</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <div class="message-sender">Dr. Example1</div>
+                                <div class="message-time">2 min ago</div>
+                            </div>
+                            <div class="message-text">Emergency department needs additional staff for night shift.</div>
+                        </div>
+                    </div>
+
+                    <div class="message-item">
+                        <div class="message-avatar">E</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <div class="message-sender">Example2</div>
+                                <div class="message-time">15 min ago</div>
+                            </div>
+                            <div class="message-text">ICU equipment maintenance scheduled for tomorrow morning.</div>
+                        </div>
+                    </div>
+
+                    <div class="message-item">
+                        <div class="message-avatar">E</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <div class="message-sender">Example3</div>
+                                <div class="message-time">1 hour ago</div>
+                            </div>
+                            <div class="message-text">Cardiology department budget review meeting rescheduled.</div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- System Notifications -->
+                <div class="comm-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #ef4444;">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">System Notifications</div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item notif-urgent">
+                        <div class="notif-header">
+                            <div class="notif-title">Notification1</div>
+                            <div class="notif-time">5 min ago</div>
+                        </div>
+                        <div class="notif-content">
+                           This is just an example notification.
+                        </div>
+                    </div>
+
+                    <div class="notification-item notif-warning">
+                        <div class="notif-header">
+                            <div class="notif-title">Notification2</div>
+                            <div class="notif-time">30 min ago</div>
+                        </div>
+                        <div class="notif-content">
+                             This is just an example notification.
+                        </div>
+                    </div>
+
+                    <div class="notification-item notif-info">
+                        <div class="notif-header">
+                            <div class="notif-title">Notification3</div>
+                            <div class="notif-time">2 hours ago</div>
+                        </div>
+                        <div class="notif-content">
+                           This is just an example notification.
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="manageNotifications()">
+                            <i class="fas fa-cog"></i> Manage Notifications
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="notificationHistory()">
+                            <i class="fas fa-history"></i> Notification History
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Broadcast Center -->
+                <div class="comm-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #22c55e;">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Broadcast Center</div>
+                        </div>
+                    </div>
+
+                    <div class="broadcast-form">
+                        <div class="form-group">
+                            <label class="form-label">Recipient Group</label>
+                            <select class="form-select">
+                                <option>All Staff</option>
+                                <option>Doctors Only</option>
+                                <option>Nurses Only</option>
+                                <option>Emergency Department</option>
+                                <option>ICU Staff</option>
+                                <option>Administrative Staff</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Priority Level</label>
+                            <select class="form-select">
+                                <option>Normal</option>
+                                <option>High</option>
+                                <option>Urgent</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-textarea" placeholder="Enter your broadcast message..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="sendBroadcastMessage()">
+                            <i class="fas fa-paper-plane"></i> Send Broadcast
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="saveDraft()">
+                            <i class="fas fa-save"></i> Save Draft
+                        </button>
+                    </div>
+                </div>
+
+                 <!-- Emergency Alerts -->
+                <div class="comm-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #f59e0b;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Emergency Alerts</div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item notif-urgent">
+                        <div class="notif-header">
+                            <div class="notif-title">Emergency1</div>
+                            <div class="priority-badge priority-high">URGENT</div>
+                        </div>
+                        <div class="notif-content">
+                            This is just an example emergency alert.
+                        </div>
+                    </div>
+
+                    <div class="notification-item notif-warning">
+                        <div class="notif-header">
+                            <div class="notif-title">Emergency2</div>
+                            <div class="priority-badge priority-medium">MEDIUM</div>
+                        </div>
+                        <div class="notif-content">
+                            This is just an example emergency alert.
+                        </div>
+                    </div>
+
+                    <div class="notification-item notif-info">
+                        <div class="notif-header">
+                            <div class="notif-title">Emergency3</div>
+                            <div class="priority-badge priority-low">LOW</div>
+                        </div>
+                        <div class="notif-content">
+                           This is just an example emergency alert.
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-warning btn-small" onclick="createEmergencyAlert()">
+                            <i class="fas fa-plus"></i> Create Alert
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="alertHistory()">
+                            <i class="fas fa-clock"></i> Alert History
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+          
         </main>
     </div>
 
