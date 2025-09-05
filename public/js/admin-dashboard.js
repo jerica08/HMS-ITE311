@@ -1,6 +1,55 @@
 // Admin Dashboard JavaScript Functions
 console.log('Admin dashboard JS loaded');
 
+<<<<<<< HEAD
+// Function to fetch and update dashboard metrics
+async function updateDashboardMetrics() {
+    try {
+        console.log('Fetching dashboard metrics...');
+
+        // Fetch user statistics
+        const userStatsResponse = await fetch('/admin/users/statistics', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (userStatsResponse.ok) {
+            const userStats = await userStatsResponse.json();
+            console.log('User statistics:', userStats);
+
+            if (userStats.status === 'success') {
+                // Update user management card
+                document.getElementById('totalUsers').textContent = userStats.data.total_users || 0;
+                document.getElementById('activeRoles').textContent = userStats.data.active_users || 0;
+                document.getElementById('pendingUsers').textContent = userStats.data.inactive_users || 0;
+            }
+        } else {
+            console.error('Failed to fetch user statistics:', userStatsResponse.status);
+        }
+
+        // Fetch additional metrics (patients, visits, revenue, etc.)
+        // For now, we'll use placeholder/mock data for other cards
+        // In a real implementation, you'd have API endpoints for these
+
+        // Update system analytics card (mock data for now)
+        document.getElementById('totalPatients').textContent = '1,847'; // Replace with real API call
+        document.getElementById('todaysVisits').textContent = '342'; // Replace with real API call
+        document.getElementById('revenue').textContent = '$47K'; // Replace with real API call
+
+        // Update security card (mock data for now)
+        document.getElementById('activeSessions').textContent = '156'; // Replace with real API call
+        document.getElementById('failedLogins').textContent = '3'; // Replace with real API call
+        document.getElementById('securityScore').textContent = '99.9%'; // Replace with real API call
+
+    } catch (error) {
+        console.error('Error updating dashboard metrics:', error);
+    }
+}
+
+=======
+>>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
 // Modal Functions
 function openAddUserModal() {
     console.log('Opening add user modal');
@@ -15,8 +64,19 @@ function closeUserModal() {
     document.getElementById('userModal').style.display = 'none';
 }
 
+<<<<<<< HEAD
+// Initialize dashboard on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Update dashboard metrics on page load
+    updateDashboardMetrics();
+
+    // Set up real-time updates every 30 seconds
+    setInterval(updateDashboardMetrics, 30000);
+
+=======
 // Form Submission for dashboard modal
 document.addEventListener('DOMContentLoaded', function() {
+>>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
     const userForm = document.getElementById('userForm');
     if (userForm) {
         userForm.addEventListener('submit', async function(e) {
