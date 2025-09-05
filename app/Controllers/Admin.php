@@ -229,6 +229,18 @@ class Admin extends BaseController
         return view('admin/communication(empty)/communication', $data);
     }
 
+    public function staff(){
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch staff data from database
+        $data = [
+            'title' => 'Staff Management'
+        ];
+
+        return view('admin/staff-management/staff_management', $data);
+    }
+
     // Placeholder methods for reports
     public function reports()
     {
