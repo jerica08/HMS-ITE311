@@ -18,24 +18,15 @@
                 <h5 class="login-subtitle" style="display: flex;align-items:center;justify-content:center;">Healing with Heart, Caring for Life</h5>
             
                 <form id="loginForm" action="/auth/loginSubmit" method="POST">
+                    
                     <!--DISPLAY VALIDATION ERRORS-->
                     <?php if (session()->getFlashdata('error')): ?>
                         <div class="error-message">
                         <?= session()->getFlashdata('error') ?>
                         </div>
                     <?php endif; ?>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
-                    </div>
-                    
-                    <div class="form-group">
+
+                     <div class="form-group">
                         <label class="form-label" for="role">Role</label>
                         <select id="role" name="role" class="form-select" required>
                             <option value="">Select your role</option>
@@ -49,6 +40,18 @@
                             <option value="it_staff">IT Staff</option>
                         </select>
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    
+                   
                     
                     <button type="submit" class="login-btn">
                         <i class="fas fa-sign-in-alt"></i> Login to Dashboard
