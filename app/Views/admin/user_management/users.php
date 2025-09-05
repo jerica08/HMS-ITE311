@@ -31,12 +31,12 @@
     </header>
         <!--Main Content-->
         <div class="main-container">
-             <!--sidebar-->
+              <!--sidebar-->
             <nav class="sidebar">
               
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/dashboard') ?>" class="nav-link ">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -82,27 +82,30 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/system-settings') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/system_settings') ?>" class="nav-link">
                             <i class="fas fa-cogs nav-icon"></i>
                             System Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/security') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/security_access') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Security & Access
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/audit-logs') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/communication') ?>" class="nav-link">
+                            <i class="fas fa-comments nav-icon"></i>
+                            Communication
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/audit_logs') ?>" class="nav-link">
                             <i class="fas fa-clipboard-list nav-icon"></i>
                             Audit Logs
                         </a>
                     </li>
-                   
-
-                </ul>
-            
+                </ul>          
             </nav>
        
         <!--Main Content-->
