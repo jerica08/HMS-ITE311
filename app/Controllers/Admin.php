@@ -193,6 +193,18 @@ class Admin extends BaseController
         return view('admin/resource/resource_management', $data);
     }
 
+    public function securityAccess(){
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch security data from database
+        $data = [
+            'title' => 'Security & Access'
+        ];
+
+        return view('admin/security-access/security_access', $data);
+    }
+
     public function patient(){
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
