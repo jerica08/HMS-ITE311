@@ -181,6 +181,18 @@ class Admin extends BaseController
         return view('admin/financial/financial_management', $data);
     }
 
+    public function patient(){
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        // You can add logic here to fetch patient data from database
+        $data = [
+            'title' => 'Patient Management'
+        ];
+
+        return view('admin/patient/patient_management', $data);
+    }
+
     // Placeholder methods for reports
     public function reports()
     {

@@ -61,7 +61,7 @@
                             Financial Management
                         </a>
                         <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/patient') ?>" class="nav-link">
                             <i class="fas fa-user-injured nav-icon"></i>
                             Patient Management
                         </a>
