@@ -68,7 +68,7 @@
                         
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/communication') ?>" class="nav-link">
                             <i class="fas fa-comments nav-icon"></i>
                              Communication
                         </a>
@@ -88,6 +88,12 @@
                         <a href="<?= base_url('admin/security') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Security & Access
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/communication') ?>" class="nav-link">
+                            <i class="fas fa-comments nav-icon"></i>
+                            Communication
                         </a>
                     </li>
                     <li class="nav-item">
