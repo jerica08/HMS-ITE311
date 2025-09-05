@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication & Notifications - HMS Admin</title>
+    <link rel="stylesheet" href="../assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body class="admin-theme">
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> HMS - Communication</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <div>
+                    <div style="font-weight: 600;">Dr. Admin Smith</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Hospital Administrator</div>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!--sidebar-->
+            <nav class="sidebar">            
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/users') ?>" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            User Management
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-user-tie nav-icon"></i>
+                            Staff Management
+                        </a>
+                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-hospital nav-icon"></i>
+                             Resource Management
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link">
+                            <i class="fas fa-dollar-sign nav-icon"></i>
+                            Financial Management
+                        </a>
+                        <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link ">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patient Management
+                        </a>
+                        
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('') ?>" class="nav-link active">
+                            <i class="fas fa-comments nav-icon"></i>
+                             Communication
+                        </a>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/analytics') ?>" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            Analytics & Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/system-settings') ?>" class="nav-link">
+                            <i class="fas fa-cogs nav-icon"></i>
+                            System Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/security') ?>" class="nav-link">
+                            <i class="fas fa-shield-alt nav-icon"></i>
+                            Security & Access
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/audit-logs') ?>" class="nav-link">
+                            <i class="fas fa-clipboard-list nav-icon"></i>
+                            Audit Logs
+                        </a>
+                    </li>
+                </ul>          
+            </nav>
+
+        <main class="content">
+            <h1 class="page-title">Communication & Notifications</h1>
+
+            <!-- Communication Overview Stats -->
+            <div class="dashboard-grid" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h3 class="card-title">Unread Messages</h3>
+                            <p class="card-content">Pending review</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #3b82f6; text-align: center; padding: 1rem;">0</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-bell"></i></div>
+                        <div>
+                            <h3 class="card-title">Active Alerts</h3>
+                            <p class="card-content">System notifications</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #ef4444; text-align: center; padding: 1rem;">0</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+                        <div>
+                            <h3 class="card-title">Broadcasts Sent</h3>
+                            <p class="card-content">This week</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #22c55e; text-align: center; padding: 1rem;">0</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <h3 class="card-title">Online Staff</h3>
+                            <p class="card-content">Currently active</p>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #f59e0b; text-align: center; padding: 1rem;">0</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
+                <div class="actions-grid">
+                    <button class="btn btn-primary" onclick="sendBroadcast()">
+                        <i class="fas fa-bullhorn"></i> Send Broadcast
+                    </button>
+                    <button class="btn btn-warning" onclick="emergencyAlert()">
+                        <i class="fas fa-exclamation-triangle"></i> Emergency Alert
+                    </button>
+                    <button class="btn btn-success" onclick="composeMessage()">
+                        <i class="fas fa-edit"></i> Compose Message
+                    </button>
+                    <button class="btn btn-secondary" onclick="manageTemplates()">
+                        <i class="fas fa-file-alt"></i> Message Templates
+                    </button>
+                    <button class="btn btn-info" onclick="notificationSettings()">
+                        <i class="fas fa-cog"></i> Notification Settings
+                    </button>
+                    <button class="btn btn-primary" onclick="communicationReports()">
+                        <i class="fas fa-chart-line"></i> Communication Reports
+                    </button>
+                </div>
+            </div>
+
+            
+        </main>
+    </div>
+
+</body>
+</html>
