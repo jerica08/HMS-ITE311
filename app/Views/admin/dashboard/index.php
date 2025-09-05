@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Admin Dashboard</title>
-        <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+        <link rel="stylesheet" href=<?= base_url('assets/css/dashboard-common.css') ?>>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body class="admin">
@@ -50,7 +50,7 @@
                             Staff Management
                         </a>
                      <li class="nav-item">
-                        <a href="<?= base_url('') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/resource') ?>" class="nav-link">
                             <i class="fas fa-hospital nav-icon"></i>
                              Resource Management
                         </a>

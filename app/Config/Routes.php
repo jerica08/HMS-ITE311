@@ -57,6 +57,9 @@ $routes->group('admin', function($routes) {
     
     // Patient Management Routes
     $routes->get('patient', 'Admin::patient'); 
+
+    // Resource Management Routes
+    $routes->get('resource', 'Admin::resource'); 
 });
 
 
