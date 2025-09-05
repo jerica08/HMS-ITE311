@@ -120,6 +120,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
+<<<<<<< HEAD
 <div class="metric-value blue" id="totalUsers">0</div>
                             <div class="metric-label">Total Users</div>
                         </div>
@@ -129,6 +130,17 @@
                         </div>
                         <div class="metric">
 <div class="metric-value blue" id="pendingUsers">0</div>
+=======
+                            <div class="metric-value blue">247</div>
+                            <div class="metric-label">Total Users</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value blue">8</div>
+                            <div class="metric-label">Active Roles</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value blue">12</div>
+>>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
                             <div class="metric-label">Pending</div>
                         </div>
                     </div>
@@ -151,6 +163,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
+<<<<<<< HEAD
 <div class="metric-value purple" id="totalPatients">0</div>
                             <div class="metric-label">Patients</div>
                         </div>
@@ -160,6 +173,17 @@
                         </div>
                         <div class="metric">
 <div class="metric-value green" id="revenue">$0</div>
+=======
+                            <div class="metric-value purple">1,847</div>
+                            <div class="metric-label">Patients</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value purple">342</div>
+                            <div class="metric-label">Today's Visits</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value green">$47K</div>
+>>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
                             <div class="metric-label">Revenue</div>
                         </div>
                     </div>
@@ -182,6 +206,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
+<<<<<<< HEAD
 <div class="metric-value purple" id="activeSessions">0</div>
                             <div class="metric-label">Active Sessions</div>
                         </div>
@@ -191,6 +216,17 @@
                         </div>
                         <div class="metric">
 <div class="metric-value purple" id="securityScore">0%</div>
+=======
+                            <div class="metric-value purple">156</div>
+                            <div class="metric-label">Active Sessions</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value purple">3</div>
+                            <div class="metric-label">Failed Logins</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value purple">99.9%</div>
+>>>>>>> 4c4e8ca74dd79f3b138c54d6b1b82b4fb317664f
                             <div class="metric-label">Security Score</div>
                         </div>
                     </div>
