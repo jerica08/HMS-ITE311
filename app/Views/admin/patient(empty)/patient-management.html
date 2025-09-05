@@ -208,6 +208,48 @@
                     </div>
                 </div>
 
+                
+            <!--Filter and Actions-->    
+            <div class="user-filter">
+                <div class="filter-group">
+                    <label> Search Patient</label>
+                    <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
+                           id="searchInput" value="">
+                </div>
+                 <div class="filter-group">
+                    <label>Status Filter</label>
+                    <select class="filter-input" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="admitted" <?= ($statusFilter ?? '') === 'admitted' ? 'selected' : '' ?>Admitted</option>
+                        <option value="discharged" <?= ($statusFilter ?? '') === 'discharged' ? 'selected' : '' ?>Dishcarge</option>
+                        <option value="critical" <?= ($statusFilter ?? '') === 'critical' ? 'selected' : '' ?>Critical</option>
+                        <option value="emergency" <?= ($statusFilter ?? '') === 'emergency' ? 'selected' : '' ?>Emergency</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                     <label> Role Filter</label>
+                     <select class="filter-input" id="roleFilter">
+                        <option value="">All Roles</option>
+                        <option value="admin" <?= ($roleFilter ?? '') === 'admin' ? 'selected' : '' ?>>Administrator</option>
+                        <option value="doctor" <?= ($roleFilter ?? '') === 'doctor' ? 'selected' : '' ?>>Doctor</option>
+                        <option value="nurse" <?= ($roleFilter ?? '') === 'nurse' ? 'selected' : '' ?>>Nurse</option>
+                        <option value="receptionist" <?= ($roleFilter ?? '') === 'receptionist' ? 'selected' : '' ?>>Receptionist</option>
+                        <option value="laboratorist" <?= ($roleFilter ?? '') === 'laboratorist' ? 'selected' : '' ?>>Laboratory Staff</option>
+                        <option value="pharmacist" <?= ($roleFilter ?? '') === 'pharmacist' ? 'selected' : '' ?>>Pharmacist</option>
+                        <option value="accountant" <?= ($roleFilter ?? '') === 'accountant' ? 'selected' : '' ?>>Accountant</option>
+                        <option value="it_staff" <?= ($roleFilter ?? '') === 'it_staff' ? 'selected' : '' ?>>IT Staff</option>
+                     </select>
+                </div>
+               
+                <div class="filter-group">
+                    <label>&nbsp;</label>
+                    <button type="button" class="filter-input btn btn-primary" onclick="applyFilters()" style="background: #007bff; color: white; border: none;">
+                        <i class="fas fa-search"></i> Apply Filters
+                    </button>
+                </div>
+            </div>
+
+
             <!-- Action Buttons -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
                 <div>
