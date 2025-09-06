@@ -17,6 +17,9 @@ $routes->get('/login', 'Auth::login');              // Login page route - maps /
 $routes->get('/auth', 'Auth::login');               // Alternative login route - redirects /auth to login page
 $routes->post('auth/loginSubmit', 'Auth::loginSubmit');   // Login form submission route - handles POST requests for login
 $routes->get('auth/logout', 'Auth::logout');        // Logout route - maps /auth/logout to Auth controller's logout method
+$routes->post('auth/heartbeat', 'Auth::heartbeat');      // Session heartbeat endpoint
+$routes->get('auth/check-session', 'Auth::checkSession'); // Check session validity endpoint
+$routes->post('auth/logout-beacon', 'Auth::logoutBeacon'); // Beacon logout endpoint
 
 
 $routes->group('admin', function($routes) {

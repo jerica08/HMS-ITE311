@@ -58,6 +58,7 @@ class Auth extends BaseController
 			'email'     => $user['email'],
 			'role'      => $user['role'],
 			'logged_in' => true,
+			'last_activity' => time(),
 		]);
 
 		// Redirect based on role
@@ -88,5 +89,71 @@ class Auth extends BaseController
 		$username = session()->get('username');
 		session()->destroy();
 		return redirect()->to('/login')->with('success', 'Successfully logged out. Goodbye, ' . $username . '!');
+	}
+
+	public function heartbeat()
+	{
+		// Check if user is logged in
+		if (!session()->get('logged_in')) {
+			return $this->response->setStatusCode(401)->setJSON([
+				'status' => 'error',
+				'message' => 'Session expired'
+			]);
+		}
+
+		// Update session activity timestamp
+		session()->set('last_activity', time());
+
+		return $this->response->setJSON([
+			'status' => 'success',
+			'message' => 'Session active',
+			'timestamp' => time()
+		]);
+	}
+
+	public function checkSession()
+	{
+		$isLoggedIn = session()->get('logged_in');
+		$lastActivity = session()->get('last_activity');
+		$currentTime = time();
+
+		// Check if session exists and is recent (within 2 hours of inactivity)
+		$sessionValid = $isLoggedIn && (!$lastActivity || ($currentTime - $lastActivity) < 7200);
+
+		if (!$sessionValid) {
+			return $this->response->setStatusCode(401)->setJSON([
+				'valid' => false,
+				'message' => 'Session expired or invalid'
+			]);
+		}
+
+		// Update last activity timestamp
+		session()->set('last_activity', $currentTime);
+
+		return $this->response->setJSON([
+			'valid' => true,
+			'message' => 'Session is valid',
+			'user_id' => session()->get('user_id'),
+			'role' => session()->get('role')
+		]);
+	}
+
+	public function logoutBeacon()
+	{
+		// Handle beacon logout request (from beforeunload event)
+		$input = $this->request->getJSON(true);
+		
+		if ($input && isset($input['action']) && $input['action'] === 'tab_close') {
+			// Log the tab close event if needed
+			log_message('info', 'User closed tab/browser at ' . date('Y-m-d H:i:s'));
+		}
+
+		// Destroy session
+		session()->destroy();
+
+		return $this->response->setJSON([
+			'status' => 'success',
+			'message' => 'Session terminated'
+		]);
 	}
 }

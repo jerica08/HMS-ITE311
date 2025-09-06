@@ -162,3 +162,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Handle logout functionality
+function handleLogout() {
+    if (window.sessionManager) {
+        window.sessionManager.logout();
+    } else {
+        // Fallback if session manager is not available
+        window.location.href = '/auth/logout';
+    }
+}

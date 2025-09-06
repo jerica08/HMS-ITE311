@@ -19,10 +19,14 @@
             <div class="user-info">
                 <div href="" class="fas fa-avatar" href=""></div>
                 <div>
-                    <div style="font-weight: 600;">Dr.Jerica Marquez</div>
-                    <div style="font-size: 0.9rem;opacity:0.8">Hospital Administrator</div>
+                    <div style="font-weight: 600;">
+                        <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
+                    </div>
+                    <div style="font-size: 0.9rem;opacity:0.8">
+                        <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
+                    </div>
                 </div>
-                <button class="logout-btn">
+                <button class="logout-btn" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i>
                     Logout
                 </button>
@@ -411,7 +415,9 @@
                     </form>
                 </div>
             </div>
+            <script src="<?= base_url('js/session-manager.js') ?>"></script>
             <script src="<?= base_url('js/utils.js') ?>"></script>
+            <script src="<?= base_url('js/admin-dashboard.js') ?>"></script>
             <script src="<?= base_url('js/edit-user.js') ?>"></script>
             <script src="<?= base_url('js/delete-user.js') ?>"></script>
             <script src="<?= base_url('js/logout.js') ?>"></script>

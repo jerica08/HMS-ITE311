@@ -24,18 +24,27 @@ class Admin extends BaseController
         return null;
     }
 
+    private function getCurrentUserData()
+    {
+        helper('UserHelper');
+        return \App\Helpers\UserHelper::getCurrentUser();
+    }
+
     public function index()
     {
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        return view('admin/dashboard/index');
+        $currentUser = $this->getCurrentUserData();
+        return view('admin/dashboard/index', ['currentUser' => $currentUser]);
     }
 
     public function users()
     {
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
 
         try {
             // Check if users table exists and get basic data
@@ -95,6 +104,7 @@ class Admin extends BaseController
                 'roleFilter' => $roleFilter,
                 'statusFilter' => $statusFilter,
                 'title' => 'User Management',
+                'currentUser' => $currentUser,
                 'stats' => [
                     'total_users' => $totalUsers,
                     'active_users' => $activeUsers,
@@ -116,6 +126,7 @@ class Admin extends BaseController
                 'roleFilter' => '',
                 'statusFilter' => '',
                 'title' => 'User Management',
+                'currentUser' => $currentUser,
                 'stats' => [
                     'total_users' => 0,
                     'active_users' => 0,
@@ -135,8 +146,8 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch analytics data if needed
-        return view('admin/analytics and reports/analytics');
+        $currentUser = $this->getCurrentUserData();
+        return view('admin/analytics and reports/analytics', ['currentUser' => $currentUser]);
     }
 
     // System Settings method
@@ -145,9 +156,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch current system settings from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'System Settings'
+            'title' => 'System Settings',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/system-setting/system_settings', $data);
@@ -159,9 +171,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch audit logs from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Audit Logs'
+            'title' => 'Audit Logs',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/audit/audit_logs', $data);
@@ -173,9 +186,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch financial data from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Financial Management'
+            'title' => 'Financial Management',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/financial/financial_management', $data);
@@ -185,9 +199,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch resource data from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Resource Management'
+            'title' => 'Resource Management',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/resource/resource_management', $data);
@@ -197,9 +212,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch security data from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Security & Access'
+            'title' => 'Security & Access',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/security-access/security_access', $data);
@@ -209,9 +225,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch patient data from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Patient Management'
+            'title' => 'Patient Management',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/patient/patient_management', $data);
@@ -221,9 +238,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch communication data from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Communication & Notifications'
+            'title' => 'Communication & Notifications',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/communication/communication', $data);
@@ -233,9 +251,10 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // You can add logic here to fetch staff data from database
+        $currentUser = $this->getCurrentUserData();
         $data = [
-            'title' => 'Staff Management'
+            'title' => 'Staff Management',
+            'currentUser' => $currentUser
         ];
 
         return view('admin/staff-management/staff_management', $data);
@@ -247,8 +266,8 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // Logic for reports overview page
-        return view('admin/reports/overview');
+        $currentUser = $this->getCurrentUserData();
+        return view('admin/reports/overview', ['currentUser' => $currentUser]);
     }
 
     public function generateReport()
@@ -276,8 +295,8 @@ class Admin extends BaseController
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
 
-        // Logic to show schedule report form
-        return view('admin/reports/schedule');
+        $currentUser = $this->getCurrentUserData();
+        return view('admin/reports/schedule', ['currentUser' => $currentUser]);
     }
 
     public function storeScheduledReport()
