@@ -241,7 +241,6 @@
     </header>
 
     <div class="main-container">
-
         <!--sidebar-->
         <nav class="sidebar">
               
@@ -313,19 +312,65 @@
                       </a>
                   </li>
               </ul>          
-          </nav>
-
+        </nav>
+    
+        <!-- Main Content -->
         <main class="content">
             <h1 class="page-title">System Audit Logs</h1>
 
-            <!-- Audit Statistics -->
-            <div class="dashboard-grid" style="margin-bottom:2rem;">
-                <div class="card"><div class="card-header"><i class="fas fa-calendar-day"></i><h3>Today's Events</h3></div><div class="stat-number" style="color:#3b82f6;">2,847</div></div>
-                <div class="card"><div class="card-header"><i class="fas fa-exclamation-triangle"></i><h3>Warning Events</h3></div><div class="stat-number" style="color:#f59e0b;">23</div></div>
-                <div class="card"><div class="card-header"><i class="fas fa-times-circle"></i><h3>Critical Events</h3></div><div class="stat-number" style="color:#ef4444;">3</div></div>
-                <div class="card"><div class="card-header"><i class="fas fa-users"></i><h3>Active Users</h3></div><div class="stat-number" style="color:#22c55e;">156</div></div>
-                <div class="card"><div class="card-header"><i class="fas fa-server"></i><h3>System Uptime</h3></div><div class="stat-number" style="color:#22c55e;">98.5%</div></div>
+            <!-- Dashboard Overview -->
+            <div class="dashboard-overview">
+                    <!--Today's Events Card-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue"><i class="fas fa-calendar-day"></i></div>
+                        <div>
+                            <h3 class="card-title">Today's Events</h3>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="color:#3b82f6;">0</div>
+                </div>
+                <!--Warning Events Card-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div>
+                            <h3 class="card-title">Warning Events</h3>
+                        </div>
+                        </div>
+                    <div class="stat-number" style="color:#3b82f6;">0</div>
+                </div>
+                <!--Critical Events Card-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue"><i class="fas fa-times-circle"></i></div>
+                        <div>
+                            <h3 class="card-title">Critical Events</h3>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="color:#3b82f6;">0</div>
+                </div>
+                <!--Active Users Card-->
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue"><i class="fas fa-users"></i></div>
+                        <div>
+                            <h3 class="card-title">Active Users</h3>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="color:#3b82f6;">0</div>
+                </div>
+                <div class="overview-card">
+                    <div class="card-header-modern">
+                        <div class="card-icon-modern blue"><i class="fas fa-server"></i></div>
+                        <div>
+                            <h3 class="card-title">System Uptime</h3>
+                        </div>
+                    </div>
+                    <div class="stat-number" style="color:#3b82f6;">0</div>
+                </div>                               
             </div>
+            
 
             <!-- Audit Filters -->
             <div class="audit-section">
@@ -403,172 +448,88 @@
                 </div>
                 <div style="max-height:600px; overflow-y:auto;">
                 
-                <div class="log-entry" onclick="showLogDetails('log1')">
+                    <div class="log-entry" onclick="showLogDetails('log1')">
                     <div class="log-icon login">
                         <i class="fas fa-sign-in-alt"></i>
                     </div>
                     <div class="log-content">
                         <div class="log-title">User Login</div>
                         <div class="log-details">Dr. John Smith successfully logged in from IP 192.168.1.45</div>
+                        <div class="log-details">This is an example</div>
                     </div>
                     <div class="log-meta">
                         <div class="log-timestamp">2 minutes ago</div>
                         <div class="log-user">john.smith</div>
                         <span class="severity-badge severity-low">Low</span>
                     </div>
-                </div>
+                    </div>
 
-                <div class="log-entry" onclick="showLogDetails('log2')">
-                    <div class="log-icon update">
-                        <i class="fas fa-edit"></i>
+                    <div class="log-entry" onclick="showLogDetails('log2')">
+                        <div class="log-icon update">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="log-content">
+                            <div class="log-title">Patient Record Updated</div>
+                            <div class="log-details">Patient ID: P-2024-0156 medical history updated by Dr. Johnson</div>
+                             <div class="log-details">This is an example</div>
+                        </div>
+                        <div class="log-meta">
+                            <div class="log-timestamp">5 minutes ago</div>
+                            <div class="log-user">dr.johnson</div>
+                            <span class="severity-badge severity-medium">Medium</span>
+                        </div>
                     </div>
-                    <div class="log-content">
-                        <div class="log-title">Patient Record Updated</div>
-                        <div class="log-details">Patient ID: P-2024-0156 medical history updated by Dr. Johnson</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">5 minutes ago</div>
-                        <div class="log-user">dr.johnson</div>
-                        <span class="severity-badge severity-medium">Medium</span>
-                    </div>
-                </div>
 
-                <div class="log-entry" onclick="showLogDetails('log3')">
-                    <div class="log-icon error">
-                        <i class="fas fa-exclamation-triangle"></i>
+                    <div class="log-entry" onclick="showLogDetails('log3')">
+                        <div class="log-icon error">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="log-content">
+                            <div class="log-title">Failed Login Attempt</div>
+                            <div class="log-details">Multiple failed login attempts from IP 203.45.67.89</div>
+                             <div class="log-details">This is an example</div>
+                        </div>
+                        <div class="log-meta">
+                            <div class="log-timestamp">8 minutes ago</div>
+                            <div class="log-user">unknown</div>
+                            <span class="severity-badge severity-high">High</span>
+                        </div>
                     </div>
-                    <div class="log-content">
-                        <div class="log-title">Failed Login Attempt</div>
-                        <div class="log-details">Multiple failed login attempts from IP 203.45.67.89</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">8 minutes ago</div>
-                        <div class="log-user">unknown</div>
-                        <span class="severity-badge severity-high">High</span>
-                    </div>
-                </div>
 
-                <div class="log-entry" onclick="showLogDetails('log4')">
-                    <div class="log-icon create">
-                        <i class="fas fa-plus"></i>
+                    <div class="log-entry" onclick="showLogDetails('log4')">
+                        <div class="log-icon create">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="log-content">
+                            <div class="log-title">New User Created</div>
+                            <div class="log-details">New nurse account created: mary.wilson@hospital.com</div>
+                             <div class="log-details">This is an example</div>
+                        </div>
+                        <div class="log-meta">
+                            <div class="log-timestamp">12 minutes ago</div>
+                            <div class="log-user">admin</div>
+                            <span class="severity-badge severity-medium">Medium</span>
+                        </div>
                     </div>
-                    <div class="log-content">
-                        <div class="log-title">New User Created</div>
-                        <div class="log-details">New nurse account created: mary.wilson@hospital.com</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">12 minutes ago</div>
-                        <div class="log-user">admin</div>
-                        <span class="severity-badge severity-medium">Medium</span>
-                    </div>
-                </div>
 
-                <div class="log-entry" onclick="showLogDetails('log5')">
-                    <div class="log-icon access">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <div class="log-content">
-                        <div class="log-title">Permission Changed</div>
-                        <div class="log-details">User permissions updated for robert.wilson - added pharmacy access</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">15 minutes ago</div>
-                        <div class="log-user">admin</div>
-                        <span class="severity-badge severity-medium">Medium</span>
-                    </div>
-                </div>
-
-                <div class="log-entry" onclick="showLogDetails('log6')">
-                    <div class="log-icon delete">
-                        <i class="fas fa-trash"></i>
-                    </div>
-                    <div class="log-content">
-                        <div class="log-title">Record Deleted</div>
-                        <div class="log-details">Temporary patient record P-TEMP-001 deleted after discharge</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">18 minutes ago</div>
-                        <div class="log-user">nurse.mary</div>
-                        <span class="severity-badge severity-low">Low</span>
-                    </div>
-                </div>
-
-                <div class="log-entry" onclick="showLogDetails('log7')">
-                    <div class="log-icon error">
-                        <i class="fas fa-exclamation-circle"></i>
-                    </div>
-                    <div class="log-content">
-                        <div class="log-title">System Error</div>
-                        <div class="log-details">Database connection timeout in laboratory module</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">22 minutes ago</div>
-                        <div class="log-user">system</div>
-                        <span class="severity-badge severity-critical">Critical</span>
-                    </div>
-                </div>
-
-                <div class="log-entry" onclick="showLogDetails('log8')">
-                    <div class="log-icon update">
-                        <i class="fas fa-sync"></i>
-                    </div>
-                    <div class="log-content">
-                        <div class="log-title">Data Synchronization</div>
-                        <div class="log-details">Branch data sync completed successfully - North Branch</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">25 minutes ago</div>
-                        <div class="log-user">system</div>
-                        <span class="severity-badge severity-low">Low</span>
-                    </div>
-                </div>
-
-                <div class="log-entry" onclick="showLogDetails('log9')">
-                    <div class="log-icon logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </div>
-                    <div class="log-content">
-                        <div class="log-title">User Logout</div>
-                        <div class="log-details">Dr. Sarah Brown logged out after 4 hours session</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">28 minutes ago</div>
-                        <div class="log-user">sarah.brown</div>
-                        <span class="severity-badge severity-low">Low</span>
-                    </div>
-                </div>
-
-                <div class="log-entry" onclick="showLogDetails('log10')">
-                    <div class="log-icon create">
-                        <i class="fas fa-file-medical"></i>
-                    </div>
-                    <div class="log-content">
-                        <div class="log-title">Medical Report Generated</div>
-                        <div class="log-details">Lab report generated for patient P-2024-0157 - Blood Test Results</div>
-                    </div>
-                    <div class="log-meta">
-                        <div class="log-timestamp">30 minutes ago</div>
-                        <div class="log-user">lab.tech</div>
-                        <span class="severity-badge severity-low">Low</span>
-                    </div>
-                </div>
-
-                </div>
-                <!-- Pagination -->
-                <div class="pagination">
-                    <button class="page-btn" onclick="changePage('prev')">
-                        <i class="fas fa-chevron-left"></i> Previous
-                    </button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn" onclick="changePage(2)">2</button>
-                    <button class="page-btn" onclick="changePage(3)">3</button>
-                    <button class="page-btn" onclick="changePage(4)">4</button>
-                    <button class="page-btn" onclick="changePage(5)">5</button>
-                    <button class="page-btn" onclick="changePage('next')">
-                        Next <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+                    <div class="log-entry" onclick="showLogDetails('log5')">
+                        <div class="log-icon access">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="log-content">
+                            <div class="log-title">Permission Changed</div>
+                            <div class="log-details">User permissions updated for robert.wilson - added pharmacy access</div>
+                             <div class="log-details">This is an example</div>
+                        </div>
+                        <div class="log-meta">
+                            <div class="log-timestamp">15 minutes ago</div>
+                            <div class="log-user">admin</div>
+                            <span class="severity-badge severity-medium">Medium</span>
+                        </div>
+                    </div>       
+                </div>                 
             </div>
+          
         </main>
     </div>
 

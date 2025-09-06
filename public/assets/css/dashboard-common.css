@@ -71,11 +71,15 @@ body {
     min-height: calc(100vh - 80px);
 }
 .sidebar{
-
-    width:250px;
+    position: fixed;
+    top: 80px; /* Account for header height */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 80px);
     background-color: rgb(206, 224, 238);
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1) ;
-
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    z-index: 50;
 }
 .nav-menu{
     list-style: none;
@@ -105,6 +109,7 @@ body {
 /*content area*/
 .content{
     flex:1;
+    margin-left: 250px; /* Account for fixed sidebar width */
     padding:2rem;
     overflow-y:auto;
 }
@@ -461,11 +466,16 @@ btn-primary:hover {
     }
     
     .sidebar {
+        position: relative;
+        top: auto;
+        left: auto;
         width: 100%;
+        height: auto;
         order: 2;
     }
     
     .content {
+        margin-left: 0;
         order: 1;
         padding: 1rem;
     }
