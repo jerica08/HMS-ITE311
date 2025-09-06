@@ -329,7 +329,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue">87%</div>
+                            <div class="metric-value blue">0%</div>
                         </div>
                     </div>
                 </div>
@@ -347,7 +347,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">94%</div>
+                            <div class="metric-value purple">0%</div>
                         </div>
                     </div>   
                 </div>
@@ -365,7 +365,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">12</div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>
                 </div>
@@ -382,7 +382,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple"></div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>
                 </div>
