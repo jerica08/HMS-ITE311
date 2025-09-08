@@ -50,32 +50,32 @@ $routes->group('admin', function($routes) {
     $routes->post('reports/schedule', 'Admin::storeScheduledReport'); // Store scheduled report
     
     // System Settings Routes
-    $routes->get('system-settings', 'Admin::systemSettings');         // System settings page
-    $routes->get('systemSettings', 'Admin::systemSettings');          // Alternative route for camelCase URL
+    $routes->get('system-settings', 'Admin\SystemSettingsController::index');         // System settings page
+    $routes->get('systemSettings', 'Admin\SystemSettingsController::index');          // Alternative route for camelCase URL
     
     // Audit Logs Routes
-    $routes->get('audit-logs', 'Admin::auditLogs');                   // Audit logs page
-    $routes->get('auditLogs', 'Admin::auditLogs');                    // Alternative route for camelCase URL
+    $routes->get('audit-logs', 'Admin\AuditLogsController::index');                   // Audit logs page
+    $routes->get('auditLogs', 'Admin\AuditLogsController::index');                    // Alternative route for camelCase URL
     
     // Financial Management Routes
     $routes->get('financial', 'Admin\FinancialManagementController::index'); 
     
     // Patient Management Routes
-    $routes->get('patient', 'Admin::patient'); 
-    $routes->get('patients', 'Admin::patient');
+    $routes->get('patient', 'Admin\PatientManagementController::index'); 
+    $routes->get('patients', 'Admin\PatientManagementController::index');
 
     // Staff Management Routes
-    $routes->get('staff', 'Admin::staff');
+    $routes->get('staff', 'Admin\StaffManagementController::index');
 
     // Resource Management Routes
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 
 
     //Security Access Routes
-    $routes->get('security', 'Admin::securityAccess');
-    $routes->get('securityAccess', 'Admin::securityAccess');
+    $routes->get('security', 'Admin\SecurityAccessController::index');
+    $routes->get('securityAccess', 'Admin\SecurityAccessController::index');
 
     //Communication Routes
-    $routes->get('communication', 'Admin::communication'); 
+    $routes->get('communication', 'Admin\CommunicationController::index'); 
 });
 
 
