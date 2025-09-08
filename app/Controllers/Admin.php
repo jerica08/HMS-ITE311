@@ -92,19 +92,7 @@ class Admin extends BaseController
         return view('admin/security-access/security_access', $data);
     }
 
-    public function patient(){
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'Patient Management',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/patient/patient_management', $data);
-    }
-
+    
     public function communication(){
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
