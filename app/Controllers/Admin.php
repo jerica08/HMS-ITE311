@@ -39,11 +39,6 @@ class Admin extends BaseController
         return view('admin/dashboard/index', ['currentUser' => $currentUser]);
     }
 
-    
-
-    // New analytics method
-    
-
     // System Settings method
     public function systemSettings()
     {
@@ -74,11 +69,6 @@ class Admin extends BaseController
         return view('admin/audit/audit_logs', $data);
     }
 
-    // Financial Management method
-    
-
-    
-
     public function securityAccess(){
         $authCheck = $this->checkAdminAuth();
         if ($authCheck) return $authCheck;
@@ -91,8 +81,6 @@ class Admin extends BaseController
 
         return view('admin/security-access/security_access', $data);
     }
-
-    
 
     public function staff(){
         $authCheck = $this->checkAdminAuth();
@@ -107,133 +95,6 @@ class Admin extends BaseController
         return view('admin/staff-management/staff_management', $data);
     }
 
-    // Placeholder methods for reports
-    public function reports()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        return view('admin/reports/overview', ['currentUser' => $currentUser]);
-    }
-
-    public function generateReport()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        // Logic to generate a custom report
-        // Placeholder: return JSON or view
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Report generated']);
-    }
-
-    public function exportReport()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        // Logic to export report as PDF or Excel
-        // Placeholder: return JSON or file download
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Report exported']);
-    }
-
-    public function scheduleReport()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        return view('admin/reports/schedule', ['currentUser' => $currentUser]);
-    }
-
-    public function storeScheduledReport()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        // Logic to store scheduled report
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Scheduled report saved']);
-    }
-
-    public function getAnalyticsData()
-    {
-        // This method has been removed as per user request.
-    }
-
-    public function getReportMetrics()
-    {
-        // This method has been removed as per user request.
-    }
-
-    // User CRUD Methods
-    public function createUser()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        if ($this->request->getMethod() !== 'POST') {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
-        }
-
-        $data = $this->request->getJSON(true);
-        $result = $this->userService->createUser($data);
-        
-        return $this->response->setJSON($result);
-    }
-
-    public function editUser($userId)
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $result = $this->userService->getUserById($userId);
-        return $this->response->setJSON($result);
-    }
-
-    public function updateUser($userId)
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        if ($this->request->getMethod() !== 'PUT' && $this->request->getMethod() !== 'POST') {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
-        }
-
-        $data = $this->request->getJSON(true);
-        $result = $this->userService->updateUser($userId, $data);
-        
-        return $this->response->setJSON($result);
-    }
-
-    public function deleteUser($userId)
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        if ($this->request->getMethod() !== 'DELETE') {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
-        }
-
-        $currentUserId = session()->get('user_id');
-        $result = $this->userService->deleteUser($userId, $currentUserId);
-        
-        return $this->response->setJSON($result);
-    }
-
-    public function resetPassword($userId)
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        if ($this->request->getMethod() !== 'POST') {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
-        }
-
-        $result = $this->userService->resetPassword($userId);
-        return $this->response->setJSON($result);
-    }
-
-    // API Methods for AJAX calls
     public function getUsersApi()
     {
         $authCheck = $this->checkAdminAuth();

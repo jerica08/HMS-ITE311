@@ -42,12 +42,12 @@ $routes->group('admin', function($routes) {
     $routes->post('users/(:num)/toggle-status', 'Admin::toggleUserStatus/$1'); // Toggle user status
 
     // Analytics & Reports Routes
-    $routes->get('analytics', 'Admin::analytics');                    // Analytics dashboard
-    $routes->get('reports', 'Admin::reports');                        // Reports overview
-    $routes->get('reports/generate', 'Admin::generateReport');        // Generate custom report
-    $routes->post('reports/export', 'Admin::exportReport');           // Export report (PDF/Excel)
-    $routes->get('reports/schedule', 'Admin::scheduleReport');        // Schedule automated reports
-    $routes->post('reports/schedule', 'Admin::storeScheduledReport'); // Store scheduled report
+    $routes->get('analytics', 'Admin\AnalyticsAndReportsController::analytics');
+    $routes->get('reports', 'Admin\AnalyticsAndReportsController::index');
+    $routes->get('reports/generate', 'Admin\AnalyticsAndReportsController::generate');
+    $routes->post('reports/export', 'Admin\AnalyticsAndReportsController::export');
+    $routes->get('reports/schedule', 'Admin\AnalyticsAndReportsController::schedule');
+    $routes->post('reports/schedule', 'Admin\AnalyticsAndReportsController::storeScheduled');
     
     // System Settings Routes
     $routes->get('system-settings', 'Admin\SystemSettingsController::index');         // System settings page
