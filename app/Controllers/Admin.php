@@ -57,18 +57,7 @@ class Admin extends BaseController
         return view('admin/audit/audit_logs', $data);
     }
 
-    public function securityAccess(){
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'Security & Access',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/security-access/security_access', $data);
-    }
+    
 
     public function staff(){
         $authCheck = $this->checkAdminAuth();

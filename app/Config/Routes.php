@@ -71,8 +71,8 @@ $routes->group('admin', function($routes) {
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 
 
     //Security Access Routes
-    $routes->get('security', 'Admin\SecurityAccessController::index');
-    $routes->get('securityAccess', 'Admin\SecurityAccessController::index');
+    $routes->get('security', 'Admin\SecurityAndAccessController::index');
+    $routes->get('securityAccess', 'Admin\SecurityAndAccessController::index');
 
     //Communication Routes
     $routes->get('communication', 'Admin\CommunicationController::index'); 
