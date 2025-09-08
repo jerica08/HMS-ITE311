@@ -43,19 +43,7 @@ class Admin extends BaseController
     
 
     // Audit Logs method
-    public function auditLogs()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'Audit Logs',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/audit/audit_logs', $data);
-    }
+   
 
     
 
