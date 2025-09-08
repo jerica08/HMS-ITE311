@@ -89,18 +89,7 @@ class Admin extends BaseController
         return view('admin/financial/financial_management', $data);
     }
 
-    public function resource(){
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'Resource Management',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/resource/resource_management', $data);
-    }
+    
 
     public function securityAccess(){
         $authCheck = $this->checkAdminAuth();

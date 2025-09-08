@@ -68,7 +68,7 @@ $routes->group('admin', function($routes) {
     $routes->get('staff', 'Admin::staff');
 
     // Resource Management Routes
-    $routes->get('resource', 'Admin::resource'); 
+    $routes->get('resource', 'Admin\ResourceManagementController::index'); 
 
     //Security Access Routes
     $routes->get('security', 'Admin::securityAccess');
