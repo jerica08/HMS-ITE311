@@ -4,13 +4,26 @@ namespace App\Controllers;
 
 class Receptionist extends BaseController
 {
+    private function checkReceptionistAuth()
+    {
+        if (!session()->get('logged_in') || session()->get('role') !== 'receptionist') {
+            return redirect()->to('/login')->with('error', 'Unauthorized access. Receptionists only.');
+        }
+        return null;
+    }
+
+    private function getCurrentUserData()
+    {
+        helper('UserHelper');
+        return \App\Helpers\UserHelper::getCurrentUser();
+    }
+
     public function index()
     {
-        // Check if user is logged in and role is nurse
-        if (!session()->get('logged_in') || session()->get('role') !== 'receptionist') {
-            return redirect()->to('/login')->with('error', 'Unauthorized access');
-        }
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) return $authCheck;
 
-        return view('/receptionist/dashboard');
+        $currentUser = $this->getCurrentUserData();
+        return view('receptionist/dashboard', ['currentUser' => $currentUser]);
     }
 }

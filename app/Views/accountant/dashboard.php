@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accountant Dashboard - HMS</title>
-    <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="accountant-theme">
@@ -15,12 +15,18 @@
                 <h1><i class="fas fa-calculator"></i> HMS - Accounting</h1>
             </div>
             <div class="user-info">
-                <div class="user-avatar">AC</div>
-                <div>
-                    <div style="font-weight: 600;">Michael Rodriguez</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">Senior Accountant</div>
+                <div class="user-avatar">
+                    <?= strtoupper(substr(\App\Helpers\UserHelper::getDisplayName($currentUser ?? null), 0, 2)) ?>
                 </div>
-                <button class="logout-btn">
+                <div>
+                    <div style="font-weight: 600;">
+                        <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
+                    </div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">
+                        <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
@@ -473,11 +479,11 @@
         });
 
         // Logout functionality
-        document.querySelector('.logout-btn').addEventListener('click', function() {
+        function handleLogout() {
             if(confirm('Are you sure you want to logout?')) {
-                window.location.href = '/auth/logout';
+                window.location.href = '<?= base_url('auth/logout') ?>';
             }
-        });
+        }
     </script>
 </body>
 </html>
