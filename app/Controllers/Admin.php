@@ -40,19 +40,7 @@ class Admin extends BaseController
     }
 
     // System Settings method
-    public function systemSettings()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'System Settings',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/system-setting/system_settings', $data);
-    }
+    
 
     // Audit Logs method
     public function auditLogs()
