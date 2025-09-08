@@ -93,18 +93,6 @@ class Admin extends BaseController
     }
 
     
-    public function communication(){
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'Communication & Notifications',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/communication/communication', $data);
-    }
 
     public function staff(){
         $authCheck = $this->checkAdminAuth();
