@@ -26,15 +26,15 @@ $routes->group('admin', function($routes) {
     $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index
 
     // User Management Routes - Fixed to match JavaScript API calls
-    $routes->get('users', 'Admin::users');                    // View all users
-    $routes->get('users/api', 'Admin::getUsersApi');          // Get users data (API)
-    $routes->get('users/statistics', 'Admin::getUserStatistics'); // Get user statistics (API)
-    $routes->post('users', 'Admin::createUser');              // Create new user (API)
-    $routes->get('users/(:num)', 'Admin::editUser/$1');       // Get user data for editing (API)
-    $routes->put('users/(:num)', 'Admin::updateUser/$1');     // Update user (API)
-    $routes->post('users/(:num)', 'Admin::updateUser/$1');    // Update user (fallback for browsers that don't support PUT)
-    $routes->delete('users/(:num)', 'Admin::deleteUser/$1');  // Delete user (API)
-    $routes->post('users/(:num)/reset-password', 'Admin::resetPassword/$1'); // Reset user password (API)
+    $routes->get('users', 'Admin\UserManagementController::index');                    // View all users
+    $routes->get('users/api', 'Admin\UserManagementController::api');          // Get users data (API)
+    $routes->get('users/statistics', 'Admin\UserManagementController::statistics'); // Get user statistics (API)
+    $routes->post('users', 'Admin\UserManagementController::create');              // Create new user (API)
+    $routes->get('users/(:num)', 'Admin\UserManagementController::edit/$1');       // Get user data for editing (API)
+    $routes->put('users/(:num)', 'Admin\UserManagementController::update/$1');     // Update user (API)
+    $routes->post('users/(:num)', 'Admin\UserManagementController::update/$1');    // Update user (fallback for browsers that don't support PUT)
+    $routes->delete('users/(:num)', 'Admin\UserManagementController::delete/$1');  // Delete user (API)
+    $routes->post('users/(:num)/reset-password', 'Admin\UserManagementController::resetPassword/$1'); // Reset user password (API)
     
     // Legacy routes for form-based operations (if needed)
     $routes->get('users/create', 'Admin::createUserForm');        // Show create user form
