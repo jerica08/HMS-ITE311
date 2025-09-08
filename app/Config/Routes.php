@@ -58,7 +58,7 @@ $routes->group('admin', function($routes) {
     $routes->get('auditLogs', 'Admin::auditLogs');                    // Alternative route for camelCase URL
     
     // Financial Management Routes
-    $routes->get('financial', 'Admin::financial'); 
+    $routes->get('financial', 'Admin\FinancialManagementController::index'); 
     
     // Patient Management Routes
     $routes->get('patient', 'Admin::patient'); 

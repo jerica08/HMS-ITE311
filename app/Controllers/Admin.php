@@ -75,19 +75,7 @@ class Admin extends BaseController
     }
 
     // Financial Management method
-    public function financial()
-    {
-        $authCheck = $this->checkAdminAuth();
-        if ($authCheck) return $authCheck;
-
-        $currentUser = $this->getCurrentUserData();
-        $data = [
-            'title' => 'Financial Management',
-            'currentUser' => $currentUser
-        ];
-
-        return view('admin/financial/financial_management', $data);
-    }
+    
 
     
 
