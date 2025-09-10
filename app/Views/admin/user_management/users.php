@@ -417,7 +417,6 @@
                 </div>
                 <script src="<?= base_url('js/session-manager.js') ?>"></script>
                 <script src="<?= base_url('js/utils.js') ?>"></script>
-                <script src="<?= base_url('js/admin-dashboard.js') ?>"></script>
                 <script src="<?= base_url('js/edit-user.js') ?>"></script>
                 <script src="<?= base_url('js/delete-user.js') ?>"></script>
                 <script src="<?= base_url('js/logout.js') ?>"></script>

@@ -147,14 +147,23 @@ function updateUsersTable(users) {
 
 // Utility functions for formatting
 function getInitials(firstName, lastName) {
+    if (!firstName || !lastName) {
+        return 'UN'; // Default initials for Unknown
+    }
     return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
 }
 
 function formatRole(role) {
+    if (!role || role === undefined || role === null) {
+        return 'User'; // Default role
+    }
     return role.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 function formatStatus(status) {
+    if (!status || status === undefined || status === null) {
+        return 'Inactive'; // Default status
+    }
     return status.charAt(0).toUpperCase() + status.slice(1);
 }
 
