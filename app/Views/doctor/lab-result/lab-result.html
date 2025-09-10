@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Prescription Management - HMS Doctor</title>
+        <title>Lab Results Management - HMS Doctor</title>
         <link rel="stylesheet" href="/assets/css/dashboard-common.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <style>
@@ -164,13 +164,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
+                        <a href="" class="nav-link">
                             <i class="fas fa-prescription-bottle nav-icon"></i>
                            Prescription
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="" class="nav-link active">
                             <i class="fas fa-flask nav-icon"></i>
                             Lab Results
                         </a>
@@ -192,79 +192,79 @@
         
             <!--Main Content-->
             <main class="content">
-                <h1 class="page-title">Prescriptions</h1>
+                <h1 class="page-title">Laboratory Results</h1>
                 <div class="page-actions">
-                    <button class="btn btn-success" id="addPatientBtn">
-                        <i class="fas fa-plus"></i> New Prescription
+                    <button class="btn btn-success">
+                        <i class="fas fa-plus"></i> Request Lab Test
                     </button>
                 </div><br>
 
                 <!--Dashboard overview cards-->
                 <div class="dashboard-overview">
 
-                    <!-- Today's Prescription Card -->
+                    <!--  Card -->
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern blue">
-                                <i class="fas fa-prescription-bottle"></i>
+                                <i class="fas fa-flask"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title-modern">Todays Prescriptions</h3>
-                                <p class="card-subtitle">Issues today</p>
+                                <h3 class="card-title-modern">New Results</h3>
+                                <p class="card-subtitle">Awaiting Review</p>
                             </div>
                         </div>
                         <div class="card-metrics">
                             <div class="metric">
                                 <div class="metric-value blue">0</div>
-                                <div class="metric-label">Total</div>
+                                <div class="metric-label">New</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value green">0</div>
-                                <div class="metric-label">Pending</div>
+                                <div class="metric-label">Critical</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value orange">0</div>
-                                <div class="metric-label">Sent</div>
+                                <div class="metric-label">Pending Tests</div>
                             </div>
                         </div>
                     </div>
-                    <!-- This Week Card -->
+                    <!-- Test Categories Card -->
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern blue">
-                                <i class="fas fa-pills"></i>
+                                <i class="fas fa-chart-line"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title-modern">Most Prescribed</h3>
-                                <p class="card-subtitle">Top medication this month</p>
+                                <h3 class="card-title-modern">Test Categories</h3>
+                                <p class="card-subtitle">Most requested test</p>
                             </div>
                         </div>
                         <div class="card-content">
                             <div style="margin-bottom: 1rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Lisinopril</span>
-                                    <span>45 prescriptions</span>
+                                    <span>Blood Chemistry</span>
+                                    <span>45%</span>
                                 </div>
                                 <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #4299e1; height: 100%; width: 75%; border-radius: 4px;"></div>
+                                    <div style="background: #4299e1; height: 100%; width: 45%; border-radius: 4px;"></div>
                                 </div>
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Metformin</span>
-                                    <span>38 prescriptions</span>
+                                    <span>Hematology</span>
+                                    <span>30%</span>
                                 </div>
                                 <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 63%; border-radius: 4px;"></div>
+                                    <div style="background: #48bb78; height: 100%; width: 30%; border-radius: 4px;"></div>
                                 </div>
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Atorvastatin</span>
-                                    <span>32 prescriptions</span>
+                                    <span>Cardiology</span>
+                                    <span>25%</span>
                                 </div>
                                 <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 53%; border-radius: 4px;"></div>
+                                    <div style="background: #48bb78; height: 100%; width: 25%; border-radius: 4px;"></div>
                                 </div>
                             </div>
                         </div>                       
@@ -277,19 +277,19 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Appointment Alerts</h3>
-                                <p class="card-content">Require attention</p>
+                                <h3 class="card-title">Critical Results</h3>
+                                <p class="card-content">Require immediate attention</p>
                             </div>
                         </div>
                         <div class="card-content">
                             <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
                                 <strong>Critical:</strong> Example alert notif.
                             </div>
-                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                                <strong>Warning:</strong> Example alert notif.
+                            <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                                <strong>Critical:</strong> Example alert notif.
                             </div>
-                            <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                <strong>Info:</strong> Example alert notif.
+                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; border-left: 4px solid #ed8936;">
+                                <strong>Urgent:</strong> Example alert notif.
                             </div>
                         </div>
                     </div>
@@ -297,35 +297,37 @@
 
                 <!--Filter and Actions-->    
                 <div class="search-filter">
-                    <h3 style="margin-bottom: 1rem;">Search Prescriptions</h3>
+                    <h3 style="margin-bottom: 1rem;">Search Lab Results</h3>
                     <div class="filter-row">
                         <div class="filter-group">
                             <label> Search Patient</label>
-                            <input type="text" class="filter-input" placeholder="Search by patient name, medication, or prescripton ID..." 
-                                id="prescriptionSearch" value="">
+                            <input type="text" class="filter-input" placeholder="Search by patient name, test type, or result ID..." 
+                                id="labSearch" value="">
+                        </div>
+                        <div class="filter-group" id="statusFilter">
+                            <label>All Test Types</label>
+                            <select class="filter-input" id="testTypeFilter">
+                                <option value="">All Test Types</option>
+                                <option value="blood-chemistry">Blood Chemistry</option>                  
+                                <option value="hematology">Hematology</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="microbiology">Microbiology</option>
+                                <option value="immunology">Immunology</option>
+                            </select>
                         </div>
                         <div class="filter-group" id="statusFilter">
                             <label>All Status</label>
-                            <select class="filter-input" id="conditionsFilter">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>                  
-                                <option value="pending">Pending</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                        </div>
-                        <div class="filter-group" id="dateFilter">
-                            <label>All Dates</label>
                             <select class="filter-input" id="roleFilter">
-                                <option value="">All Dates</option>
-                                <option value="today">Today</option>
-                                <option value="week">This Week</option>
-                                <option value="month">This Month</option>
+                                <option value="">All Status</option>
+                                <option value="new">New</option>
+                                <option value="reviewed">Reviewed</option>
+                                <option value="critical">Critical</option>
+                                <option value="pending">Pending</option>
                             </select>                           
                         </div>                                             
                         <div class="filter-group">
                             <label>&nbsp;</label>
-                            <button class="btn btn-primary" onclick="applyFilters()">
+                            <button class="btn btn-primary">
                                 <i class="fas fa-search"></i> Search
                             </button>
                         </div>     
@@ -334,10 +336,10 @@
 
                 
 
-            <!-- Recent Prescription Table -->
+            <!-- Recent Lab Result Table -->
                 <div class="patient-table">
                     <div class="table-header">
-                        <h3>Recent Prescription</h3>
+                        <h3>Recent Lab Result</h3>
                         <div style="display: flex; gap: 0.5rem;">
                             <button class="btn btn-primary btn-small" id="printBtn">
                                 <i class="fas fa-download"></i> Export
@@ -350,33 +352,33 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Prescription ID</th>
+                                <th>Test ID</th>
                                 <th>Patient</th>
-                                <th>Medication</th>
-                                <th>Dosage</th>
-                                <th>Duration</th>              
-                                <th>Date Issued</th>              
+                                <th>Test Type</th>
+                                <th>Date Collection</th>
+                                <th>Date Reported</th>                          
                                 <th>Status</th>
+                                <th>Priority</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                            <td>RX001234</td>
+                            <tr style="background-color: #fed7d7;">
+                            <td>LAB001234</td>
                             <td>
                                 <div>
-                                    <strong>Sarah Wilson</strong><br>
-                                    <small>P0012347 | Age: 45</small>
+                                    <strong>John Smith</strong><br>
+                                    <small>P001234 | Age: 55</small>
                                 </div>
                             </td>
-                            <td>Lisinopril</td>
-                            <td>10mg once daily</td>
-                            <td>30 days</td>
-                            <td>August 20, 2025</td>
-                            <td><span class="badge badge-success">Active</span></td>
+                            <td>Cardiac Enzymes</td>
+                            <td>Aug 20, 2025 08:30</td>
+                            <td>Aug 20, 2025 14:15</td>
+                            <td><span class="badge badge-danger">Critical</span></td>
+                            <td><span class="badge badge-danger">STAT</span></td>
                             <td>
-                                <button class="btn btn-primary " style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
-                                <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Edit</button>
+                                <button class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Review</button>
+                                <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
                             </td>
                         </tr>
                         </tbody>
