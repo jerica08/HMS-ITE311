@@ -106,476 +106,476 @@
                       </a>
                   </li>
               </ul>          
-          </nav>
+            </nav>
        
-        <!--Main Content-->
-        <main class="content">
-            <h1 class="page-title"> User Management</h1>
+           
+            <main class="content">
+                <h1 class="page-title"> User Management</h1>
 
-            <!--Dashboard overview cards-->
-            <div class="dashboard-overview">
-                <!-- Total User Cards -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern blue">
-                            <i class="fas fa-users"></i>
+                <!--Dashboard overview cards-->
+                <div class="dashboard-overview">
+                    <!-- Total User Cards -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Total Users</h3>
+                                <p class="card-subtitle">All Registered Users</p>
+                            </div>
                         </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Total Users</h3>
-                            <p class="card-subtitle">All Registered Users</p>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue"><?= $stats['total_users'] ?? 0 ?></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value blue"><?= $stats['total_users'] ?? 0 ?></div>
+
+                    <!-- Active User Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Active Users</h3>
+                                <p class="card-subtitle">Currently active</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple"><?= $stats['active_users'] ?? 0 ?></div>
+                            </div>
+                        </div>   
+                    </div>
+
+                    <!-- Inactive User Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-user-times"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Inactive Users</h3>
+                                <p class="card-subtitle">Currently inactive</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple"><?= $stats['inactive_users'] ?? 0 ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Admin Users Card-->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Admin Users</h3>
+                                <p class="card-subtitle">System Administrators</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple"><?= $stats['admin_users'] ?? 0 ?></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Active User Card -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-user-check"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Active Users</h3>
-                            <p class="card-subtitle">Currently active</p>
-                        </div>
+                <!--Filter and Actions-->    
+                <div class="user-filter">
+                    <div class="filter-group">
+                        <label> Search Users</label>
+                        <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
+                            id="searchInput" value="<?= esc($search ?? '') ?>">
                     </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple"><?= $stats['active_users'] ?? 0 ?></div>
-                        </div>
-                    </div>   
+                    <div class="filter-group">
+                        <label> Role Filter</label>
+                        <select class="filter-input" id="roleFilter">
+                            <option value="">All Roles</option>
+                            <option value="admin" <?= ($roleFilter ?? '') === 'admin' ? 'selected' : '' ?>>Administrator</option>
+                            <option value="doctor" <?= ($roleFilter ?? '') === 'doctor' ? 'selected' : '' ?>>Doctor</option>
+                            <option value="nurse" <?= ($roleFilter ?? '') === 'nurse' ? 'selected' : '' ?>>Nurse</option>
+                            <option value="receptionist" <?= ($roleFilter ?? '') === 'receptionist' ? 'selected' : '' ?>>Receptionist</option>
+                            <option value="laboratorist" <?= ($roleFilter ?? '') === 'laboratorist' ? 'selected' : '' ?>>Laboratory Staff</option>
+                            <option value="pharmacist" <?= ($roleFilter ?? '') === 'pharmacist' ? 'selected' : '' ?>>Pharmacist</option>
+                            <option value="accountant" <?= ($roleFilter ?? '') === 'accountant' ? 'selected' : '' ?>>Accountant</option>
+                            <option value="it_staff" <?= ($roleFilter ?? '') === 'it_staff' ? 'selected' : '' ?>>IT Staff</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status Filter</label>
+                        <select class="filter-input" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="active" <?= ($statusFilter ?? '') === 'active' ? 'selected' : '' ?>>Active</option>
+                            <option value="inactive" <?= ($statusFilter ?? '') === 'inactive' ? 'selected' : '' ?>>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>&nbsp;</label>
+                        <button type="button" class="filter-input btn btn-primary" onclick="applyFilters()" style="background: #007bff; color: white; border: none;">
+                            <i class="fas fa-search"></i> Apply Filters
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Inactive User Card -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-user-times"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Inactive Users</h3>
-                            <p class="card-subtitle">Currently inactive</p>
-                        </div>
-                    </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple"><?= $stats['inactive_users'] ?? 0 ?></div>
-                        </div>
+                <!-- Action Buttons -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
+                    <div>
+                        <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
+                            <i class="fas fa-plus"></i> Add New User
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="bulkActions()">
+                            <i class="fas fa-cogs"></i> Bulk Actions
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="exportUsers()">
+                            <i class="fas fa-download"></i> Export Users
+                        </button>
                     </div>
                 </div>
-                <!--Admin Users Card-->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Admin Users</h3>
-                            <p class="card-subtitle">System Administrators</p>
-                        </div>
-                    </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple"><?= $stats['admin_users'] ?? 0 ?></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!--Filter and Actions-->    
-            <div class="user-filter">
-                <div class="filter-group">
-                    <label> Search Users</label>
-                    <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
-                           id="searchInput" value="<?= esc($search ?? '') ?>">
-                </div>
-                <div class="filter-group">
-                     <label> Role Filter</label>
-                     <select class="filter-input" id="roleFilter">
-                        <option value="">All Roles</option>
-                        <option value="admin" <?= ($roleFilter ?? '') === 'admin' ? 'selected' : '' ?>>Administrator</option>
-                        <option value="doctor" <?= ($roleFilter ?? '') === 'doctor' ? 'selected' : '' ?>>Doctor</option>
-                        <option value="nurse" <?= ($roleFilter ?? '') === 'nurse' ? 'selected' : '' ?>>Nurse</option>
-                        <option value="receptionist" <?= ($roleFilter ?? '') === 'receptionist' ? 'selected' : '' ?>>Receptionist</option>
-                        <option value="laboratorist" <?= ($roleFilter ?? '') === 'laboratorist' ? 'selected' : '' ?>>Laboratory Staff</option>
-                        <option value="pharmacist" <?= ($roleFilter ?? '') === 'pharmacist' ? 'selected' : '' ?>>Pharmacist</option>
-                        <option value="accountant" <?= ($roleFilter ?? '') === 'accountant' ? 'selected' : '' ?>>Accountant</option>
-                        <option value="it_staff" <?= ($roleFilter ?? '') === 'it_staff' ? 'selected' : '' ?>>IT Staff</option>
-                     </select>
-                </div>
-                <div class="filter-group">
-                    <label>Status Filter</label>
-                    <select class="filter-input" id="statusFilter">
-                        <option value="">All Status</option>
-                        <option value="active" <?= ($statusFilter ?? '') === 'active' ? 'selected' : '' ?>>Active</option>
-                        <option value="inactive" <?= ($statusFilter ?? '') === 'inactive' ? 'selected' : '' ?>>Inactive</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>&nbsp;</label>
-                    <button type="button" class="filter-input btn btn-primary" onclick="applyFilters()" style="background: #007bff; color: white; border: none;">
-                        <i class="fas fa-search"></i> Apply Filters
-                    </button>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
-                <div>
-                    <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
-                        <i class="fas fa-plus"></i> Add New User
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="bulkActions()">
-                        <i class="fas fa-cogs"></i> Bulk Actions
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="exportUsers()">
-                        <i class="fas fa-download"></i> Export Users
-                    </button>
-                </div>
-            </div>
-
-            <!--users Table-->
-            <div class="table-container">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="selectAll"></th>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                            <th>Last Login</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-                        <?php if (!empty($users)): ?>
-                            <?php foreach ($users as $user): ?>
-                                <tr class="user-row">
-                                    <td><input type="checkbox" class="user-checkbox" data-user-id="<?= $user['id'] ?>"></td>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 1rem;">
-                                            <div class="user-avatar">
-                                                <?= strtoupper(substr($user['first_name'] ?? 'U', 0, 1) . substr($user['last_name'] ?? 'U', 0, 1)) ?>
+                <!--users Table-->
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <?php if (!empty($users)): ?>
+                                <?php foreach ($users as $user): ?>
+                                    <tr class="user-row">
+                                        <td><input type="checkbox" class="user-checkbox" data-user-id="<?= $user['id'] ?>"></td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                                <div class="user-avatar">
+                                                    <?= strtoupper(substr($user['first_name'] ?? 'U', 0, 1) . substr($user['last_name'] ?? 'U', 0, 1)) ?>
+                                                </div>
+                                                <div>
+                                                    <div style="font-weight: 600;">
+                                                        <?= esc(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?>
+                                                    </div>
+                                                    <div style="font-size: 0.8rem; color: #6b7280;">
+                                                        <?= esc($user['email'] ?? '') ?>
+                                                    </div>
+                                                    <div style="font-size: 0.8rem; color: #6b7280;">
+                                                        ID: <?= esc($user['employee_id'] ?? $user['username'] ?? 'N/A') ?>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <div style="font-weight: 600;">
-                                                    <?= esc(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?>
-                                                </div>
-                                                <div style="font-size: 0.8rem; color: #6b7280;">
-                                                    <?= esc($user['email'] ?? '') ?>
-                                                </div>
-                                                <div style="font-size: 0.8rem; color: #6b7280;">
-                                                    ID: <?= esc($user['employee_id'] ?? $user['username'] ?? 'N/A') ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="role-badge role-<?= str_replace('_', '-', $user['role'] ?? 'user') ?>">
-                                            <?= ucfirst(str_replace('_', ' ', esc($user['role'] ?? 'User'))) ?>
-                                        </span>
-                                    </td>
-                                    <td><?= esc($user['department'] ?? 'N/A') ?></td>
-                                    <td>
-                                        <i class="fas fa-circle status-<?= $user['status'] ?? 'inactive' ?>"></i> 
-                                        <?= ucfirst(esc($user['status'] ?? 'Inactive')) ?>
-                                    </td>
-                                    <td>
-                                        <?php 
-                                        $lastLogin = $user['updated_at'] ?? $user['created_at'] ?? null;
-                                        if ($lastLogin): 
-                                            $diff = time() - strtotime($lastLogin);
-                                            if ($diff < 3600): echo 'Less than 1 hour ago';
-                                            elseif ($diff < 86400): echo floor($diff/3600) . ' hours ago';
-                                            else: echo date('M j, Y', strtotime($lastLogin));
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-<?= str_replace('_', '-', $user['role'] ?? 'user') ?>">
+                                                <?= ucfirst(str_replace('_', ' ', esc($user['role'] ?? 'User'))) ?>
+                                            </span>
+                                        </td>
+                                        <td><?= esc($user['department'] ?? 'N/A') ?></td>
+                                        <td>
+                                            <i class="fas fa-circle status-<?= $user['status'] ?? 'inactive' ?>"></i> 
+                                            <?= ucfirst(esc($user['status'] ?? 'Inactive')) ?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                            $lastLogin = $user['updated_at'] ?? $user['created_at'] ?? null;
+                                            if ($lastLogin): 
+                                                $diff = time() - strtotime($lastLogin);
+                                                if ($diff < 3600): echo 'Less than 1 hour ago';
+                                                elseif ($diff < 86400): echo floor($diff/3600) . ' hours ago';
+                                                else: echo date('M j, Y', strtotime($lastLogin));
+                                                endif;
+                                            else: echo 'Never';
                                             endif;
-                                        else: echo 'Never';
-                                        endif;
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="action-btn btn-edit" onclick="editUser(<?= $user['id'] ?>)">
-                                                <i class="fas fa-edit"></i> Edit
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn btn-edit" onclick="editUser(<?= $user['id'] ?>)">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
+                                                <button class="action-btn btn-reset" onclick="resetPassword(<?= $user['id'] ?>)">
+                                                    <i class="fas fa-key"></i> Reset
+                                                </button>
+                                                <button class="action-btn btn-delete" onclick="deleteUser(<?= $user['id'] ?>)">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 2rem;">
+                                        <i class="fas fa-users" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                                        <p>No users found.</p>
+                                        <?php if (!empty($search) || !empty($roleFilter) || !empty($statusFilter)): ?>
+                                            <button onclick="clearFilters()" class="btn btn-secondary">
+                                                <i class="fas fa-times"></i> Clear Filters
                                             </button>
-                                            <button class="action-btn btn-reset" onclick="resetPassword(<?= $user['id'] ?>)">
-                                                <i class="fas fa-key"></i> Reset
-                                            </button>
-                                            <button class="action-btn btn-delete" onclick="deleteUser(<?= $user['id'] ?>)">
-                                                <i class="fas fa-trash"></i> Delete
-                                            </button>
-                                        </div>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="7" style="text-align: center; padding: 2rem;">
-                                    <i class="fas fa-users" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
-                                    <p>No users found.</p>
-                                    <?php if (!empty($search) || !empty($roleFilter) || !empty($statusFilter)): ?>
-                                        <button onclick="clearFilters()" class="btn btn-secondary">
-                                            <i class="fas fa-times"></i> Clear Filters
-                                        </button>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
 
-            <!--Add/Edit User Modal-->
-            <div id="userModal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 id="modalTitle">Add New User</h2>
-                        <button class="close-btn" onclick="closeUserModal()">&times;</button>
-                    </div>
-                    <form id="userForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label> First Name*</label>
-                                <input type="text" class="form-input" id="first_name" name="first_name" required>
-                            </div>  
-                            <div class="form-group">
-                                <label> Last Name*</label>
-                                <input type="text" class="form-input" id="last_name" name="last_name" required>
-                            </div> 
-                            <div class="form-group">
-                                <label> Email*</label>
-                                <input type="text" class="form-input" id="email" name="email" required>
-                            </div> 
-                            <div class="form-group">
-                                <label>Phone*</label>
-                                <input type="text" class="form-input" id="phone" name="phone" required>
-                            </div> 
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-input" id="password" name="password" placeholder="Leave blank to keep current password">
-                            </div>
-                            <div class="form-group">
-                                <label>Role *</label>
-                                <select class="form-input" id="role" name="role" required>
-                                    <option value="">Select Role</option>
-                                    <option value="admin">admin</option>
-                                    <option value="doctor">doctor</option>
-                                    <option value="nurse">nurse</option>
-                                    <option value="receptionist">receptionist</option>
-                                    <option value="laboratorist">laboratorist</option>
-                                    <option value="pharmacist">pharmacist</option>
-                                    <option value="accountant">accountant</option>
-                                    <option value="it_staff">it_staff</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Department</label>
-                                <select class="form-input" id="department" name="department" required>
-                                    <option value="">Select Department</option>
-                                    <option value="Cardiology">Cardiology</option>
-                                    <option value="Emergency">Emergency</option>
-                                    <option value="Laboratory">Laboratory</option>
-                                    <option value="Pharmacy">Pharmacy</option>
-                                    <option value="Administration">Administration</option>
-                                    <option value="IT Department">IT Department</option>
-                                    <option value="Accounting">Accounting</option>
-                                </select>
-                            </div>
-                          <div class="form-group full-width">
-                            <label>Permission</label>
-                                <div class="checkbox-group">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox">
-                                        <label for="perm-read">Read Access</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="perm-write" value="write">
-                                        <label for="perm-write">Write Access</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="perm-delete" value="delete">
-                                        <label for="perm-delete">Delete Access</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="perm-admin" value="admin">
-                                        <label for="perm-admin">Admin Access</label>
+                <!--Add/Edit User Modal-->
+                <div id="userModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="modalTitle">Add New User</h2>
+                            <button class="close-btn" onclick="closeUserModal()">&times;</button>
+                        </div>
+                        <form id="userForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label> First Name*</label>
+                                    <input type="text" class="form-input" id="first_name" name="first_name" required>
+                                </div>  
+                                <div class="form-group">
+                                    <label> Last Name*</label>
+                                    <input type="text" class="form-input" id="last_name" name="last_name" required>
+                                </div> 
+                                <div class="form-group">
+                                    <label> Email*</label>
+                                    <input type="text" class="form-input" id="email" name="email" required>
+                                </div> 
+                                <div class="form-group">
+                                    <label>Phone*</label>
+                                    <input type="text" class="form-input" id="phone" name="phone" required>
+                                </div> 
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-input" id="password" name="password" placeholder="Leave blank to keep current password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Role *</label>
+                                    <select class="form-input" id="role" name="role" required>
+                                        <option value="">Select Role</option>
+                                        <option value="admin">admin</option>
+                                        <option value="doctor">doctor</option>
+                                        <option value="nurse">nurse</option>
+                                        <option value="receptionist">receptionist</option>
+                                        <option value="laboratorist">laboratorist</option>
+                                        <option value="pharmacist">pharmacist</option>
+                                        <option value="accountant">accountant</option>
+                                        <option value="it_staff">it_staff</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select class="form-input" id="department" name="department" required>
+                                        <option value="">Select Department</option>
+                                        <option value="Cardiology">Cardiology</option>
+                                        <option value="Emergency">Emergency</option>
+                                        <option value="Laboratory">Laboratory</option>
+                                        <option value="Pharmacy">Pharmacy</option>
+                                        <option value="Administration">Administration</option>
+                                        <option value="IT Department">IT Department</option>
+                                        <option value="Accounting">Accounting</option>
+                                    </select>
+                                </div>
+                            <div class="form-group full-width">
+                                <label>Permission</label>
+                                    <div class="checkbox-group">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox">
+                                            <label for="perm-read">Read Access</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="perm-write" value="write">
+                                            <label for="perm-write">Write Access</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="perm-delete" value="delete">
+                                            <label for="perm-delete">Delete Access</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="perm-admin" value="admin">
+                                            <label for="perm-admin">Admin Access</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:2rem;">
-                            <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save User</button>
-                        </div>
-                    </form>
+                            <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:2rem;">
+                                <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save User</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <script src="<?= base_url('js/session-manager.js') ?>"></script>
-            <script src="<?= base_url('js/utils.js') ?>"></script>
-            <script src="<?= base_url('js/admin-dashboard.js') ?>"></script>
-            <script src="<?= base_url('js/edit-user.js') ?>"></script>
-            <script src="<?= base_url('js/delete-user.js') ?>"></script>
-            <script src="<?= base_url('js/logout.js') ?>"></script>
-            
-            <script>
-            // Function to update user statistics dynamically
-            async function updateUserStats() {
-                try {
-                    console.log('Updating user statistics...');
-                    
-                    const response = await fetch('/admin/users/statistics', {
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        credentials: 'same-origin'
-                    });
-
-                    if (response.ok) {
-                        const result = await response.json();
-                        console.log('User statistics response:', result);
-                        
-                        if (result.status === 'success') {
-                            // Update the statistics cards
-                            const totalUsersElement = document.querySelector('.overview-card:nth-child(1) .metric-value');
-                            const activeUsersElement = document.querySelector('.overview-card:nth-child(2) .metric-value');
-                            const inactiveUsersElement = document.querySelector('.overview-card:nth-child(3) .metric-value');
-                            const adminUsersElement = document.querySelector('.overview-card:nth-child(4) .metric-value');
-                            
-                            if (totalUsersElement) totalUsersElement.textContent = result.data.total_users || 0;
-                            if (activeUsersElement) activeUsersElement.textContent = result.data.active_users || 0;
-                            if (inactiveUsersElement) inactiveUsersElement.textContent = result.data.inactive_users || 0;
-                            if (adminUsersElement) adminUsersElement.textContent = result.data.admin_users || 0;
-                            
-                            console.log('User statistics updated successfully');
-                        }
-                    } else {
-                        console.error('Failed to fetch user statistics:', response.status);
-                    }
-                } catch (error) {
-                    console.error('Error updating user statistics:', error);
-                }
-            }
-
-            // Update statistics on page load and periodically
-            document.addEventListener('DOMContentLoaded', function() {
-                // Update stats immediately
-                updateUserStats();
+                <script src="<?= base_url('js/session-manager.js') ?>"></script>
+                <script src="<?= base_url('js/utils.js') ?>"></script>
+                <script src="<?= base_url('js/admin-dashboard.js') ?>"></script>
+                <script src="<?= base_url('js/edit-user.js') ?>"></script>
+                <script src="<?= base_url('js/delete-user.js') ?>"></script>
+                <script src="<?= base_url('js/logout.js') ?>"></script>
                 
-                // Update stats every 30 seconds
-                setInterval(updateUserStats, 30000);
-                
-                // Handle form submission for adding/editing users
-                const userForm = document.getElementById('userForm');
-                if (userForm) {
-                    userForm.addEventListener('submit', async function(e) {
-                        e.preventDefault();
+                <script>
+                // Function to update user statistics dynamically
+                async function updateUserStats() {
+                    try {
+                        console.log('Updating user statistics...');
                         
-                        const formData = new FormData(this);
-                        const userData = {
-                            first_name: formData.get('first_name') || document.getElementById('first_name').value,
-                            last_name: formData.get('last_name') || document.getElementById('last_name').value,
-                            email: formData.get('email') || document.getElementById('email').value,
-                            phone: formData.get('phone') || document.getElementById('phone').value,
-                            password: formData.get('password') || document.getElementById('password').value,
-                            role: formData.get('role') || document.getElementById('role').value,
-                            department: formData.get('department') || document.getElementById('department').value
-                        };
+                        const response = await fetch('/admin/users/statistics', {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'same-origin'
+                        });
 
-                        console.log('Form data being sent:', userData);
-
-                        // Validate Required Fields
-                        if (!userData.first_name || !userData.last_name || !userData.email || !userData.role || !userData.password) {
-                            console.error('Validation failed: Missing required fields');
-                            showNotification('Please fill in all required fields including password', 'error');
-                            return;
-                        }
-
-                        // Validate Email Format
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(userData.email)) {
-                            console.error('Validation failed: Invalid email format');
-                            showNotification('Please enter a valid email address', 'error');
-                            return;
-                        }
-
-                        // Validate password length
-                        if (userData.password && userData.password.length < 6) {
-                            console.error('Validation failed: Password too short');
-                            showNotification('Password must be at least 6 characters long', 'error');
-                            return;
-                        }
-
-                        try {
-                            showLoading(true);
-                            
-                            console.log('Sending POST request to /admin/users with data:', JSON.stringify(userData));
-                            
-                            const response = await fetch('/admin/users', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json'
-                                },
-                                body: JSON.stringify(userData)
-                            });
-
-                            console.log('Response status:', response.status);
+                        if (response.ok) {
                             const result = await response.json();
-                            console.log('Server response:', result);
-
-                            if (response.ok && result.status === 'success') {
-                                showNotification('User created successfully!', 'success');
-                                closeUserModal();
-                                // Update statistics immediately after successful creation
-                                updateUserStats();
-                                // Reload the page to show the new user in the table
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
-                            } else {
-                                const errorMsg = result.message || 'Failed to create user';
-                                console.error('Server response:', result);
-                                if (result.errors) {
-                                    console.error('Validation errors:', result.errors);
-                                    const errorList = Object.values(result.errors).join(', ');
-                                    showNotification(`Validation failed: ${errorList}`, 'error');
-                                } else {
-                                    showNotification(errorMsg, 'error');
-                                }
+                            console.log('User statistics response:', result);
+                            
+                            if (result.status === 'success') {
+                                // Update the statistics cards
+                                const totalUsersElement = document.querySelector('.overview-card:nth-child(1) .metric-value');
+                                const activeUsersElement = document.querySelector('.overview-card:nth-child(2) .metric-value');
+                                const inactiveUsersElement = document.querySelector('.overview-card:nth-child(3) .metric-value');
+                                const adminUsersElement = document.querySelector('.overview-card:nth-child(4) .metric-value');
+                                
+                                if (totalUsersElement) totalUsersElement.textContent = result.data.total_users || 0;
+                                if (activeUsersElement) activeUsersElement.textContent = result.data.active_users || 0;
+                                if (inactiveUsersElement) inactiveUsersElement.textContent = result.data.inactive_users || 0;
+                                if (adminUsersElement) adminUsersElement.textContent = result.data.admin_users || 0;
+                                
+                                console.log('User statistics updated successfully');
                             }
-                        } catch (error) {
-                            console.error('Network error creating user:', error);
-                            showNotification('Network error. Please try again.', 'error');
-                        } finally {
-                            showLoading(false);
+                        } else {
+                            console.error('Failed to fetch user statistics:', response.status);
                         }
-                    });
+                    } catch (error) {
+                        console.error('Error updating user statistics:', error);
+                    }
                 }
-            });
-            
-            // Modal functions
-            function openAddUserModal() {
-                console.log('Opening add user modal');
-                document.getElementById('modalTitle').textContent = 'Add New User';
-                document.getElementById('userForm').reset();
-                // Clear any existing data-user-id attribute for create mode
-                document.getElementById('userForm').removeAttribute('data-user-id');
-                document.getElementById('userModal').style.display = 'block';
-            }
-            
-            function closeUserModal() {
-                document.getElementById('userModal').style.display = 'none';
-            }
-            </script>
 
-        </main>
+                // Update statistics on page load and periodically
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Update stats immediately
+                    updateUserStats();
+                    
+                    // Update stats every 30 seconds
+                    setInterval(updateUserStats, 30000);
+                    
+                    // Handle form submission for adding/editing users
+                    const userForm = document.getElementById('userForm');
+                    if (userForm) {
+                        userForm.addEventListener('submit', async function(e) {
+                            e.preventDefault();
+                            
+                            const formData = new FormData(this);
+                            const userData = {
+                                first_name: formData.get('first_name') || document.getElementById('first_name').value,
+                                last_name: formData.get('last_name') || document.getElementById('last_name').value,
+                                email: formData.get('email') || document.getElementById('email').value,
+                                phone: formData.get('phone') || document.getElementById('phone').value,
+                                password: formData.get('password') || document.getElementById('password').value,
+                                role: formData.get('role') || document.getElementById('role').value,
+                                department: formData.get('department') || document.getElementById('department').value
+                            };
+
+                            console.log('Form data being sent:', userData);
+
+                            // Validate Required Fields
+                            if (!userData.first_name || !userData.last_name || !userData.email || !userData.role || !userData.password) {
+                                console.error('Validation failed: Missing required fields');
+                                showNotification('Please fill in all required fields including password', 'error');
+                                return;
+                            }
+
+                            // Validate Email Format
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!emailRegex.test(userData.email)) {
+                                console.error('Validation failed: Invalid email format');
+                                showNotification('Please enter a valid email address', 'error');
+                                return;
+                            }
+
+                            // Validate password length
+                            if (userData.password && userData.password.length < 6) {
+                                console.error('Validation failed: Password too short');
+                                showNotification('Password must be at least 6 characters long', 'error');
+                                return;
+                            }
+
+                            try {
+                                showLoading(true);
+                                
+                                console.log('Sending POST request to /admin/users with data:', JSON.stringify(userData));
+                                
+                                const response = await fetch('/admin/users', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json'
+                                    },
+                                    body: JSON.stringify(userData)
+                                });
+
+                                console.log('Response status:', response.status);
+                                const result = await response.json();
+                                console.log('Server response:', result);
+
+                                if (response.ok && result.status === 'success') {
+                                    showNotification('User created successfully!', 'success');
+                                    closeUserModal();
+                                    // Update statistics immediately after successful creation
+                                    updateUserStats();
+                                    // Reload the page to show the new user in the table
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                } else {
+                                    const errorMsg = result.message || 'Failed to create user';
+                                    console.error('Server response:', result);
+                                    if (result.errors) {
+                                        console.error('Validation errors:', result.errors);
+                                        const errorList = Object.values(result.errors).join(', ');
+                                        showNotification(`Validation failed: ${errorList}`, 'error');
+                                    } else {
+                                        showNotification(errorMsg, 'error');
+                                    }
+                                }
+                            } catch (error) {
+                                console.error('Network error creating user:', error);
+                                showNotification('Network error. Please try again.', 'error');
+                            } finally {
+                                showLoading(false);
+                            }
+                        });
+                    }
+                });
+                
+                // Modal functions
+                function openAddUserModal() {
+                    console.log('Opening add user modal');
+                    document.getElementById('modalTitle').textContent = 'Add New User';
+                    document.getElementById('userForm').reset();
+                    // Clear any existing data-user-id attribute for create mode
+                    document.getElementById('userForm').removeAttribute('data-user-id');
+                    document.getElementById('userModal').style.display = 'block';
+                }
+                
+                function closeUserModal() {
+                    document.getElementById('userModal').style.display = 'none';
+                }
+                </script>
+
+            </main>
         </div>
 </body>
 </html>

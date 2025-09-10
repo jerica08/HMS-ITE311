@@ -310,7 +310,7 @@
         <main class="content">
             <h1 class="page-title">Financial Management</h1>
 
-            <!-- Quick Financial Stats -->
+            <!--Financial Stats -->
             <div class="quick-stats">
                 <div class="stat-card revenue">
                     <div class="stat-number" style="color: #28aa61;">₱0</div>

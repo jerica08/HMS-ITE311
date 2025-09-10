@@ -123,8 +123,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-
-                        <div class="metric-value blue" id="totalUsers">0</div>
+                            <div class="metric-value blue" id="totalUsers">0</div>
                             <div class="metric-label">Total Users</div>
                         </div>
                         <div class="metric">
