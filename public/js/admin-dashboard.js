@@ -10,8 +10,10 @@ async function updateDashboardMetrics() {
         const userStatsResponse = await fetch('/admin/users/statistics', {
             method: 'GET',
             headers: {
-                'Accept': 'application/json'
-            }
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin' // Include cookies for session authentication
         });
 
         if (userStatsResponse.ok) {
@@ -23,9 +25,12 @@ async function updateDashboardMetrics() {
                 document.getElementById('totalUsers').textContent = userStats.data.total_users || 0;
                 document.getElementById('activeRoles').textContent = userStats.data.active_users || 0;
                 document.getElementById('pendingUsers').textContent = userStats.data.inactive_users || 0;
+                console.log('User stats loaded:', userStats.data);
             }
         } else {
             console.error('Failed to fetch user statistics:', userStatsResponse.status);
+            const errorText = await userStatsResponse.text();
+            console.error('Error response:', errorText);
         }
 
         // Fetch additional metrics (patients, visits, revenue, etc.)
@@ -44,6 +49,10 @@ async function updateDashboardMetrics() {
 
     } catch (error) {
         console.error('Error updating dashboard metrics:', error);
+        // Set fallback values if API fails
+        document.getElementById('totalUsers').textContent = '0';
+        document.getElementById('activeRoles').textContent = '0';
+        document.getElementById('pendingUsers').textContent = '0';
     }
 }
 // Modal Functions

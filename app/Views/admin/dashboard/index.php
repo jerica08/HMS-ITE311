@@ -132,8 +132,7 @@
                             <div class="metric-label">Active Roles</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value blue">0</div>
-
+                            <div class="metric-value blue" id="pendingUsers">0</div>
                             <div class="metric-label">Pending</div>
                         </div>
                     </div>
@@ -434,4 +433,5 @@
     <script src="/js/index.js"></script>
     <script src="/js/logout.js"></script>
 </body>
+</html>
 </html>
