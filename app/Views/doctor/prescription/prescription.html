@@ -3,22 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Patient Management - HMS Doctor</title>
+        <title>Prescription Management - HMS Doctor</title>
         <link rel="stylesheet" href="/assets/css/dashboard-common.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <style>
-            .patient-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 1.5rem;
-                margin-bottom: 2rem;
-            }
-            .patient-section {
-                background: white;
-                border-radius: 8px;
-                padding: 1.5rem;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
             .section-header {
                 display: flex;
                 align-items: center;
@@ -37,34 +25,6 @@
                 justify-content: center;
                 color: white;
                 font-size: 1.2rem;
-            }
-            .patient-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem 0;
-                border-bottom: 1px solid #f3f4f6;
-            }
-            .patient-item:last-child {
-                border-bottom: none;
-            }
-            .patient-info {
-                flex: 1;
-            }
-            .patient-name {
-                font-weight: 500;
-                color: #1f2937;
-                margin-bottom: 0.25rem;
-            }
-            .patient-details {
-                font-size: 0.8rem;
-                color: #6b7280;
-            }
-            .patient-status {
-                padding: 0.25rem 0.75rem;
-                border-radius: 15px;
-                font-size: 0.8rem;
-                font-weight: 500;
             }
             .status-admitted { background: #fef3c7; color: #92400e; }
             .status-discharged { background: #dcfce7; color: #166534; }
@@ -110,18 +70,6 @@
                 justify-content: space-between;
                 align-items: center;
             }
-            .patient-avatar {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: #4299e1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-weight: bold;
-                font-size: 0.9rem;
-            }
             .action-buttons {
                 display: flex;
                 gap: 0.5rem;
@@ -165,20 +113,6 @@
                 gap: 1rem;
                 margin-top: 1rem;
             }
-            .patient-flow {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.75rem;
-                background: #f8fafc;
-                border-radius: 6px;
-                margin: 0.5rem 0;
-                font-size: 0.9rem;
-            }
-            .flow-number {
-                font-weight: bold;
-                color: #3b82f6;
-            }
         </style>
     </head>
     <body class="patient">
@@ -218,7 +152,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
+                        <a href="" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
                            My Patients
                         </a>
@@ -230,7 +164,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="" class="nav-link active">
                             <i class="fas fa-prescription-bottle nav-icon"></i>
                            Prescription
                         </a>
@@ -258,58 +192,58 @@
         
             <!--Main Content-->
             <main class="content">
-                <h1 class="page-title">My Patients</h1>
+                <h1 class="page-title">Prescriptions</h1>
                 <div class="page-actions">
                     <button class="btn btn-success" id="addPatientBtn">
-                        <i class="fas fa-plus"></i> Add New Patient
+                        <i class="fas fa-plus"></i> New Prescription
                     </button>
                 </div><br>
 
                 <!--Dashboard overview cards-->
                 <div class="dashboard-overview">
 
-                    <!-- Total Patient Cards -->
+                    <!-- Today's Appointment Card -->
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern blue">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-prescription-bottle"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title-modern">Total Patients</h3>
-                                <p class="card-subtitle">Under your care</p>
+                                <h3 class="card-title-modern">Todays Prescriptions</h3>
+                                <p class="card-subtitle">Issues today</p>
                             </div>
                         </div>
                         <div class="card-metrics">
                             <div class="metric">
                                 <div class="metric-value blue">0</div>
-                                <div class="metric-label">Active</div>
+                                <div class="metric-label">Total</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value green">0</div>
-                                <div class="metric-label">New this week</div>
+                                <div class="metric-label">Pending</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value orange">0</div>
-                                <div class="metric-label">Critical</div>
+                                <div class="metric-label">Sent</div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-heartbeat"></i>
+                    <!-- This Week Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-pills"></i>
                             </div>
-                            <div>
-                                <h3 class="card-title">Patient Conditions</h3>
-                                <p class="card-content">Most common diagnoses</p>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Most Prescribed</h3>
+                                <p class="card-subtitle">Top medication this month</p>
                             </div>
                         </div>
                         <div class="card-content">
                             <div style="margin-bottom: 1rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Hypertension</span>
-                                    <span>45 patients</span>
+                                    <span>Lisinopril</span>
+                                    <span>45 prescriptions</span>
                                 </div>
                                 <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
                                     <div style="background: #4299e1; height: 100%; width: 75%; border-radius: 4px;"></div>
@@ -317,74 +251,76 @@
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Diabetes</span>
-                                    <span>32 patients</span>
+                                    <span>Metformin</span>
+                                    <span>38 prescriptions</span>
+                                </div>
+                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                    <div style="background: #48bb78; height: 100%; width: 63%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Atorvastatin</span>
+                                    <span>32 prescriptions</span>
                                 </div>
                                 <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
                                     <div style="background: #48bb78; height: 100%; width: 53%; border-radius: 4px;"></div>
                                 </div>
                             </div>
-                            <div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Heart Disease</span>
-                                    <span>28 patients</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #ed8936; height: 100%; width: 47%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
+
+                     <!-- Alerts Card -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Patient Alerts</h3>
-                                <p class="card-content">Require immediate attention</p>
+                                <h3 class="card-title">Appointment Alerts</h3>
+                                <p class="card-content">Require attention</p>
                             </div>
                         </div>
                         <div class="card-content">
                             <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                                <strong>Critical:</strong> John Smith - BP 180/120
+                                <strong>Critical:</strong> Example alert notif.
                             </div>
                             <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                                <strong>Urgent:</strong> Maria Garcia - Missed appointment
+                                <strong>Warning:</strong> Example alert notif.
                             </div>
                             <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                <strong>Info:</strong> 5 patients need follow-up
+                                <strong>Info:</strong> Example alert notif.
                             </div>
                         </div>
                     </div>
-                              
                 </div>
-      
+
                 <!--Filter and Actions-->    
                 <div class="search-filter">
-                    <h3 style="margin-bottom: 1rem;">Search Patient</h3>
+                    <h3 style="margin-bottom: 1rem;">Search Prescriptions</h3>
                     <div class="filter-row">
                         <div class="filter-group">
                             <label> Search Patient</label>
-                            <input type="text" class="filter-input" placeholder="Search by name, email, or condition..." 
-                                id="searchInput" value="">
+                            <input type="text" class="filter-input" placeholder="Search by patient name, medication, or prescripton ID..." 
+                                id="prescriptionSearch" value="">
                         </div>
-                        <div class="filter-group">
-                            <label>All Conditions</label>
+                        <div class="filter-group" id="statusFilter">
+                            <label>All Status</label>
                             <select class="filter-input" id="conditionsFilter">
-                                <option value="hypertension">Hypertension</option>                  
-                                <option value="diabetes">Diabetes</option>
-                                <option value="heart-disease">Heart Disease</option>
-                                <option value="other">Other</option>
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>                  
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
                             </select>
                         </div>
-                        <div class="filter-group">
-                            <label>All Status</label>
+                        <div class="filter-group" id="dateFilter">
+                            <label>All Dates</label>
                             <select class="filter-input" id="roleFilter">
-                                <option value="">All Status</option>
-                                <option value="stable">Stable</option>
-                                <option value="monitoring">Monitoring</option>
-                                <option value="critical">Critical</option>
+                                <option value="">All Dates</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
                             </select>                           
                         </div>                                             
                         <div class="filter-group">
@@ -395,56 +331,60 @@
                         </div>     
                     </div>          
                 </div><br>
+
                 
-                <!-- Patient Table -->
+
+            <!-- Recent Prescription Table -->
                 <div class="patient-table">
                     <div class="table-header">
-                        <h3>Patient List</h3>
+                        <h3>Recent Prescription</h3>
                         <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-secondary btn-small" id="exportBtn">
+                            <button class="btn btn-primary btn-small" id="printBtn">
                                 <i class="fas fa-download"></i> Export
                             </button>
-                            <button class="btn btn-primary btn-small" id="advanceFilterBtn">
-                                <i class="fas fa-filter"></i> Advance Filter
-                            </button>
-                            <button class="btn btn-primary btn-small" id="printBtn">
-                                <i class="fas fa-print"></i> Print List
+                            <button class="btn btn-secondary btn-small" id="exportBtn">
+                                <i class="fas fa-sync"></i> Refresh
                             </button>
                         </div>
                     </div>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Patient ID</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Gender</th>
-                                <th>Primary Condition</th>
-                                <th>Last Visit</th>
-                                <th>Room</th>
-                                <th>Status</th> 
+                                <th>Prescription ID</th>
+                                <th>Patient</th>
+                                <th>Medication</th>
+                                <th>Dosage</th>
+                                <th>Duration</th>              
+                                <th>Date Issued</th>              
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                            <tr>
-                            <td>P001247</td>
-                            <td>Sarah Wilson</td>
-                            <td>45</td>
-                            <td>Female</td>
-                            <td>Atrial Fibrillation</td>
-                            <td>Aug 19, 2025</td>
-                            <td>301</td>
-                            <td><span class="badge badge-success">Stable</span></td>
+                            <td>RX001234</td>
                             <td>
-                                <button class="btn btn-primary view-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-patient-id="P001247">View</button>
-                                <button class="btn btn-secondary edit-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-patient-id="P001247">Edit</button>
-                                <button class="btn btn-info visit-history-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-patient-id="P001247">History</button>
+                                <div>
+                                    <strong>Sarah Wilson</strong><br>
+                                    <small>P0012347 | Age: 45</small>
+                                </div>
+                            </td>
+                            <td>Lisinopril</td>
+                            <td>10mg once daily</td>
+                            <td>30 days</td>
+                            <td>August 20, 2025</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn btn-primary " style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
+                                <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Edit</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
+
+
             </main>
         </div>
         <script src="/js/logout.js"></script>
