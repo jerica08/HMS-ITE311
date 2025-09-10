@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Patients - HMS</title>
+    <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin">
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> Doctor</h1>                    
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <?= strtoupper(substr(\App\Helpers\UserHelper::getDisplayName($currentUser ?? null), 0, 2)) ?>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">
+                        <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
+                    </div>
+                    <div style="font-size: 0.9rem;opacity:0.8">
+                        <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor') ?>" class="nav-link">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor/patient') ?>" class="nav-link active">
+                        <i class="fas fa-users nav-icon"></i>
+                        My Patients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor/appointments') ?>" class="nav-link">
+                        <i class="fas fa-calendar-alt nav-icon"></i>
+                        Appointments
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor/prescriptions') ?>" class="nav-link">
+                        <i class="fas fa-prescription-bottle-alt nav-icon"></i>
+                        Prescriptions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor/lab-results') ?>" class="nav-link">
+                        <i class="fas fa-flask nav-icon"></i>
+                        Lab Results
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor/ehr') ?>" class="nav-link">
+                        <i class="fas fa-file-medical nav-icon"></i>
+                        Electronic Health Records
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('doctor/schedule') ?>" class="nav-link">
+                        <i class="fas fa-clock nav-icon"></i>
+                        My Schedule
+                    </a>
+                </li>                 
+            </ul>          
+        </nav>
+
+        <main class="content">
+            <div class="page-header">
+                <h1 class="page-title">My Patients</h1>
+                <button class="btn btn-primary" onclick="openAddPatientModal()">
+                    <i class="fas fa-plus"></i> Add Patient
+                </button>
+            </div>
+            
+            <!-- Patient Statistics Cards -->
+            <div class="dashboard-overview">
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3>Total Patients</h3>
+                            <p class="card-value"><?= count($patients ?? []) ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon green">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            <h3>Active Patients</h3>
+                            <p class="card-value"><?= $activePatientsCount ?? 0 ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon orange">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <h3>Critical Patients</h3>
+                            <p class="card-value"><?= $criticalPatientsCount ?? 0 ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-header">
+                        <div class="card-icon purple">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div>
+                            <h3>New This Week</h3>
+                            <p class="card-value"><?= $newPatientsCount ?? 0 ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="table-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search patients by name, ID, or condition...">
+                </div>
+                <div class="filter-controls">
+                    <select id="statusFilter" class="form-select">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                    <select id="conditionFilter" class="form-select">
+                        <option value="">All Conditions</option>
+                        <option value="hypertension">Hypertension</option>
+                        <option value="diabetes">Diabetes</option>
+                        <option value="heart_disease">Heart Disease</option>
+                        <option value="asthma">Asthma</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Patients Table -->
+            <div class="table-container">
+                <?php if (!empty($patients)): ?>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Patient ID</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Primary Condition</th>
+                                <th>Last Visit</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <?php foreach ($patients as $patient): ?>
+                                <tr>
+                                    <td>
+                                        <div class="user-info-cell">
+                                            <div class="user-avatar">
+                                                <?= strtoupper(substr($patient['first_name'], 0, 1) . substr($patient['last_name'], 0, 1)) ?>
+                                            </div>
+                                            <div>
+                                                <div class="user-name"><?= $patient['first_name'] . ' ' . $patient['last_name'] ?></div>
+                                                <div class="user-email"><?= $patient['email'] ?></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><?= $patient['patient_id'] ?></td>
+                                    <td><?= $patient['age'] ?></td>
+                                    <td><?= ucfirst($patient['gender']) ?></td>
+                                    <td>
+                                        <?php if (!empty($patient['primary_condition'])): ?>
+                                            <span class="badge badge-info"><?= $patient['primary_condition'] ?></span>
+                                        <?php else: ?>
+                                            <span class="text-muted">Not specified</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= date('M d, Y', strtotime($patient['last_visit'] ?? $patient['created_at'])) ?></td>
+                                    <td>
+                                        <span class="badge badge-<?= $patient['status'] === 'active' ? 'success' : ($patient['status'] === 'critical' ? 'danger' : 'secondary') ?>">
+                                            <?= ucfirst($patient['status']) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-sm btn-outline-primary" onclick="viewPatient('<?= $patient['id'] ?>')" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-success" onclick="editPatient('<?= $patient['id'] ?>')" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="deletePatient('<?= $patient['id'] ?>')" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No Patients Found</h3>
+                        <p>You haven't added any patients yet. Click "Add Patient" to get started.</p>
+                        <button class="btn btn-primary" onclick="openAddPatientModal()">
+                            <i class="fas fa-plus"></i> Add Your First Patient
+                        </button>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Patient Modal -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Patient</h2>
+                <button class="close-btn" onclick="closePatientModal()">&times;</button>
+            </div>
+            <form id="patientForm">
+                <div class="modal-body">
+                    <input type="hidden" id="patientId" name="patient_id">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="firstName" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" id="lastName" name="last_name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date of Birth *</label>
+                            <input type="date" id="dateOfBirth" name="date_of_birth" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender *</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="address" name="address" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Emergency Contact</label>
+                            <input type="text" id="emergencyContact" name="emergency_contact">
+                        </div>
+                        <div class="form-group">
+                            <label>Emergency Phone</label>
+                            <input type="tel" id="emergencyPhone" name="emergency_phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Primary Condition</label>
+                            <select id="primaryCondition" name="primary_condition">
+                                <option value="">Select Condition</option>
+                                <option value="hypertension">Hypertension</option>
+                                <option value="diabetes">Diabetes</option>
+                                <option value="heart_disease">Heart Disease</option>
+                                <option value="asthma">Asthma</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="status" name="status">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Medical Notes</label>
+                        <textarea id="medicalNotes" name="medical_notes" rows="4" placeholder="Enter any relevant medical history or notes..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closePatientModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Patient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Patient Details Modal -->
+    <div id="viewPatientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Patient Details</h2>
+                <button class="close-btn" onclick="closeViewPatientModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="patientDetailsContent">
+                <!-- Patient details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeViewPatientModal()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editPatientFromView()">Edit Patient</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="<?= base_url('public/js/patient.js') ?>"></script>
+    <script src="<?= base_url('public/js/logout.js') ?>"></script>
+</body>
+</html>
