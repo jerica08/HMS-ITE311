@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lab Results Management - HMS Doctor</title>
+        <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background: #3b82f6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2rem;
+            }
+            .status-admitted { background: #fef3c7; color: #92400e; }
+            .status-discharged { background: #dcfce7; color: #166534; }
+            .status-critical { background: #fecaca; color: #991b1b; }
+            .status-stable { background: #dbeafe; color: #1e40af; }
+            .status-emergency { background: #fed7cc; color: #c2410c; }
+            .search-filters {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+            .filter-row {
+                display: flex;
+                gap: 1rem;
+                align-items: end;
+                flex-wrap: wrap;
+            }
+            .filter-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                min-width: 150px;
+            }
+            .filter-input {
+                padding: 0.5rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 5px;
+                font-size: 0.9rem;
+            }
+            .patient-table {
+                background: white;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .table-header {
+                background: #f8fafc;
+                padding: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .action-buttons {
+                display: flex;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            .btn-small {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            .critical-alert {
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-left: 4px solid #ef4444;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            .alert-header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 600;
+                color: #991b1b;
+                margin-bottom: 0.5rem;
+            }
+            .alert-content {
+                color: #7f1d1d;
+                font-size: 0.9rem;
+            }
+            .quick-actions {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+            .actions-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+        </style>
+    </head>
+    <body class="patient">
+
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-hospital"></i>Doctor</h1>                    
+                </div>
+                <div class="user-info">
+                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div>
+                        <div style="font-weight: 600;">
+                            <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
+                        </div>
+                        <div style="font-size: 0.9rem;opacity:0.8">
+                            <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
+                        </div>
+                    </div>
+                    <button class="logout-btn" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!--Main Content-->
+       div class="main-container">
+                <!--sidebar-->
+                <nav class="sidebar">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                         <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                         <a href="<?= base_url('doctor/patients') ?>" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            My Patients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/appointments') ?>" class="nav-link">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            Appointments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/prescriptions') ?>" class="nav-link">
+                            <i class="fas fa-prescription-bottle nav-icon"></i>
+                            Prescriptions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link">
+                            <i class="fas fa-file-medical nav-icon"></i>
+                            Medical Records
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/lab-results') ?>" class="nav-link">
+                            <i class="fas fa-flask nav-icon"></i>
+                            Lab Results
+                        </a>
+                    </li>
+                </ul>      
+            </nav>
+        
+        
+            <!--Main Content-->
+            <main class="content">
+                <h1 class="page-title">Laboratory Results</h1>
+                <div class="page-actions">
+                    <button class="btn btn-success">
+                        <i class="fas fa-plus"></i> Request Lab Test
+                    </button>
+                </div><br>
+
+                <!--Dashboard overview cards-->
+                <div class="dashboard-overview">
+
+                    <!--  Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">New Results</h3>
+                                <p class="card-subtitle">Awaiting Review</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue">0</div>
+                                <div class="metric-label">New</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value green">0</div>
+                                <div class="metric-label">Critical</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value orange">0</div>
+                                <div class="metric-label">Pending Tests</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Test Categories Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Test Categories</h3>
+                                <p class="card-subtitle">Most requested test</p>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Blood Chemistry</span>
+                                    <span>45%</span>
+                                </div>
+                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                    <div style="background: #4299e1; height: 100%; width: 45%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Hematology</span>
+                                    <span>30%</span>
+                                </div>
+                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                    <div style="background: #48bb78; height: 100%; width: 30%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Cardiology</span>
+                                    <span>25%</span>
+                                </div>
+                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                    <div style="background: #48bb78; height: 100%; width: 25%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+
+                     <!-- Alerts Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Critical Results</h3>
+                                <p class="card-content">Require immediate attention</p>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                                <strong>Critical:</strong> Example alert notif.
+                            </div>
+                            <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
+                                <strong>Critical:</strong> Example alert notif.
+                            </div>
+                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; border-left: 4px solid #ed8936;">
+                                <strong>Urgent:</strong> Example alert notif.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Filter and Actions-->    
+                <div class="search-filter">
+                    <h3 style="margin-bottom: 1rem;">Search Lab Results</h3>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label> Search Patient</label>
+                            <input type="text" class="filter-input" placeholder="Search by patient name, test type, or result ID..." 
+                                id="labSearch" value="">
+                        </div>
+                        <div class="filter-group" id="statusFilter">
+                            <label>All Test Types</label>
+                            <select class="filter-input" id="testTypeFilter">
+                                <option value="">All Test Types</option>
+                                <option value="blood-chemistry">Blood Chemistry</option>                  
+                                <option value="hematology">Hematology</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="microbiology">Microbiology</option>
+                                <option value="immunology">Immunology</option>
+                            </select>
+                        </div>
+                        <div class="filter-group" id="statusFilter">
+                            <label>All Status</label>
+                            <select class="filter-input" id="roleFilter">
+                                <option value="">All Status</option>
+                                <option value="new">New</option>
+                                <option value="reviewed">Reviewed</option>
+                                <option value="critical">Critical</option>
+                                <option value="pending">Pending</option>
+                            </select>                           
+                        </div>                                             
+                        <div class="filter-group">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>     
+                    </div>          
+                </div><br>
+
+            <!-- Recent Lab Result Table -->
+                <div class="patient-table">
+                    <div class="table-header">
+                        <h3>Recent Lab Result</h3>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-primary btn-small" id="printBtn">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                            <button class="btn btn-secondary btn-small" id="exportBtn">
+                                <i class="fas fa-sync"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Test ID</th>
+                                <th>Patient</th>
+                                <th>Test Type</th>
+                                <th>Date Collection</th>
+                                <th>Date Reported</th>                          
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #fed7d7;">
+                                <td>LAB001234</td>
+                                <td>
+                                    <div>
+                                        <strong>John Smith</strong><br>
+                                        <small>P001234 | Age: 55</small>
+                                    </div>
+                                </td>
+                                <td>Cardiac Enzymes</td>
+                                <td>Aug 20, 2025 08:30</td>
+                                <td>Aug 20, 2025 14:15</td>
+                                <td><span class="badge badge-danger">Critical</span></td>
+                                <td><span class="badge badge-danger">STAT</span></td>
+                                <td>
+                                    <button class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Review</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LAB001236</td>
+                                <td>
+                                    <div>
+                                        <strong>Robert Johnson</strong><br>
+                                        <small>P001345 | Age: 38</small>
+                                    </div>
+                                </td>
+                                <td>Complete Blood Count</td>
+                                <td>Aug 19, 2025 16:30</td>
+                                <td>Aug 20, 2025 09:15</td>
+                                <td><span class="badge badge-success">Normal</span></td>
+                                <td><span class="badge badge-info">Routine</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LAB001237</td>
+                                <td>
+                                    <div>
+                                        <strong>Emily Davis</strong><br>
+                                        <small>P001089 | Age: 29</small>
+                                    </div>
+                                </td>
+                                <td>HbA1c</td>
+                                <td>Aug 19, 2025 14:00</td>
+                                <td>Aug 20, 2025 08:30</td>
+                                <td><span class="badge badge-warning">Abnormal</span></td>
+                                <td><span class="badge badge-warning">Urgent</span></td>
+                                <td>
+                                    <button class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="openLabResultModal('LAB001237')">Review</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><br>
+
+                <!-- Pedning Lab  Table -->
+                <div class="patient-table">
+                    <div class="table-header">
+                        <h3>Pending Lab Test</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Patient</th>
+                                <th>Test Ordered</th>
+                                <th>Date Ordered</th>
+                                <th>Expected Date</th>                          
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LAB0012348</td>
+                                <td>
+                                    <div>
+                                        <strong>Nelson Briane</strong><br>
+                                        <small>P0012348 | Age: 45</small>
+                                    </div>
+                                </td>
+                                <td>Stress test</td>
+                                <td>Aug 25, 2025 08:30 AM</td>
+                                <td>Aug 25, 2025 9:00 AM</td>
+                                <td><span class="badge badge-warning">Urgent</span></td>
+                                <td><span class="badge badge-info">Scheduled</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Track</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Modify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD001235</td>
+                                <td>
+                                    <div>
+                                        <strong>David Lee</strong><br>
+                                        <small>P001156 | Age: 62</small>
+                                    </div>
+                                </td>
+                                <td>Stress Test</td>
+                                <td>Aug 19, 2025</td>
+                                <td>Aug 25, 2025</td>
+                                <td><span class="badge badge-info">Routine</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Track</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Modify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD001236</td>
+                                <td>
+                                    <div>
+                                        <strong>Lisa Anderson</strong><br>
+                                        <small>P001089 | Age: 38</small>
+                                    </div>
+                                </td>
+                                <td>Thyroid Function</td>
+                                <td>Aug 18, 2025</td>
+                                <td>Aug 21, 2025</td>
+                                <td><span class="badge badge-info">Routine</span></td>
+                                <td><span class="badge badge-success">In Progress</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Track</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Modify</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        <script src="/js/logout.js"></script>
+    </body>
+</html>
