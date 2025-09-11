@@ -84,7 +84,7 @@ $routes->group('doctor', function($routes) {
     
     $routes->get('patients', 'Doctor\PatientsController::index');
     $routes->get('appointments', 'Doctor\AppointmentController::index');
-    $routes->get('prescriptions', 'Doctor\PrescriptionController::index');
+    $routes->get('prescriptions', 'Doctor\PrescriptionsController::index');
     $routes->get('medical-records', 'Doctor\MedicalRecordController::index');
     $routes->get('lab-results', 'Doctor\LabResultController::index');
 });
