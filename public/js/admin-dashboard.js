@@ -6,33 +6,9 @@ async function updateDashboardMetrics() {
     try {
         console.log('Fetching dashboard metrics...');
 
-        // Fetch user statistics
-        const userStatsResponse = await fetch('/admin/users/statistics', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            credentials: 'same-origin' // Include cookies for session authentication
-        });
-
-        if (userStatsResponse.ok) {
-            const userStats = await userStatsResponse.json();
-            console.log('User statistics:', userStats);
-
-            if (userStats.status === 'success') {
-                // Update user management card
-                document.getElementById('totalUsers').textContent = userStats.data.total_users || 0;
-                document.getElementById('activeRoles').textContent = userStats.data.active_users || 0;
-                document.getElementById('pendingUsers').textContent = userStats.data.inactive_users || 0;
-                console.log('User stats loaded:', userStats.data);
-            }
-        } else {
-            console.error('Failed to fetch user statistics:', userStatsResponse.status);
-            const errorText = await userStatsResponse.text();
-            console.error('Error response:', errorText);
-        }
-
+        // Skip user statistics update - let PHP handle it
+        // The user stats are already loaded from PHP in the dashboard
+       
         // Fetch additional metrics (patients, visits, revenue, etc.)
         // For now, we'll use placeholder/mock data for other cards
         // In a real implementation, you'd have API endpoints for these
@@ -49,10 +25,7 @@ async function updateDashboardMetrics() {
 
     } catch (error) {
         console.error('Error updating dashboard metrics:', error);
-        // Set fallback values if API fails
-        document.getElementById('totalUsers').textContent = '0';
-        document.getElementById('activeRoles').textContent = '0';
-        document.getElementById('pendingUsers').textContent = '0';
+        // Don't override user stats on error - let PHP values remain
     }
 }
 

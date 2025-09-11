@@ -123,16 +123,16 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue" id="totalUsers">0</div>
+                            <div class="metric-value blue" id="totalUsers"><?= $userStats['total_users'] ?? 0 ?></div>
                             <div class="metric-label">Total Users</div>
                         </div>
                         <div class="metric">
-                        <div class="metric-value blue" id="activeRoles">0</div>
-                            <div class="metric-label">Active Roles</div>
+                        <div class="metric-value blue" id="activeRoles"><?= $userStats['active_users'] ?? 0 ?></div>
+                            <div class="metric-label">Active Users</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value blue" id="pendingUsers">0</div>
-                            <div class="metric-label">Pending</div>
+                            <div class="metric-value blue" id="pendingUsers"><?= $userStats['inactive_users'] ?? 0 ?></div>
+                            <div class="metric-label">Inactive Users</div>
                         </div>
                     </div>
                     <div class="card-actions">
@@ -299,5 +299,4 @@
     <script src="/js/index.js"></script>
     <script src="/js/logout.js"></script>
 </body>
-</html>
 </html>

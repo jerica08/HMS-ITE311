@@ -36,7 +36,21 @@ class Admin extends BaseController
         if ($authCheck) return $authCheck;
 
         $currentUser = $this->getCurrentUserData();
-        return view('admin/dashboard/index', ['currentUser' => $currentUser]);
+        
+        // Get user statistics for dashboard
+        $userStats = $this->userService->getUserStats();
+        
+        $data = [
+            'currentUser' => $currentUser,
+            'userStats' => $userStats['data'] ?? [
+                'total_users' => 0,
+                'active_users' => 0,
+                'inactive_users' => 0,
+                'admin_users' => 0
+            ]
+        ];
+        
+        return view('admin/dashboard/index', $data);
     }
 
     // System Settings method
