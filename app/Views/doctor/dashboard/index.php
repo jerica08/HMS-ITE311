@@ -94,15 +94,15 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue">12</div>
+                            <div class="metric-value blue">0</div>
                             <div class="metric-label">Scheduled</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value green">8</div>
+                            <div class="metric-value green">0</div>
                             <div class="metric-label">Completed</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value orange">4</div>
+                            <div class="metric-value orange">0</div>
                             <div class="metric-label">Pending</div>
                         </div>
                     </div>
@@ -125,15 +125,15 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">156</div>
+                            <div class="metric-value purple">0</div>
                             <div class="metric-label">Total Patients</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value purple">23</div>
+                            <div class="metric-value purple">0</div>
                             <div class="metric-label">New This Week</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value red">5</div>
+                            <div class="metric-value red">0</div>
                             <div class="metric-label">Critical</div>
                         </div>
                     </div>
@@ -156,15 +156,15 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value green">89</div>
+                            <div class="metric-value green">0</div>
                             <div class="metric-label">Updated Today</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value green">12</div>
+                            <div class="metric-value green">0</div>
                             <div class="metric-label">Pending Review</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value green">456</div>
+                            <div class="metric-value green">0</div>
                             <div class="metric-label">Total Records</div>
                         </div>
                     </div>
