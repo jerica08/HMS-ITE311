@@ -87,7 +87,7 @@ $routes->group('doctor', function($routes) {
     $routes->get('prescriptions', 'Doctor\PrescriptionsController::index');
     $routes->get('medical-records', 'Doctor\MedicalRecordController::index');
     $routes->get('lab-results', 'Doctor\LabResultsController::index');
-    $routes->get('electronic-health-records', 'Doctor\EHRController::index');
+    $routes->get('ehr', 'Doctor\EHRController::index');
     $routes->get('schedule', 'Doctor\ScheduleController::index');
 });
 
