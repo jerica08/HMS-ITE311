@@ -302,9 +302,153 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                </div>
+                    </div>
 
+                     <!-- Block Time Card -->                      
+                    <div class="card">
+                            <div class="card-header">
+                                        <div class="card-icon">
+                                            <i class="fas fa-calendar-plus"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="card-title">Block Time</h3>
+                                            <p class="card-content">Reserve time slots</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <form>
+                                            <div style="margin-bottom: 1rem;">
+                                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Block Type</label>
+                                                <select class="form-select">
+                                                    <option>Personal Time</option>
+                                                    <option>Administrative Work</option>
+                                                    <option>Research</option>
+                                                    <option>Meeting</option>
+                                                    <option>Training</option>
+                                                </select>
+                                            </div>
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                                <div>
+                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Date</label>
+                                                    <input type="date" class="form-input">
+                                                </div>
+                                                <div>
+                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Duration</label>
+                                                    <select class="form-select">
+                                                        <option>30 minutes</option>
+                                                        <option>1 hour</option>
+                                                        <option>2 hours</option>
+                                                        <option>Half day</option>
+                                                        <option>Full day</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                                <div>
+                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Start Time</label>
+                                                    <input type="time" class="form-input">
+                                                </div>
+                                                <div>
+                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">End Time</label>
+                                                    <input type="time" class="form-input">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success" style="width: 100%;">
+                                                Block Time Slot
+                                            </button>
+                                        </form>
+                                    </div>
+                    </div>
+                    <!--Schedule Preferences Card-->
+                    <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-icon">
+                                            <i class="fas fa-cog"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="card-title">Schedule Preferences</h3>
+                                            <p class="card-content">Customize your schedule</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div style="margin-bottom: 1rem;">
+                                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Default Appointment Duration</label>
+                                            <select class="form-select">
+                                                <option>15 minutes</option>
+                                                <option selected>30 minutes</option>
+                                                <option>45 minutes</option>
+                                                <option>60 minutes</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-bottom: 1rem;">
+                                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Buffer Time Between Appointments</label>
+                                            <select class="form-select">
+                                                <option>No buffer</option>
+                                                <option selected>5 minutes</option>
+                                                <option>10 minutes</option>
+                                                <option>15 minutes</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-bottom: 1rem;">
+                                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox" checked>
+                                                Allow double booking for urgent cases
+                                            </label>
+                                        </div>
+                                        <div style="margin-bottom: 1rem;">
+                                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                                <input type="checkbox">
+                                                Auto-confirm appointments
+                                            </label>
+                                        </div>
+                                        <button class="btn btn-primary" style="width: 100%;">
+                                            Save Preferences
+                                        </button>
+                                    </div>
+                    </div>
+                    <!--Schedule Analitics Card-->
+                    <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-icon">
+                                            <i class="fas fa-chart-bar"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="card-title">Schedule Analytics</h3>
+                                            <p class="card-content">Performance metrics</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div style="margin-bottom: 1rem;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span>Average Daily Utilization</span>
+                                                <span>85%</span>
+                                            </div>
+                                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                                <div style="background: #48bb78; height: 100%; width: 85%; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 1rem;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span>On-time Performance</span>
+                                                <span>92%</span>
+                                            </div>
+                                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                                <div style="background: #4299e1; height: 100%; width: 92%; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span>No-show Rate</span>
+                                                <span>3%</span>
+                                            </div>
+                                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
+                                                <div style="background: #ed8936; height: 100%; width: 3%; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </div>                                      
+                </div>
+                
                 <!--Calendar View-->    
                 <div class="search-filter">
                     <h3 style="margin-bottom: 1rem;">Schedule View</h3>
@@ -327,109 +471,111 @@
                                 <option value="no-show">No Show</option>
                             </select>
                         </div>  
-                    </div>          
-                </div><br>
-
-                <!-- Alerts Card -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
                         <div>
-                            <h3 class="card-title">Appointment Alerts</h3>
-                            <p class="card-content">Require attention</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                            <strong>Overdue:</strong> Example alert notif.
-                        </div>
-                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                            <strong>Reminder:</strong> Example alert notif.
-                        </div>
-                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <strong>Info:</strong> Example alert notif.
-                        </div>
-                    </div>
-                </div>
-      
-                <!--Calendar View-->    
-                <div class="search-filter">
-                    <h3 style="margin-bottom: 1rem;">View Options</h3>
-                    <div class="filter-row">
-                        <div class="btn-group">
-                            <button class="btn btn-primary active" id="todayView">Today</button>
-                            <button class="btn btn-secondary" id="weekView">Week</button>
-                            <button class="btn btn-secondary" id="monthView">Month</button>
-                        </div>
-                         <div>
-                            <input type="date" class="filter-input" id="dateSelector" value="2025-08-20">
-                        </div>                                                                
-                        <div>
-                            <select class="filter-input" id="statusFilter">
-                                <option value="">All Status</option>
-                                <option value="scheduled">Scheduled</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                                <option value="no-show">No Show</option>
-                            </select>
-                        </div>  
-                    </div>          
-                </div><br>
-
-                
-
-            <!-- Schedule Table -->
-                <div class="patient-table">
-                    <div class="table-header">
-                        <h3>Today's Schedule - August 20, 2025</h3>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-primary btn-small" id="printBtn">
-                                <i class="fas fa-print"></i> Print Schedule
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-print"></i> Print
                             </button>
-                            <button class="btn btn-secondary btn-small" id="exportBtn">
+                            <button class="btn btn-primary">
                                 <i class="fas fa-sync"></i> Refresh
                             </button>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Patient</th>
-                                <th>Type</th>
-                                <th>Condition/Reason</th>
-                                <th>Duration</th>              
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                            <td>10:00 AM</td>
-                            <td>
-                                <div>
-                                    <strong>Sarah Wilson</strong><br>
-                                    <small>P0012347 | Age: 45</small>
-                                </div>
-                            </td>
-                            <td>Follow-up</td>
-                            <td>Hypertension Management</td>
-                            <td>30 min</td>
-                            <td><span class="badge badge-success">Completed</span></td>
-                            <td>
-                                <button class="btn btn-primary " style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View Notes</button>
-                                <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"s>Reschedule</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        </div>    
+                    </div>                          
                 </div>
 
+                <!-- Daily Schedule View -->
+                <div class="card" style="margin-top: 2rem;" id="dailySchedule">
+                    <div class="card-header">
+                        <h3 class="card-title">Tuesday, August 20, 2025</h3>
+                    </div>
+                    <div class="card-content">
+                        <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <!-- Time slots -->
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">8:00 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #e6fffa; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #38b2ac;">
+                                    <strong>Available</strong> - Open slot for appointments
+                                </div>
+                            </div>
 
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">9:00 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #bee3f8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #4299e1; cursor: pointer;" onclick="openAppointmentDetailsModal('apt1')">
+                                    <strong>John Smith</strong> - Follow-up (Hypertension)<br>
+                                    <small>Duration: 30 min | Room: 201</small>
+                                </div>
+                            </div>
 
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">9:30 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #c6f6d5; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #48bb78;">
+                                    <strong>Maria Garcia</strong> - Consultation (Chest Pain)<br>
+                                    <small>Duration: 45 min | Room: 201</small>
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">10:15 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #fbb6ce; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #ed64a6;">
+                                    <strong>Robert Johnson</strong> - Check-up (Annual Physical)<br>
+                                    <small>Duration: 30 min | Room: 201 | <strong>IN PROGRESS</strong></small>
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">10:45 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #bee3f8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #4299e1;">
+                                    <strong>Emily Davis</strong> - Follow-up (Diabetes)<br>
+                                    <small>Duration: 20 min | Room: 201</small>
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">11:05 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #c6f6d5; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #48bb78;">
+                                    <strong>Michael Brown</strong> - Consultation (Heart Murmur)<br>
+                                    <small>Duration: 40 min | Room: 201</small>
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">11:45 AM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #fed7d7; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #f56565;">
+                                    <strong>Break Time</strong> - 15 minutes
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">12:00 PM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #bee3f8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #4299e1;">
+                                    <strong>Sarah Wilson</strong> - Follow-up (Atrial Fibrillation)<br>
+                                    <small>Duration: 25 min | Room: 201</small>
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">12:25 PM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #feebc8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #ed8936;">
+                                    <strong>Lunch Break</strong> - 35 minutes
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">1:00 PM</div>
+                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                                <div style="background: #c6f6d5; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #48bb78;">
+                                    <strong>David Lee</strong> - Follow-up (Coronary Artery Disease)<br>
+                                    <small>Duration: 30 min | Room: 201</small>
+                                </div>
+                            </div>
+
+                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">1:30 PM</div>
+                            <div style="padding: 1rem;">
+                                <div style="background: #e6fffa; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #38b2ac;">
+                                    <strong>Available</strong> - Open slot for appointments
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
         <script src="/js/logout.js"></script>
