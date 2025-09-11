@@ -50,25 +50,25 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="doctor-appointments.html" class="nav-link">
+                        <a href="<?= base_url('doctor/appointments') ?>" class="nav-link">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             Appointments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="doctor-prescriptions.html" class="nav-link">
+                        <a href="<?= base_url('doctor/prescriptions') ?>" class="nav-link">
                             <i class="fas fa-prescription-bottle nav-icon"></i>
                             Prescriptions
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="doctor-medical-records.html" class="nav-link">
+                        <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link">
                             <i class="fas fa-file-medical nav-icon"></i>
                             Medical Records
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="doctor-lab-results.html" class="nav-link">
+                        <a href="<?= base_url('doctor/lab-results') ?>" class="nav-link">
                             <i class="fas fa-flask nav-icon"></i>
                             Lab Results
                         </a>

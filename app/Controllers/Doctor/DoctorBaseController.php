@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Doctor;
 
+use App\Controllers\BaseController;
+
 class DoctorBaseController extends BaseController
 {
     protected function checkDoctorAuth()

@@ -8,6 +8,15 @@ class PatientsController extends DoctorBaseController
 {
     public function index()
     {
-        return view('doctor/patients/index');
+        // Check authentication
+        $authCheck = $this->checkDoctorAuth();
+        if ($authCheck) {
+            return $authCheck;
+        }
+
+        // Get common view data including current user
+        $data = $this->getCommonViewData();
+        
+        return view('doctor/patients/index', $data);
     }
 }
