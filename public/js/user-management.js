@@ -146,6 +146,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            // Validate password confirmation
+            const confirmPassword = document.getElementById('confirm_password').value;
+            if (userData.password !== confirmPassword) {
+                console.error('Validation failed: Passwords do not match');
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
             try {
                 showLoading(true);
                 

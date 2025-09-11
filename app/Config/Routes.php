@@ -80,7 +80,13 @@ $routes->group('admin', function($routes) {
 
 
 $routes->group('doctor', function($routes) {
-    $routes->get('dashboard', 'Doctor::index');     
+    $routes->get('dashboard', 'Doctor::index'); 
+    
+    $routes->get('patients', 'Doctor\PatientController::index');
+    $routes->get('appointments', 'Doctor\AppointmentController::index');
+    $routes->get('prescriptions', 'Doctor\PrescriptionController::index');
+    $routes->get('medical-records', 'Doctor\MedicalRecordController::index');
+    $routes->get('lab-results', 'Doctor\LabResultController::index');
 });
 
 $routes->group('nurse', function($routes) {

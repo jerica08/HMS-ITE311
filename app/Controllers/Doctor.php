@@ -24,6 +24,6 @@ class Doctor extends BaseController
         if ($authCheck) return $authCheck;
 
         $currentUser = $this->getCurrentUserData();
-        return view('doctor/dashboard', ['currentUser' => $currentUser]);
+        return view('doctor/dashboard/dashboard', ['currentUser' => $currentUser]);
     }
 }
