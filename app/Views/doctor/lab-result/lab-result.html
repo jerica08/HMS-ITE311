@@ -334,8 +334,6 @@
                     </div>          
                 </div><br>
 
-                
-
             <!-- Recent Lab Result Table -->
                 <div class="patient-table">
                     <div class="table-header">
@@ -364,23 +362,136 @@
                         </thead>
                         <tbody>
                             <tr style="background-color: #fed7d7;">
-                            <td>LAB001234</td>
-                            <td>
-                                <div>
-                                    <strong>John Smith</strong><br>
-                                    <small>P001234 | Age: 55</small>
-                                </div>
-                            </td>
-                            <td>Cardiac Enzymes</td>
-                            <td>Aug 20, 2025 08:30</td>
-                            <td>Aug 20, 2025 14:15</td>
-                            <td><span class="badge badge-danger">Critical</span></td>
-                            <td><span class="badge badge-danger">STAT</span></td>
-                            <td>
-                                <button class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Review</button>
-                                <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
-                            </td>
-                        </tr>
+                                <td>LAB001234</td>
+                                <td>
+                                    <div>
+                                        <strong>John Smith</strong><br>
+                                        <small>P001234 | Age: 55</small>
+                                    </div>
+                                </td>
+                                <td>Cardiac Enzymes</td>
+                                <td>Aug 20, 2025 08:30</td>
+                                <td>Aug 20, 2025 14:15</td>
+                                <td><span class="badge badge-danger">Critical</span></td>
+                                <td><span class="badge badge-danger">STAT</span></td>
+                                <td>
+                                    <button class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Review</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LAB001236</td>
+                                <td>
+                                    <div>
+                                        <strong>Robert Johnson</strong><br>
+                                        <small>P001345 | Age: 38</small>
+                                    </div>
+                                </td>
+                                <td>Complete Blood Count</td>
+                                <td>Aug 19, 2025 16:30</td>
+                                <td>Aug 20, 2025 09:15</td>
+                                <td><span class="badge badge-success">Normal</span></td>
+                                <td><span class="badge badge-info">Routine</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LAB001237</td>
+                                <td>
+                                    <div>
+                                        <strong>Emily Davis</strong><br>
+                                        <small>P001089 | Age: 29</small>
+                                    </div>
+                                </td>
+                                <td>HbA1c</td>
+                                <td>Aug 19, 2025 14:00</td>
+                                <td>Aug 20, 2025 08:30</td>
+                                <td><span class="badge badge-warning">Abnormal</span></td>
+                                <td><span class="badge badge-warning">Urgent</span></td>
+                                <td>
+                                    <button class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="openLabResultModal('LAB001237')">Review</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Print</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><br>
+
+                <!-- Recent Lab Result Table -->
+                <div class="patient-table">
+                    <div class="table-header">
+                        <h3>Pending Lab Test</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Patient</th>
+                                <th>Test Ordered</th>
+                                <th>Date Ordered</th>
+                                <th>Expected Date</th>                          
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LAB0012348</td>
+                                <td>
+                                    <div>
+                                        <strong>Nelson Briane</strong><br>
+                                        <small>P0012348 | Age: 45</small>
+                                    </div>
+                                </td>
+                                <td>Stress test</td>
+                                <td>Aug 25, 2025 08:30 AM</td>
+                                <td>Aug 25, 2025 9:00 AM</td>
+                                <td><span class="badge badge-warning">Urgent</span></td>
+                                <td><span class="badge badge-info">Scheduled</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Track</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Modify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD001235</td>
+                                <td>
+                                    <div>
+                                        <strong>David Lee</strong><br>
+                                        <small>P001156 | Age: 62</small>
+                                    </div>
+                                </td>
+                                <td>Stress Test</td>
+                                <td>Aug 19, 2025</td>
+                                <td>Aug 25, 2025</td>
+                                <td><span class="badge badge-info">Routine</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Track</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Modify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD001236</td>
+                                <td>
+                                    <div>
+                                        <strong>Lisa Anderson</strong><br>
+                                        <small>P001089 | Age: 38</small>
+                                    </div>
+                                </td>
+                                <td>Thyroid Function</td>
+                                <td>Aug 18, 2025</td>
+                                <td>Aug 21, 2025</td>
+                                <td><span class="badge badge-info">Routine</span></td>
+                                <td><span class="badge badge-success">In Progress</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Track</button>
+                                    <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Modify</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
