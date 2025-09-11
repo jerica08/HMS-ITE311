@@ -7,6 +7,6 @@ class LabResultsController extends DoctorBaseController
 {
     public function index()
     {
-        return view('doctor/appointments/index');
+        return view('doctor/lab-results/index');
     }
 }
