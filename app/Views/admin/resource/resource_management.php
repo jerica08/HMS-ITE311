@@ -411,9 +411,9 @@
                             <i class="fas fa-plus"></i> Manage Departments  
                         </button>
                     </div>
-                    </div>
+                </div>
 
-                    <div class="resource-grid">
+                <div class="resource-grid">
                         <!--Bed Management-->
                         <div class="resource-section">
                         <div class="section-header">
@@ -640,7 +640,7 @@
                             </button>
                         </div>
                         </div>
-                    </div>
+                </div>
             </main>
         </div>
 

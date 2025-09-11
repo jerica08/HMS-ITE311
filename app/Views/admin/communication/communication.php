@@ -301,9 +301,9 @@
             <h1 class="page-title">Communication & Notifications</h1>
 
             <!-- Communication Overview Stats -->
-            <div class="dashboard-grid" style="margin-bottom: 2rem;">
-                <div class="card">
-                    <div class="card-header">
+            <div class="dashboard-overview" style="margin-bottom: 2rem;">
+                <div class="overview-card">
+                    <div class="card-header modern">
                         <div class="card-icon"><i class="fas fa-envelope"></i></div>
                         <div>
                             <h3 class="card-title">Unread Messages</h3>
