@@ -3,7 +3,7 @@
 namespace App\Controllers\Doctor;
 use App\Controllers\Doctor\BaseController;
 
-class PrescriptionController extends DoctorBaseController
+class PrescriptionsController extends DoctorBaseController
 {
     public function index()
     {

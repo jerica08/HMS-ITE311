@@ -38,13 +38,13 @@
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="doctor_dashboard.html" class="nav-link active">
+                         <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="doctor-patients.html" class="nav-link">
+                         <a href="<?= base_url('doctor/patients') ?>" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
                             My Patients
                         </a>
