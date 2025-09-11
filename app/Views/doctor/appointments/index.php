@@ -141,8 +141,8 @@
         </header>
         <!--Main Content-->
         <div class="main-container">
-                <!--sidebar-->
-                <nav class="sidebar">
+              <!--sidebar-->
+            <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
                          <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link">
@@ -180,9 +180,18 @@
                             Lab Results
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/ehr') ?>" class="nav-link">
+                            <i class="fas fa-flask nav-icon"></i>
+                            Electronic Health Record
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
+                            <i class="fas fa-flask nav-icon"></i>
+                            My Schedule
                 </ul>      
             </nav>
-        
             <!--Main Content-->
             <main class="content">
                 <h1 class="page-title">Appointments</h1>

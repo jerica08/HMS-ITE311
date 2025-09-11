@@ -17,6 +17,6 @@ class EHRController extends DoctorBaseController
             // Add any additional data needed for the view here
         ]);
 
-        return view('Doctor/EHR/EHR', $data);
+        return view('Doctor/EHR/index', $data);
     }
 }

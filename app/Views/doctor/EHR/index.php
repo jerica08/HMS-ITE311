@@ -141,53 +141,56 @@
         </header>
         <!--Main Content-->
         <div class="main-container">
-                <!--sidebar-->
-                <nav class="sidebar">
-                
+            <!--sidebar-->
+            <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                         <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                         <a href="<?= base_url('doctor/patients') ?>" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
-                           My Patients
+                            My Patients
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= base_url('doctor/appointments') ?>" class="nav-link">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             Appointments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= base_url('doctor/prescriptions') ?>" class="nav-link">
                             <i class="fas fa-prescription-bottle nav-icon"></i>
-                           Prescription
+                            Prescriptions
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link">
+                            <i class="fas fa-file-medical nav-icon"></i>
+                            Medical Records
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('doctor/lab-results') ?>" class="nav-link">
                             <i class="fas fa-flask nav-icon"></i>
                             Lab Results
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link active">
-                            <i class="fas fa-file-medical nav-icon"></i>
-                           Electronic Health Records
+                        <a href="<?= base_url('doctor/ehr') ?>" class="nav-link">
+                            <i class="fas fa-flask nav-icon"></i>
+                            Electronic Health Record
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="fas fa-clock nav-icon"></i>
+                        <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
+                            <i class="fas fa-flask nav-icon"></i>
                             My Schedule
-                        </a>
-                    </li>               
-                </ul>          
+                </ul>      
             </nav>
         
             <!--Main Content-->
