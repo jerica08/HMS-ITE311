@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreatePatientsTable extends Migration
+class CreateNewPatientsTable extends Migration
 {
     public function up()
     {
@@ -15,24 +15,20 @@ class CreatePatientsTable extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'patient_uid' => [
-                'type' => 'VARCHAR',
-                'constraint' => 32,
-                'null' => false,
-            ],
-            'first_name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-                'null' => false,
-            ],
-            'last_name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-                'null' => false,
-            ],
-            'email' => [
+            'full_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 191,
+                'null' => false,
+            ],
+            'age' => [
+                'type' => 'TINYINT',
+                'constraint' => 3,
+                'unsigned' => true,
+                'null' => true,
+            ],
+            'gender' => [
+                'type' => 'ENUM',
+                'constraint' => ['male', 'female', 'other'],
                 'null' => true,
             ],
             'phone' => [
@@ -40,18 +36,9 @@ class CreatePatientsTable extends Migration
                 'constraint' => 32,
                 'null' => true,
             ],
-            'date_of_birth' => [
-                'type' => 'DATE',
-                'null' => true,
-            ],
-            'gender' => [
+            'primary_condition' => [
                 'type' => 'VARCHAR',
-                'constraint' => 16,
-                'null' => true,
-            ],
-            'department' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 191,
                 'null' => true,
             ],
             'room' => [
@@ -60,10 +47,24 @@ class CreatePatientsTable extends Migration
                 'null' => true,
             ],
             'status' => [
-                'type' => 'VARCHAR',
-                'constraint' => 32,
-                'default' => 'admitted',
+                'type' => 'ENUM',
+                'constraint' => ['stable', 'critical', 'admitted', 'discharged', 'emergency'],
+                'default' => 'stable',
                 'null' => false,
+            ],
+            'patient_type' => [
+                'type' => 'ENUM',
+                'constraint' => ['outpatient', 'inpatient'],
+                'default' => 'outpatient',
+                'null' => false,
+            ],
+            'last_visit' => [
+                'type' => 'DATE',
+                'null' => true,
+            ],
+            'notes' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -80,16 +81,12 @@ class CreatePatientsTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('patient_uid');
-        $this->forge->addKey('last_name');
-        $this->forge->addKey('email');
-        $this->forge->createTable('patients', true);
+        $this->forge->addKey('full_name');
+        $this->forge->createTable('new_patients', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('patients', true);
+        $this->forge->dropTable('new_patients', true);
     }
 }
-
-

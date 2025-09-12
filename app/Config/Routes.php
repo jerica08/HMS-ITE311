@@ -68,6 +68,7 @@ $routes->group('admin', function($routes) {
     // Patient Management Routes
     $routes->get('patient', 'Admin\PatientManagementController::index'); 
     $routes->get('patients', 'Admin\PatientManagementController::index');
+    $routes->post('patients', 'Admin\PatientManagementController::create');
 
     // Staff Management Routes
     $routes->get('staff', 'Admin\StaffManagementController::index');
