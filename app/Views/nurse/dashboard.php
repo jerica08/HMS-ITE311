@@ -26,6 +26,9 @@
                             <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
                         </div>
                     </div>
+                    <a class="btn btn-secondary" href="<?= base_url('profile') ?>" style="margin-left:.5rem;">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
                     <button class="logout-btn" onclick="handleLogout()">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout

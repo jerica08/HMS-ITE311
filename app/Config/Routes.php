@@ -21,6 +21,11 @@ $routes->post('auth/heartbeat', 'Auth::heartbeat');      // Session heartbeat en
 $routes->get('auth/check-session', 'Auth::checkSession'); // Check session validity endpoint
 $routes->post('auth/logout-beacon', 'Auth::logoutBeacon'); // Beacon logout endpoint
 
+// Profile routes (available to all authenticated roles)
+$routes->get('profile', 'Profile::index');
+$routes->post('profile/update', 'Profile::update');
+$routes->post('profile/password', 'Profile::updatePassword');
+
 
 $routes->group('admin', function($routes) {
     $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index

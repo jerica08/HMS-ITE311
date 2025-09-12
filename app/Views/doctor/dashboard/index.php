@@ -12,7 +12,7 @@
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-user-md"></i> Doctor Dashboard</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor</h1>                    
                 </div>
                 <div class="user-info">
                     <div class="user-avatar">
@@ -26,6 +26,9 @@
                             <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
                         </div>
                     </div>
+                    <a class="btn btn-secondary" href="<?= base_url('profile') ?>" style="margin-left:.5rem;">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
                     <button class="logout-btn" onclick="handleLogout()">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
@@ -84,7 +87,7 @@
             </nav>
         <!--main content-->
         <main class="content">
-            <h1 class="page-title">Doctor Dashboard</h1>
+            <h1 class="page-title">Dashboard</h1>
 
             <!--Dashboard overview cards-->
             <div class="dashboard-overview">
