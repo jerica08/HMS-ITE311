@@ -222,6 +222,60 @@
         .metric-card.efficiency {
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
         }
+        /* Modals aligned with dashboard theme */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            width: 100%;
+            max-width: 560px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .modal-title {
+            font-weight: 600;
+            color: #111827;
+        }
+        .modal-body { padding: 1rem 1.25rem; }
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            padding: 0.75rem 1.25rem 1.25rem;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        .form-grid .full { grid-column: 1 / -1; }
+        .form-label { font-size: 0.9rem; color: #374151; margin-bottom: 0.25rem; display: block; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.6rem 0.75rem;
+            font-size: 0.95rem;
+            background: #fff;
+        }
+        .form-textarea { min-height: 90px; resize: vertical; }
     </style>
 </head>
 <body class="admin">
@@ -232,7 +286,7 @@
                 <h1><i class="fas fa-hospital"></i> Administrator</h1>                    
             </div>
             <div class="user-info">
-                <div href="" class="fas fa-avatar" href=""></div>
+                <div class="fas fa-user-circle"></div>
                 <div>
                     <div style="font-weight: 600;">
                         <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
@@ -387,24 +441,24 @@
                 <!--Quick Actions-->
                 <div class="quick-actions">
                     <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
-                    <div class="action grid">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add Bed
+                    <div class="actions grid">
+                        <button class="btn btn-primary" data-open-modal="modal-add-staff">
+                            <i class="fas fa-user-plus"></i> Add Staff
                         </button>
-                        <button class="btn btn-success">
-                            <i class="fas fa-plus"></i>  Add Equipment
+                        <button class="btn btn-success" data-open-modal="modal-assign-shift">
+                            <i class="fas fa-calendar-plus"></i> Assign Shift
                         </button>
-                        <button class="btn btn-warning">
-                            <i class="fas fa-plus"></i>  Schedule Maintenance 
+                        <button class="btn btn-warning" data-open-modal="modal-approve-leave">
+                            <i class="fas fa-clipboard-check"></i> Approve Leave
                         </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-plus"></i> Inventroy Report 
+                        <button class="btn btn-secondary" data-open-modal="modal-record-overtime">
+                            <i class="fas fa-user-clock"></i> Record Overtime
                         </button>
-                        <button class="btn btn-info">
-                            <i class="fas fa-plus"></i> Request Supplies  
+                        <button class="btn btn-info" data-open-modal="modal-upload-certification">
+                            <i class="fas fa-certificate"></i> Upload Certification
                         </button>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Manage Departments  
+                        <button class="btn btn-primary" data-open-modal="modal-manage-roles">
+                            <i class="fas fa-user-shield"></i> Manage Roles
                         </button>
                     </div>
                 </div>
@@ -423,7 +477,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">Dr. Sarah Johnson</div>
+                            <div class="staff-name">Dr. Staff1</div>
                             <div class="staff-details">Emergency Department - 8:00 AM - 6:00 PM</div>
                         </div>
                         <div class="staff-status status-on-duty">On Duty</div>
@@ -431,7 +485,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">Nurse Mary Wilson</div>
+                            <div class="staff-name">Nurse Staff1</div>
                             <div class="staff-details">ICU - 6:00 AM - 6:00 PM</div>
                         </div>
                         <div class="staff-status status-break">On Break</div>
@@ -439,7 +493,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">Dr. Michael Brown</div>
+                            <div class="staff-name">Dr. Staff2</div>
                             <div class="staff-details">Cardiology - 9:00 AM - 5:00 PM</div>
                         </div>
                         <div class="staff-status status-on-duty">On Duty</div>
@@ -447,7 +501,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">Tech Robert Davis</div>
+                            <div class="staff-name">Tech Staff1</div>
                             <div class="staff-details">Laboratory - 7:00 AM - 3:00 PM</div>
                         </div>
                         <div class="staff-status status-overtime">Overtime</div>
@@ -459,155 +513,6 @@
                         </button>
                         <button class="btn btn-secondary btn-small" onclick="shiftReports()">
                             <i class="fas fa-chart-bar"></i> Shift Reports
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Performance Metrics -->
-                <div class="staff-section">
-                    <div class="section-header">
-                        <div class="section-icon" style="background: #f59e0b;">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Performance Metrics</div>
-                        </div>
-                    </div>
-
-                    <div class="performance-metric">
-                        <div class="metric-label">Patient Satisfaction</div>
-                        <div class="metric-value metric-excellent">94.5%</div>
-                    </div>
-
-                    <div class="performance-metric">
-                        <div class="metric-label">Attendance Rate</div>
-                        <div class="metric-value metric-good">96.2%</div>
-                    </div>
-
-                    <div class="performance-metric">
-                        <div class="metric-label">Training Completion</div>
-                        <div class="metric-value metric-average">78.3%</div>
-                    </div>
-
-                    <div class="performance-metric">
-                        <div class="metric-label">Safety Incidents</div>
-                        <div class="metric-value metric-excellent">0.2%</div>
-                    </div>
-
-                    <div class="performance-metric">
-                        <div class="metric-label">Overtime Usage</div>
-                        <div class="metric-value metric-average">12.5%</div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="detailedMetrics()">
-                            <i class="fas fa-analytics"></i> Detailed Metrics
-                        </button>
-                        <button class="btn btn-secondary btn-small" onclick="performanceReports()">
-                            <i class="fas fa-file-chart-line"></i> Reports
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Certification Tracking -->
-                <div class="staff-section">
-                    <div class="section-header">
-                        <div class="section-icon" style="background: #8b5cf6;">
-                            <i class="fas fa-certificate"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Certification Status</div>
-                        </div>
-                    </div>
-
-                    <div class="certification-item">
-                        <div>
-                            <div style="font-weight: 500;">CPR Certification</div>
-                            <div style="font-size: 0.8rem; color: #6b7280;">Dr. Sarah Johnson</div>
-                        </div>
-                        <div class="cert-status cert-expiring">Expires 30 days</div>
-                    </div>
-
-                    <div class="certification-item">
-                        <div>
-                            <div style="font-weight: 500;">Nursing License</div>
-                            <div style="font-size: 0.8rem; color: #6b7280;">Mary Wilson, RN</div>
-                        </div>
-                        <div class="cert-status cert-valid">Valid</div>
-                    </div>
-
-                    <div class="certification-item">
-                        <div>
-                            <div style="font-weight: 500;">Lab Technician</div>
-                            <div style="font-size: 0.8rem; color: #6b7280;">Robert Davis</div>
-                        </div>
-                        <div class="cert-status cert-expired">Expired</div>
-                    </div>
-
-                    <div class="certification-item">
-                        <div>
-                            <div style="font-weight: 500;">Medical License</div>
-                            <div style="font-size: 0.8rem; color: #6b7280;">Dr. Michael Brown</div>
-                        </div>
-                        <div class="cert-status cert-valid">Valid</div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="manageCertifications()">
-                            <i class="fas fa-cog"></i> Manage Certs
-                        </button>
-                        <button class="btn btn-warning btn-small" onclick="renewalReminders()">
-                            <i class="fas fa-bell"></i> Send Reminders
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Payroll Summary -->
-                <div class="staff-section">
-                    <div class="section-header">
-                        <div class="section-icon" style="background: #ef4444;">
-                            <i class="fas fa-money-check-alt"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Payroll Summary</div>
-                        </div>
-                    </div>
-
-                    <div class="payroll-summary">
-                        <div class="payroll-item">
-                            <span>Regular Hours</span>
-                            <span>$485,600</span>
-                        </div>
-                        <div class="payroll-item">
-                            <span>Overtime Hours</span>
-                            <span>$72,840</span>
-                        </div>
-                        <div class="payroll-item">
-                            <span>Benefits</span>
-                            <span>$125,400</span>
-                        </div>
-                        <div class="payroll-item">
-                            <span>Bonuses</span>
-                            <span>$28,500</span>
-                        </div>
-                        <div class="payroll-item payroll-total">
-                            <span>Total Payroll</span>
-                            <span>$712,340</span>
-                        </div>
-                    </div>
-
-                    <div style="font-size: 0.9rem; color: #6b7280; margin-top: 1rem;">
-                        <div>Pay Period: Dec 1-15, 2024</div>
-                        <div>Employees: 342 active</div>
-                        <div>Status: Pending approval</div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-success btn-small" onclick="approvePayroll()">
-                            <i class="fas fa-check"></i> Approve Payroll
-                        </button>
-                        <button class="btn btn-secondary btn-small" onclick="payrollReports()">
-                            <i class="fas fa-file-invoice-dollar"></i> Reports
                         </button>
                     </div>
                 </div>
@@ -625,7 +530,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">Emma Wilson</div>
+                            <div class="staff-name">Dr. Staff3</div>
                             <div class="staff-details">Vacation Leave - Dec 20-27, 2024</div>
                         </div>
                         <div class="staff-status status-break">Pending</div>
@@ -633,7 +538,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">John Rodriguez</div>
+                            <div class="staff-name">Nurse Staff2</div>
                             <div class="staff-details">Sick Leave - Dec 18, 2024</div>
                         </div>
                         <div class="staff-status status-on-duty">Approved</div>
@@ -641,7 +546,7 @@
 
                     <div class="staff-item">
                         <div class="staff-info">
-                            <div class="staff-name">Lisa Chen</div>
+                            <div class="staff-name">Tech Staff2</div>
                             <div class="staff-details">Personal Leave - Dec 22, 2024</div>
                         </div>
                         <div class="staff-status status-break">Pending</div>
@@ -664,12 +569,306 @@
                 </div>
             </div>
 
-                
+            <!-- Modals -->
 
-                
-                
+            <!-- Staff Modals -->
+            <div id="modal-add-staff" class="modal-overlay" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-add-staff-title">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modal-add-staff-title"><i class="fas fa-user-plus"></i> Add Staff</div>
+                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div>
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" placeholder="e.g., Jane Doe">
+                            </div>
+                            <div>
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" placeholder="name@example.com">
+                            </div>
+                            <div>
+                                <label class="form-label">Role</label>
+                                <select class="form-select">
+                                    <option>Doctor</option>
+                                    <option>Nurse</option>
+                                    <option>Receptionist</option>
+                                    <option>Laboratorist</option>
+                                    <option>Pharmacist</option>
+                                    <option>Accountant</option>
+                                    <option>IT Staff</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Department</label>
+                                <select class="form-select">
+                                    <option>Emergency</option>
+                                    <option>ICU</option>
+                                    <option>Cardiology</option>
+                                    <option>Laboratory</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-input" placeholder="e.g., 0917 123 4567">
+                            </div>
+                            <div>
+                                <label class="form-label">Status</label>
+                                <select class="form-select">
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="full">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-textarea" placeholder="Optional details..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
 
-    
+            <!-- Assign Shift Modal -->
+            <div id="modal-assign-shift" class="modal-overlay" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-assign-shift-title">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modal-assign-shift-title"><i class="fas fa-calendar-plus"></i> Assign Shift</div>
+                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div>
+                                <label class="form-label">Staff</label>
+                                <input type="text" class="form-input" placeholder="Search staff name">
+                            </div>
+                            <div>
+                                <label class="form-label">Department</label>
+                                <select class="form-select">
+                                    <option>Emergency</option>
+                                    <option>ICU</option>
+                                    <option>Cardiology</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Start Time</label>
+                                <input type="time" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">End Time</label>
+                                <input type="time" class="form-input">
+                            </div>
+                            <div class="full">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-textarea" placeholder="Optional"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+                        <button class="btn btn-success">Assign</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Approve Leave Modal -->
+            <div id="modal-approve-leave" class="modal-overlay" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-approve-leave-title">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modal-approve-leave-title"><i class="fas fa-clipboard-check"></i> Approve Leave</div>
+                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div>
+                                <label class="form-label">Staff</label>
+                                <input type="text" class="form-input" placeholder="Search staff name">
+                            </div>
+                            <div>
+                                <label class="form-label">Leave Type</label>
+                                <select class="form-select">
+                                    <option>Vacation</option>
+                                    <option>Sick</option>
+                                    <option>Personal</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">From</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">To</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="full">
+                                <label class="form-label">Decision</label>
+                                <select class="form-select">
+                                    <option>Approve</option>
+                                    <option>Deny</option>
+                                </select>
+                            </div>
+                            <div class="full">
+                                <label class="form-label">Remarks</label>
+                                <textarea class="form-textarea" placeholder="Optional"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+                        <button class="btn btn-warning">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Record Overtime Modal -->
+            <div id="modal-record-overtime" class="modal-overlay" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-record-overtime-title">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modal-record-overtime-title"><i class="fas fa-user-clock"></i> Record Overtime</div>
+                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div>
+                                <label class="form-label">Staff</label>
+                                <input type="text" class="form-input" placeholder="Search staff name">
+                            </div>
+                            <div>
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Hours</label>
+                                <input type="number" min="1" step="0.5" class="form-input" value="1">
+                            </div>
+                            <div class="full">
+                                <label class="form-label">Reason</label>
+                                <textarea class="form-textarea" placeholder="e.g., Emergency surgery"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+                        <button class="btn btn-secondary">Record</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Certification Modal -->
+            <div id="modal-upload-certification" class="modal-overlay" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-upload-certification-title">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modal-upload-certification-title"><i class="fas fa-certificate"></i> Upload Certification</div>
+                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div>
+                                <label class="form-label">Staff</label>
+                                <input type="text" class="form-input" placeholder="Search staff name">
+                            </div>
+                            <div>
+                                <label class="form-label">Certification</label>
+                                <input type="text" class="form-input" placeholder="e.g., BLS, ACLS">
+                            </div>
+                            <div>
+                                <label class="form-label">Expiry Date</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="full">
+                                <label class="form-label">File</label>
+                                <input type="file" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+                        <button class="btn btn-info">Upload</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Roles Modal -->
+            <div id="modal-manage-roles" class="modal-overlay" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-manage-roles-title">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modal-manage-roles-title"><i class="fas fa-user-shield"></i> Manage Roles</div>
+                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div>
+                                <label class="form-label">Staff</label>
+                                <input type="text" class="form-input" placeholder="Search staff name">
+                            </div>
+                            <div>
+                                <label class="form-label">Role</label>
+                                <select class="form-select">
+                                    <option>Doctor</option>
+                                    <option>Nurse</option>
+                                    <option>Receptionist</option>
+                                    <option>Laboratorist</option>
+                                    <option>Pharmacist</option>
+                                    <option>Accountant</option>
+                                    <option>IT Staff</option>
+                                </select>
+                            </div>
+                            <div class="full">
+                                <label class="form-label">Reason</label>
+                                <textarea class="form-textarea" placeholder="Optional"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                (function() {
+                    function qs(id) { return document.getElementById(id); }
+                    function openModal(id) {
+                        var el = qs(id);
+                        if (el) { el.classList.add('active'); el.setAttribute('aria-hidden', 'false'); }
+                    }
+                    function closeModal(el) {
+                        if (!el) return;
+                        el.classList.remove('active');
+                        el.setAttribute('aria-hidden', 'true');
+                    }
+                    window.openModal = function(id) { openModal(id); };
+                    window.closeModal = function(id) { closeModal(qs(id)); };
+                    document.addEventListener('click', function(e) {
+                        if (e.target.matches('[data-close-modal]')) {
+                            var overlay = e.target.closest('.modal-overlay');
+                            closeModal(overlay);
+                        }
+                        if (e.target.classList.contains('modal-overlay')) {
+                            closeModal(e.target);
+                        }
+                        if (e.target.matches('[data-open-modal]')) {
+                            var id = e.target.getAttribute('data-open-modal');
+                            openModal(id);
+                        }
+                    });
+                    document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape') {
+                            document.querySelectorAll('.modal-overlay.active').forEach(function(ov) { closeModal(ov); });
+                        }
+                    });
+                })();
+            </script>
+
                 <script src="<?= base_url('js/logout.js') ?>"></script>
 
             </main>

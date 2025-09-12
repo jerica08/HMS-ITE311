@@ -81,6 +81,7 @@
             align-items: center;
         }
         .permission-grid {
+            width: 100px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
@@ -423,7 +424,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
 
             <!--Display here the Recent Login Attemps-->
