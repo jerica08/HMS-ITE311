@@ -631,6 +631,8 @@
             .modal-close:hover { color: #2d3748; }
             .modal-body { padding: 1.5rem; }
             .modal-footer { display: flex; justify-content: flex-end; gap: 1rem; padding: 1.5rem; border-top: 1px solid #e2e8f0; background-color: #f7fafc; }
+            .form-input, .form-select { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; }
+            .form-input:focus, .form-select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1); }
             </style>
 
             <script>

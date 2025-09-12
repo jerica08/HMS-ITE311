@@ -115,15 +115,15 @@
             }
         </style>
     </head>
-    <body class="patient">
+    <body class="doctor">
 
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-hospital"></i>HMS-Doctor</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor</h1>                    
                 </div>
                 <div class="user-info">
-                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div class="fas fa-user-circle"></div>
                     <div>
                         <div style="font-weight: 600;">
                             <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
@@ -184,6 +184,8 @@
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
+                        </a>
+                    </li>
                 </ul>      
             </nav>
         
@@ -191,7 +193,7 @@
             <main class="content">
                 <h1 class="page-title">Electronic Health Record</h1>
                 <div class="page-actions">
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" id="newRecordBtn">
                         <i class="fas fa-plus"></i> New Record Entry
                     </button>
                 </div><br>
@@ -384,7 +386,7 @@
                                         <td>Hypertension management</td>
                                         <td>Essential Hypertension</td>
                                         <td>Dr. Sarah Johnson</td>
-                                        <td><button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="openVisitModal('visit1')">View</button></td>
+                                        <td><button class="btn btn-primary view-visit-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button></td>
                                     </tr>
                                     <tr>
                                         <td>Jul 30, 2025</td>
@@ -392,7 +394,7 @@
                                         <td>Annual check-up</td>
                                         <td>Routine examination</td>
                                         <td>Dr. Sarah Johnson</td>
-                                        <td><button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="openVisitModal('visit2')">View</button></td>
+                                        <td><button class="btn btn-primary view-visit-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button></td>
                                     </tr>
                                     <tr>
                                         <td>Jun 15, 2025</td>
@@ -400,7 +402,7 @@
                                         <td>Chest pain evaluation</td>
                                         <td>Atypical chest pain</td>
                                         <td>Dr. Sarah Johnson</td>
-                                        <td><button class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="openVisitModal('visit3')">View</button></td>
+                                        <td><button class="btn btn-primary view-visit-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -411,7 +413,7 @@
                         <div class="card-content">
                             <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 1rem;">
                                 <h4>Medication History</h4>
-                                <button class="btn btn-success">Add Medication</button>
+                                <button class="btn btn-success" id="addMedicationBtn">Add Medication</button>
                             </div>
                             <table class="table">
                                 <thead>
@@ -556,7 +558,7 @@
                         <div class="card-content">
                             <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 1rem;">
                                 <h4>Clinical Notes</h4>
-                                <button class="btn btn-success" onclick="openAddNoteModal()">Add Note</button>
+                                <button class="btn btn-success" id="addNoteBtn">Add Note</button>
                             </div>
                             
                             <div style="border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 1rem;">
@@ -588,34 +590,259 @@
                     </div>
 
                 </div>
+
+                <!-- Modals -->
+                <div class="modal" id="newRecordModal">
+                    <div class="modal-content" style="max-width: 720px;">
+                        <div class="modal-header">
+                            <h3>New Record Entry</h3>
+                            <button class="modal-close" id="closeNewRecord">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="newRecordForm">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Record Type *</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select Type</option>
+                                            <option>Progress Note</option>
+                                            <option>Consultation Note</option>
+                                            <option>Discharge Summary</option>
+                                            <option>Procedure Note</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Date *</label>
+                                        <input type="date" class="form-input" required>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Chief Complaint</label>
+                                    <textarea class="form-input" rows="2" placeholder="Patient's main concern..."></textarea>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Assessment & Plan</label>
+                                    <textarea class="form-input" rows="4" placeholder="Clinical assessment and treatment plan..."></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelNewRecord">Cancel</button>
+                            <button type="submit" form="newRecordForm" class="btn btn-success">Save Record</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="viewVisitModal">
+                    <div class="modal-content" style="max-width: 840px;">
+                        <div class="modal-header">
+                            <h3>Visit Details</h3>
+                            <button class="modal-close" id="closeViewVisit">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                                <div>
+                                    <h4 style="margin-bottom: 1rem; color: #2d3748;">Visit Information</h4>
+                                    <div style="background: #f7fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                        <div style="margin-bottom: 0.5rem;"><strong>Date:</strong> <span id="visitDate">Aug 20, 2025</span></div>
+                                        <div style="margin-bottom: 0.5rem;"><strong>Type:</strong> <span id="visitType">Follow-up</span></div>
+                                        <div style="margin-bottom: 0.5rem;"><strong>Provider:</strong> <span id="visitProvider">Dr. Sarah Johnson</span></div>
+                                        <div><strong>Duration:</strong> <span id="visitDuration">30 minutes</span></div>
+                                    </div>
+                                    <h4 style="margin-bottom: 1rem; color: #2d3748;">Chief Complaint</h4>
+                                    <div style="background: #e6fffa; padding: 1rem; border-radius: 8px;">
+                                        <p id="visitComplaint">Follow-up for hypertension management</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 1rem; color: #2d3748;">Clinical Notes</h4>
+                                    <div style="background: #f0fff4; padding: 1rem; border-radius: 8px;">
+                                        <p><strong>Assessment:</strong> Patient's blood pressure remains elevated at 140/90 despite current medication.</p>
+                                        <p><strong>Plan:</strong> Increase Lisinopril to 15mg daily. Patient to monitor BP at home and return in 2 weeks.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="closeViewVisitBtn">Close</button>
+                            <button type="button" class="btn btn-primary" id="printVisitBtn">Print</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="addMedicationModal">
+                    <div class="modal-content" style="max-width: 720px;">
+                        <div class="modal-header">
+                            <h3>Add Medication</h3>
+                            <button class="modal-close" id="closeAddMedication">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addMedicationForm">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Medication *</label>
+                                        <input type="text" class="form-input" placeholder="e.g., Lisinopril" required>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Dosage *</label>
+                                        <input type="text" class="form-input" placeholder="e.g., 10mg" required>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Frequency *</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select Frequency</option>
+                                            <option>Once daily</option>
+                                            <option>Twice daily</option>
+                                            <option>Three times daily</option>
+                                            <option>As needed</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Start Date *</label>
+                                        <input type="date" class="form-input" required>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Instructions</label>
+                                    <textarea class="form-input" rows="3" placeholder="Special instructions for the patient..."></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelAddMedication">Cancel</button>
+                            <button type="submit" form="addMedicationForm" class="btn btn-success">Add Medication</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="addNoteModal">
+                    <div class="modal-content" style="max-width: 720px;">
+                        <div class="modal-header">
+                            <h3>Add Clinical Note</h3>
+                            <button class="modal-close" id="closeAddNote">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addNoteForm">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Note Type *</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select Type</option>
+                                            <option>Progress Note</option>
+                                            <option>Consultation Note</option>
+                                            <option>Procedure Note</option>
+                                            <option>Discharge Summary</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Date *</label>
+                                        <input type="date" class="form-input" required>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Chief Complaint</label>
+                                    <textarea class="form-input" rows="2" placeholder="Patient's main concern..."></textarea>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">History of Present Illness</label>
+                                    <textarea class="form-input" rows="3" placeholder="Detailed history..."></textarea>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Assessment & Plan</label>
+                                    <textarea class="form-input" rows="4" placeholder="Clinical assessment and treatment plan..."></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelAddNote">Cancel</button>
+                            <button type="submit" form="addNoteForm" class="btn btn-success">Save Note</button>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+                .modal.show { display: flex; align-items: center; justify-content: center; }
+                .modal-content { background-color: white; border-radius: 8px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); }
+                .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid #e2e8f0; background-color: #f7fafc; }
+                .modal-header h3 { margin: 0; color: #2d3748; }
+                .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+                .modal-close:hover { color: #2d3748; }
+                .modal-body { padding: 1.5rem; }
+                .modal-footer { display: flex; justify-content: flex-end; gap: 1rem; padding: 1.5rem; border-top: 1px solid #e2e8f0; background-color: #f7fafc; }
+                .form-input, .form-select { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; }
+                .form-input:focus, .form-select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1); }
+                </style>
+
+                <script>
+                (function() {
+                    const newRecordModal = document.getElementById('newRecordModal');
+                    const viewVisitModal = document.getElementById('viewVisitModal');
+                    const addMedicationModal = document.getElementById('addMedicationModal');
+                    const addNoteModal = document.getElementById('addNoteModal');
+
+                    function open(m) { m.classList.add('show'); }
+                    function close(m) { m.classList.remove('show'); }
+
+                    // New Record Entry
+                    document.getElementById('newRecordBtn').addEventListener('click', function(){ open(newRecordModal); });
+                    document.getElementById('closeNewRecord').addEventListener('click', function(){ close(newRecordModal); });
+                    document.getElementById('cancelNewRecord').addEventListener('click', function(){ close(newRecordModal); });
+                    document.getElementById('newRecordForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Record entry saved.'); close(newRecordModal); this.reset(); });
+
+                    // View Visit Details
+                    document.querySelectorAll('.view-visit-btn').forEach(function(btn){ btn.addEventListener('click', function(){ open(viewVisitModal); }); });
+                    document.getElementById('closeViewVisit').addEventListener('click', function(){ close(viewVisitModal); });
+                    document.getElementById('closeViewVisitBtn').addEventListener('click', function(){ close(viewVisitModal); });
+                    document.getElementById('printVisitBtn').addEventListener('click', function(){ window.print(); });
+
+                    // Add Medication
+                    document.getElementById('addMedicationBtn').addEventListener('click', function(){ open(addMedicationModal); });
+                    document.getElementById('closeAddMedication').addEventListener('click', function(){ close(addMedicationModal); });
+                    document.getElementById('cancelAddMedication').addEventListener('click', function(){ close(addMedicationModal); });
+                    document.getElementById('addMedicationForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Medication added.'); close(addMedicationModal); this.reset(); });
+
+                    // Add Clinical Note
+                    document.getElementById('addNoteBtn').addEventListener('click', function(){ open(addNoteModal); });
+                    document.getElementById('closeAddNote').addEventListener('click', function(){ close(addNoteModal); });
+                    document.getElementById('cancelAddNote').addEventListener('click', function(){ close(addNoteModal); });
+                    document.getElementById('addNoteForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Clinical note saved.'); close(addNoteModal); this.reset(); });
+
+                    // Outside click close
+                    window.addEventListener('click', function(e){
+                        [newRecordModal, viewVisitModal, addMedicationModal, addNoteModal].forEach(function(m){ if (e.target === m) close(m); });
+                    });
+
+                    // Tab functionality
+                    document.querySelectorAll('[data-tab]').forEach(button => {
+                        button.addEventListener('click', function() {
+                            // Remove active class from all buttons and tabs
+                            document.querySelectorAll('[data-tab]').forEach(btn => {
+                                btn.classList.remove('active', 'btn-primary');
+                                btn.classList.add('btn-secondary');
+                            });
+                            document.querySelectorAll('.tab-content').forEach(tab => {
+                                tab.style.display = 'none';
+                                tab.classList.remove('active');
+                            });
+
+                            // Add active class to clicked button and corresponding tab
+                            this.classList.add('active', 'btn-primary');
+                            this.classList.remove('btn-secondary');
+                            const tabId = this.getAttribute('data-tab') + '-tab';
+                            const targetTab = document.getElementById(tabId);
+                            if (targetTab) {
+                                targetTab.style.display = 'block';
+                                targetTab.classList.add('active');
+                            }
+                        });
+                    });
+                })();
+                </script>
             </main>
         </div>
-        <script>
-            // Tab functionality
-        document.querySelectorAll('[data-tab]').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons and tabs
-                document.querySelectorAll('[data-tab]').forEach(btn => {
-                    btn.classList.remove('active', 'btn-primary');
-                    btn.classList.add('btn-secondary');
-                });
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.style.display = 'none';
-                    tab.classList.remove('active');
-                });
-
-                // Add active class to clicked button and corresponding tab
-                this.classList.add('active', 'btn-primary');
-                this.classList.remove('btn-secondary');
-                const tabId = this.getAttribute('data-tab') + '-tab';
-                const targetTab = document.getElementById(tabId);
-                if (targetTab) {
-                    targetTab.style.display = 'block';
-                    targetTab.classList.add('active');
-                }
-            });
-        });
-        </script>
         <script src="/js/logout.js"></script>
     </body>
 </html>
