@@ -14,16 +14,16 @@ class PatientModel extends Model
     protected $useSoftDeletes = true;
 
     protected $allowedFields = [
-        'patient_uid',
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'date_of_birth',
+        'full_name',
+        'age',
         'gender',
-        'department',
+        'phone',
+        'primary_condition',
         'room',
         'status',
+        'patient_type',
+        'last_visit',
+        'notes',
     ];
 
     protected $useTimestamps = true;
@@ -32,13 +32,15 @@ class PatientModel extends Model
     protected $deletedField  = 'deleted_at';
 
     protected $validationRules = [
-        'patient_uid' => 'required|min_length[4]|max_length[32]',
-        'first_name' => 'required|max_length[100]',
-        'last_name'  => 'required|max_length[100]',
-        'email'      => 'permit_empty|valid_email|max_length[191]',
-        'phone'      => 'permit_empty|max_length[32]',
-        'gender'     => 'permit_empty|in_list[male,female,other]',
-        'status'     => 'permit_empty|in_list[admitted,discharged,critical,stable,emergency]',
+        'full_name' => 'required|max_length[191]',
+        'age' => 'permit_empty|integer|greater_than_equal_to[0]|less_than_equal_to[120]',
+        'gender' => 'permit_empty|in_list[male,female,other]',
+        'phone' => 'permit_empty|max_length[32]',
+        'primary_condition' => 'permit_empty|max_length[191]',
+        'room' => 'permit_empty|max_length[50]',
+        'status' => 'permit_empty|in_list[stable,critical,admitted,discharged,emergency]',
+        'patient_type' => 'permit_empty|in_list[outpatient,inpatient]',
+        'last_visit' => 'permit_empty|valid_date[Y-m-d]',
     ];
 
     protected $validationMessages = [];
