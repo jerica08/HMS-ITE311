@@ -115,15 +115,15 @@
             }
         </style>
     </head>
-    <body class="patient">
+    <body class="doctor">
 
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-hospital"></i>HMS-Doctor</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor</h1>                    
                 </div>
                 <div class="user-info">
-                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div class="fas fa-user-circle"></div>
                     <div>
                         <div style="font-weight: 600;">
                             <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
@@ -184,6 +184,8 @@
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link active">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
+                        </a>
+                    </li>
                 </ul>      
             </nav>
         

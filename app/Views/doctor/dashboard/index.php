@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8s">
-        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Doctor Dashboard</title>
         <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">      
@@ -34,8 +34,8 @@
             </div>
         </header>
         <div class="main-container">
+
             <!--sidebar-->
-              <!--sidebar-->
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
@@ -78,6 +78,8 @@
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
+                        </a>
+                    </li>
                 </ul>      
             </nav>
         <!--main content-->
@@ -238,72 +240,7 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="dashboard-overview"style="margin-top:2rem;">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <div>
-                            <h3 class="card-title">Patient Vitals Overview</h3>
-                            <p class="card-content">Critical patient monitoring</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="margin-bottom:1rem;">
-                            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
-                                <span>Normal Vitals</span>
-                                <span>85%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #48bb78; height: 100%; width: 85%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Attention Needed</span>
-                                <span>12%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #ed8936; height: 100%; width: 12%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-                         <div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                <span>Critical</span>
-                                <span>3%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                <div style="background: #f56565; height: 100%; width: 3%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-bell"></i>                          
-                        </div>
-                         <div>
-                            <h3 class="card-title">Patient Alerts</h3>
-                            <p class="card-content">Important notifications</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                            <strong>Urgent:</strong> Patient Maria Santos - Blood pressure critical
-                        </div>
-                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                            <strong>Reminder:</strong> Lab results pending for John Doe
-                        </div>
-                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <strong>Info:</strong> 3 appointments scheduled for tomorrow
-                        </div>
-                    </div>
-                </div>
-            </div>        
+     
         </main>
     </div>
      <script>
@@ -318,12 +255,12 @@
 
         // Logout functionality
         function handleLogout() {
-            if(confirm('Are you sure you want to logout?')) {
+            if (confirm('Are you sure you want to logout?')) {
                 window.location.href = '<?= base_url('auth/logout') ?>';
             }
         }
     </script>
-    
+    <script src="<?= base_url('js/logout.js') ?>"></script>
         
     </body>
 </html>

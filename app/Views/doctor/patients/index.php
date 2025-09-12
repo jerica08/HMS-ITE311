@@ -181,15 +181,15 @@
             }
         </style>
     </head>
-    <body class="patient">
+    <body class="doctor">
 
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-hospital"></i>Doctor</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor</h1>                    
                 </div>
                 <div class="user-info">
-                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div class="fas fa-user-circle"></div>
                     <div>
                         <div style="font-weight: 600;">
                             <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
@@ -250,6 +250,8 @@
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
+                        </a>
+                    </li>
                 </ul>      
             </nav>
         
@@ -290,71 +292,7 @@
                                 <div class="metric-label">Critical</div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Patient Conditions</h3>
-                                <p class="card-content">Most common diagnoses</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Hypertension</span>
-                                    <span>45 patients</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #4299e1; height: 100%; width: 75%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Diabetes</span>
-                                    <span>32 patients</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 53%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Heart Disease</span>
-                                    <span>28 patients</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #ed8936; height: 100%; width: 47%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Patient Alerts</h3>
-                                <p class="card-content">Require immediate attention</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                                <strong>Critical:</strong> John Smith - BP 180/120
-                            </div>
-                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                                <strong>Urgent:</strong> Maria Garcia - Missed appointment
-                            </div>
-                            <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                <strong>Info:</strong> 5 patients need follow-up
-                            </div>
-                        </div>
-                    </div>
-                              
+                    </div>                           
                 </div>
       
                 <!--Filter and Actions-->    
@@ -442,6 +380,293 @@
                         </tbody>
                     </table>
                 </div>
+            
+            <!-- Modals -->
+            <div class="modal" id="newPatientModal">
+                <div class="modal-content" style="max-width: 720px;">
+                    <div class="modal-header">
+                        <h3 id="newPatientTitle">New Patient</h3>
+                        <button class="modal-close" data-close>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="newPatientForm">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name *</label>
+                                    <input type="text" class="form-input" placeholder="e.g., John Doe" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Age *</label>
+                                    <input type="number" min="0" class="form-input" required>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Gender *</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Phone</label>
+                                    <input type="tel" class="form-input" placeholder="e.g., 0917 123 4567">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Primary Condition</label>
+                                    <input type="text" class="form-input" placeholder="e.g., Hypertension">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Room</label>
+                                    <input type="text" class="form-input" placeholder="e.g., 301">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Status</label>
+                                    <select class="form-select">
+                                        <option>Stable</option>
+                                        <option>Monitoring</option>
+                                        <option>Critical</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Last Visit</label>
+                                    <input type="date" class="form-input">
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Notes</label>
+                                <textarea class="form-input" rows="3" placeholder="Additional information"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-close>Cancel</button>
+                        <button type="submit" form="newPatientForm" class="btn btn-success">Save Patient</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="viewPatientModal">
+                <div class="modal-content" style="max-width: 800px;">
+                    <div class="modal-header">
+                        <h3>Patient Details</h3>
+                        <button class="modal-close" data-close>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="margin-bottom: 1rem; color: #2d3748;">Profile</h4>
+                                <div style="background: #f7fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                    <div style="margin-bottom: 0.5rem;"><strong>ID:</strong> <span>P001247</span></div>
+                                    <div style="margin-bottom: 0.5rem;"><strong>Name:</strong> <span>Sarah Wilson</span></div>
+                                    <div style="margin-bottom: 0.5rem;"><strong>Age:</strong> <span>45</span></div>
+                                    <div style="margin-bottom: 0.5rem;"><strong>Gender:</strong> <span>Female</span></div>
+                                    <div style="margin-bottom: 0.5rem;"><strong>Phone:</strong> <span>(555) 123-4567</span></div>
+                                    <div><strong>Status:</strong> <span class="badge badge-success">Stable</span></div>
+                                </div>
+                                <h4 style="margin-bottom: 1rem; color: #2d3748;">Primary Condition</h4>
+                                <div style="background: #e6fffa; padding: 1rem; border-radius: 8px;">Atrial Fibrillation</div>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 1rem; color: #2d3748;">Recent Visits</h4>
+                                <div style="background: #fff5f5; padding: 1rem; border-radius: 8px;">
+                                    <div style="margin-bottom: 0.5rem;">Aug 19, 2025 - Check-up</div>
+                                    <div style="margin-bottom: 0.5rem;">Jun 01, 2025 - Follow-up</div>
+                                    <div>Mar 10, 2025 - Consultation</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-close>Close</button>
+                        <button type="button" class="btn btn-primary" id="editFromViewPatient">Edit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="editPatientModal">
+                <div class="modal-content" style="max-width: 720px;">
+                    <div class="modal-header">
+                        <h3>Edit Patient</h3>
+                        <button class="modal-close" data-close>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editPatientForm">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name *</label>
+                                    <input type="text" class="form-input" value="Sarah Wilson" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Age *</label>
+                                    <input type="number" min="0" class="form-input" value="45" required>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Gender *</label>
+                                    <select class="form-select" required>
+                                        <option>Female</option>
+                                        <option>Male</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Phone</label>
+                                    <input type="tel" class="form-input" value="(555) 123-4567">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Primary Condition</label>
+                                    <input type="text" class="form-input" value="Atrial Fibrillation">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Room</label>
+                                    <input type="text" class="form-input" value="301">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Status</label>
+                                    <select class="form-select">
+                                        <option>Stable</option>
+                                        <option>Monitoring</option>
+                                        <option>Critical</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Last Visit</label>
+                                    <input type="date" class="form-input" value="2025-08-19">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-close>Cancel</button>
+                        <button type="submit" form="editPatientForm" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="advancedFilterModal">
+                <div class="modal-content" style="max-width: 680px;">
+                    <div class="modal-header">
+                        <h3>Advanced Filter</h3>
+                        <button class="modal-close" data-close>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="advancedFilterForm">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Condition</label>
+                                    <select class="form-select">
+                                        <option value="">All</option>
+                                        <option>Hypertension</option>
+                                        <option>Diabetes</option>
+                                        <option>Heart Disease</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Status</label>
+                                    <select class="form-select">
+                                        <option value="">All</option>
+                                        <option>Stable</option>
+                                        <option>Monitoring</option>
+                                        <option>Critical</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Last Visit From</label>
+                                    <input type="date" class="form-input">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">To</label>
+                                    <input type="date" class="form-input">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-close>Close</button>
+                        <button type="submit" form="advancedFilterForm" class="btn btn-primary">Apply</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="visitHistoryModal">
+                <div class="modal-content" style="max-width: 800px;">
+                    <div class="modal-header">
+                        <h3>Visit History</h3>
+                        <button class="modal-close" data-close>&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                            <div style="margin-bottom: 0.5rem;">Aug 19, 2025 - Routine Check-up</div>
+                            <div style="margin-bottom: 0.5rem;">Jun 01, 2025 - Follow-up</div>
+                            <div>Mar 10, 2025 - Consultation</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-close>Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+            .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+            .modal.show { display: flex; align-items: center; justify-content: center; }
+            .modal-content { background-color: white; border-radius: 8px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); }
+            .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid #e2e8f0; background-color: #f7fafc; }
+            .modal-header h3 { margin: 0; color: #2d3748; }
+            .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+            .modal-close:hover { color: #2d3748; }
+            .modal-body { padding: 1.5rem; }
+            .modal-footer { display: flex; justify-content: flex-end; gap: 1rem; padding: 1.5rem; border-top: 1px solid #e2e8f0; background-color: #f7fafc; }
+            </style>
+
+            <script>
+            (function() {
+                function openModal(el) { el.classList.add('show'); }
+                function closeModal(el) { el.classList.remove('show'); }
+                function qs(sel) { return document.querySelector(sel); }
+                function qsa(sel) { return document.querySelectorAll(sel); }
+
+                const newPatientModal = qs('#newPatientModal');
+                const viewPatientModal = qs('#viewPatientModal');
+                const editPatientModal = qs('#editPatientModal');
+                const advancedFilterModal = qs('#advancedFilterModal');
+                const visitHistoryModal = qs('#visitHistoryModal');
+
+                // Openers
+                qs('#addPatientBtn') && qs('#addPatientBtn').addEventListener('click', function() { openModal(newPatientModal); });
+                qsa('.view-patient-btn').forEach(function(btn){ btn.addEventListener('click', function(){ openModal(viewPatientModal); }); });
+                qsa('.edit-patient-btn').forEach(function(btn){ btn.addEventListener('click', function(){ openModal(editPatientModal); }); });
+                qs('#advanceFilterBtn') && qs('#advanceFilterBtn').addEventListener('click', function(){ openModal(advancedFilterModal); });
+                qsa('.visit-history-btn').forEach(function(btn){ btn.addEventListener('click', function(){ openModal(visitHistoryModal); }); });
+                qs('#editFromViewPatient') && qs('#editFromViewPatient').addEventListener('click', function(){ closeModal(viewPatientModal); openModal(editPatientModal); });
+
+                // Closers
+                qsa('[data-close]').forEach(function(btn){ btn.addEventListener('click', function(){ const modal = btn.closest('.modal'); if(modal) closeModal(modal); }); });
+                window.addEventListener('click', function(e){
+                    [newPatientModal, viewPatientModal, editPatientModal, advancedFilterModal, visitHistoryModal].forEach(function(m){ if(e.target === m) closeModal(m); });
+                });
+
+                // Submit handlers (demo only)
+                qs('#newPatientForm') && qs('#newPatientForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Patient saved successfully!'); closeModal(newPatientModal); this.reset(); });
+                qs('#editPatientForm') && qs('#editPatientForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Changes saved.'); closeModal(editPatientModal); });
+                qs('#advancedFilterForm') && qs('#advancedFilterForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Filters applied.'); closeModal(advancedFilterModal); });
+            })();
+            </script>
+
             </main>
         </div>
         <script src="<?= base_url('js/logout.js') ?>"></script>

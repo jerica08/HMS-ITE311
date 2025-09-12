@@ -32,7 +32,6 @@
             .status-stable { background: #dbeafe; color: #1e40af; }
             .status-emergency { background: #fed7cc; color: #c2410c; }
             .search-filters {
-                background: white;
                 border-radius: 8px;
                 padding: 1.5rem;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -43,6 +42,7 @@
                 gap: 1rem;
                 align-items: end;
                 flex-wrap: wrap;
+                border-left: 1px;
             }
             .filter-group {
                 display: flex;
@@ -115,15 +115,15 @@
             }
         </style>
     </head>
-    <body class="patient">
+    <body class="doctor">
 
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-hospital"></i>Doctor</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor</h1>                    
                 </div>
                 <div class="user-info">
-                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div class="fas fa-user-circle"></div>
                     <div>
                         <div style="font-weight: 600;">
                             <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
@@ -184,6 +184,8 @@
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
+                        </a>
+                    </li>
                 </ul>      
             </nav>
         
@@ -191,7 +193,7 @@
             <main class="content">
                 <h1 class="page-title">Prescriptions</h1>
                 <div class="page-actions">
-                    <button class="btn btn-success" id="addPatientBtn">
+                    <button class="btn btn-success" id="addPrescriptionBtn">
                         <i class="fas fa-plus"></i> New Prescription
                     </button>
                 </div><br>
@@ -206,7 +208,7 @@
                                 <i class="fas fa-prescription-bottle"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title-modern">Todays Prescriptions</h3>
+                                <h3 class="card-title-modern">Today's Prescriptions</h3>
                                 <p class="card-subtitle">Issues today</p>
                             </div>
                         </div>
@@ -225,114 +227,50 @@
                             </div>
                         </div>
                     </div>
-                    <!-- This Week Card -->
-                    <div class="overview-card">
-                        <div class="card-header-modern">
-                            <div class="card-icon-modern blue">
-                                <i class="fas fa-pills"></i>
-                            </div>
-                            <div class="card-info">
-                                <h3 class="card-title-modern">Most Prescribed</h3>
-                                <p class="card-subtitle">Top medication this month</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Lisinopril</span>
-                                    <span>45 prescriptions</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #4299e1; height: 100%; width: 75%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Metformin</span>
-                                    <span>38 prescriptions</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 63%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Atorvastatin</span>
-                                    <span>32 prescriptions</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 53%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                        </div>                       
-                    </div>
-
-                     <!-- Alerts Card -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Appointment Alerts</h3>
-                                <p class="card-content">Require attention</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                                <strong>Critical:</strong> Example alert notif.
-                            </div>
-                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                                <strong>Warning:</strong> Example alert notif.
-                            </div>
-                            <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                <strong>Info:</strong> Example alert notif.
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!--Filter and Actions-->    
-                <div class="search-filter">
-                    <h3 style="margin-bottom: 1rem;">Search Prescriptions</h3>
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label> Search Patient</label>
-                            <input type="text" class="filter-input" placeholder="Search by patient name, medication, or prescripton ID..." 
-                                id="prescriptionSearch" value="">
-                        </div>
-                        <div class="filter-group" id="statusFilter">
-                            <label>All Status</label>
-                            <select class="filter-input" id="conditionsFilter">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>                  
-                                <option value="pending">Pending</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                        </div>
-                        <div class="filter-group" id="dateFilter">
-                            <label>All Dates</label>
-                            <select class="filter-input" id="roleFilter">
-                                <option value="">All Dates</option>
-                                <option value="today">Today</option>
-                                <option value="week">This Week</option>
-                                <option value="month">This Month</option>
-                            </select>                           
-                        </div>                                             
-                        <div class="filter-group">
-                            <label>&nbsp;</label>
-                            <button class="btn btn-primary" onclick="applyFilters()">
-                                <i class="fas fa-search"></i> Search
-                            </button>
-                        </div>     
-                    </div>          
-                </div><br>
+                
 
                 
 
             <!-- Recent Prescription Table -->
                 <div class="patient-table">
+                    <!--Filter and Actions-->    
+                    <div class="search-filter">
+                        <h3 style="margin-bottom: 1rem;">Search Prescriptions</h3>
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <label> Search Patient</label>
+                                <input type="text" class="filter-input" placeholder="Search by patient name, medication, or prescripton ID..." 
+                                    id="prescriptionSearch" value="">
+                            </div>
+                            <div class="filter-group" id="statusFilter">
+                                <label>All Status</label>
+                                <select class="filter-input" id="conditionsFilter">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>                  
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="filter-group" id="dateFilter">
+                                <label>All Dates</label>
+                                <select class="filter-input" id="roleFilter">
+                                    <option value="">All Dates</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                </select>                           
+                            </div>                                             
+                            <div class="filter-group">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-primary" onclick="applyFilters()">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>     
+                        </div>          
+                    </div>
                     <div class="table-header">
                         <h3>Recent Prescription</h3>
                         <div style="display: flex; gap: 0.5rem;">
@@ -372,8 +310,8 @@
                             <td>August 20, 2025</td>
                             <td><span class="badge badge-success">Active</span></td>
                             <td>
-                                <button class="btn btn-primary " style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
-                                <button class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Edit</button>
+                                <button class="btn btn-primary view-rx-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
+                                <button class="btn btn-secondary edit-rx-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Edit</button>
                             </td>
                         </tr>
                         </tbody>
@@ -381,6 +319,176 @@
                 </div>
             </main>
         </div>
+        
+        <!-- Modals -->
+        <div class="modal" id="newPrescriptionModal">
+            <div class="modal-content" style="max-width: 720px;">
+                <div class="modal-header">
+                    <h3>New Prescription</h3>
+                    <button class="modal-close" id="closeNewRx">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="newPrescriptionForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Patient *</label>
+                                <select class="form-select" required>
+                                    <option value="">Select Patient</option>
+                                    <option value="P001234">John Smith (P001234)</option>
+                                    <option value="P001198">Maria Garcia (P001198)</option>
+                                    <option value="P001345">Robert Johnson (P001345)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Date Issued *</label>
+                                <input type="date" class="form-input" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Medication *</label>
+                                <input type="text" class="form-input" placeholder="e.g., Lisinopril" required>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Dosage *</label>
+                                <input type="text" class="form-input" placeholder="e.g., 10mg once daily" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Frequency *</label>
+                                <select class="form-select" required>
+                                    <option value="">Select Frequency</option>
+                                    <option>Once daily</option>
+                                    <option>Twice daily</option>
+                                    <option>Three times daily</option>
+                                    <option>As needed</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Duration *</label>
+                                <select class="form-select" required>
+                                    <option value="">Select Duration</option>
+                                    <option>7 days</option>
+                                    <option>14 days</option>
+                                    <option>30 days</option>
+                                    <option>90 days</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Notes</label>
+                            <textarea class="form-input" rows="3" placeholder="Additional instructions or notes"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelNewRx">Cancel</button>
+                    <button type="submit" form="newPrescriptionForm" class="btn btn-success">Save Prescription</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="viewPrescriptionModal">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3>Prescription Details</h3>
+                    <button class="modal-close" id="closeViewRx">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Prescription Information</h4>
+                            <div style="background: #f7fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                <div style="margin-bottom: 0.5rem;"><strong>ID:</strong> <span id="rxId">RX001234</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Date:</strong> <span id="rxDate">Aug 20, 2025</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Medication:</strong> <span id="rxMedication">Lisinopril</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Dosage:</strong> <span id="rxDosage">10mg once daily</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Duration:</strong> <span id="rxDuration">30 days</span></div>
+                                <div><strong>Status:</strong> <span id="rxStatus" class="badge badge-success">Active</span></div>
+                            </div>
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Notes</h4>
+                            <div style="background: #e6fffa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                <div id="rxNotes">Take with water. Monitor BP daily.</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Patient Information</h4>
+                            <div style="background: #f0fff4; padding: 1rem; border-radius: 8px;">
+                                <div style="margin-bottom: 0.5rem;"><strong>Name:</strong> <span id="rxPatientName">Sarah Wilson</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Patient ID:</strong> <span id="rxPatientId">P0012347</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Age:</strong> <span id="rxPatientAge">45 years</span></div>
+                                <div><strong>Phone:</strong> <span id="rxPatientPhone">(555) 123-4567</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeViewRxBtn">Close</button>
+                    <button type="button" class="btn btn-primary" id="editFromViewBtn">Edit</button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background-color: white; border-radius: 8px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid #e2e8f0; background-color: #f7fafc; }
+        .modal-header h3 { margin: 0; color: #2d3748; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { color: #2d3748; }
+        .modal-body { padding: 1.5rem; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 1rem; padding: 1.5rem; border-top: 1px solid #e2e8f0; background-color: #f7fafc; }
+        </style>
+        
+        <script>
+        (function() {
+            const newRxModal = document.getElementById('newPrescriptionModal');
+            const viewRxModal = document.getElementById('viewPrescriptionModal');
+
+            function open(modal) { modal.classList.add('show'); }
+            function close(modal) { modal.classList.remove('show'); }
+
+            // Open New Prescription
+            document.getElementById('addPrescriptionBtn').addEventListener('click', function() { open(newRxModal); });
+            document.getElementById('closeNewRx').addEventListener('click', function() { close(newRxModal); });
+            document.getElementById('cancelNewRx').addEventListener('click', function() { close(newRxModal); });
+
+            // Submit New Prescription
+            document.getElementById('newPrescriptionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Prescription saved successfully!');
+                close(newRxModal);
+                this.reset();
+            });
+
+            // Open View Prescription
+            document.querySelectorAll('.view-rx-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() { open(viewRxModal); });
+            });
+            document.getElementById('closeViewRx').addEventListener('click', function() { close(viewRxModal); });
+            document.getElementById('closeViewRxBtn').addEventListener('click', function() { close(viewRxModal); });
+
+            // Edit from view opens New Prescription modal for editing
+            document.getElementById('editFromViewBtn').addEventListener('click', function() {
+                close(viewRxModal);
+                open(newRxModal);
+            });
+
+            // Open edit modal from table
+            document.querySelectorAll('.edit-rx-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() { open(newRxModal); });
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === newRxModal) close(newRxModal);
+                if (event.target === viewRxModal) close(viewRxModal);
+            });
+        })();
+        </script>
+
         <script src="/js/logout.js"></script>
     </body>
 </html>

@@ -32,10 +32,8 @@
             .status-stable { background: #dbeafe; color: #1e40af; }
             .status-emergency { background: #fed7cc; color: #c2410c; }
             .search-filters {
-                background: white;
                 border-radius: 8px;
                 padding: 1.5rem;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                 margin-bottom: 2rem;
             }
             .filter-row {
@@ -115,15 +113,15 @@
             }
         </style>
     </head>
-    <body class="patient">
+    <body class="doctor">
 
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-hospital"></i>Doctor</h1>                    
+                    <h1><i class="fas fa-user-md"></i> Doctor</h1>                    
                 </div>
                 <div class="user-info">
-                    <div href="" class="fas fa-avatar" href=""></div>
+                    <div class="fas fa-user-circle"></div>
                     <div>
                         <div style="font-weight: 600;">
                             <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
@@ -184,6 +182,8 @@
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
+                        </a>
+                    </li>
                 </ul>      
             </nav>
             <!--Main Content-->
@@ -205,8 +205,8 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title-modern">Todays Appointments</h3>
-                                <p class="card-subtitle">Scedule for today</p>
+                                <h3 class="card-title-modern">Today's Appointments</h3>
+                                <p class="card-subtitle">Schedule for today</p>
                             </div>
                         </div>
                         <div class="card-metrics">
@@ -216,7 +216,7 @@
                             </div>
                             <div class="metric">
                                 <div class="metric-value green">0</div>
-                                <div class="metric-label">Completedk</div>
+                                <div class="metric-label">Completed</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value orange">0</div>
@@ -231,14 +231,14 @@
                                 <i class="fas fa-calendar-week"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title-modern">Todays This Week</h3>
+                                <h3 class="card-title-modern">This Week</h3>
                                 <p class="card-subtitle">Weekly overview</p>
                             </div>
                         </div>
                         <div class="card-metrics">
                             <div class="metric">
                                 <div class="metric-value blue">0</div>
-                                <div class="metric-label">Sceduled</div>
+                                <div class="metric-label">Scheduled</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value green">0</div>
@@ -250,93 +250,37 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Time Management Card -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon-modern blue">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Time Management</h3>
-                                <p class="card-content">Average consultation time</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Average Duration</span>
-                                    <span>25 min</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #4299e1; height: 100%; width: 75%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>On-time Rate</span>
-                                    <span>92%</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 53%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-
-                <!-- Alerts Card -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div>
-                            <h3 class="card-title">Appointment Alerts</h3>
-                            <p class="card-content">Require attention</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                            <strong>Overdue:</strong> Example alert notif.
-                        </div>
-                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                            <strong>Reminder:</strong> Example alert notif.
-                        </div>
-                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <strong>Info:</strong> Example alert notif.
-                        </div>
-                    </div>
                 </div>
       
-                <!--Calendar View-->    
-                <div class="search-filter">
-                    <h3 style="margin-bottom: 1rem;">View Options</h3>
-                    <div class="filter-row">
-                        <div class="btn-group">
-                            <button class="btn btn-primary active" id="todayView">Today</button>
-                            <button class="btn btn-secondary" id="weekView">Week</button>
-                            <button class="btn btn-secondary" id="monthView">Month</button>
-                        </div>
-                         <div>
-                            <input type="date" class="filter-input" id="dateSelector" value="2025-08-20">
-                        </div>                                                                
-                        <div>
-                            <select class="filter-input" id="statusFilter">
-                                <option value="">All Status</option>
-                                <option value="scheduled">Scheduled</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                                <option value="no-show">No Show</option>
-                            </select>
-                        </div>  
-                    </div>          
-                </div><br>
+              
 
                 
-
             <!-- Schedule Table -->
                 <div class="patient-table">
+                    <!--Calendar View-->    
+                    <div class="search-filters">
+                        <h3 style="margin-bottom: 1rem;">View Options</h3>
+                        <div class="filter-row">
+                            <div class="btn-group">
+                                <button class="btn btn-primary active" id="todayView">Today</button>
+                                <button class="btn btn-secondary" id="weekView">Week</button>
+                                <button class="btn btn-secondary" id="monthView">Month</button>
+                            </div>
+                            <div>
+                                <input type="date" class="filter-input" id="dateSelector" value="2025-08-20">
+                            </div>                                                                
+                            <div>
+                                <select class="filter-input" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="scheduled">Scheduled</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                    <option value="no-show">No Show</option>
+                                </select>
+                            </div>  
+                        </div>          
+                    </div>
                     <div class="table-header">
                         <h3>Today's Schedule - August 20, 2025</h3>
                         <div style="display: flex; gap: 0.5rem;">
