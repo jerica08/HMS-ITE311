@@ -222,7 +222,8 @@
         .metric-card.efficiency {
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
         }
-        /* Modals aligned with dashboard theme */
+        
+        /* Enhanced modal styles aligned with dashboard theme */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -241,6 +242,7 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             overflow: hidden;
+            border: 1px solid #f1f5f9;
         }
         .modal-header {
             display: flex;
@@ -248,25 +250,26 @@
             justify-content: space-between;
             padding: 1rem 1.25rem;
             border-bottom: 1px solid #e5e7eb;
+            background: #f8f9ff;
         }
         .modal-title {
             font-weight: 600;
-            color: #111827;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .modal-body { padding: 1rem 1.25rem; }
+        .modal-body { 
+            padding: 1rem 1.25rem; 
+            color: #475569; 
+        }
         .modal-actions {
             display: flex;
             gap: 0.5rem;
             justify-content: flex-end;
             padding: 0.75rem 1.25rem 1.25rem;
+            background: #fff;
         }
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-        .form-grid .full { grid-column: 1 / -1; }
-        .form-label { font-size: 0.9rem; color: #374151; margin-bottom: 0.25rem; display: block; }
         .form-input, .form-select, .form-textarea {
             width: 100%;
             border: 1px solid #e5e7eb;
@@ -274,8 +277,30 @@
             padding: 0.6rem 0.75rem;
             font-size: 0.95rem;
             background: #fff;
+            transition: border-color 0.2s;
         }
-        .form-textarea { min-height: 90px; resize: vertical; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .form-label { 
+            font-size: 0.9rem; 
+            color: #374151; 
+            margin-bottom: 0.25rem; 
+            display: block; 
+            font-weight: 500;
+        }
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 0.75rem; 
+        }
+        .form-grid .full { grid-column: 1 / -1; }
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body class="admin">
@@ -442,22 +467,22 @@
                 <div class="quick-actions">
                     <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
                     <div class="actions grid">
-                        <button class="btn btn-primary" data-open-modal="modal-add-staff">
+                        <button class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Add Staff
                         </button>
-                        <button class="btn btn-success" data-open-modal="modal-assign-shift">
+                        <button class="btn btn-success">
                             <i class="fas fa-calendar-plus"></i> Assign Shift
                         </button>
-                        <button class="btn btn-warning" data-open-modal="modal-approve-leave">
+                        <button class="btn btn-warning" >
                             <i class="fas fa-clipboard-check"></i> Approve Leave
                         </button>
-                        <button class="btn btn-secondary" data-open-modal="modal-record-overtime">
+                        <button class="btn btn-secondary" >
                             <i class="fas fa-user-clock"></i> Record Overtime
                         </button>
-                        <button class="btn btn-info" data-open-modal="modal-upload-certification">
+                        <button class="btn btn-info" >
                             <i class="fas fa-certificate"></i> Upload Certification
                         </button>
-                        <button class="btn btn-primary" data-open-modal="modal-manage-roles">
+                        <button class="btn btn-primary">
                             <i class="fas fa-user-shield"></i> Manage Roles
                         </button>
                     </div>
@@ -569,305 +594,7 @@
                 </div>
             </div>
 
-            <!-- Modals -->
-
-            <!-- Staff Modals -->
-            <div id="modal-add-staff" class="modal-overlay" aria-hidden="true">
-                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-add-staff-title">
-                    <div class="modal-header">
-                        <div class="modal-title" id="modal-add-staff-title"><i class="fas fa-user-plus"></i> Add Staff</div>
-                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div>
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-input" placeholder="e.g., Jane Doe">
-                            </div>
-                            <div>
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-input" placeholder="name@example.com">
-                            </div>
-                            <div>
-                                <label class="form-label">Role</label>
-                                <select class="form-select">
-                                    <option>Doctor</option>
-                                    <option>Nurse</option>
-                                    <option>Receptionist</option>
-                                    <option>Laboratorist</option>
-                                    <option>Pharmacist</option>
-                                    <option>Accountant</option>
-                                    <option>IT Staff</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="form-label">Department</label>
-                                <select class="form-select">
-                                    <option>Emergency</option>
-                                    <option>ICU</option>
-                                    <option>Cardiology</option>
-                                    <option>Laboratory</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="form-label">Phone</label>
-                                <input type="tel" class="form-input" placeholder="e.g., 0917 123 4567">
-                            </div>
-                            <div>
-                                <label class="form-label">Status</label>
-                                <select class="form-select">
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                </select>
-                            </div>
-                            <div class="full">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-textarea" placeholder="Optional details..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
-                        <button class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Assign Shift Modal -->
-            <div id="modal-assign-shift" class="modal-overlay" aria-hidden="true">
-                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-assign-shift-title">
-                    <div class="modal-header">
-                        <div class="modal-title" id="modal-assign-shift-title"><i class="fas fa-calendar-plus"></i> Assign Shift</div>
-                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div>
-                                <label class="form-label">Staff</label>
-                                <input type="text" class="form-input" placeholder="Search staff name">
-                            </div>
-                            <div>
-                                <label class="form-label">Department</label>
-                                <select class="form-select">
-                                    <option>Emergency</option>
-                                    <option>ICU</option>
-                                    <option>Cardiology</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="form-label">Date</label>
-                                <input type="date" class="form-input">
-                            </div>
-                            <div>
-                                <label class="form-label">Start Time</label>
-                                <input type="time" class="form-input">
-                            </div>
-                            <div>
-                                <label class="form-label">End Time</label>
-                                <input type="time" class="form-input">
-                            </div>
-                            <div class="full">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-textarea" placeholder="Optional"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
-                        <button class="btn btn-success">Assign</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Approve Leave Modal -->
-            <div id="modal-approve-leave" class="modal-overlay" aria-hidden="true">
-                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-approve-leave-title">
-                    <div class="modal-header">
-                        <div class="modal-title" id="modal-approve-leave-title"><i class="fas fa-clipboard-check"></i> Approve Leave</div>
-                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div>
-                                <label class="form-label">Staff</label>
-                                <input type="text" class="form-input" placeholder="Search staff name">
-                            </div>
-                            <div>
-                                <label class="form-label">Leave Type</label>
-                                <select class="form-select">
-                                    <option>Vacation</option>
-                                    <option>Sick</option>
-                                    <option>Personal</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="form-label">From</label>
-                                <input type="date" class="form-input">
-                            </div>
-                            <div>
-                                <label class="form-label">To</label>
-                                <input type="date" class="form-input">
-                            </div>
-                            <div class="full">
-                                <label class="form-label">Decision</label>
-                                <select class="form-select">
-                                    <option>Approve</option>
-                                    <option>Deny</option>
-                                </select>
-                            </div>
-                            <div class="full">
-                                <label class="form-label">Remarks</label>
-                                <textarea class="form-textarea" placeholder="Optional"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
-                        <button class="btn btn-warning">Submit</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Record Overtime Modal -->
-            <div id="modal-record-overtime" class="modal-overlay" aria-hidden="true">
-                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-record-overtime-title">
-                    <div class="modal-header">
-                        <div class="modal-title" id="modal-record-overtime-title"><i class="fas fa-user-clock"></i> Record Overtime</div>
-                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div>
-                                <label class="form-label">Staff</label>
-                                <input type="text" class="form-input" placeholder="Search staff name">
-                            </div>
-                            <div>
-                                <label class="form-label">Date</label>
-                                <input type="date" class="form-input">
-                            </div>
-                            <div>
-                                <label class="form-label">Hours</label>
-                                <input type="number" min="1" step="0.5" class="form-input" value="1">
-                            </div>
-                            <div class="full">
-                                <label class="form-label">Reason</label>
-                                <textarea class="form-textarea" placeholder="e.g., Emergency surgery"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
-                        <button class="btn btn-secondary">Record</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Upload Certification Modal -->
-            <div id="modal-upload-certification" class="modal-overlay" aria-hidden="true">
-                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-upload-certification-title">
-                    <div class="modal-header">
-                        <div class="modal-title" id="modal-upload-certification-title"><i class="fas fa-certificate"></i> Upload Certification</div>
-                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div>
-                                <label class="form-label">Staff</label>
-                                <input type="text" class="form-input" placeholder="Search staff name">
-                            </div>
-                            <div>
-                                <label class="form-label">Certification</label>
-                                <input type="text" class="form-input" placeholder="e.g., BLS, ACLS">
-                            </div>
-                            <div>
-                                <label class="form-label">Expiry Date</label>
-                                <input type="date" class="form-input">
-                            </div>
-                            <div class="full">
-                                <label class="form-label">File</label>
-                                <input type="file" class="form-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
-                        <button class="btn btn-info">Upload</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manage Roles Modal -->
-            <div id="modal-manage-roles" class="modal-overlay" aria-hidden="true">
-                <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-manage-roles-title">
-                    <div class="modal-header">
-                        <div class="modal-title" id="modal-manage-roles-title"><i class="fas fa-user-shield"></i> Manage Roles</div>
-                        <button class="btn btn-secondary btn-small" data-close-modal>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-grid">
-                            <div>
-                                <label class="form-label">Staff</label>
-                                <input type="text" class="form-input" placeholder="Search staff name">
-                            </div>
-                            <div>
-                                <label class="form-label">Role</label>
-                                <select class="form-select">
-                                    <option>Doctor</option>
-                                    <option>Nurse</option>
-                                    <option>Receptionist</option>
-                                    <option>Laboratorist</option>
-                                    <option>Pharmacist</option>
-                                    <option>Accountant</option>
-                                    <option>IT Staff</option>
-                                </select>
-                            </div>
-                            <div class="full">
-                                <label class="form-label">Reason</label>
-                                <textarea class="form-textarea" placeholder="Optional"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" data-close-modal>Cancel</button>
-                        <button class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                (function() {
-                    function qs(id) { return document.getElementById(id); }
-                    function openModal(id) {
-                        var el = qs(id);
-                        if (el) { el.classList.add('active'); el.setAttribute('aria-hidden', 'false'); }
-                    }
-                    function closeModal(el) {
-                        if (!el) return;
-                        el.classList.remove('active');
-                        el.setAttribute('aria-hidden', 'true');
-                    }
-                    window.openModal = function(id) { openModal(id); };
-                    window.closeModal = function(id) { closeModal(qs(id)); };
-                    document.addEventListener('click', function(e) {
-                        if (e.target.matches('[data-close-modal]')) {
-                            var overlay = e.target.closest('.modal-overlay');
-                            closeModal(overlay);
-                        }
-                        if (e.target.classList.contains('modal-overlay')) {
-                            closeModal(e.target);
-                        }
-                        if (e.target.matches('[data-open-modal]')) {
-                            var id = e.target.getAttribute('data-open-modal');
-                            openModal(id);
-                        }
-                    });
-                    document.addEventListener('keydown', function(e) {
-                        if (e.key === 'Escape') {
-                            document.querySelectorAll('.modal-overlay.active').forEach(function(ov) { closeModal(ov); });
-                        }
-                    });
-                })();
-            </script>
+    
 
                 <script src="<?= base_url('js/logout.js') ?>"></script>
 
