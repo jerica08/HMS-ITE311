@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="#" class="nav-link" onclick="showTestRequest()">
                             <i class="fas fa-clipboard-list nav-icon"></i>
                            Test Request
                         </a>
