@@ -292,7 +292,30 @@
                                 <div class="metric-label">Critical</div>
                             </div>
                         </div>
-                    </div>                           
+                    </div>    
+                    
+                      <!-- Type of Patient Cards -->
+                      <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Patient type</h3>
+                                <p class="card-subtitle">Under your care</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue">0</div>
+                                <div class="metric-label">In-patients</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value green">0</div>
+                                <div class="metric-label">Out-patients</div>
+                            </div>
+                        </div>
+                    </div>    
                 </div>
       
                 <!--Filter and Actions-->    
@@ -354,6 +377,7 @@
                                 <th>Name</th>
                                 <th>Age</th>
                                 <th>Gender</th>
+                                <th>Type</th>
                                 <th>Primary Condition</th>
                                 <th>Last Visit</th>
                                 <th>Room</th>
@@ -362,21 +386,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                            <td>P001247</td>
-                            <td>Sarah Wilson</td>
-                            <td>45</td>
-                            <td>Female</td>
-                            <td>Atrial Fibrillation</td>
-                            <td>Aug 19, 2025</td>
-                            <td>301</td>
-                            <td><span class="badge badge-success">Stable</span></td>
-                            <td>
-                                <button class="btn btn-primary view-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-patient-id="P001247">View</button>
-                                <button class="btn btn-secondary edit-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-patient-id="P001247">Edit</button>
-                                <button class="btn btn-info visit-history-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-patient-id="P001247">History</button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>P001247</td>
+                                <td>Sarah Wilson</td>
+                                <td>45</td>
+                                <td>Female</td>
+                                <td>Inpatient</td>
+                                <td>Atrial Fibrillation</td>
+                                <td>Aug 19, 2025</td>
+                                <td>301</td>
+                                <td><span class="badge badge-success">Stable</span></td>
+                                <td>
+                                    <button class="btn btn-primary view-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
+                                    <button class="btn btn-secondary edit-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Edit</button>
+                                    <button class="btn btn-info visit-history-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">History</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>P001248</td>
+                                <td>James Bon</td>
+                                <td>29</td>
+                                <td>Male</td>
+                                <td>Outpatient</td>
+                                <td>Gastroenteritis</td>
+                                <td>Sept. 19, 2025</td>
+                                <td>302</td>
+                                <td><span class="badge badge-success">Stable</span></td>
+                                <td>
+                                    <button class="btn btn-primary view-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</button>
+                                    <button class="btn btn-secondary edit-patient-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Edit</button>
+                                    <button class="btn btn-info visit-history-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">History</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
