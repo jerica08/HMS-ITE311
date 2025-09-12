@@ -24,6 +24,6 @@ class Receptionist extends BaseController
         if ($authCheck) return $authCheck;
 
         $currentUser = $this->getCurrentUserData();
-        return view('receptionist/dashboard', ['currentUser' => $currentUser]);
+        return view('receptionist/dashboard/index', ['currentUser' => $currentUser]);
     }
 }
