@@ -157,7 +157,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('doctor/appointments') ?>" class="nav-link">
+                        <a href="<?= base_url('doctor/appointments') ?>" class="nav-link active">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             Appointments
                         </a>
@@ -169,12 +169,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link">
-                            <i class="fas fa-file-medical nav-icon"></i>
-                            Medical Records
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="<?= base_url('doctor/lab-results') ?>" class="nav-link">
                             <i class="fas fa-flask nav-icon"></i>
                             Lab Results
@@ -182,13 +176,13 @@
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('doctor/ehr') ?>" class="nav-link">
-                            <i class="fas fa-flask nav-icon"></i>
+                            <i class="fas fa-file-medical nav-icon"></i>
                             Electronic Health Record
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
-                            <i class="fas fa-flask nav-icon"></i>
+                            <i class="fas fa-clock nav-icon"></i>
                             My Schedule
                 </ul>      
             </nav>
@@ -196,7 +190,7 @@
             <main class="content">
                 <h1 class="page-title">Appointments</h1>
                 <div class="page-actions">
-                    <button class="btn btn-success" id="addPatientBtn">
+                    <button class="btn btn-success" id="scheduleAppointmentBtn">
                         <i class="fas fa-plus"></i> Schedule Appointments
                     </button>
                 </div><br>
@@ -386,12 +380,294 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
-
-
-
+                </div>              
             </main>
         </div>
+
+        <!-- Schedule Appointment Modal -->
+        <div class="modal" id="scheduleModal">
+                    <div class="modal-content" style="max-width: 700px;">
+                        <div class="modal-header">
+                            <h3>Schedule New Appointment</h3>
+                            <button class="modal-close" id="closeSchedule">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="scheduleForm">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Patient *</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select Patient</option>
+                                            <option value="P001234">John Smith (P001234)</option>
+                                            <option value="P001198">Maria Garcia (P001198)</option>
+                                            <option value="P001345">Robert Johnson (P001345)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Appointment Type *</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select Type</option>
+                                            <option value="consultation">Consultation</option>
+                                            <option value="follow-up">Follow-up</option>
+                                            <option value="check-up">Check-up</option>
+                                            <option value="emergency">Emergency</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Date *</label>
+                                        <input type="date" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Time *</label>
+                                        <input type="time" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Duration</label>
+                                        <select class="form-select">
+                                            <option value="15">15 minutes</option>
+                                            <option value="30" selected>30 minutes</option>
+                                            <option value="45">45 minutes</option>
+                                            <option value="60">60 minutes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Reason for Visit</label>
+                                    <textarea class="form-input" rows="3" placeholder="Brief description of the appointment reason"></textarea>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Notes</label>
+                                    <textarea class="form-input" rows="2" placeholder="Additional notes or instructions"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelSchedule">Cancel</button>
+                            <button type="submit" form="scheduleForm" class="btn btn-success">Schedule Appointment</button>
+                        </div>
+                    </div>
+        </div>
+        <!-- View Appointment Modal -->
+        <div class="modal" id="viewAppointmentModal">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3>Appointment Details</h3>
+                    <button class="modal-close" id="closeViewAppointment">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Appointment Information</h4>
+                            <div style="background: #f7fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                <div style="margin-bottom: 0.5rem;"><strong>Date & Time:</strong> <span id="appointmentDateTime">Aug 20, 2025 - 09:00 AM</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Duration:</strong> <span id="appointmentDuration">30 minutes</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Type:</strong> <span id="appointmentType">Follow-up</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Status:</strong> <span id="appointmentStatus" class="badge badge-success">Completed</span></div>
+                                <div><strong>Room:</strong> <span id="appointmentRoom">201</span></div>
+                            </div>
+                            
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Patient Information</h4>
+                            <div style="background: #f0fff4; padding: 1rem; border-radius: 8px;">
+                                <div style="margin-bottom: 0.5rem;"><strong>Name:</strong> <span id="appointmentPatientName">John Smith</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Patient ID:</strong> <span id="appointmentPatientId">P001234</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong>Age:</strong> <span id="appointmentPatientAge">55 years</span></div>
+                                <div><strong>Phone:</strong> <span id="appointmentPatientPhone">(555) 123-4567</span></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Clinical Notes</h4>
+                            <div style="background: #e6fffa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                <div id="appointmentNotes">
+                                    <p><strong>Chief Complaint:</strong> Follow-up for hypertension management</p>
+                                    <p><strong>Assessment:</strong> Patient's blood pressure well controlled on current medication. No adverse effects reported.</p>
+                                    <p><strong>Plan:</strong> Continue current regimen. Return in 3 months for follow-up.</p>
+                                </div>
+                            </div>
+                            
+                            <h4 style="margin-bottom: 1rem; color: #2d3748;">Vital Signs</h4>
+                            <div style="background: #fff5f5; padding: 1rem; border-radius: 8px;">
+                                <div id="appointmentVitals">
+                                    <div style="margin-bottom: 0.5rem;">BP: 130/80 mmHg</div>
+                                    <div style="margin-bottom: 0.5rem;">HR: 72 bpm</div>
+                                    <div style="margin-bottom: 0.5rem;">Temp: 98.6°F</div>
+                                    <div>Weight: 185 lbs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeViewAppointmentBtn">Close</button>
+                    <button type="button" class="btn btn-primary">Edit Notes</button>
+                    <button type="button" class="btn btn-warning">Reschedule</button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            background-color: #f7fafc;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #2d3748;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #718096;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            color: #2d3748;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f7fafc;
+        }
+        </style>
+        <script>
+        // View toggle functionality
+        document.querySelectorAll('.btn-group .btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.btn-group .btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('btn-secondary');
+                    b.classList.remove('btn-primary');
+                });
+                this.classList.add('active');
+                this.classList.add('btn-primary');
+                this.classList.remove('btn-secondary');
+            });
+        });
+
+        // Date selector functionality
+        document.getElementById('dateSelector').addEventListener('change', function() {
+            console.log('Date changed to:', this.value);
+            // Implement date change logic here
+        });
+
+        // Status filter functionality
+        document.getElementById('statusFilter').addEventListener('change', function() {
+            console.log('Filter by status:', this.value);
+            // Implement filtering logic here
+        });
+
+        // Modal functionality
+        const scheduleModal = document.getElementById('scheduleModal');
+        const viewAppointmentModal = document.getElementById('viewAppointmentModal');
+
+        // Schedule Appointment Modal
+        document.getElementById('scheduleAppointmentBtn').addEventListener('click', function() {
+            scheduleModal.classList.add('show');
+        });
+
+        document.getElementById('closeSchedule').addEventListener('click', function() {
+            scheduleModal.classList.remove('show');
+        });
+
+        document.getElementById('cancelSchedule').addEventListener('click', function() {
+            scheduleModal.classList.remove('show');
+        });
+
+        // View Appointment Modal (add to existing buttons)
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            if (btn.textContent.includes('View') || btn.textContent.includes('Continue')) {
+                btn.addEventListener('click', function() {
+                    viewAppointmentModal.classList.add('show');
+                });
+            }
+        });
+
+        document.getElementById('closeViewAppointment').addEventListener('click', function() {
+            viewAppointmentModal.classList.remove('show');
+        });
+
+        document.getElementById('closeViewAppointmentBtn').addEventListener('click', function() {
+            viewAppointmentModal.classList.remove('show');
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === scheduleModal) {
+                scheduleModal.classList.remove('show');
+            }
+            if (event.target === viewAppointmentModal) {
+                viewAppointmentModal.classList.remove('show');
+            }
+        });
+
+        // Form submission
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Appointment scheduled successfully!');
+            scheduleModal.classList.remove('show');
+            this.reset();
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../../index.php';
+            }
+        });
+        </script>
+
+
         <script src="/js/logout.js"></script>
     </body>
 </html>

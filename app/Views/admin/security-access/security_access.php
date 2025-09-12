@@ -90,20 +90,23 @@
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
-            padding: 1rem;
+            padding: 2rem;
             text-align: center;
         }
         .permission-icon {
             font-size: 2rem;
+           text-align: center;
             color: #3b82f6;
             margin-bottom: 0.5rem;
         }
         .permission-title {
             font-weight: 600;
             margin-bottom: 0.5rem;
+            text-align: center;
         }
         .permission-count {
             font-size: 1.5rem;
+            text-align: center;
             font-weight: bold;
             color: #1f2937;
         }
@@ -330,44 +333,7 @@
             </div>
 
             <div class="security-grid">
-                <!--Security Metrics-->
-                <div class="security-section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Security Metrics</div>
-                        </div>
-                    </div>
-
-                    <div class="security-metric">
-                        <div class="metric-label">Password Strength</div>
-                        <div class="metric-value metric-good">Strong</div>
-                    </div>
-                     <div class="security-metric">
-                        <div class="metric-label">Failed Login Attempts</div>
-                        <div class="metric-value metric-good">10</div>
-                    </div>
-                    <div class="security-metric">
-                        <div class="metric-label">Firewall Status</div>
-                        <div class="metric-value metric-good">Active</div>
-                    </div>
-                    <div class="security-metric">
-                        <div class="metric-label">Vulnerability Scan</div>
-                        <div class="metric-value metric-good">Clean</div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="runSecurityScan()">
-                            <i class="fs fa-file-alt"></i>Security Scan
-                        </button>
-                        <button class="btn btn-primary btn-small" onclick="generateSecurityReport()">
-                            <i class="fs fa-file-alt"></i>Generate Report
-                        </button>
-                    </div>
-                </div>
-
+                
                 <!--Access Permissions-->
                 <div class="security-section">
                     <div class="section-header">
@@ -380,33 +346,33 @@
                     </div>
 
                     <div class="permisiion-grid">
-                        <div class="permission-card">
+                        <div class="permission card">
                             <div class="permission-icon">
                                 <i class="fas fa-user-shiled"></i>
                             </div>
-                            <div class="permisiion-title">Admin Access</div>
+                            <div class="permission-title">Admin Access</div>
                             <div class="permission-count">5</div>
                         </div>
                         <div class="permission card">
                             <div class="permission-icon">
                                 <i class="fas fa-user-md"></i>
                             </div>
-                            <div class="permisiion-title">Medical Staff</div>
-                            <div class="permisiion-count">89</div>
+                            <div class="permission-title">Medical Staff</div>
+                            <div class="permission-count">89</div>
                         </div>
                         <div class="permission card">
                             <div class="permission-icon">
                                 <i class="fas fa-user-tie"></i>
                             </div>
-                            <div class="permisiion-title">Support Staff</div>
-                            <div class="permisiion-count">34</div>
+                            <div class="permission-title">Support Staff</div>
+                            <div class="permission-count">34</div>
                         </div>
                         <div class="permission card">
                             <div class="permission-icon">
                                 <i class="fas fa-user-clock"></i>
                             </div>
-                            <div class="permisiion-title">Temporary Access</div>
-                            <div class="permisiion-count">34</div>
+                            <div class="permission-title">Temporary Access</div>
+                            <div class="permission-count">34</div>
                         </div>
                     </div>
         
@@ -458,43 +424,6 @@
                     </div>
                 </div>
 
-                <!--Network Security-->
-                <div class="security-section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Network Security</div>
-                        </div>
-                    </div>
-
-                    <div class="security-metric">
-                        <div class="metric-label">Password Strength</div>
-                        <div class="metric-value metric-good">Strong</div>
-                    </div>
-                     <div class="security-metric">
-                        <div class="metric-label">Failed Login Attempts</div>
-                        <div class="metric-value metric-good">10</div>
-                    </div>
-                    <div class="security-metric">
-                        <div class="metric-label">Firewall Status</div>
-                        <div class="metric-value metric-good">Active</div>
-                    </div>
-                    <div class="security-metric">
-                        <div class="metric-label">Vulnerability Scan</div>
-                        <div class="metric-value metric-good">Clean</div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="runSecurityScan()">
-                            <i class="fs fa-file-alt"></i>Security Scan
-                        </button>
-                        <button class="btn btn-primary btn-small" onclick="generateSecurityReport()">
-                            <i class="fs fa-file-alt"></i>Generate Report
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <!--Display here the Recent Login Attemps-->

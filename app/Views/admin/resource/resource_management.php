@@ -239,8 +239,7 @@
         <!--Main Content-->
         <div class="main-container">
              <!--sidebar-->
-             <nav class="sidebar">
-              
+            <nav class="sidebar">             
               <ul class="nav-menu">
                   <li class="nav-item">
                       <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
@@ -309,84 +308,84 @@
                       </a>
                   </li>
               </ul>          
-          </nav>
+            </nav>
             
             <main class="content">
                 <h1 class="page-title">Resource Management</h1>
                 
-              <!--Dashboard overview cards-->
-            <div class="dashboard-overview">
-                <!-- Bed Occupation Cards -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern blue">
-                            <i class="fas fa-bed"></i>
+                <!--Dashboard overview cards-->
+                <div class="dashboard-overview">
+                    <!-- Bed Occupation Cards -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Bed Occopuation </h3>
+                                <p class="card-subtitle">Current  bed utilization</p>
+                            </div>
                         </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Bed Occopuation </h3>
-                            <p class="card-subtitle">Current  bed utilization</p>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue">0%</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value blue">0%</div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Active User Card -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-tools"></i>
+                    <!-- Active User Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Equipment Status</h3>
+                                <p class="card-subtitle">Operational equipment</p>
+                            </div>
                         </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Equipment Status</h3>
-                            <p class="card-subtitle">Operational equipment</p>
-                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0%</div>
+                            </div>
+                        </div>   
                     </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple">0%</div>
-                        </div>
-                    </div>   
-                </div>
 
-                <!--Inventroy Card -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-user-times"></i>
+                    <!--Inventroy Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-user-times"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Inventroy Alerts</h3>
+                                <p class="card-subtitle">Low stock Items</p>
+                            </div>
                         </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Inventroy Alerts</h3>
-                            <p class="card-subtitle">Low stock Items</p>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple">0</div>
+                    <!--Departments Card-->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Departments</h3>
+                                <p class="card-subtitle">Active administrators</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!--Departments Card-->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Departments</h3>
-                            <p class="card-subtitle">Active administrators</p>
-                        </div>
-                    </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple">0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
                 
                 <!--Quick Actions-->
                 <div class="quick-actions">
@@ -644,62 +643,62 @@
             </main>
         </div>
 
-        <script>
-        function addNewBed() {
-            alert('Opening bed registration form...');
-        }
+            <script>
+            function addNewBed() {
+                alert('Opening bed registration form...');
+            }
 
-        function addEquipment() {
-            alert('Opening equipment registration form...');
-        }
+            function addEquipment() {
+                alert('Opening equipment registration form...');
+            }
 
-        function scheduleMaintenace() {
-            alert('Opening maintenance scheduler...');
-        }
+            function scheduleMaintenace() {
+                alert('Opening maintenance scheduler...');
+            }
 
-        function generateInventoryReport() {
-            alert('Generating inventory report...');
-        }
+            function generateInventoryReport() {
+                alert('Generating inventory report...');
+            }
 
-        function requestSupplies() {
-            alert('Opening supply request form...');
-        }
+            function requestSupplies() {
+                alert('Opening supply request form...');
+            }
 
-        function manageDepartments() {
-            alert('Opening department management...');
-        }
+            function manageDepartments() {
+                alert('Opening department management...');
+            }
 
-        function manageBeds() {
-            alert('Opening bed management interface...');
-        }
+            function manageBeds() {
+                alert('Opening bed management interface...');
+            }
 
-        function bedAssignments() {
-            alert('Opening bed assignment interface...');
-        }
+            function bedAssignments() {
+                alert('Opening bed assignment interface...');
+            }
 
-        function manageEquipment() {
-            alert('Opening equipment management...');
-        }
+            function manageEquipment() {
+                alert('Opening equipment management...');
+            }
 
-        function manageInventory() {
-            alert('Opening inventory management...');
-        }
+            function manageInventory() {
+                alert('Opening inventory management...');
+            }
 
-        function orderSupplies() {
-            alert('Opening supply ordering system...');
-        }
+            function orderSupplies() {
+                alert('Opening supply ordering system...');
+            }
 
-        function departmentReports() {
-            alert('Opening department reports...');
-        }
+            function departmentReports() {
+                alert('Opening department reports...');
+            }
 
-        // Auto-refresh resource data every 2 minutes
-        setInterval(() => {
-            console.log('Auto-refreshing resource data...');
-        }, 120000);
+            // Auto-refresh resource data every 2 minutes
+            setInterval(() => {
+                console.log('Auto-refreshing resource data...');
+            }, 120000);
 
-    
-        </script>
-        <script src="/js/logout.js"></script>
+        
+            </script>
+            <script src="/js/logout.js"></script>
     </body>
 </html>

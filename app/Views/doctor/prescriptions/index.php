@@ -163,15 +163,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('doctor/prescriptions') ?>" class="nav-link">
+                        <a href="<?= base_url('doctor/prescriptions') ?>" class="nav-link active">
                             <i class="fas fa-prescription-bottle nav-icon"></i>
                             Prescriptions
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link">
-                            <i class="fas fa-file-medical nav-icon"></i>
-                            Medical Records
                         </a>
                     </li>
                     <li class="nav-item">
@@ -182,13 +176,13 @@
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('doctor/ehr') ?>" class="nav-link">
-                            <i class="fas fa-flask nav-icon"></i>
+                            <i class="fas fa-file-medical nav-icon"></i>
                             Electronic Health Record
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
-                            <i class="fas fa-flask nav-icon"></i>
+                            <i class="fas fa-clock nav-icon"></i>
                             My Schedule
                 </ul>      
             </nav>

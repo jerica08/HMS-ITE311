@@ -322,24 +322,6 @@
                             </div>
                         </div>   
                     </div>
-
-                    <!-- Inactive User Card -->
-                    <div class="overview-card">
-                        <div class="card-header-modern">
-                            <div class="card-icon-modern purple">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="card-info">
-                                <h3 class="card-title-modern">Critical Patient</h3>
-                                <p class="card-subtitle">Requiring urgent care</p>
-                            </div>
-                        </div>
-                        <div class="card-metrics">
-                            <div class="metric">
-                                <div class="metric-value purple">0</div>
-                            </div>
-                        </div>
-                    </div>
                     <!--Admin Users Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
@@ -357,92 +339,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!--Quick Actions-->
-                    <div class="quick-actions">
-                        <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
-                        <div class="action grid">
-                            <button class="btn btn-primary" onclick="addNewBed()">
-                                <i class="fas fa-plus"></i> Add Bed
-                            </button>
-                            <button class="btn btn-success" onclick="addEquipment()">
-                                <i class="fas fa-plus"></i>  Add Equipment
-                            </button>
-                            <button class="btn btn-warning" onclick="scheduleMaintenance()">
-                                <i class="fas fa-plus"></i>  Schedule Maintenance 
-                            </button>
-                            <button class="btn btn-secondary" onclick="generateInventory()">
-                                <i class="fas fa-plus"></i> Inventroy Report 
-                            </button>
-                            <button class="btn btn-info" onclick="requestSupplies()">
-                                <i class="fas fa-plus"></i> Request Supplies  
-                            </button>
-                            <button class="btn btn-primary" onclick="manageDepartments()">
-                                <i class="fas fa-plus"></i> Manage Departments  
-                            </button>
-                        </div>
-                    </div>          
-                <!--Filter and Actions-->    
-                <div class="search-filter">
-                    <h3 style="margin-bottom: 1rem;">Patient Search & Filters</h3>
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label> Search Patient</label>
-                            <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
-                                id="searchInput" value="">
-                        </div>
-                        <div class="filter-group">
-                            <label>Status Filter</label>
-                            <select class="filter-input" id="statusFilter">
-                                <option value="">All Status</option>
-                                <option value="admitted">Admitted</option>
-                                <option value="discharged">Dishcarge</option>
-                                <option value="critical">Critical</option>
-                                <option value="emergency">Emergency</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label> Role Filter</label>
-                            <select class="filter-input" id="roleFilter">
-                                <option value="">All Roles</option>
-                                <option value="admin">Administrator</option>
-                                <option value="doctor">Doctor</option>
-                                <option value="nurse">Nurse</option>
-                                <option value="receptionist">Receptionist</option>
-                                <option value="laboratorist">Laboratory Staff</option>
-                                <option value="pharmacist">Pharmacist</option>
-                                <option value="accountant">Accountant</option>
-                                <option value="it_staff">IT Staff</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label>Department</label>
-                            <select class="filter-input" id="departmentFilter">
-                                <option value="">All Departments</option>
-                                <option value="emergency">Emergency</option>
-                                <option value="icu">ICU</option>
-                                <option value="cardiology">Cardiology</option>
-                                <option value="general">General Ward</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label>Date Range</label>
-                            <select class="filter-input" id="dateFilter">
-                                <option value="today">Today</option>
-                                <option value="week">This Week</option>
-                                <option value="month">This Month</option>
-                                <option value="custom">Custom Range</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label>&nbsp;</label>
-                            <button class="btn btn-primary" onclick="applyFilters()">
-                                <i class="fas fa-search"></i> Search
-                            </button>
-                        </div>     
-                    </div>          
-                </div>
+                </div>       
+             
 
                 <!--Patient Management Grid-->
                 <div class="patient-grid">
@@ -484,51 +382,6 @@
                             </button>
                             <button class="btn btn-secondary btn-small" onclick="flowReports()">
                                 <i class="fas fa-chart-line"></i> Flow Reports
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Critical Patients -->
-                    <div class="patient-section">
-                        <div class="section-header">
-                            <div class="section-icon" style="background: #ef4444;">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div>
-                                <div class="section-title">Critical Patients</div>
-                            </div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Example1</div>
-                                <div class="patient-details">ICU - Room 301 | Cardiac Arrest</div>
-                            </div>
-                            <div class="patient-status status-critical">Critical</div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Example2</div>
-                                <div class="patient-details">ICU - Room 305 | Respiratory Failure</div>
-                            </div>
-                            <div class="patient-status status-critical">Critical</div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Example3</div>
-                                <div class="patient-details">ICU - Room 308 | Stroke</div>
-                            </div>
-                            <div class="patient-status status-critical">Critical</div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn-danger btn-small" onclick="criticalAlert()">
-                                <i class="fas fa-exclamation-triangle"></i> Alert Team
-                            </button>
-                            <button class="btn btn-secondary btn-small" onclick="criticalReports()">
-                                <i class="fas fa-file-medical"></i> Reports
                             </button>
                         </div>
                     </div>
@@ -577,100 +430,117 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- Medical Records Archive -->
-                    <div class="patient-section">
-                        <div class="section-header">
-                            <div class="section-icon" style="background: #8b5cf6;">
-                                <i class="fas fa-archive"></i>
-                            </div>
-                            <div>
-                                <div class="section-title">Medical Records</div>
-                            </div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Total Records</div>
-                                <div class="patient-details">Digital medical records</div>
-                            </div>
-                            <div class="patient-status status-stable">0</div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Updated Today</div>
-                                <div class="patient-details">Records modified</div>
-                            </div>
-                            <div class="patient-status status-admitted">0</div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Pending Review</div>
-                                <div class="patient-details">Awaiting approval</div>
-                            </div>
-                            <div class="patient-status status-emergency">0</div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn-primary btn-small" onclick="manageRecords()">
-                                <i class="fas fa-folder-open"></i> Manage Records
-                            </button>
-                            <button class="btn btn-secondary btn-small" onclick="archiveReports()">
-                                <i class="fas fa-download"></i> Export
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
-            <!-- Patient List Table -->
-                <div class="patient-table">
-                    <div class="table-header">
-                        <h3>Patient Directory</h3>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-secondary btn-small" onclick="refreshPatients()">
-                                <i class="fas fa-refresh"></i> Refresh
-                            </button>
-                            <button class="btn btn-primary btn-small" onclick="addPatient()">
-                                <i class="fas fa-plus"></i> Add Patient
-                            </button>
+                <div class="patient-view">         
+                    <!--Filter and Actions-->    
+                    <div class="search-filter">
+                        <h3 style="margin-bottom: 1rem;">Patient Search & Filters</h3>
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <label> Search Patient</label>
+                                <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
+                                    id="searchInput" value="">
+                            </div>
+                            <div class="filter-group">
+                                <label>Status Filter</label>
+                                <select class="filter-input" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="admitted">Admitted</option>
+                                    <option value="discharged">Dishcarge</option>
+                                    <option value="critical">Critical</option>
+                                    <option value="emergency">Emergency</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label> Role Filter</label>
+                                <select class="filter-input" id="roleFilter">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="nurse">Nurse</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="laboratorist">Laboratory Staff</option>
+                                    <option value="pharmacist">Pharmacist</option>
+                                    <option value="accountant">Accountant</option>
+                                    <option value="it_staff">IT Staff</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Department</label>
+                                <select class="filter-input" id="departmentFilter">
+                                    <option value="">All Departments</option>
+                                    <option value="emergency">Emergency</option>
+                                    <option value="icu">ICU</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="general">General Ward</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Date Range</label>
+                                <select class="filter-input" id="dateFilter">
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="custom">Custom Range</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-primary" onclick="applyFilters()">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>     
+                        </div>          
+                    </div><br>
+                    <!-- Patient List Table -->
+                    <div class="patient-table">
+                        <div class="table-header">
+                            <h3>Patient Directory</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-secondary btn-small" onclick="refreshPatients()">
+                                    <i class="fas fa-refresh"></i> Refresh
+                                </button>
+                                <button class="btn btn-primary btn-small" onclick="addPatient()">
+                                    <i class="fas fa-plus"></i> Add Patient
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>ID</th>
-                                <th>Age</th>
-                                <th>Department</th>
-                                <th>Room</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div class="patient-avatar">MS</div>
-                                        <div>
-                                            <div style="font-weight: 500;">Example1</div>
-                                            <div style="font-size: 0.8rem; color: #6b7280;">example@email.com</div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>ID</th>
+                                    <th>Age</th>
+                                    <th>Department</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div class="patient-avatar">MS</div>
+                                            <div>
+                                                <div style="font-weight: 500;">Example1</div>
+                                                <div style="font-size: 0.8rem; color: #6b7280;">example@email.com</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>P-2024-0156</td>
-                                <td>45</td>
-                                <td>ICU</td>
-                                <td>301</td>
-                                <td><span class="patient-status status-critical">Critical</span></td>
-                                <td>
-                                    <button class="btn btn-secondary btn-small">View</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>P-2024-0156</td>
+                                    <td>45</td>
+                                    <td>ICU</td>
+                                    <td>301</td>
+                                    <td><span class="patient-status status-critical">Critical</span></td>
+                                    <td>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </main>
         </div>

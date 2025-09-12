@@ -344,30 +344,24 @@
                 </div>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
-                <div class="actions-grid">
-                    <button class="btn btn-primary" onclick="sendBroadcast()">
-                        <i class="fas fa-bullhorn"></i> Send Broadcast
-                    </button>
-                    <button class="btn btn-warning" onclick="emergencyAlert()">
-                        <i class="fas fa-exclamation-triangle"></i> Emergency Alert
-                    </button>
-                    <button class="btn btn-success" onclick="composeMessage()">
-                        <i class="fas fa-edit"></i> Compose Message
-                    </button>
-                    <button class="btn btn-secondary" onclick="manageTemplates()">
-                        <i class="fas fa-file-alt"></i> Message Templates
-                    </button>
-                    <button class="btn btn-info" onclick="notificationSettings()">
-                        <i class="fas fa-cog"></i> Notification Settings
-                    </button>
-                    <button class="btn btn-primary" onclick="communicationReports()">
-                        <i class="fas fa-chart-line"></i> Communication Reports
-                    </button>
+             <!--Quick Actions-->
+                <div class="quick-actions">
+                    <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
+                    <div class="action-grid">
+                        <button class="btn btn-primary" onclick="addNewBed()">
+                            <i class="fas fa-bullhorn"></i>Send Broadcast
+                        </button>
+                        <button class="btn btn-success" onclick="addEquipment()">
+                            <i class="fas fa-exclamation-triangle"></i>  Emergency Alert
+                        </button>
+                        <button class="btn btn-warning" onclick="scheduleMaintenance()">
+                            <i class="fas fa-edit"></i>  Compose Message
+                        </button>
+                        <button class="btn btn-secondary" onclick="generateInventory()">
+                            <i class="fas fa-cog"></i> Notification Setting
+                        </button>
+                    </div>
                 </div>
-            </div>
 
             <div class="comm-grid">
 

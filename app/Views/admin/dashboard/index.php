@@ -172,37 +172,6 @@
                         <button class="action-btn secondary">Export Data</button>
                     </div>
                 </div>
-
-                <!-- Security & Access Card -->
-                <div class="overview-card">
-                    <div class="card-header-modern">
-                        <div class="card-icon-modern purple">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title-modern">Security & Access</h3>
-                            <p class="card-subtitle">Monitor system security</p>
-                        </div>
-                    </div>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value purple" id="activeSessions">0</div>
-                            <div class="metric-label">Active Sessions</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value purple" id="failedLogins">0</div>
-                            <div class="metric-label">Failed Logins</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value purple">99.9%</div>
-                            <div class="metric-label">Security Score</div>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-btn danger" onclick="window.location.href='<?= base_url('admin/securityAccess') ?>'">Security Audit</button>
-                        <button class="action-btn warning" onclick="window.location.href='<?= base_url('admin/auditLogs') ?>'">Access Logs</button>
-                    </div>
-                </div>
             </div>
 
             <!--Recent activity table-->
@@ -262,35 +231,7 @@
                         </tr>             
                     </tbody>
                 </table>
-            </div>
-
-
-
-            <div class="dashboard-overview"style="margin-top:2rem;">
-                
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>                          
-                        </div>
-                         <div>
-                            <h3 class="card-title">System Alerts</h3>
-                            <p class="card-content">Important notifications</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                            <strong>High Priority:</strong> Example notification
-                        </div>
-                        <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                            <strong>Medium:</strong> Example notification
-                        </div>
-                        <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <strong>Info:</strong> Example notification
-                        </div>
-                    </div>
-                </div>
-            </div>        
+            </div>    
         </main>
     </div>
     <script src="/js/session-manager.js"></script>

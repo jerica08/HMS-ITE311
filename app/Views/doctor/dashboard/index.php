@@ -39,7 +39,7 @@
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                         <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link">
+                         <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link active">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -63,12 +63,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link">
-                            <i class="fas fa-file-medical nav-icon"></i>
-                            Medical Records
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="<?= base_url('doctor/lab-results') ?>" class="nav-link">
                             <i class="fas fa-flask nav-icon"></i>
                             Lab Results
@@ -76,13 +70,13 @@
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('doctor/ehr') ?>" class="nav-link">
-                            <i class="fas fa-flask nav-icon"></i>
+                            <i class="fas fa-file-medical nav-icon"></i>
                             Electronic Health Record
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
-                            <i class="fas fa-flask nav-icon"></i>
+                            <i class="fas fa-clock nav-icon"></i>
                             My Schedule
                 </ul>      
             </nav>

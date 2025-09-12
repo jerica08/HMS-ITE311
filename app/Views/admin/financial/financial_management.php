@@ -341,83 +341,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Revenue Chart -->
-            <div class="revenue-chart">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <div class="section-title">Revenue Trends</div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="revenueChart"></canvas>
-                </div>
-            </div>
-
             <div class="financial-grid">
-                <!-- Budget Management -->
-                <div class="financial-section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Department Budgets</div>
-                        </div>
-                    </div>
-
-                    <div class="financial-metric">
-                        <div class="metric-info">
-                            <div class="metric-label">Emergency Department</div>
-                            <div class="metric-details">Monthly allocation: ₱150,000</div>
-                            <div class="budget-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill progress-near" style="width: 85%;"></div>
-                                </div>
-                                <div style="font-size: 0.8rem; color: #6b7280;">₱127,500 spent (85%)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="financial-metric">
-                        <div class="metric-info">
-                            <div class="metric-label">Cardiology</div>
-                            <div class="metric-details">Monthly allocation: ₱200,000</div>
-                            <div class="budget-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill progress-under" style="width: 65%;"></div>
-                                </div>
-                                <div style="font-size: 0.8rem; color: #6b7280;">₱130,000 spent (65%)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="financial-metric">
-                        <div class="metric-info">
-                            <div class="metric-label">Laboratory</div>
-                            <div class="metric-details">Monthly allocation: ₱120,000</div>
-                            <div class="budget-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill progress-over" style="width: 105%;"></div>
-                                </div>
-                                <div style="font-size: 0.8rem; color: #6b7280;">₱126,000 spent (105%)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="manageBudgets()">
-                            <i class="fas fa-cog"></i> Manage Budgets
-                        </button>
-                        <button class="btn btn-secondary btn-small" onclick="budgetReports()">
-                            <i class="fas fa-file-alt"></i> Budget Reports
-                        </button>
-                    </div>
-                </div>
-
+                
                 <!-- Billing Overview -->
                 <div class="financial-section">
                     <div class="section-header">
