@@ -429,6 +429,17 @@
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                                 <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Patient Type *</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select</option>
+                                        <option value="inpatient">Inpatient</option>
+                                        <option value="outpatient">Outpatient</option>
+                                    </select>
+                                </div>
+                                <div></div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
                                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Status</label>
                                     <select class="form-select">
                                         <option>Stable</option>
