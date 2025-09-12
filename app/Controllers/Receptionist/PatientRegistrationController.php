@@ -4,7 +4,7 @@ namespace App\Controllers\Receptionist;
 
 use App\Controllers\Receptionist\ReceptionistBaseController;
 
-class PatientRegistrationContrller extends ReceptionistBaseController
+class PatientRegistrationController extends ReceptionistBaseController
 {
     public function index()
     {
@@ -24,10 +24,10 @@ class PatientRegistrationContrller extends ReceptionistBaseController
         // Prepare data for the view
         $data = array_merge($this->getCommonViewData(), [
             'patients' => $patients,
-            'title' => 'Patient Check-In'
+            'title' => 'Patient Registration'
         ]);
 
         // Render the view with the data
-        return view('receptionist/check-in/index', $data);
+        return view('receptionist/patient-registration/index', $data);
     }
 }

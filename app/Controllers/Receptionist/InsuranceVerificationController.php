@@ -3,7 +3,7 @@
 namespace App\Controllers\Receptionist;
 use App\Controllers\Receptionist\ReceptionistBaseController;
 
-class AppointMentBookingController extends ReceptionistBaseController
+class InsuranceVerificationController extends ReceptionistBaseController
 {
     public function index()
     {
@@ -13,20 +13,19 @@ class AppointMentBookingController extends ReceptionistBaseController
             return $authCheck; // Redirect to login if not authenticated
         }
 
-        // Load any necessary models or helpers here
-        // For example, loading an Appointment model
-        $appointmentModel = new \App\Models\AppointmentModel();
-
-        // Fetch appointments or any other data needed for the view
-        $appointments = $appointmentModel->findAll();
+        // For now, we'll use empty data until proper models are created
+        // TODO: Create models for insurance verification functionality
+        $insuranceProviders = [];
+        $verificationHistory = [];
 
         // Prepare data for the view
         $data = array_merge($this->getCommonViewData(), [
-            'appointments' => $appointments,
-            'title' => 'Appointment Bookings'
+            'insuranceProviders' => $insuranceProviders,
+            'verificationHistory' => $verificationHistory,
+            'title' => 'Insurance Verification'
         ]);
 
         // Render the view with the data
-        return view('receptionist/appointment_booking', $data);
+        return view('receptionist/insuranceVerification/index', $data);
     }
 }

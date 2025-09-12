@@ -28,6 +28,6 @@ class CheckInController extends ReceptionistBaseController
         ]);
 
         // Render the view with the data
-        return view('receptionist/check-in/index', $data);
+        return view('receptionist/checkIn/index', $data);
     }
 }

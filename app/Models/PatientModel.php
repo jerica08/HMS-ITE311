@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class PatientModel extends Model
 {
-    protected $table = 'patients';
+    protected $table = 'new_patients';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;

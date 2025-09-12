@@ -33,41 +33,41 @@
         </header>
 
         <div class="main-container">
-            <!-- Sidebar -->
+                <!-- Sidebar -->
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#dashboard" class="nav-link">
+                        <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#patient-registration" class="nav-link active">
+                        <a href="<?= base_url('receptionist/patient-registration') ?>" class="nav-link">
                             <i class="fas fa-user-plus nav-icon"></i>
                             Patient Registration
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#appointments" class="nav-link">
+                        <a href="<?= base_url('receptionist/appointments') ?>" class="nav-link">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             Appointment Booking
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#check-in" class="nav-link">
+                        <a href="<?= base_url('receptionist/check-in') ?>" class="nav-link">
                             <i class="fas fa-clipboard-check nav-icon"></i>
                             Patient Check-in
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#waiting-room" class="nav-link">
+                        <a href="<?= base_url('receptionist/waiting-room') ?>" class="nav-link">
                             <i class="fas fa-chair nav-icon"></i>
                             Waiting Room
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#insurance" class="nav-link">
+                        <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Insurance Verification
                         </a>

@@ -3,7 +3,7 @@
 namespace App\Controllers\Receptionist;
 use App\Controllers\Receptionist\ReceptionistBaseController;
 
-class AppointMentBookingController extends ReceptionistBaseController
+class AppointmentBookingController extends ReceptionistBaseController
 {
     public function index()
     {
@@ -13,12 +13,9 @@ class AppointMentBookingController extends ReceptionistBaseController
             return $authCheck; // Redirect to login if not authenticated
         }
 
-        // Load any necessary models or helpers here
-        // For example, loading an Appointment model
-        $appointmentModel = new \App\Models\AppointmentModel();
-
-        // Fetch appointments or any other data needed for the view
-        $appointments = $appointmentModel->findAll();
+        // For now, we'll use empty data until AppointmentModel is created
+        // TODO: Create AppointmentModel and implement appointment functionality
+        $appointments = [];
 
         // Prepare data for the view
         $data = array_merge($this->getCommonViewData(), [
