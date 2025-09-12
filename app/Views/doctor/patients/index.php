@@ -383,6 +383,8 @@
             
             <!-- Modals -->
             <div class="modal" id="newPatientModal">
+
+                <!-- New Patient Modal -->
                 <div class="modal-content" style="max-width: 720px;">
                     <div class="modal-header">
                         <h3 id="newPatientTitle">New Patient</h3>
@@ -452,6 +454,7 @@
                 </div>
             </div>
 
+            <!-- View Patient Modal -->
             <div class="modal" id="viewPatientModal">
                 <div class="modal-content" style="max-width: 800px;">
                     <div class="modal-header">
@@ -490,6 +493,7 @@
                 </div>
             </div>
 
+            <!-- Edit Patient Modal -->
             <div class="modal" id="editPatientModal">
                 <div class="modal-content" style="max-width: 720px;">
                     <div class="modal-header">
@@ -555,6 +559,7 @@
                 </div>
             </div>
 
+            <!-- Advanced Filter Modal -->
             <div class="modal" id="advancedFilterModal">
                 <div class="modal-content" style="max-width: 680px;">
                     <div class="modal-header">
@@ -601,7 +606,8 @@
                     </div>
                 </div>
             </div>
-
+            
+            <!-- Visit History Modal -->
             <div class="modal" id="visitHistoryModal">
                 <div class="modal-content" style="max-width: 800px;">
                     <div class="modal-header">

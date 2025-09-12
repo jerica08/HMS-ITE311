@@ -593,6 +593,7 @@
 
                 <!-- Modals -->
                 <div class="modal" id="newRecordModal">
+                    <!-- New Record Modal -->
                     <div class="modal-content" style="max-width: 720px;">
                         <div class="modal-header">
                             <h3>New Record Entry</h3>
@@ -633,6 +634,7 @@
                     </div>
                 </div>
 
+                <!-- View Visit Modal -->
                 <div class="modal" id="viewVisitModal">
                     <div class="modal-content" style="max-width: 840px;">
                         <div class="modal-header">
@@ -670,6 +672,7 @@
                     </div>
                 </div>
 
+                <!-- Add Medication Modal -->
                 <div class="modal" id="addMedicationModal">
                     <div class="modal-content" style="max-width: 720px;">
                         <div class="modal-header">
@@ -717,6 +720,7 @@
                     </div>
                 </div>
 
+                <!-- Add Clinical Note Modal -->
                 <div class="modal" id="addNoteModal">
                     <div class="modal-content" style="max-width: 720px;">
                         <div class="modal-header">

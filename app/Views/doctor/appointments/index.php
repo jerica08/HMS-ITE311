@@ -327,8 +327,9 @@
                 </div>              
             </main>
         </div>
-
-        <!-- Schedule Appointment Modal -->
+        
+        <!--Modals
+        <!-- New Appointment Modal -->
         <div class="modal" id="scheduleModal">
                     <div class="modal-content" style="max-width: 700px;">
                         <div class="modal-header">
@@ -526,6 +527,7 @@
         .form-input, .form-select { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; }
         .form-input:focus, .form-select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1); }
         </style>
+
         <script>
         // View toggle functionality
         document.querySelectorAll('.btn-group .btn').forEach(btn => {
@@ -612,8 +614,6 @@
             }
         });
         </script>
-
-
         <script src="/js/logout.js"></script>
     </body>
 </html>

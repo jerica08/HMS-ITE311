@@ -255,197 +255,7 @@
                                 <div class="metric-label">No-shows</div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Time Management Card -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon-modern blue">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Working Hours</h3>
-                                <p class="card-content">Standard schedule </p>
-                            </div>                        
-                        </div>
-                        <div class="card-content">
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Monday - Friday:</strong> 8:00 AM - 5:00 PM
-                            </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Saturday:</strong> 9:00 AM - 1:00 PM
-                            </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Sunday:</strong> Closed
-                            </div>
-                            <div style="margin-top: 1rem;">
-                                <strong>Lunch Break:</strong> 12:00 PM - 1:00 PM
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Average Duration</span>
-                                    <span>25 min</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #4299e1; height: 100%; width: 75%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>On-time Rate</span>
-                                    <span>92%</span>
-                                </div>
-                                <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                    <div style="background: #48bb78; height: 100%; width: 53%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                     <!-- Block Time Card -->                      
-                    <div class="card">
-                            <div class="card-header">
-                                        <div class="card-icon">
-                                            <i class="fas fa-calendar-plus"></i>
-                                        </div>
-                                        <div>
-                                            <h3 class="card-title">Block Time</h3>
-                                            <p class="card-content">Reserve time slots</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <form>
-                                            <div style="margin-bottom: 1rem;">
-                                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Block Type</label>
-                                                <select class="form-select">
-                                                    <option>Personal Time</option>
-                                                    <option>Administrative Work</option>
-                                                    <option>Research</option>
-                                                    <option>Meeting</option>
-                                                    <option>Training</option>
-                                                </select>
-                                            </div>
-                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                                                <div>
-                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Date</label>
-                                                    <input type="date" class="form-input">
-                                                </div>
-                                                <div>
-                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Duration</label>
-                                                    <select class="form-select">
-                                                        <option>30 minutes</option>
-                                                        <option>1 hour</option>
-                                                        <option>2 hours</option>
-                                                        <option>Half day</option>
-                                                        <option>Full day</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                                                <div>
-                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Start Time</label>
-                                                    <input type="time" class="form-input">
-                                                </div>
-                                                <div>
-                                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">End Time</label>
-                                                    <input type="time" class="form-input">
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-success" style="width: 100%;">
-                                                Block Time Slot
-                                            </button>
-                                        </form>
-                                    </div>
-                    </div>
-                    <!--Schedule Preferences Card-->
-                    <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-icon">
-                                            <i class="fas fa-cog"></i>
-                                        </div>
-                                        <div>
-                                            <h3 class="card-title">Schedule Preferences</h3>
-                                            <p class="card-content">Customize your schedule</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div style="margin-bottom: 1rem;">
-                                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Default Appointment Duration</label>
-                                            <select class="form-select">
-                                                <option>15 minutes</option>
-                                                <option selected>30 minutes</option>
-                                                <option>45 minutes</option>
-                                                <option>60 minutes</option>
-                                            </select>
-                                        </div>
-                                        <div style="margin-bottom: 1rem;">
-                                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Buffer Time Between Appointments</label>
-                                            <select class="form-select">
-                                                <option>No buffer</option>
-                                                <option selected>5 minutes</option>
-                                                <option>10 minutes</option>
-                                                <option>15 minutes</option>
-                                            </select>
-                                        </div>
-                                        <div style="margin-bottom: 1rem;">
-                                            <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                                <input type="checkbox" checked>
-                                                Allow double booking for urgent cases
-                                            </label>
-                                        </div>
-                                        <div style="margin-bottom: 1rem;">
-                                            <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                                <input type="checkbox">
-                                                Auto-confirm appointments
-                                            </label>
-                                        </div>
-                                        <button class="btn btn-primary" style="width: 100%;">
-                                            Save Preferences
-                                        </button>
-                                    </div>
-                    </div>
-                    <!--Schedule Analitics Card-->
-                    <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-icon">
-                                            <i class="fas fa-chart-bar"></i>
-                                        </div>
-                                        <div>
-                                            <h3 class="card-title">Schedule Analytics</h3>
-                                            <p class="card-content">Performance metrics</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div style="margin-bottom: 1rem;">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span>Average Daily Utilization</span>
-                                                <span>85%</span>
-                                            </div>
-                                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                                <div style="background: #48bb78; height: 100%; width: 85%; border-radius: 4px;"></div>
-                                            </div>
-                                        </div>
-                                        <div style="margin-bottom: 1rem;">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span>On-time Performance</span>
-                                                <span>92%</span>
-                                            </div>
-                                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                                <div style="background: #4299e1; height: 100%; width: 92%; border-radius: 4px;"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span>No-show Rate</span>
-                                                <span>3%</span>
-                                            </div>
-                                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px;">
-                                                <div style="background: #ed8936; height: 100%; width: 3%; border-radius: 4px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                    </div>                                      
+                    </div>                                   
                 </div>
                 
                 <!--Calendar View-->    
@@ -519,65 +329,14 @@
                                     <small>Duration: 30 min | Room: 201 | <strong>IN PROGRESS</strong></small>
                                 </div>
                             </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">10:45 AM</div>
-                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
-                                <div style="background: #bee3f8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                    <strong>Emily Davis</strong> - Follow-up (Diabetes)<br>
-                                    <small>Duration: 20 min | Room: 201</small>
-                                </div>
-                            </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">11:05 AM</div>
-                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
-                                <div style="background: #c6f6d5; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #48bb78;">
-                                    <strong>Michael Brown</strong> - Consultation (Heart Murmur)<br>
-                                    <small>Duration: 40 min | Room: 201</small>
-                                </div>
-                            </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">11:45 AM</div>
-                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
-                                <div style="background: #fed7d7; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #f56565;">
-                                    <strong>Break Time</strong> - 15 minutes
-                                </div>
-                            </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">12:00 PM</div>
-                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
-                                <div style="background: #bee3f8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                    <strong>Sarah Wilson</strong> - Follow-up (Atrial Fibrillation)<br>
-                                    <small>Duration: 25 min | Room: 201</small>
-                                </div>
-                            </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">12:25 PM</div>
-                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
-                                <div style="background: #feebc8; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #ed8936;">
-                                    <strong>Lunch Break</strong> - 35 minutes
-                                </div>
-                            </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">1:00 PM</div>
-                            <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
-                                <div style="background: #c6f6d5; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #48bb78;">
-                                    <strong>David Lee</strong> - Follow-up (Coronary Artery Disease)<br>
-                                    <small>Duration: 30 min | Room: 201</small>
-                                </div>
-                            </div>
-
-                            <div style="background: #f7fafc; padding: 1rem 0.5rem; border-right: 1px solid #e2e8f0; text-align: center; font-weight: 600;">1:30 PM</div>
-                            <div style="padding: 1rem;">
-                                <div style="background: #e6fffa; padding: 0.8rem; border-radius: 5px; border-left: 4px solid #38b2ac;">
-                                    <strong>Available</strong> - Open slot for appointments
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             
             <!-- Modals -->
             <div class="modal" id="blockTimeModal">
+
+                <!-- Block Time Modal -->
                 <div class="modal-content" style="max-width: 720px;">
                     <div class="modal-header">
                         <h3>Block Time</h3>
@@ -635,6 +394,7 @@
                 </div>
             </div>
 
+            <!-- Schedule Settings Modal -->
             <div class="modal" id="scheduleSettingsModal">
                 <div class="modal-content" style="max-width: 720px;">
                     <div class="modal-header">
@@ -680,6 +440,7 @@
                 </div>
             </div>
 
+            <!-- Appointment Details Modal -->
             <div class="modal" id="appointmentDetailsModal">
                 <div class="modal-content" style="max-width: 760px;">
                     <div class="modal-header">
