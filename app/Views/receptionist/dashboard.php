@@ -11,7 +11,7 @@
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1><i class="fas fa-user-secret"></i> HMS - RECEPTIONS DESK</h1>
+                    <h1><i class="fas fa-user-secret"></i>Receptionists</h1>
                 </div>
                 <div class="user-info">
                     <div class="user-avatar">
@@ -55,12 +55,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#patient-search" class="nav-link">
-                            <i class="fas fa-search nav-icon"></i>
-                            Patient Search
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="#check-in" class="nav-link">
                             <i class="fas fa-clipboard-check nav-icon"></i>
                             Patient Check-in
@@ -81,7 +75,7 @@
                 </ul>
             </nav>
             <main class="content">
-                <h1 class="page-title">Reception Dashboard</h1>
+                <h1 class="page-title">Dashboard</h1>
     
                 <!-- Dashboard Overview Cards -->
                 <div class="dashboard-overview">

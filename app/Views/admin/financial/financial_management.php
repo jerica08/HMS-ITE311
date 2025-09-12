@@ -214,7 +214,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <h1><i class="fas fa-hospital"></i> HMS - Financial Management</h1>
+                <h1><i class="fas fa-hospital"></i> Administrator</h1>
             </div>
             <div class="user-info">
                 <div class="user-avatar">AD</div>
