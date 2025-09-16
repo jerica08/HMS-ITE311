@@ -99,6 +99,10 @@ $routes->group('doctor', function($routes) {
 
 $routes->group('nurse', function($routes) {
     $routes->get('dashboard', 'Nurse::index');
+    $routes->get('vitals', 'Nurse\VitalsController::index');
+    $routes->get('medication', 'Nurse\MedicationController::index');
+    $routes->get('patient-care', 'Nurse\PatientCareController::index');
+    $routes->get('shift-report', 'Nurse\ShiftReportController::index');
 });
 
 $routes->group('receptionist', function($routes) {

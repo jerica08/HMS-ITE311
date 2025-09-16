@@ -24,6 +24,6 @@ class Nurse extends BaseController
         if ($authCheck) return $authCheck;
 
         $currentUser = $this->getCurrentUserData();
-        return view('nurse/dashboard', ['currentUser' => $currentUser]);
+        return view('nurse/Dashboard/index', ['currentUser' => $currentUser]);
     }
 }
