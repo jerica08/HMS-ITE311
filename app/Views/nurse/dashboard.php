@@ -66,12 +66,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="nurse-rounds.html" class="nav-link">
-                            <i class="fas fa-clipboard-check nav-icon"></i>
-                            Nursing Rounds
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="nurse-reports.html" class="nav-link">
                             <i class="fas fa-file-medical nav-icon"></i>
                             Shift Reports
