@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#patient-registration" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="fas fa-user-plus nav-icon"></i>
                             Patient Registration
                         </a>

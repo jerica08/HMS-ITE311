@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitals - HMS Nurse</title>
+    <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="/assets/css/users.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background: #3b82f6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2rem;
+            }
+            .status-admitted { background: #fef3c7; color: #92400e; }
+            .status-discharged { background: #dcfce7; color: #166534; }
+            .status-critical { background: #fecaca; color: #991b1b; }
+            .status-stable { background: #dbeafe; color: #1e40af; }
+            .status-emergency { background: #fed7cc; color: #c2410c; }
+            .search-filters {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+            .filter-row {
+                display: flex;
+                gap: 1rem;
+                align-items: end;
+                flex-wrap: wrap;
+            }
+            .filter-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                min-width: 150px;
+            }
+            .filter-input {
+                padding: 0.5rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 5px;
+                font-size: 0.9rem;
+            }
+            .patient-table {
+                background: white;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .table-header {
+                background: #f8fafc;
+                padding: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .action-buttons {
+                display: flex;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            .btn-small {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            .critical-alert {
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-left: 4px solid #ef4444;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            .alert-header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 600;
+                color: #991b1b;
+                margin-bottom: 0.5rem;
+            }
+            .alert-content {
+                color: #7f1d1d;
+                font-size: 0.9rem;
+            }
+            .quick-actions {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+            .actions-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: rem;
+                margin-top: 1rem;
+            }
+            .metric-value.red {
+                color: #ef4444;
+            }
+            .metric-value.orange {
+                color: #f59e0b;
+            }
+            .card-icon-modern.green {
+                background: #10b981;
+            }
+    </style>
+</head>
+<body class="admin">
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i>Nurse</h1>                    
+            </div>
+            <div class="user-info">
+                <div href="" class="fas fa-avatar" href=""></div>
+                <div>
+                    <div style="font-weight: 600;">
+                        <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
+                    </div>
+                    <div style="font-size: 0.9rem;opacity:0.8">
+                        <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+        <!--Main Content-->
+        <div class="main-container">
+             <!--sidebar-->
+             <nav class="sidebar">
+              
+              <ul class="nav-menu">
+                  <li class="nav-item">
+                      <a href="" class="nav-link">
+                          <i class="fas fa-tachometer-alt nav-icon"></i>
+                          Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="" class="nav-link">
+                          <i class="fas fa-heart nav-icon"></i>
+                          Patient Care
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="" class="nav-link">
+                          <i class="fas fa-pills nav-icon"></i>
+                          Medication Admin
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="" class="nav-link active">
+                          <i class="fas fa-heartbeat nav-icon"></i>
+                          Vital Signs
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="" class="nav-link">
+                          <i class="fas fa-clipboard-check nav-icon"></i>
+                          Nursing Rounds
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="" class="nav-link">
+                          <i class="fas fa-file-medical nav-icon"></i>
+                         Shift Reports
+                      </a>
+                  </li>            
+              </ul>          
+            </nav>
+       
+            <!--Main Content-->
+            <main class="content">
+                <h1 class="page-title">Vital Signs Management</h1>
+
+                  <!-- Dashboard Overview Cards -->
+                  <div class="dashboard-overview" style="margin-top: 2rem;">
+                    <!-- Today's Vitals Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Today's Vitals</h3>
+                                <p class="card-subtitle">Vital signs recorded today</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue">45</div>
+                                <div class="metric-label">Total Recorded</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value green">37</div>
+                                <div class="metric-label">Normal</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value purple">8</div>
+                                <div class="metric-label">Abnormal</div>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn primary">View All</button>
+                            <button class="action-btn secondary">Generate Report</button>
+                        </div>
+                    </div>
+
+                    <!-- Critical Patients Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Critical Alerts</h3>
+                                <p class="card-subtitle">Patients requiring attention</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">3</div>
+                                <div class="metric-label">Critical</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value green">2</div>
+                                <div class="metric-label">Emergency</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value blue">1</div>
+                                <div class="metric-label">High Priority</div>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn danger">View Critical</button>
+                            <button class="action-btn warning">Alert History</button>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring Schedule Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern green">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Monitoring Schedule</h3>
+                                <p class="card-subtitle">Upcoming vital checks</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value green">12</div>
+                                <div class="metric-label">Next Hour</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value blue">28</div>
+                                <div class="metric-label">Today</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value purple">5</div>
+                                <div class="metric-label">Overdue</div>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn primary">View Schedule</button>
+                            <button class="action-btn secondary">Set Reminder</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+
+                    <div class="actions grid">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Record New Vitals
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-search"></i> Search Patient
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-exclamation-triangle"></i> View Alerts
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-chart-line"></i> Vital Trends
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="search-filters">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h3>Filter Patients</h3>
+                    </div>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Patient Name/ID</label>
+                            <input type="text" class="filter-input" placeholder="Search patient...">
+                        </div>
+                        <div class="filter-group">
+                            <label>Room Number</label>
+                            <input type="text" class="filter-input" placeholder="Room #">
+                        </div>
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <select class="filter-input">
+                                <option value="">All Status</option>
+                                <option value="stable">Stable</option>
+                                <option value="critical">Critical</option>
+                                <option value="emergency">Emergency</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Date Range</label>
+                            <input type="date" class="filter-input">
+                        </div>
+                        <div class="filter-group">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary btn-small">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient Vitals Table -->
+                <div class="patient-table">
+                    <div class="table-header">
+                        <h3>Patient Vital Signs</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-small">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                            <button class="btn btn-secondary btn-small">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Room</th>
+                                    <th>Blood Pressure</th>
+                                    <th>Heart Rate</th>
+                                    <th>Temperature</th>
+                                    <th>Oxygen Sat</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>John Smith</strong><br>
+                                        <small>ID: P001234</small>
+                                    </td>
+                                    <td>205</td>
+                                    <td><span style="color: #ef4444; font-weight: bold;">180/120</span></td>
+                                    <td>95 bpm</td>
+                                    <td>98.6°F</td>
+                                    <td>98%</td>
+                                    <td><span class="badge status-critical">Critical</span></td>
+                                    <td>10:30 AM</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-small">Update</button>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Maria Garcia</strong><br>
+                                        <small>ID: P001235</small>
+                                    </td>
+                                    <td>203</td>
+                                    <td>120/80</td>
+                                    <td>72 bpm</td>
+                                    <td>98.2°F</td>
+                                    <td>99%</td>
+                                    <td><span class="badge status-stable">Stable</span></td>
+                                    <td>11:15 AM</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-small">Update</button>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Robert Johnson</strong><br>
+                                        <small>ID: P001236</small>
+                                    </td>
+                                    <td>201</td>
+                                    <td>110/70</td>
+                                    <td>68 bpm</td>
+                                    <td>97.8°F</td>
+                                    <td>100%</td>
+                                    <td><span class="badge status-stable">Stable</span></td>
+                                    <td>09:45 AM</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-small">Update</button>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Sarah Wilson</strong><br>
+                                        <small>ID: P001237</small>
+                                    </td>
+                                    <td>207</td>
+                                    <td>140/90</td>
+                                    <td>88 bpm</td>
+                                    <td>99.1°F</td>
+                                    <td>96%</td>
+                                    <td><span class="badge status-emergency">Emergency</span></td>
+                                    <td>11:30 AM</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-small">Update</button>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Michael Brown</strong><br>
+                                        <small>ID: P001238</small>
+                                    </td>
+                                    <td>209</td>
+                                    <td>115/75</td>
+                                    <td>75 bpm</td>
+                                    <td>98.4°F</td>
+                                    <td>98%</td>
+                                    <td><span class="badge status-stable">Stable</span></td>
+                                    <td>10:00 AM</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-small">Update</button>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+              
+            </main>
+        </div>
+
+        <script>
+            // Navigation functionality
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Logout functionality
+            function handleLogout() {
+                if(confirm('Are you sure you want to logout?')) {
+                    window.location.href = '<?= base_url() ?>';
+                }
+            }
+
+            // Filter functionality
+            document.querySelector('.filter-row .btn-primary').addEventListener('click', function() {
+                // Add filter logic here
+                console.log('Applying filters...');
+            });
+
+            // Quick action buttons
+            document.querySelectorAll('.quick-actions .btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    console.log('Quick action:', action);
+                    // Add specific action logic here
+                });
+            });
+
+            // Table action buttons
+            document.querySelectorAll('.table .btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    const row = this.closest('tr');
+                    const patientName = row.querySelector('strong').textContent;
+                    console.log(`${action} for patient: ${patientName}`);
+                    // Add specific patient action logic here
+                });
+            });
+        </script>
+</body>
+</html>

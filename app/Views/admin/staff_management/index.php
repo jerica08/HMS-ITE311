@@ -465,8 +465,7 @@
 
                 <!--Quick Actions-->
                 <div class="quick-actions">
-                    <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
-                    <div class="actions grid">
+                    <div class="actionsgrid">
                         <button class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Add Staff
                         </button>

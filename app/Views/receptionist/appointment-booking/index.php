@@ -37,7 +37,7 @@
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/appointments') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist/appointments') ?>" class="nav-link active">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             Appointment Booking
                         </a>
@@ -75,6 +75,13 @@
                 </ul>
             </nav>
             <main class="content">
+                <div class="breadcrumb">
+                    <a href="<?= base_url('receptionist') ?>" class="breadcrumb-item">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">Appointment Booking</span>
+                </div>
                 <div class="content-header">
                     <h2 class="page-title"><i class="fas fa-calendar-alt"></i> Appointment Booking</h2>
                     <p class="page-subtitle">Schedule a patient with a doctor, set time and visit reason.</p>

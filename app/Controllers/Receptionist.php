@@ -26,4 +26,49 @@ class Receptionist extends BaseController
         $currentUser = $this->getCurrentUserData();
         return view('receptionist/dashboard/index', ['currentUser' => $currentUser]);
     }
+
+    public function patientRegistration()
+    {
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        return view('receptionist/patient-registration/index', ['currentUser' => $currentUser]);
+    }
+
+    public function appointments()
+    {
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        return view('receptionist/appointment-booking/index', ['currentUser' => $currentUser]);
+    }
+
+    public function checkIn()
+    {
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        return view('receptionist/checkIn/index', ['currentUser' => $currentUser]);
+    }
+
+    public function waitingRoom()
+    {
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        return view('receptionist/waitingRoom/index', ['currentUser' => $currentUser]);
+    }
+
+    public function insurance()
+    {
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        return view('receptionist/insuranceVerification/index', ['currentUser' => $currentUser]);
+    }
 }

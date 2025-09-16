@@ -37,7 +37,7 @@
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link active">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Insurance Verification
                         </a>
