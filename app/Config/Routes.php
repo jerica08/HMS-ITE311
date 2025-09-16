@@ -107,13 +107,11 @@ $routes->group('nurse', function($routes) {
 
 $routes->group('receptionist', function($routes) {
     $routes->get('dashboard', 'Receptionist::index');
-    $routes->get('check-in', 'Receptionist\CheckInController::index');
-    $routes->get('appointments', 'Receptionist\AppointmentBookingController::index');
-    $routes->get('patient-registration', 'Receptionist\PatientRegistrationController::index');
-    $routes->get('scheduling', 'Receptionist\SchedulingController::index');
-    $routes->get('waiting-room', 'Receptionist\WaitingRoomController::index');
-    $routes->get('insurance', 'Receptionist\InsuranceVerificationController::index');
-    
+    $routes->get('patient-registration', 'Receptionist::patientRegistration');
+    $routes->get('appointments', 'Receptionist::appointments');
+    $routes->get('check-in', 'Receptionist::checkIn');
+    $routes->get('waiting-room', 'Receptionist::waitingRoom');
+    $routes->get('insurance', 'Receptionist::insurance');
 });
 
 $routes->group('pharmacist', function($routes) {

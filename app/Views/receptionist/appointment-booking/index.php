@@ -39,7 +39,7 @@
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link active">
+                        <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/appointments') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist/appointments') ?>" class="nav-link active">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             Appointment Booking
                         </a>
@@ -78,7 +78,7 @@
             </nav>
             <main class="content">
                 <div class="content-header">
-                    <h2 class="page-title"><i class="fas fa-calendar-alt"></i> Appointment Booking</h2>
+                    <h1 class="page-title"><i class="fas fa-calendar-alt"></i> Appointment Booking</h1>
                     <p class="page-subtitle">Schedule a patient with a doctor, set time and visit reason.</p>
                 </div>
 
@@ -143,51 +143,63 @@
             </main>
         </div>
         <style>
-        .content { 
-            padding: 24px;
-            width: 100%; 
-            overflow: auto; 
-        }
+        /* Page-specific styles that complement the common CSS */
         .content-header { 
-            margin-bottom: 16px; 
-        }
-        .page-title { 
-            margin: 0 0 6px 0; 
-            font-weight: 700; 
+            margin-bottom: 1.5rem; 
         }
         .page-subtitle { 
-            margin: 0; 
-            opacity: 0.8; 
+            margin: 0.5rem 0 0 0; 
+            opacity: 0.8;
+            font-size: 0.95rem;
         }
-        .card { 
-            background: var(--card-bg, #fff); 
-            border-radius: 12px; 
-            box-shadow: var(--shadow-md, 0 2px 12px rgba(0,0,0,0.06)); 
-            overflow: hidden; 
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, minmax(0, 1fr)); 
+            gap: 1rem; 
         }
-        .card-header { 
-            padding: 16px 20px; 
-            border-bottom: 1px solid rgba(0,0,0,0.06); 
-            display: flex; align-items: center; 
-            justify-content: space-between; 
+        .form-group { 
+            display: flex; 
+            flex-direction: column; 
         }
-        .card-title { margin: 0; font-size: 1.05rem; font-weight: 600; }
-        .card-body { padding: 20px; }
-        .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group-full { grid-column: 1 / -1; }
-        .form-group label { font-weight: 600; margin-bottom: 6px; }
-        .form-group input, .form-group select, .form-group textarea { padding: 10px 12px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; background: var(--input-bg, #fff); }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary, #2563eb); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-        .form-actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 8px; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
-        .btn-primary { background: var(--primary, #2563eb); color: #fff; }
-        .btn-secondary { background: var(--muted, #e5e7eb); color: #111827; }
-        .btn:hover { filter: brightness(0.98); }
-        @media (max-width: 900px) { .form-grid { grid-template-columns: 1fr; } }
-        .main-container { display: flex; }
-        .sidebar { flex: 0 0 280px; }
-        .content { flex: 1 1 auto; }
+        .form-group-full { 
+            grid-column: 1 / -1; 
+        }
+        .form-group label { 
+            font-weight: 600; 
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea { 
+            padding: 0.75rem; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            background: white;
+            font-size: 0.9rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus { 
+            outline: none; 
+            border-color: #667eea; 
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15); 
+        }
+        .form-actions { 
+            display: flex; 
+            gap: 0.75rem; 
+            justify-content: flex-end; 
+            margin-top: 1.5rem;
+        }
+        @media (max-width: 768px) { 
+            .form-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+        }
         </style>
 
         <script src="<?= base_url('js/logout.js') ?>"></script>
