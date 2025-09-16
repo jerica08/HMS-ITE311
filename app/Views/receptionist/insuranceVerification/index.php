@@ -81,7 +81,7 @@
                     <h2 class="page-title"><i class="fas fa-shield-alt"></i> Insurance Verification</h2>
                     <p class="page-subtitle">Capture and verify patient insurance details before the visit.</p>
                 </div>
-
+               
                 <section class="card">
                     <div class="card-header">
                         <h3 class="card-title">Verification Details</h3>

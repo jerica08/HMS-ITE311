@@ -190,11 +190,11 @@
                                 <div class="metric-label">Pending</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value green">28</div>
+                                <div class="metric-value green">0</div>
                                 <div class="metric-label">Verified</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value green">2</div>
+                                <div class="metric-value green">0</div>
                                 <div class="metric-label">Issues</div>
                             </div>
                         </div>
