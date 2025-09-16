@@ -197,9 +197,14 @@
             <!--Main Content-->
             <main class="content">
                 <h1 class="page-title">Vital Signs Management</h1>
+                <div class="page-actions">
+                    <button class="btn btn-success">
+                        <i class="fas fa-plus"></i> Record New Vitals
+                    </button>
+                </div><br>
 
-                  <!-- Dashboard Overview Cards -->
-                  <div class="dashboard-overview" style="margin-top: 2rem;">
+                <!-- Dashboard Overview Cards -->
+                <div class="dashboard-overview">
                     <!-- Today's Vitals Card -->
                     <div class="overview-card">
                         <div class="card-header-modern">
@@ -213,52 +218,21 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metric">
-                                <div class="metric-value blue">45</div>
+                                <div class="metric-value blue">0</div>
                                 <div class="metric-label">Total Recorded</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value green">37</div>
+                                <div class="metric-value green">0</div>
                                 <div class="metric-label">Normal</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">8</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Abnormal</div>
                             </div>
                         </div>
                         <div class="card-actions">
                             <button class="action-btn primary">View All</button>
                             <button class="action-btn secondary">Generate Report</button>
-                        </div>
-                    </div>
-
-                    <!-- Critical Patients Card -->
-                    <div class="overview-card">
-                        <div class="card-header-modern">
-                            <div class="card-icon-modern purple">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="card-info">
-                                <h3 class="card-title-modern">Critical Alerts</h3>
-                                <p class="card-subtitle">Patients requiring attention</p>
-                            </div>
-                        </div>
-                        <div class="card-metrics">
-                            <div class="metric">
-                                <div class="metric-value purple">3</div>
-                                <div class="metric-label">Critical</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value green">2</div>
-                                <div class="metric-label">Emergency</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value blue">1</div>
-                                <div class="metric-label">High Priority</div>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <button class="action-btn danger">View Critical</button>
-                            <button class="action-btn warning">Alert History</button>
                         </div>
                     </div>
 
@@ -275,15 +249,15 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metric">
-                                <div class="metric-value green">12</div>
+                                <div class="metric-value green">0</div>
                                 <div class="metric-label">Next Hour</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value blue">28</div>
+                                <div class="metric-value blue">0</div>
                                 <div class="metric-label">Today</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">5</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Overdue</div>
                             </div>
                         </div>
@@ -291,25 +265,6 @@
                             <button class="action-btn primary">View Schedule</button>
                             <button class="action-btn secondary">Set Reminder</button>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="quick-actions">
-
-                    <div class="actions grid">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Record New Vitals
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-search"></i> Search Patient
-                        </button>
-                        <button class="btn btn-warning">
-                            <i class="fas fa-exclamation-triangle"></i> View Alerts
-                        </button>
-                        <button class="btn btn-success">
-                            <i class="fas fa-chart-line"></i> Vital Trends
-                        </button>
                     </div>
                 </div>
 
@@ -415,23 +370,6 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <strong>Robert Johnson</strong><br>
-                                        <small>ID: P001236</small>
-                                    </td>
-                                    <td>201</td>
-                                    <td>110/70</td>
-                                    <td>68 bpm</td>
-                                    <td>97.8°F</td>
-                                    <td>100%</td>
-                                    <td><span class="badge status-stable">Stable</span></td>
-                                    <td>09:45 AM</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-small">Update</button>
-                                        <button class="btn btn-secondary btn-small">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
                                         <strong>Sarah Wilson</strong><br>
                                         <small>ID: P001237</small>
                                     </td>
@@ -447,23 +385,6 @@
                                         <button class="btn btn-secondary btn-small">View</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Michael Brown</strong><br>
-                                        <small>ID: P001238</small>
-                                    </td>
-                                    <td>209</td>
-                                    <td>115/75</td>
-                                    <td>75 bpm</td>
-                                    <td>98.4°F</td>
-                                    <td>98%</td>
-                                    <td><span class="badge status-stable">Stable</span></td>
-                                    <td>10:00 AM</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-small">Update</button>
-                                        <button class="btn btn-secondary btn-small">View</button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -472,6 +393,94 @@
               
             </main>
         </div>
+
+        <!-- Modals -->
+        <!-- Record New Vitals Modal -->
+        <div class="modal" id="recordVitalsModal">
+            <div class="modal-content" style="max-width: 720px;">
+                <div class="modal-header">
+                    <h3>Record New Vital Signs</h3>
+                    <button class="modal-close" data-close>&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="recordVitalsForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label>Patient ID/Name</label>
+                                <input type="text" class="form-input" name="patient_search" placeholder="Search patient..." required>
+                            </div>
+                            <div>
+                                <label>Room Number</label>
+                                <input type="text" class="form-input" name="room_number" placeholder="Room #" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label>Blood Pressure (Systolic)</label>
+                                <input type="number" class="form-input" name="bp_systolic" placeholder="120" min="60" max="250" required>
+                            </div>
+                            <div>
+                                <label>Blood Pressure (Diastolic)</label>
+                                <input type="number" class="form-input" name="bp_diastolic" placeholder="80" min="40" max="150" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label>Heart Rate (bpm)</label>
+                                <input type="number" class="form-input" name="heart_rate" placeholder="72" min="30" max="200" required>
+                            </div>
+                            <div>
+                                <label>Temperature (°F)</label>
+                                <input type="number" class="form-input" name="temperature" placeholder="98.6" step="0.1" min="95" max="110" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label>Oxygen Saturation (%)</label>
+                                <input type="number" class="form-input" name="oxygen_sat" placeholder="98" min="70" max="100" required>
+                            </div>
+                            <div>
+                                <label>Respiratory Rate</label>
+                                <input type="number" class="form-input" name="respiratory_rate" placeholder="16" min="8" max="40">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label>Notes</label>
+                            <textarea class="form-input" name="notes" rows="3" placeholder="Additional observations or notes..."></textarea>
+                        </div>
+                        <div>
+                            <label>Priority Level</label>
+                            <select class="form-select" name="priority" required>
+                                <option value="">Select Priority</option>
+                                <option value="normal">Normal</option>
+                                <option value="elevated">Elevated</option>
+                                <option value="critical">Critical</option>
+                                <option value="emergency">Emergency</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-close>Cancel</button>
+                    <button type="submit" form="recordVitalsForm" class="btn btn-success">Save Vitals</button>
+                </div>
+            </div>
+        </div>
+
+        
+        <style>
+            .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+            .modal.show { display: flex; align-items: center; justify-content: center; }
+            .modal-content { background-color: white; border-radius: 8px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); }
+            .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid #e2e8f0; background-color: #f7fafc; }
+            .modal-header h3 { margin: 0; color: #2d3748; }
+            .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+            .modal-close:hover { color: #2d3748; }
+            .modal-body { padding: 1.5rem; }
+            .modal-footer { display: flex; justify-content: flex-end; gap: 1rem; padding: 1.5rem; border-top: 1px solid #e2e8f0; background-color: #f7fafc; }
+            .form-input, .form-select { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; }
+            .form-input:focus, .form-select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1); }
+        </style>
 
         <script>
             // Navigation functionality
@@ -489,19 +498,22 @@
                 }
             }
 
-            // Filter functionality
-            document.querySelector('.filter-row .btn-primary').addEventListener('click', function() {
-                // Add filter logic here
-                console.log('Applying filters...');
-            });
+            // Modal functionality
+            const recordVitalsModal = document.getElementById('recordVitalsModal');
 
-            // Quick action buttons
-            document.querySelectorAll('.quick-actions .btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const action = this.textContent.trim();
-                    console.log('Quick action:', action);
-                    // Add specific action logic here
-                });
+            function openModal(modal) {
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal(modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Page action button
+            document.querySelector('.page-actions .btn').addEventListener('click', function() {
+                openModal(recordVitalsModal);
             });
 
             // Table action buttons
@@ -510,10 +522,57 @@
                     const action = this.textContent.trim();
                     const row = this.closest('tr');
                     const patientName = row.querySelector('strong').textContent;
-                    console.log(`${action} for patient: ${patientName}`);
-                    // Add specific patient action logic here
+                    const patientId = row.querySelector('small').textContent.replace('ID: ', '');
+                    const roomNumber = row.cells[1].textContent;
+                    const bp = row.cells[2].textContent;
+                    const hr = row.cells[3].textContent;
+                    const temp = row.cells[4].textContent;
+                    const oxygen = row.cells[5].textContent;
+
+                    if (action === 'Update') {
+                        console.log(`Update vitals for patient: ${patientName}`);
+                        // Add update functionality here
+                    } else if (action === 'View') {
+                        console.log(`View vitals for patient: ${patientName}`);
+                        // Add view functionality here
+                    }
                 });
             });
+
+            // Filter functionality
+            document.querySelector('.filter-row .btn-primary').addEventListener('click', function() {
+                const patientSearch = document.querySelector('input[placeholder="Search patient..."]').value;
+                const roomNumber = document.querySelector('input[placeholder="Room #"]').value;
+                const status = document.querySelector('select').value;
+                const dateRange = document.querySelector('input[type="date"]').value;
+                
+                console.log('Applying filters:', { patientSearch, roomNumber, status, dateRange });
+                // Add actual filter logic here
+            });
+
+            // Modal close functionality
+            document.querySelectorAll('[data-close]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = btn.closest('.modal');
+                    if (modal) closeModal(modal);
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === recordVitalsModal) closeModal(recordVitalsModal);
+            });
+
+            // Form submissions
+            document.getElementById('recordVitalsForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                console.log('Recording new vitals:', Object.fromEntries(formData));
+                // Add actual form submission logic here
+                closeModal(recordVitalsModal);
+                alert('Vital signs recorded successfully!');
+            });
+
         </script>
 </body>
 </html>
