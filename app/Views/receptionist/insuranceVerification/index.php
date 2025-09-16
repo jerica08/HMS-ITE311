@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Insurance Verification</title>
-        <link rel="stylesheet" href="assets/css/dashboard-common.css">
+        <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body class="receptionist-theme">
@@ -35,11 +35,10 @@
         </header>
 
         <div class="main-container">
-                <!-- Sidebar -->
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist') ?>" class="nav-link">
+                    <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link active">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -58,6 +57,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="<?= base_url('receptionist/check-in') ?>" class="nav-link">
+
                             <i class="fas fa-clipboard-check nav-icon"></i>
                             Patient Check-in
                         </a>
@@ -69,7 +69,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link active">
+                        <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Insurance Verification
                         </a>
@@ -191,7 +191,7 @@
         .content { flex: 1 1 auto; }
         </style>
 
-        <script src="/public/js/logout.js"></script>
+        <script src="<?= base_url('js/logout.js') ?>"></script>
    
     </body>
     </html>
