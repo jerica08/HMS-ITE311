@@ -34,11 +34,12 @@
             </div>
         </header>
 
-          <!-- Sidebar -->
+        <div class="main-container">
+            <!-- Sidebar -->
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                    <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link active">
+                    <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
@@ -63,7 +64,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/waiting-room') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist/waiting-room') ?>" class="nav-link active">
                             <i class="fas fa-chair nav-icon"></i>
                             Waiting Room
                         </a>
@@ -76,9 +77,10 @@
                     </li>
                 </ul>
             </nav>
+            
             <main class="content">
                 <div class="content-header">
-                    <h2 class="page-title"><i class="fas fa-chair"></i> Waiting Room</h2>
+                    <h1 class="page-title"><i class="fas fa-chair"></i> Waiting Room</h1>
                     <p class="page-subtitle">Monitor the waiting queue, manage status, and call the next patient.</p>
                 </div>
 
@@ -122,7 +124,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="form-actions" style="margin-top: 12px;">
+                        <div class="form-actions">
                             <button class="btn btn-primary" type="button" id="callNext"><i class="fas fa-bullhorn"></i> Call Next</button>
                             <button class="btn" type="button" id="markNoShow"><i class="fas fa-user-slash"></i> Mark No-show</button>
                         </div>
@@ -131,58 +133,66 @@
             </main>
         </div>
         <style>
-        .content { 
-            padding: 24px;
-            width: 100%; 
-            overflow: auto; 
-        }
+        /* Page-specific styles that complement the common CSS */
         .content-header { 
-            margin-bottom: 16px; 
-        }
-        .page-title { 
-            margin: 0 0 6px 0; 
-            font-weight: 700; 
+            margin-bottom: 1.5rem; 
         }
         .page-subtitle { 
-            margin: 0; 
-            opacity: 0.8; 
+            margin: 0.5rem 0 0 0; 
+            opacity: 0.8;
+            font-size: 0.95rem;
         }
-        .card { 
-            background: var(--card-bg, #fff); 
-            border-radius: 12px; 
-            box-shadow: var(--shadow-md, 0 2px 12px rgba(0,0,0,0.06)); 
-            overflow: hidden; 
-        }
-        .card-header { 
-            padding: 16px 20px; 
-            border-bottom: 1px solid rgba(0,0,0,0.06); 
-            display: flex; align-items: center; 
-            justify-content: space-between; 
-            gap: 12px;
+        .filters { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
             flex-wrap: wrap;
         }
-        .card-title { margin: 0; font-size: 1.05rem; font-weight: 600; }
-        .card-actions { display: flex; align-items: center; gap: 10px; }
-        .filters { display: flex; align-items: center; gap: 8px; }
-        .filter-input { padding: 8px 10px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; background: var(--input-bg, #fff); }
-        .card-body { padding: 20px; }
-        .table-wrapper { width: 100%; overflow: auto; }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.06); }
-        .table thead th { background: rgba(0,0,0,0.03); font-weight: 700; }
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
-        .status-waiting { background: #FEF3C7; color: #92400E; }
-        .status-called { background: #DBEAFE; color: #1E40AF; }
-        .status-no_show { background: #FEE2E2; color: #991B1B; }
-        .form-actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 8px; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; background: var(--muted, #e5e7eb); color: #111827; }
-        .btn-primary { background: var(--primary, #2563eb); color: #fff; }
-        .btn-secondary { background: var(--muted, #e5e7eb); color: #111827; }
-        .btn:hover { filter: brightness(0.98); }
-        @media (max-width: 900px) { .card-header { align-items: flex-start; } }
-        .main-container { display: flex; }
-        .sidebar { flex: 0 0 280px; }
-        .content { flex: 1 1 auto; }
+        .filter-input { 
+            padding: 8px 12px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            background: white;
+            font-size: 0.9rem;
+        }
+        .table-wrapper { 
+            width: 100%; 
+            overflow-x: auto; 
+        }
+        .status-badge { 
+            display: inline-block; 
+            padding: 4px 8px; 
+            border-radius: 999px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+        }
+        .status-waiting { 
+            background: #FEF3C7; 
+            color: #92400E; 
+        }
+        .status-called { 
+            background: #DBEAFE; 
+            color: #1E40AF; 
+        }
+        .status-no_show { 
+            background: #FEE2E2; 
+            color: #991B1B; 
+        }
+        .form-actions { 
+            display: flex; 
+            gap: 10px; 
+            justify-content: flex-end; 
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) { 
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-input {
+                width: 100%;
+            }
+        }
         </style>
 
         <script src="<?= base_url('js/logout.js') ?>"></script>

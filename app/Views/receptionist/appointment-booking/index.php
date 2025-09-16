@@ -77,13 +77,6 @@
                 </ul>
             </nav>
             <main class="content">
-                <div class="breadcrumb">
-                    <a href="<?= base_url('receptionist') ?>" class="breadcrumb-item">
-                        <i class="fas fa-home"></i> Dashboard
-                    </a>
-                    <span class="breadcrumb-separator">/</span>
-                    <span class="breadcrumb-item active">Appointment Booking</span>
-                </div>
                 <div class="content-header">
                     <h2 class="page-title"><i class="fas fa-calendar-alt"></i> Appointment Booking</h2>
                     <p class="page-subtitle">Schedule a patient with a doctor, set time and visit reason.</p>
