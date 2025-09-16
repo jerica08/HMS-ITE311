@@ -40,13 +40,13 @@
             <nav class="sidebar">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active">
+                        <a href="href="<?= base_url('receptionist/dashboard') ?>"" class="nav-link active">
                             <i class="fas fa-tachometer-alt nav-icon"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="<?= base_url('receptionist/patient-registration') ?>" class="nav-link">
                             <i class="fas fa-user-plus nav-icon"></i>
                             Patient Registration
                         </a>
@@ -85,7 +85,7 @@
                     <!--Today's Appointmenet Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern purple">
+                            <div class="card-icon-modern blue">
                                 <i class="fas fa-user-plus"></i>
                             </div>
                             <div>
@@ -95,15 +95,15 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metrics">
-                                <div class="metric-value purple">47</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Total</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">32</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Checked</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value red">15</div>
+                                <div class="metric-value red">0</div>
                                 <div class="metric-label">Pending</div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                     <!--Patient Registration Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern purple">
+                            <div class="card-icon-modern blue">
                                 <i class="fas fa-user-plus"></i>
                             </div>
                             <div>
@@ -125,15 +125,15 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metrics">
-                                <div class="metric-value purple">8</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Today</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">45</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label"> New This Week</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value red">3</div>
+                                <div class="metric-value red">0</div>
                                 <div class="metric-label">Pending</div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                     <!--Waiting Room Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern purple">
+                            <div class="card-icon-modern blue">
                                 <i class="fas fa-user-plus"></i>
                             </div>
                             <div>
@@ -155,15 +155,15 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metrics">
-                                <div class="metric-value purple">12</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Waiting</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">18</div>
+                                <div class="metric-value purple">0</div>
                                 <div class="metric-label">Avg Wait(min)</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value red">3</div>
+                                <div class="metric-value red">0</div>
                                 <div class="metric-label">Overdue</div>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                     <!--Insurance Verification-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern green">
+                            <div class="card-icon-modern blue">
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                             <div class="card-info">
@@ -185,7 +185,7 @@
                         </div>
                     <div class="card-metrics">
                             <div class="metric">
-                                <div class="metric-value green">6</div>
+                                <div class="metric-value green">0</div>
                                 <div class="metric-label">Pending</div>
                             </div>
                             <div class="metric">
@@ -262,193 +262,6 @@
                                 <td>Self-Pay</td>
                                 <td><span class="badge badge-danger">No Show</span></td>
                                 <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Contact</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-    
-                <!-- Patient Check-in Queue -->
-                <div class="dashboard-overview" style="margin-top: 2rem;">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-clipboard-list"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Check-in Queue</h3>
-                                <p class="card-content">Patients ready for check-in</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="padding: 0.8rem; background: #c6f6d5; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #48bb78;">
-                                <strong>Ready:</strong> Sarah Wilson - 10:15 AM with Dr. Davis
-                            </div>
-                            <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #4299e1;">
-                                <strong>Waiting:</strong> David Lee - 10:45 AM with Dr. Smith
-                            </div>
-                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; border-left: 4px solid #ed8936;">
-                                <strong>Late:</strong> Lisa Anderson - 10:00 AM (15 min late)
-                            </div>
-                        </div>
-                        <div class="quick-actions">
-                            <a href="#" class="btn btn-primary">Process Queue</a>
-                        </div>
-                    </div>
-    
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Contact Tasks</h3>
-                                <p class="card-content">Calls and follow-ups</p>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div style="padding: 0.8rem; background: #fed7d7; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #f56565;">
-                                <strong>Urgent:</strong> Confirm surgery appointment - Patient #1234
-                            </div>
-                            <div style="padding: 0.8rem; background: #feebc8; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ed8936;">
-                                <strong>Reminder:</strong> Lab results ready - Call 3 patients
-                            </div>
-                            <div style="padding: 0.8rem; background: #bee3f8; border-radius: 5px; border-left: 4px solid #4299e1;">
-                                <strong>Follow-up:</strong> Insurance verification - 2 pending
-                            </div>
-                        </div>
-                        <div class="quick-actions">
-                            <a href="#" class="btn btn-warning">Make Calls</a>
-                        </div>
-                    </div>
-    
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title">Quick Tools</h3>
-                                <p class="card-content">Common reception tasks</p>
-                            </div>
-                        </div>
-                        <div class="quick-actions" style="flex-direction: column; gap: 0.8rem;">
-                            <a href="#" class="btn btn-primary" style="width: 100%;">
-                                <i class="fas fa-user-plus"></i> Register New Patient
-                            </a>
-                            <a href="#" class="btn btn-success" style="width: 100%;">
-                                <i class="fas fa-calendar-plus"></i> Schedule Appointment
-                            </a>
-                            <a href="#" class="btn btn-warning" style="width: 100%;">
-                                <i class="fas fa-search"></i> Search Patient
-                            </a>
-                            <a href="#" class="btn btn-secondary" style="width: 100%;">
-                                <i class="fas fa-print"></i> Print Forms
-                            </a>
-                            <a href="#" class="btn btn-danger" style="width: 100%;">
-                                <i class="fas fa-exclamation-triangle"></i> Emergency Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- Insurance Verification Status -->
-                <div class="table-container" style="margin-top: 2rem;">
-                    <h3 style="margin-bottom: 1.5rem;">Insurance Verification Status</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>Insurance Provider</th>
-                                <th>Policy Number</th>
-                                <th>Coverage Status</th>
-                                <th>Copay</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jennifer Wilson</td>
-                                <td>Blue Cross Blue Shield</td>
-                                <td>BC123456789</td>
-                                <td>Active</td>
-                                <td>$25</td>
-                                <td><span class="badge badge-success">Verified</span></td>
-                                <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>Thomas Anderson</td>
-                                <td>Aetna</td>
-                                <td>AE987654321</td>
-                                <td>Pending</td>
-                                <td>$30</td>
-                                <td><span class="badge badge-warning">Verifying</span></td>
-                                <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check</a></td>
-                            </tr>
-                            <tr>
-                                <td>Patricia Martinez</td>
-                                <td>Medicare</td>
-                                <td>ME456789123</td>
-                                <td>Expired</td>
-                                <td>$0</td>
-                                <td><span class="badge badge-danger">Issue</span></td>
-                                <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Resolve</a></td>
-                            </tr>
-                            <tr>
-                                <td>Christopher Lee</td>
-                                <td>Cigna</td>
-                                <td>CG789123456</td>
-                                <td>Active</td>
-                                <td>$20</td>
-                                <td><span class="badge badge-success">Verified</span></td>
-                                <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-    
-                <!-- Waiting Room Management -->
-                <div class="table-container" style="margin-top: 2rem;">
-                    <h3 style="margin-bottom: 1.5rem;">Current Waiting Room Status</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>Check-in Time</th>
-                                <th>Appointment Time</th>
-                                <th>Doctor</th>
-                                <th>Wait Time</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Maria Rodriguez</td>
-                                <td>09:45 AM</td>
-                                <td>10:00 AM</td>
-                                <td>Dr. Johnson</td>
-                                <td>15 min</td>
-                                <td><span class="badge badge-success">On Time</span></td>
-                                <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Call</a></td>
-                            </tr>
-                            <tr>
-                                <td>James Thompson</td>
-                                <td>09:30 AM</td>
-                                <td>09:45 AM</td>
-                                <td>Dr. Wilson</td>
-                                <td>30 min</td>
-                                <td><span class="badge badge-warning">Delayed</span></td>
-                                <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Update</a></td>
-                            </tr>
-                            <tr>
-                                <td>Susan Davis</td>
-                                <td>09:15 AM</td>
-                                <td>09:30 AM</td>
-                                <td>Dr. Brown</td>
-                                <td>45 min</td>
-                                <td><span class="badge badge-danger">Overdue</span></td>
-                                <td><a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Alert</a></td>
                             </tr>
                         </tbody>
                     </table>
