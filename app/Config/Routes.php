@@ -107,7 +107,16 @@ $routes->group('nurse', function($routes) {
 
 $routes->group('receptionist', function($routes) {
     $routes->get('dashboard', 'Receptionist::index');
-    $routes->get('patient-registration', 'Receptionist::patientRegistration');
+    
+    // Patient Registration Routes
+    $routes->get('patient-registration', 'Receptionist\PatientRegistrationController::index');
+    $routes->get('patient-registration/create', 'Receptionist\PatientRegistrationController::create');
+    $routes->post('patient-registration/store', 'Receptionist\PatientRegistrationController::store');
+    $routes->get('patient-registration/show/(:num)', 'Receptionist\PatientRegistrationController::show/$1');
+    $routes->get('patient-registration/edit/(:num)', 'Receptionist\PatientRegistrationController::edit/$1');
+    $routes->post('patient-registration/update/(:num)', 'Receptionist\PatientRegistrationController::update/$1');
+    $routes->get('patient-registration/search', 'Receptionist\PatientRegistrationController::search');
+    
     $routes->get('appointments', 'Receptionist::appointments');
     $routes->get('check-in', 'Receptionist::checkIn');
     $routes->get('waiting-room', 'Receptionist::waitingRoom');

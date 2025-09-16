@@ -83,76 +83,103 @@
                     <p class="page-subtitle">Create a new patient profile and capture demographics, contact, and insurance information.</p>
                 </div>
 
+                <?php if (session()->getFlashdata('success')): ?>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <?= session()->getFlashdata('success') ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (session()->getFlashdata('error')): ?>
+                    <div class="alert alert-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <?= session()->getFlashdata('error') ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (session()->getFlashdata('errors')): ?>
+                    <div class="alert alert-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Please correct the following errors:</strong>
+                        <ul>
+                            <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                                <li><?= esc($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
                 <section class="card">
                     <div class="card-header">
                         <h3 class="card-title">Patient Details</h3>
                     </div>
                     <div class="card-body">
-                        <form id="patientRegistrationForm" action="/receptionist/patients/register" method="post" novalidate>
+                        <form id="patientRegistrationForm" action="<?= base_url('receptionist/patient-registration/store') ?>" method="post" novalidate>
                             <?= csrf_field() ?>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" id="firstName" name="first_name" placeholder="e.g., Juan" required>
+                                    <input type="text" id="firstName" name="first_name" placeholder="e.g., Juan" value="<?= old('first_name') ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" id="lastName" name="last_name" placeholder="e.g., Dela Cruz" required>
+                                    <input type="text" id="lastName" name="last_name" placeholder="e.g., Dela Cruz" value="<?= old('last_name') ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="middleName">Middle Name</label>
-                                    <input type="text" id="middleName" name="middle_name" placeholder="Optional">
+                                    <input type="text" id="middleName" name="middle_name" placeholder="Optional" value="<?= old('middle_name') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="dob">Date of Birth</label>
-                                    <input type="date" id="dob" name="date_of_birth" required>
+                                    <input type="date" id="dob" name="date_of_birth" value="<?= old('date_of_birth') ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">Gender</label>
                                     <select id="gender" name="gender" required>
                                         <option value="">Select gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="Male" <?= old('gender') == 'Male' ? 'selected' : '' ?>>Male</option>
+                                        <option value="Female" <?= old('gender') == 'Female' ? 'selected' : '' ?>>Female</option>
+                                        <option value="Other" <?= old('gender') == 'Other' ? 'selected' : '' ?>>Other</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="civilStatus">Civil Status</label>
                                     <select id="civilStatus" name="civil_status">
                                         <option value="">Select status</option>
-                                        <option value="single">Single</option>
-                                        <option value="married">Married</option>
-                                        <option value="widowed">Widowed</option>
-                                        <option value="separated">Separated</option>
+                                        <option value="Single" <?= old('civil_status') == 'Single' ? 'selected' : '' ?>>Single</option>
+                                        <option value="Married" <?= old('civil_status') == 'Married' ? 'selected' : '' ?>>Married</option>
+                                        <option value="Divorced" <?= old('civil_status') == 'Divorced' ? 'selected' : '' ?>>Divorced</option>
+                                        <option value="Widowed" <?= old('civil_status') == 'Widowed' ? 'selected' : '' ?>>Widowed</option>
+                                        <option value="Separated" <?= old('civil_status') == 'Separated' ? 'selected' : '' ?>>Separated</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Mobile Number</label>
-                                    <input type="tel" id="phone" name="phone" placeholder="e.g., 09XXXXXXXXX" pattern="^[0-9\-\+\s\(\)]{7,}$" required>
+                                    <input type="tel" id="phone" name="phone" placeholder="e.g., 09XXXXXXXXX" pattern="^[0-9\-\+\s\(\)]{7,}$" value="<?= old('phone') ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" placeholder="name@example.com">
+                                    <input type="email" id="email" name="email" placeholder="name@example.com" value="<?= old('email') ?>">
                                 </div>
                                 <div class="form-group form-group-full">
                                     <label for="address">Address</label>
-                                    <input type="text" id="address" name="address" placeholder="House No., Street, Barangay, City/Municipality, Province" required>
+                                    <input type="text" id="address" name="address" placeholder="House No., Street, Barangay, City/Municipality, Province" value="<?= old('address') ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="province">Province</label>
-                                    <input type="text" id="province" name="province">
+                                    <input type="text" id="province" name="province" value="<?= old('province') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City/Municipality</label>
-                                    <input type="text" id="city" name="city">
+                                    <input type="text" id="city" name="city" value="<?= old('city') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="barangay">Barangay</label>
-                                    <input type="text" id="barangay" name="barangay">
+                                    <input type="text" id="barangay" name="barangay" value="<?= old('barangay') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="zip">ZIP Code</label>
-                                    <input type="text" id="zip" name="zip" pattern="^[0-9]{4,5}$" placeholder="e.g., 1000">
+                                    <input type="text" id="zip" name="zip_code" pattern="^[0-9]{4,5}$" placeholder="e.g., 1000" value="<?= old('zip_code') ?>">
                                 </div>
                             </div>
 
@@ -161,23 +188,31 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="insuranceProvider">Insurance Provider</label>
-                                    <input type="text" id="insuranceProvider" name="insurance_provider" placeholder="e.g., PhilHealth">
+                                    <input type="text" id="insuranceProvider" name="insurance_provider" placeholder="e.g., PhilHealth" value="<?= old('insurance_provider') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="insuranceNumber">Insurance Number</label>
-                                    <input type="text" id="insuranceNumber" name="insurance_number" placeholder="Policy/Member ID">
+                                    <input type="text" id="insuranceNumber" name="insurance_number" placeholder="Policy/Member ID" value="<?= old('insurance_number') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="emergencyName">Emergency Contact Name</label>
-                                    <input type="text" id="emergencyName" name="emergency_name" placeholder="Full name">
+                                    <input type="text" id="emergencyName" name="emergency_contact_name" placeholder="Full name" value="<?= old('emergency_contact_name') ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="emergencyPhone">Emergency Contact Number</label>
-                                    <input type="tel" id="emergencyPhone" name="emergency_phone" placeholder="e.g., 09XXXXXXXXX" pattern="^[0-9\-\+\s\(\)]{7,}$">
+                                    <input type="tel" id="emergencyPhone" name="emergency_contact_phone" placeholder="e.g., 09XXXXXXXXX" pattern="^[0-9\-\+\s\(\)]{7,}$" value="<?= old('emergency_contact_phone') ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientType">Patient Type</label>
+                                    <select id="patientType" name="patient_type">
+                                        <option value="Outpatient" <?= old('patient_type') == 'Outpatient' ? 'selected' : '' ?>>Outpatient</option>
+                                        <option value="Inpatient" <?= old('patient_type') == 'Inpatient' ? 'selected' : '' ?>>Inpatient</option>
+                                        <option value="Emergency" <?= old('patient_type') == 'Emergency' ? 'selected' : '' ?>>Emergency</option>
+                                    </select>
                                 </div>
                                 <div class="form-group form-group-full">
                                     <label for="notes">Clinical Notes</label>
-                                    <textarea id="notes" name="notes" rows="3" placeholder="Optional notes (allergies, conditions, etc.)"></textarea>
+                                    <textarea id="notes" name="medical_notes" rows="3" placeholder="Optional notes (allergies, conditions, etc.)"><?= old('medical_notes') ?></textarea>
                                 </div>
                             </div>
 
@@ -237,6 +272,11 @@
         .main-container { display: flex; }
         .sidebar { flex: 0 0 280px; }
         .content { flex: 1 1 auto; }
+        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 8px; }
+        .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .alert ul { margin: 8px 0 0 0; padding-left: 20px; }
+        .alert li { margin-bottom: 4px; }
         </style>
 
         <script src="<?= base_url('js/logout.js') ?>"></script>
