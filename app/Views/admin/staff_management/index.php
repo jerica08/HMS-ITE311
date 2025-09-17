@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management - HMS Admin</title>
+    <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+    <link rel="stylesheet" href="/assets/css/users.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .staff-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .staff-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .staff-item:last-child {
+            border-bottom: none;
+        }
+        .staff-info {
+            flex: 1;
+        }
+        .staff-name {
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        .staff-details {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        .staff-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .status-on-duty { background: #dcfce7; color: #166534; }
+        .status-off-duty { background: #f3f4f6; color: #6b7280; }
+        .status-break { background: #fef3c7; color: #92400e; }
+        .status-leave { background: #fecaca; color: #991b1b; }
+        .status-overtime { background: #dbeafe; color: #1e40af; }
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .schedule-day {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .day-header {
+            background: #f3f4f6;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        .day-scheduled {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .day-off {
+            background: #f3f4f6;
+            color: #9ca3af;
+        }
+        .day-overtime {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .performance-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .performance-metric:last-child {
+            border-bottom: none;
+        }
+        .metric-label {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        .metric-value {
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 2rem;
+        }
+        .metric-excellent { background: #dcfce7; color: #166534; }
+        .metric-good { background: #dbeafe; color: #1e40af; }
+        .metric-average { background: #fef3c7; color: #92400e; }
+        .metric-poor { background: #fecaca; color: #991b1b; }
+        .certification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .cert-status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .cert-valid { background: #dcfce7; color: #166534; }
+        .cert-expiring { background: #fef3c7; color: #92400e; }
+        .cert-expired { background: #fecaca; color: #991b1b; }
+        .payroll-summary {
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .payroll-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .payroll-total {
+            font-weight: bold;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+        .staff-alert {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-left: 4px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+        .alert-content {
+            color: #78350f;
+            font-size: 0.9rem;
+        }
+        .quick-actions {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+         .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .metric-card.revenue {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .metric-card.patients {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .metric-card.efficiency {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        /* Enhanced modal styles aligned with dashboard theme */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            width: 100%;
+            max-width: 560px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f8f9ff;
+        }
+        .modal-title {
+            font-weight: 600;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .modal-body { 
+            padding: 1rem 1.25rem; 
+            color: #475569; 
+        }
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            padding: 0.75rem 1.25rem 1.25rem;
+            background: #fff;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.6rem 0.75rem;
+            font-size: 0.95rem;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .form-label { 
+            font-size: 0.9rem; 
+            color: #374151; 
+            margin-bottom: 0.25rem; 
+            display: block; 
+            font-weight: 500;
+        }
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 0.75rem; 
+        }
+        .form-grid .full { grid-column: 1 / -1; }
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="admin">
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1><i class="fas fa-hospital"></i> Administrator</h1>                    
+            </div>
+            <div class="user-info">
+                <div class="fas fa-user-circle"></div>
+                <div>
+                    <div style="font-weight: 600;">
+                        <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
+                    </div>
+                    <div style="font-size: 0.9rem;opacity:0.8">
+                        <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+        <!--Main Content-->
+        <div class="main-container">
+             <!--sidebar-->
+             <nav class="sidebar">
+              
+              <ul class="nav-menu">
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
+                          <i class="fas fa-tachometer-alt nav-icon"></i>
+                          Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/users') ?>" class="nav-link">
+                          <i class="fas fa-users nav-icon"></i>
+                          User Management
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/staff') ?>" class="nav-link active">
+                          <i class="fas fa-user-tie nav-icon"></i>
+                          Staff Management
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/resource') ?>" class="nav-link">
+                          <i class="fas fa-hospital nav-icon"></i>
+                          Resource Management
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/financial') ?>" class="nav-link">
+                          <i class="fas fa-dollar-sign nav-icon"></i>
+                          Financial Management
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/patient') ?>" class="nav-link">
+                          <i class="fas fa-user-injured nav-icon"></i>
+                          Patient Management
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/communication') ?>" class="nav-link">
+                          <i class="fas fa-comments nav-icon"></i>
+                          Communication
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/analytics') ?>" class="nav-link">
+                          <i class="fas fa-chart-bar nav-icon"></i>
+                          Analytics & Reports
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/systemSettings') ?>" class="nav-link">
+                          <i class="fas fa-cogs nav-icon"></i>
+                          System Settings
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/securityAccess') ?>" class="nav-link">
+                          <i class="fas fa-shield-alt nav-icon"></i>
+                          Security & Access
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="<?= base_url('admin/auditLogs') ?>" class="nav-link">
+                          <i class="fas fa-clipboard-list nav-icon"></i>
+                          Audit Logs
+                      </a>
+                  </li>
+              </ul>          
+            </nav>
+       
+           
+            <main class="content">
+                <h1 class="page-title"> Staff Management</h1>
+
+                <!--Dashboard overview cards-->
+                <div class="dashboard-overview">
+                    <!-- Total User Cards -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Total Staff</h3>
+                                <p class="card-subtitle">Active Employees</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active User Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">On Duty</h3>
+                                <p class="card-subtitle">Currently working</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0</div>
+                            </div>
+                        </div>   
+                    </div>
+
+                    <!-- Inactive User Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-user-times"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Overtime Hours</h3>
+                                <p class="card-subtitle">This week</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Quick Actions-->
+                <div class="quick-actions">
+                    <div class="actionsgrid">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Add Staff
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-calendar-plus"></i> Assign Shift
+                        </button>
+                        <button class="btn btn-warning" >
+                            <i class="fas fa-clipboard-check"></i> Approve Leave
+                        </button>
+                        <button class="btn btn-secondary" >
+                            <i class="fas fa-user-clock"></i> Record Overtime
+                        </button>
+                        <button class="btn btn-info" >
+                            <i class="fas fa-certificate"></i> Upload Certification
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-user-shield"></i> Manage Roles
+                        </button>
+                    </div>
+                </div>
+
+                <div class="staff-grid">
+                <!-- Current Shift Status -->
+                <div class="staff-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Current Shift Status</div>
+                        </div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Dr. Staff1</div>
+                            <div class="staff-details">Emergency Department - 8:00 AM - 6:00 PM</div>
+                        </div>
+                        <div class="staff-status status-on-duty">On Duty</div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Nurse Staff1</div>
+                            <div class="staff-details">ICU - 6:00 AM - 6:00 PM</div>
+                        </div>
+                        <div class="staff-status status-break">On Break</div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Dr. Staff2</div>
+                            <div class="staff-details">Cardiology - 9:00 AM - 5:00 PM</div>
+                        </div>
+                        <div class="staff-status status-on-duty">On Duty</div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Tech Staff1</div>
+                            <div class="staff-details">Laboratory - 7:00 AM - 3:00 PM</div>
+                        </div>
+                        <div class="staff-status status-overtime">Overtime</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="viewAllShifts()">
+                            <i class="fas fa-list"></i> View All Shifts
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="shiftReports()">
+                            <i class="fas fa-chart-bar"></i> Shift Reports
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leave Management -->
+                <div class="staff-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #06b6d4;">
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Leave Requests</div>
+                        </div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Dr. Staff3</div>
+                            <div class="staff-details">Vacation Leave - Dec 20-27, 2024</div>
+                        </div>
+                        <div class="staff-status status-break">Pending</div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Nurse Staff2</div>
+                            <div class="staff-details">Sick Leave - Dec 18, 2024</div>
+                        </div>
+                        <div class="staff-status status-on-duty">Approved</div>
+                    </div>
+
+                    <div class="staff-item">
+                        <div class="staff-info">
+                            <div class="staff-name">Tech Staff2</div>
+                            <div class="staff-details">Personal Leave - Dec 22, 2024</div>
+                        </div>
+                        <div class="staff-status status-break">Pending</div>
+                    </div>
+
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">
+                        <div>Pending Requests: 8</div>
+                        <div>Approved This Month: 23</div>
+                        <div>Leave Balance Usage: 67%</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-small" onclick="reviewLeaveRequests()">
+                            <i class="fas fa-clipboard-check"></i> Review Requests
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="leaveReports()">
+                            <i class="fas fa-calendar-alt"></i> Leave Reports
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+    
+
+                <script src="<?= base_url('js/logout.js') ?>"></script>
+
+            </main>
+        </div>
+    </body>
+</html>
+
+
+

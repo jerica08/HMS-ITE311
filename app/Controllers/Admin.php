@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\UserModel;
+use App\Services\UserService;
+
+class Admin extends BaseController
+{
+    protected $userModel;
+    protected $userService;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+        $this->userService = new UserService();
+    }
+
+    private function checkAdminAuth()
+    {
+        if (!session()->get('logged_in') || session()->get('role') !== 'admin') {
+            return redirect()->to('/login')->with('error', 'Unauthorized access. Admins only.');
+        }
+        return null;
+    }
+
+    private function getCurrentUserData()
+    {
+        helper('UserHelper');
+        return \App\Helpers\UserHelper::getCurrentUser();
+    }
+
+    public function index()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        
+        // Get user statistics for dashboard
+        $userStats = $this->userService->getUserStats();
+        
+        $data = [
+            'currentUser' => $currentUser,
+            'userStats' => $userStats['data'] ?? [
+                'total_users' => 0,
+                'active_users' => 0,
+                'inactive_users' => 0,
+                'admin_users' => 0
+            ]
+        ];
+        
+        return view('admin/dashboard/index', $data);
+    }
+
+    // System Settings method
+    
+
+    // Audit Logs method
+   
+
+    
+
+    public function staff(){
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $currentUser = $this->getCurrentUserData();
+        $data = [
+            'title' => 'Staff Management',
+            'currentUser' => $currentUser
+        ];
+
+        return view('admin/staff-management/staff_management', $data);
+    }
+
+    public function getUsersApi()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $search = $this->request->getGet('search') ?? '';
+        $roleFilter = $this->request->getGet('role') ?? '';
+        $statusFilter = $this->request->getGet('status') ?? '';
+
+        $result = $this->userService->getAllUsers($search, $roleFilter, $statusFilter);
+        return $this->response->setJSON($result);
+    }
+
+    public function getUserStatistics()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $result = $this->userService->getUserStats();
+        return $this->response->setJSON($result);
+    }
+}
