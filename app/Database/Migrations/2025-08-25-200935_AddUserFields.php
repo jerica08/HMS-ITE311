@@ -51,18 +51,6 @@ class AddUserFields extends Migration
                 'type' => 'DATE',
                 'null' => true,
                 'after' => 'status'
-            ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'null' => false,
-                'default' => 'CURRENT_TIMESTAMP',
-                'after' => 'hire_date'
-            ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => false,
-                'default' => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-                'after' => 'created_at'
             ]
         ];
 
@@ -77,6 +65,25 @@ class AddUserFields extends Migration
 
             if ((int) ($result->cnt ?? 0) === 0) {
                 $this->forge->addColumn('users', [$fieldName => $fieldConfig]);
+            }
+        }
+        
+        // Add timestamp fields using raw SQL for better MySQL compatibility
+        $timestampFields = ['created_at', 'updated_at'];
+        foreach ($timestampFields as $field) {
+            $result = $this->db->query(
+                "SELECT COUNT(*) AS cnt FROM INFORMATION_SCHEMA.COLUMNS 
+                 WHERE TABLE_SCHEMA = DATABASE() 
+                 AND TABLE_NAME = 'users' 
+                 AND COLUMN_NAME = '{$field}'"
+            )->getRow();
+
+            if ((int) ($result->cnt ?? 0) === 0) {
+                if ($field === 'created_at') {
+                    $this->db->query("ALTER TABLE users ADD COLUMN created_at TIMESTAMP NULL DEFAULT NULL");
+                } else {
+                    $this->db->query("ALTER TABLE users ADD COLUMN updated_at TIMESTAMP NULL DEFAULT NULL");
+                }
             }
         }
     }
