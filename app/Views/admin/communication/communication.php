@@ -248,6 +248,12 @@
                       </a>
                   </li>
                   <li class="nav-item">
+                        <a href="<?= base_url('admin/patient') ?>" class="nav-link">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patient Management
+                        </a>
+                    </li>
+                  <li class="nav-item">
                       <a href="<?= base_url('admin/resource') ?>" class="nav-link">
                           <i class="fas fa-hospital nav-icon"></i>
                           Resource Management
@@ -257,12 +263,6 @@
                       <a href="<?= base_url('admin/financial') ?>" class="nav-link">
                           <i class="fas fa-dollar-sign nav-icon"></i>
                           Financial Management
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="<?= base_url('admin/patient') ?>" class="nav-link">
-                          <i class="fas fa-user-injured nav-icon"></i>
-                          Patient Management
                       </a>
                   </li>
                   <li class="nav-item">
