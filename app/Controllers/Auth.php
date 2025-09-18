@@ -25,9 +25,9 @@ class Auth extends BaseController
 
 	public function loginSubmit()
 	{
-		$email = $this->request->getPost('email');
-		$password = $this->request->getPost('password');
-		$role = $this->request->getPost('role');
+		$email = trim((string) $this->request->getPost('email'));
+		$password = (string) $this->request->getPost('password');
+		$role = trim((string) $this->request->getPost('role'));
 
 		// Check if all fields are filled
 		if (empty($email) || empty($password) || empty($role)) {
@@ -35,7 +35,12 @@ class Auth extends BaseController
 		}
 
 		$userModel = new UserModel();
+		// Primary lookup by email (MySQL/MariaDB VARCHAR is case-insensitive by default)
 		$user = $userModel->where('email', $email)->first();
+		// Fallback: if not found by email, try username typed into the email field
+		if (!$user) {
+			$user = $userModel->where('username', $email)->first();
+		}
 
 		// Check if user exists
 		if (!$user) {

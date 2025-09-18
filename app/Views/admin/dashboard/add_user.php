@@ -2,6 +2,14 @@
     <div style="background:#fff; padding:2rem; border-radius:8px; max-width:500px; margin:auto; position:relative;">
         <h2 id="modalTitle">Add New User</h2>
         <form id="userForm">
+            <div style="margin-bottom:1rem;">
+                <label for="staff_select">Link to Staff (no account yet)</label>
+                <select id="staff_select" name="staff_select" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                    <option value="">-- Optional: Select Staff --</option>
+                </select>
+                <input type="hidden" id="staff_id" name="staff_id" value="">
+                <div style="font-size:.85rem; color:#6b7280; margin-top:.25rem;">Selecting a staff will prefill fields and link this account to that staff.</div>
+            </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
                 <div>
                     <label for="first_name">First Name*</label>

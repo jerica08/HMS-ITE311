@@ -34,6 +34,7 @@ $routes->group('admin', function($routes) {
     $routes->get('users', 'Admin\UserManagementController::index');                    // View all users
     $routes->get('users/api', 'Admin\UserManagementController::api');          // Get users data (API)
     $routes->get('users/statistics', 'Admin\UserManagementController::statistics'); // Get user statistics (API)
+    $routes->get('users/available-staff', 'Admin\UserManagementController::availableStaff'); // Staff without user accounts (API)
     $routes->post('users', 'Admin\UserManagementController::create');              // Create new user (API)
     $routes->get('users/(:num)', 'Admin\UserManagementController::edit/$1');       // Get user data for editing (API)
     $routes->put('users/(:num)', 'Admin\UserManagementController::update/$1');     // Update user (API)
@@ -72,6 +73,8 @@ $routes->group('admin', function($routes) {
 
     // Staff Management Routes
     $routes->get('staff', 'Admin\StaffManagementController::index');
+    $routes->post('staff', 'Admin\StaffManagementController::create');
+    $routes->post('staff/(:num)/create-user', 'Admin\StaffManagementController::createUserForStaff/$1');
 
     // Resource Management Routes
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 

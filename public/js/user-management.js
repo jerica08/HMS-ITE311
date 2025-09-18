@@ -91,6 +91,52 @@ function openAddUserModal() {
     // Clear any existing data-user-id attribute for create mode
     document.getElementById('userForm').removeAttribute('data-user-id');
     document.getElementById('userModal').style.display = 'block';
+
+    // Fetch available staff (without user accounts) to populate dropdown
+    const staffSelect = document.getElementById('staff_select');
+    const staffIdInput = document.getElementById('staff_id');
+    if (staffSelect) {
+        // Reset options except the first placeholder
+        staffSelect.innerHTML = '<option value="">-- Optional: Select Staff --</option>';
+
+        fetch('/admin/users/available-staff', { headers: { 'Accept': 'application/json' } })
+            .then(r => r.json())
+            .then(result => {
+                if (result?.status !== 'success') return;
+                (result.data || []).forEach(st => {
+                    const opt = document.createElement('option');
+                    opt.value = st.id;
+                    const name = [st.first_name, st.middle_name, st.last_name].filter(Boolean).join(' ');
+                    opt.textContent = `${st.employee_id || 'N/A'} - ${name}`;
+                    opt.dataset.firstName = st.first_name || '';
+                    opt.dataset.lastName = st.last_name || '';
+                    opt.dataset.department = st.department || '';
+                    opt.dataset.email = st.email || '';
+                    opt.dataset.phone = st.phone || '';
+                    staffSelect.appendChild(opt);
+                });
+            })
+            .catch(() => {});
+
+        // Change handler to prefill fields
+        staffSelect.onchange = function() {
+            const sel = staffSelect.options[staffSelect.selectedIndex];
+            const sid = staffSelect.value || '';
+            staffIdInput.value = sid;
+            if (!sid) return; // no selection
+            // Prefill basic fields if empty or overwrite
+            const first = document.getElementById('first_name');
+            const last = document.getElementById('last_name');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const dept = document.getElementById('department');
+            if (first) first.value = sel.dataset.firstName || first.value;
+            if (last) last.value = sel.dataset.lastName || last.value;
+            if (email && sel.dataset.email) email.value = sel.dataset.email;
+            if (phone && sel.dataset.phone) phone.value = sel.dataset.phone;
+            if (dept && sel.dataset.department) dept.value = sel.dataset.department;
+        };
+    }
 }
 
 function closeUserModal() {
@@ -119,7 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 phone: formData.get('phone') || document.getElementById('phone').value,
                 password: formData.get('password') || document.getElementById('password').value,
                 role: formData.get('role') || document.getElementById('role').value,
-                department: formData.get('department') || document.getElementById('department').value
+                department: formData.get('department') || document.getElementById('department').value,
+                staff_id: formData.get('staff_id') || (document.getElementById('staff_id')?.value || '')
             };
 
             console.log('Form data being sent:', userData);
@@ -173,14 +220,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Server response:', result);
 
                 if (response.ok && result.status === 'success') {
-                    showNotification('User created successfully!', 'success');
-                    closeUserModal();
-                    // Update statistics immediately after successful creation
-                    updateUserStats();
-                    // Reload the page to show the new user in the table
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000);
+                    showNotification('User created successfully! Logging in...', 'success');
+                    // Auto-login as the newly created user and let server redirect to dashboard
+                    autoLoginAndRedirect(userData.email, userData.password, userData.role);
                 } else {
                     const errorMsg = result.message || 'Failed to create user';
                     console.error('Server response:', result);
@@ -201,3 +243,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Create a temporary form to submit credentials to /auth/loginSubmit so server sets session and redirects
+function autoLoginAndRedirect(email, password, role) {
+    try {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/auth/loginSubmit';
+        // Email
+        const e = document.createElement('input');
+        e.type = 'hidden';
+        e.name = 'email';
+        e.value = email;
+        form.appendChild(e);
+        // Password
+        const p = document.createElement('input');
+        p.type = 'hidden';
+        p.name = 'password';
+        p.value = password;
+        form.appendChild(p);
+        // Role
+        const r = document.createElement('input');
+        r.type = 'hidden';
+        r.name = 'role';
+        r.value = role;
+        form.appendChild(r);
+
+        document.body.appendChild(form);
+        form.submit();
+    } catch (err) {
+        console.error('Auto-login failed, falling back to manual redirect', err);
+        // Fallback to client-side redirect using known role
+        const map = {
+            admin: '/admin/dashboard',
+            doctor: '/doctor/dashboard',
+            nurse: '/nurse/dashboard',
+            receptionist: '/receptionist/dashboard',
+            pharmacist: '/pharmacist/dashboard',
+            accountant: '/accountant/dashboard',
+            laboratorist: '/laboratorist/dashboard',
+            it_staff: '/it_staff/dashboard'
+        };
+        window.location.href = map[role] || '/login';
+    }
+}

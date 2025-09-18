@@ -196,4 +196,32 @@ class UserManagementController extends AdminBaseController
         $result = $this->userService->getUserStats();
         return $this->response->setJSON($result);
     }
+
+    // Return list of staff who do not yet have a user account
+    public function availableStaff()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $db = \Config\Database::connect();
+        // Left join users on staff.id = users.staff_id and filter where users.staff_id is NULL
+        $sql = "SELECT s.id, s.employee_id, s.first_name, s.last_name, s.middle_name, s.department, s.position, s.email, s.phone
+                FROM staff s
+                LEFT JOIN users u ON u.staff_id = s.id
+                WHERE u.staff_id IS NULL";
+
+        try {
+            $rows = $db->query($sql)->getResultArray();
+            return $this->response->setJSON([
+                'status' => 'success',
+                'data' => $rows
+            ]);
+        } catch (\Throwable $e) {
+            log_message('error', 'Error fetching available staff: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'status' => 'error',
+                'message' => 'Failed to fetch available staff'
+            ]);
+        }
+    }
 }

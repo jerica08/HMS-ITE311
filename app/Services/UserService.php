@@ -76,6 +76,19 @@ class UserService
 
             // Try direct database insert to avoid model validation issues
             $db = \Config\Database::connect();
+            // If staff_id provided, validate and attach
+            if (!empty($data['staff_id'])) {
+                $sid = (int) $data['staff_id'];
+                // Ensure staff exists
+                $staffExists = $db->table('staff')->where('id', $sid)->countAllResults();
+                if ($staffExists > 0) {
+                    // Ensure no existing user is linked to this staff
+                    $existingLink = $db->table('users')->where('staff_id', $sid)->get()->getRowArray();
+                    if (!$existingLink) {
+                        $userData['staff_id'] = $sid;
+                    }
+                }
+            }
             $builder = $db->table('users');
             $result = $builder->insert($userData);
             

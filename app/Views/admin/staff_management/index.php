@@ -709,6 +709,16 @@
                                 </div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                                     <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Middle Name</label>
+                                        <input type="text" name="middle_name" class="form-input" placeholder="Optional">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Hire Date</label>
+                                        <input type="date" name="hire_date" class="form-input">
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <div>
                                         <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
                                         <input type="email" name="email" class="form-input" placeholder="name@example.com">
                                     </div>
@@ -853,13 +863,35 @@
                             if (e.target === approveLeaveModal) closeModal(approveLeaveModal);
                         });
 
-                        // Submit handler (demo)
+                        // Submit handler (real)
                         const addStaffForm = qs('#addStaffForm');
-                        addStaffForm?.addEventListener('submit', function(e){
+                        addStaffForm?.addEventListener('submit', async function(e){
                             e.preventDefault();
-                            alert('Staff saved successfully!');
-                            closeModal(addStaffModal);
-                            addStaffForm.reset();
+                            const formData = new FormData(addStaffForm);
+                            // Map role -> position is handled server-side; include all fields
+                            try {
+                                const res = await fetch('<?= base_url('admin/staff') ?>', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json'
+                                    },
+                                    body: new URLSearchParams([...formData.entries()])
+                                });
+
+                                const data = await res.json().catch(() => ({ status: 'error', message: 'Invalid server response' }));
+                                if (!res.ok || data.status !== 'success') {
+                                    const msg = data?.message || 'Failed to save staff';
+                                    const errs = data?.errors ? ('\n' + Object.entries(data.errors).map(([k,v]) => `${k}: ${v}`).join('\n')) : '';
+                                    alert(msg + errs);
+                                    return;
+                                }
+
+                                alert('Staff saved successfully!');
+                                closeModal(addStaffModal);
+                                addStaffForm.reset();
+                            } catch (err) {
+                                alert('Network error while saving staff');
+                            }
                         });
 
                         // Assign Shift modal wiring
