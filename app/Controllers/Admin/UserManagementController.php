@@ -28,57 +28,55 @@ class UserManagementController extends AdminBaseController
                 throw new \Exception('Users table does not exist. Please run database migrations.');
             }
 
-            $search = $this->request->getGet('search') ?? '';
-            $roleFilter = $this->request->getGet('role') ?? '';
+            // Get filters from query params
+            $search       = $this->request->getGet('search') ?? '';
+            $roleFilter   = $this->request->getGet('role') ?? '';
             $statusFilter = $this->request->getGet('status') ?? '';
 
-            // Get statuses and all users
-            $statuses = $this->userModel->getDistinctStatuses();
-            $allUsers = $this->userModel->findAll();
-
-            // Filtering logic
-            $filteredUsers = $allUsers;
+            // Build query dynamically
+            $builder = $this->userModel->builder();
 
             if (!empty($search)) {
-                $filteredUsers = array_filter($filteredUsers, function ($user) use ($search) {
-                    return stripos($user['username'] ?? '', $search) !== false ||
-                        stripos($user['email'] ?? '', $search) !== false ||
-                        stripos($user['first_name'] ?? '', $search) !== false ||
-                        stripos($user['last_name'] ?? '', $search) !== false;
-                });
+                $builder->groupStart()
+                        ->like('username', $search)
+                        ->orLike('email', $search)
+                        ->orLike('first_name', $search)
+                        ->orLike('last_name', $search)
+                        ->orLike('employee_id', $search)
+                        ->groupEnd();
             }
 
             if (!empty($roleFilter)) {
-                $filteredUsers = array_filter($filteredUsers, function ($user) use ($roleFilter) {
-                    return ($user['role'] ?? '') === $roleFilter;
-                });
+                $builder->where('role', $roleFilter);
             }
 
             if (!empty($statusFilter)) {
-                $filteredUsers = array_filter($filteredUsers, function ($user) use ($statusFilter) {
-                    return ($user['status'] ?? '') === $statusFilter;
-                });
+                $builder->where('status', $statusFilter);
             }
 
-            // Statistics
-            $totalUsers = count($allUsers);
-            $activeUsers = count(array_filter($allUsers, fn($u) => ($u['status'] ?? '') === 'active'));
-            $inactiveUsers = count(array_filter($allUsers, fn($u) => ($u['status'] ?? '') === 'inactive'));
-            $adminUsers = count(array_filter($allUsers, fn($u) => ($u['role'] ?? '') === 'admin'));
+            // Get filtered users
+            $users = $builder->get()->getResultArray();
+
+            // Stats (always calculated from all users)
+            $allUsers     = $this->userModel->findAll();
+            $totalUsers   = count($allUsers);
+            $activeUsers  = count(array_filter($allUsers, fn($u) => ($u['status'] ?? '') === 'active'));
+            $inactiveUsers= count(array_filter($allUsers, fn($u) => ($u['status'] ?? '') === 'inactive'));
+            $adminUsers   = count(array_filter($allUsers, fn($u) => ($u['role'] ?? '') === 'admin'));
 
             $data = array_merge($this->getCommonViewData(), [
-                'users' => array_values($filteredUsers),
-                'pager' => null,
-                'search' => $search,
-                'roleFilter' => $roleFilter,
+                'users'        => $users,
+                'pager'        => null,
+                'search'       => $search,
+                'roleFilter'   => $roleFilter,
                 'statusFilter' => $statusFilter,
-                'statuses' => $statuses,
-                'title' => 'User Management',
-                'stats' => [
-                    'total_users' => $totalUsers,
-                    'active_users' => $activeUsers,
-                    'inactive_users' => $inactiveUsers,
-                    'admin_users' => $adminUsers
+                'statuses'     => $this->userModel->getDistinctStatuses(),
+                'title'        => 'User Management',
+                'stats'        => [
+                    'total_users'   => $totalUsers,
+                    'active_users'  => $activeUsers,
+                    'inactive_users'=> $inactiveUsers,
+                    'admin_users'   => $adminUsers
                 ]
             ]);
 
@@ -88,18 +86,18 @@ class UserManagementController extends AdminBaseController
             log_message('error', 'Database error in UserManagementController::index(): ' . $e->getMessage());
 
             $data = array_merge($this->getCommonViewData(), [
-                'users' => [],
-                'pager' => null,
-                'search' => '',
-                'roleFilter' => '',
+                'users'        => [],
+                'pager'        => null,
+                'search'       => '',
+                'roleFilter'   => '',
                 'statusFilter' => '',
-                'statuses' => [],
-                'title' => 'User Management',
-                'stats' => [
-                    'total_users' => 0,
-                    'active_users' => 0,
-                    'inactive_users' => 0,
-                    'admin_users' => 0
+                'statuses'     => [],
+                'title'        => 'User Management',
+                'stats'        => [
+                    'total_users'   => 0,
+                    'active_users'  => 0,
+                    'inactive_users'=> 0,
+                    'admin_users'   => 0
                 ],
                 'error' => 'Database error: ' . $e->getMessage()
             ]);
