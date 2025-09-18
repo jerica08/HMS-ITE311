@@ -90,30 +90,37 @@
                         <form id="appointmentBookingForm" action="/receptionist/appointments/book" method="post" novalidate>
                             <?= csrf_field() ?>
                             <div class="form-grid">
+                                <!--Select Patient-->
                                 <div class="form-group">
                                     <label for="patient">Patient</label>
                                     <input type="text" id="patient" name="patient_search" placeholder="Search by name or ID" autocomplete="off" required>
                                 </div>
+                                <!--Select Date-->
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="appointment_date" required>
+                                </div>
+                                <!--Select Doctor-->
                                 <div class="form-group">
                                     <label for="doctor">Doctor</label>
                                     <select id="doctor" name="doctor_id" required>
                                         <option value="">Select doctor</option>
                                     </select>
                                 </div>
+                                
+                                 <!--Select Department-->
                                 <div class="form-group">
                                     <label for="department">Department</label>
                                     <select id="department" name="department_id" required>
                                         <option value="">Select department</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="date">Date</label>
-                                    <input type="date" id="date" name="appointment_date" required>
-                                </div>
+                                 <!--Select Time-->
                                 <div class="form-group">
                                     <label for="time">Time</label>
                                     <input type="time" id="time" name="appointment_time" required>
                                 </div>
+                                 <!--Select Visit Type-->
                                 <div class="form-group">
                                     <label for="visitType">Visit Type</label>
                                     <select id="visitType" name="visit_type">
@@ -123,10 +130,12 @@
                                         <option value="urgent">Urgent</option>
                                     </select>
                                 </div>
+                                 <!--Reason for Visit-->
                                 <div class="form-group form-group-full">
                                     <label for="reason">Reason for Visit</label>
                                     <input type="text" id="reason" name="reason" placeholder="Brief description">
                                 </div>
+                                 <!--Notes-->
                                 <div class="form-group form-group-full">
                                     <label for="notes">Notes</label>
                                     <textarea id="notes" name="notes" rows="3" placeholder="Optional notes"></textarea>
