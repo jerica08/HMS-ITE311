@@ -104,6 +104,11 @@
                                     <label for="department">Department</label>
                                     <select id="department" name="department_id" required>
                                         <option value="">Select department</option>
+                                         <option value="emergency">Emergency</option>
+                                         <option value="cardiology">Cardiology</option>
+                                         <option value="laboratory">Laboratory</option>
+                                         <option value="radiology">Radiology</option>
+                                         <option value="dermatology">Dermatology</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

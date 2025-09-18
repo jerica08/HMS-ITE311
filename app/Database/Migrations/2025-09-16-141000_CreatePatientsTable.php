@@ -86,10 +86,6 @@ class CreatePatientsTable extends Migration
                 'constraint' => 50,
                 'null'       => true,
             ],
-            'emergency_contact_name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 200,
-            ],
             'emergency_contact_phone' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 15,
