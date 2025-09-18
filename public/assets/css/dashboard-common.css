@@ -122,7 +122,7 @@ body {
 /*dashboard card*/
 .dashboard-grid{
     display: grid;
-    grid-template-columns: repeat(auto fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap:2rem;
     margin-bottom: 2rem;
 }
@@ -202,7 +202,7 @@ body {
     background:#667eea;
     color: white;
 }
-btn-primary:hover {
+.btn-primary:hover {
     background: #5a67d8;
 }
 

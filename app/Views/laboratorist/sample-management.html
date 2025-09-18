@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Laboratory - Test Requests - HMS</title>
+    <title>Laboratory - Sample Management - HMS</title>
     <link rel="stylesheet" href="/assets/css/dashboard-common.css" />
     <link
       rel="stylesheet"
@@ -44,13 +44,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="/laboratorist/test-request" class="nav-link">
               <i class="fas fa-clipboard-list nav-icon"></i>
               Test Request
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link active">
               <i class="fas fa-vial nav-icon"></i>
               Sample Management
             </a>
@@ -84,19 +84,59 @@
 
       <!-- Main Content -->
       <main class="content">
-        <h1 class="page-title">Test Requests</h1>
+        <h1 class="page-title">Sample Management</h1>
 
         <!-- Quick Actions -->
         <div class="quick-actions">
-          <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> New Test Request</a>
-          <a href="#" class="btn btn-secondary"><i class="fas fa-file-import"></i> Import Orders</a>
+          <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Log Sample</a>
+          <a href="#" class="btn btn-secondary"><i class="fas fa-inbox"></i> Bulk Receive</a>
+          <a href="#" class="btn btn-secondary"><i class="fas fa-tags"></i> Print Labels</a>
         </div>
 
-        <!-- Test Request Form -->
+        <!-- Filters -->
         <div class="table-container" style="margin-top: 1.5rem">
-          <h3 style="margin-bottom: 1rem">Create Test Request</h3>
-          <form id="test-request-form">
+          <h3 style="margin-bottom: 1rem">Filters</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem">
+            <div>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Search</label>
+              <input type="text" id="search" placeholder="Sample ID or Patient Name" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px" />
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Status</label>
+              <select id="status" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px">
+                <option value="">All</option>
+                <option value="received">Received</option>
+                <option value="processing">Processing</option>
+                <option value="completed">Completed</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Sample Type</label>
+              <select id="filterSampleType" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px">
+                <option value="">All</option>
+                <option value="blood">Blood</option>
+                <option value="serum">Serum</option>
+                <option value="urine">Urine</option>
+                <option value="swab">Swab</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Date</label>
+              <input type="date" id="filterDate" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Log/Receive Sample Form -->
+        <div class="table-container" style="margin-top: 1.5rem">
+          <h3 style="margin-bottom: 1rem">Log New Sample</h3>
+          <form id="sample-form">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem">
+              <div>
+                <label for="sampleId" style="display:block; font-weight:600; margin-bottom: .5rem">Sample ID</label>
+                <input id="sampleId" name="sampleId" type="text" placeholder="Auto or e.g., LAB-2025-100" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px" />
+              </div>
               <div>
                 <label for="patientId" style="display:block; font-weight:600; margin-bottom: .5rem">Patient ID</label>
                 <input id="patientId" name="patientId" type="text" placeholder="e.g., P-2025-001" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px" required />
@@ -117,21 +157,20 @@
                 </select>
               </div>
               <div>
-                <label for="priority" style="display:block; font-weight:600; margin-bottom: .5rem">Priority</label>
-                <select id="priority" name="priority" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px">
-                  <option value="routine">Routine</option>
-                  <option value="urgent">Urgent</option>
-                  <option value="stat">STAT</option>
-                </select>
-              </div>
-              <div>
                 <label for="sampleType" style="display:block; font-weight:600; margin-bottom: .5rem">Sample Type</label>
                 <select id="sampleType" name="sampleType" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px">
                   <option value="blood">Blood</option>
                   <option value="serum">Serum</option>
                   <option value="urine">Urine</option>
                   <option value="swab">Swab</option>
-                  <option value="stool">Stool</option>
+                </select>
+              </div>
+              <div>
+                <label for="priority" style="display:block; font-weight:600; margin-bottom: .5rem">Priority</label>
+                <select id="priority" name="priority" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px">
+                  <option value="routine">Routine</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="stat">STAT</option>
                 </select>
               </div>
               <div>
@@ -143,68 +182,72 @@
                 <input id="collectionTime" name="collectionTime" type="time" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px" />
               </div>
               <div>
-                <label for="physician" style="display:block; font-weight:600; margin-bottom: .5rem">Ordering Physician</label>
-                <input id="physician" name="physician" type="text" placeholder="e.g., Dr. Santos" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px" />
+                <label for="receivedBy" style="display:block; font-weight:600; margin-bottom: .5rem">Received By</label>
+                <input id="receivedBy" name="receivedBy" type="text" placeholder="e.g., Staff Initials" style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px" />
               </div>
             </div>
             <div style="margin-top: 1rem">
-              <label for="notes" style="display:block; font-weight:600; margin-bottom: .5rem">Clinical Notes</label>
-              <textarea id="notes" name="notes" rows="4" placeholder="Add relevant clinical information..." style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px; resize: vertical"></textarea>
+              <label for="remarks" style="display:block; font-weight:600; margin-bottom: .5rem">Remarks</label>
+              <textarea id="remarks" name="remarks" rows="3" placeholder="Additional notes..." style="width:100%; padding:.75rem; border:1px solid #e2e8f0; border-radius:8px; resize: vertical"></textarea>
             </div>
             <div class="quick-actions" style="justify-content: flex-end; margin-top: 1rem">
               <button type="reset" class="btn btn-secondary"><i class="fas fa-eraser"></i> Clear</button>
-              <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Request</button>
+              <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Sample</button>
             </div>
           </form>
         </div>
 
-        <!-- Pending Requests Table -->
+        <!-- Sample Queue Table -->
         <div class="table-container" style="margin-top: 2rem">
-          <h3 style="margin-bottom: 1rem">Pending Test Requests</h3>
+          <h3 style="margin-bottom: 1rem">Sample Processing Queue</h3>
           <table class="table">
             <thead>
               <tr>
                 <th>Sample ID</th>
                 <th>Patient</th>
                 <th>Test Type</th>
-                <th>Priority</th>
-                <th>Requested</th>
+                <th>Sample Type</th>
                 <th>Status</th>
+                <th>Received</th>
+                <th>ETA</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>LAB-2025-021</td>
-                <td>Maria Garcia</td>
-                <td>Complete Blood Count</td>
-                <td><span class="badge badge-warning">Urgent</span></td>
-                <td>09:45 AM</td>
-                <td><span class="badge badge-info">Queued</span></td>
-                <td>
-                  <a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem">Start</a>
-                </td>
-              </tr>
-              <tr>
-                <td>LAB-2025-022</td>
-                <td>David Lee</td>
-                <td>Lipid Panel</td>
-                <td><span class="badge badge-success">Routine</span></td>
-                <td>10:05 AM</td>
-                <td><span class="badge badge-info">Queued</span></td>
+                <td>LAB-2025-041</td>
+                <td>John Martinez</td>
+                <td>Cardiac Enzymes</td>
+                <td>Serum</td>
+                <td><span class="badge badge-warning">Processing</span></td>
+                <td>09:20 AM</td>
+                <td>10:15 AM</td>
                 <td>
                   <a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem">Update</a>
                 </td>
               </tr>
               <tr>
-                <td>LAB-2025-023</td>
-                <td>Lisa Anderson</td>
-                <td>Urinalysis</td>
-                <td><span class="badge badge-danger">STAT</span></td>
-                <td>10:12 AM</td>
-                <td><span class="badge badge-warning">Processing</span></td>
+                <td>LAB-2025-042</td>
+                <td>Sarah Wilson</td>
+                <td>Blood Gas Analysis</td>
+                <td>Blood</td>
+                <td><span class="badge badge-info">Queued</span></td>
+                <td>09:45 AM</td>
+                <td>11:00 AM</td>
                 <td>
-                  <a href="#" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem">Process Now</a>
+                  <a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem">Start</a>
+                </td>
+              </tr>
+              <tr>
+                <td>LAB-2025-043</td>
+                <td>Allison Wang</td>
+                <td>Blood Culture</td>
+                <td>Blood</td>
+                <td><span class="badge badge-success">Completed</span></td>
+                <td>08:50 AM</td>
+                <td>Completed</td>
+                <td>
+                  <a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem">Review</a>
                 </td>
               </tr>
             </tbody>
@@ -216,7 +259,7 @@
     <script>
       // Sidebar active state
       document.querySelectorAll('.nav-link').forEach((link) => {
-        link.addEventListener('click', function (e) {
+        link.addEventListener('click', function () {
           document.querySelectorAll('.nav-link').forEach((l) => l.classList.remove('active'));
           this.classList.add('active');
         });
@@ -228,10 +271,10 @@
         }
       }
 
-      // Demo submit behavior
-      document.getElementById('test-request-form').addEventListener('submit', function (e) {
+      // Demo form behavior
+      document.getElementById('sample-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        alert('Test request submitted (demo). Integrate with backend to save.');
+        alert('Sample saved (demo). Integrate with backend to store and update list.');
         this.reset();
       });
     </script>
