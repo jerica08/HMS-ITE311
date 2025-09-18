@@ -195,7 +195,7 @@
             </nav>
         
             <!--Main Content-->
-            <main class="content">
+            <main class="content
                 <h1 class="page-title">My Patients</h1>
                 <div class="page-actions">
                     <button class="btn btn-success" id="addPatientBtn">
