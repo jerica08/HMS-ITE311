@@ -314,7 +314,7 @@
                             <tr>
                                 <th>Patient ID</th>
                                 <th>Name</th>
-                                <th>Age</th>
+                                <th>Age</th>    
                                 <th>Gender</th>
                                 <th>Type</th>
                                 <th>Primary Condition</th>
