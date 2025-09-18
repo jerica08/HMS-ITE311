@@ -465,7 +465,7 @@
 
                 <!--Quick Actions-->
                 <div class="quick-actions">
-                    <div class="actionsgrid">
+                    <div class="action grid">
                         <button class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Add Staff
                         </button>
@@ -592,8 +592,6 @@
                     </div>
                 </div>
             </div>
-
-    
 
                 <script src="<?= base_url('js/logout.js') ?>"></script>
 
