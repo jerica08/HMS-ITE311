@@ -29,6 +29,7 @@ $routes->post('profile/password', 'Profile::updatePassword');
 
 $routes->group('admin', function($routes) {
     $routes->get('dashboard', 'Admin::index');      // Admin dashboard - maps /admin/dashboard to Admin::index
+    $routes->get('dashboard/patient-stats', 'Admin::getPatientStatistics'); // Patient statistics API
 
     // User Management Routes - Fixed to match JavaScript API calls
     $routes->get('users', 'Admin\UserManagementController::index');                    // View all users

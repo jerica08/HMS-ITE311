@@ -157,16 +157,15 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple" id="">0</div>
+                            <div class="metric-value purple" id="total-patients"><?= $patientStats['total_patients'] ?? 0 ?></div>
                             <div class="metric-label">Patients</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value purple" id="">0</div>
+                            <div class="metric-value purple" id="todays-visits"><?= $patientStats['registrations_today'] ?? 0 ?></div>
                             <div class="metric-label">Today's Visits</div>
                         </div>
                         <div class="metric">
                             <div class="metric-value purple">₱0</div>
-
                             <div class="metric-label">Revenue</div>
                         </div>
                     </div>

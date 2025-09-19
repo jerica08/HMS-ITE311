@@ -230,12 +230,12 @@
                             Staff Management
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('admin/patient') ?>" class="nav-link active">
-                            <i class="fas fa-user-injured nav-icon"></i>
-                            Patient Management
-                        </a>
-                    </li>
+                     <li class="nav-item">
+                      <a href="<?= base_url('admin/patient') ?>" class="nav-link">
+                          <i class="fas fa-user-injured nav-icon"></i>
+                          Patient Management
+                      </a>
+                  </li>
                     <li class="nav-item">
                         <a href="<?= base_url('admin/resource') ?>" class="nav-link">
                             <i class="fas fa-hospital nav-icon"></i>
@@ -300,7 +300,7 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metric">
-                                <div class="metric-value blue">0</div>
+                                <div class="metric-value blue"><?= $patientStats['total_patients'] ?? 0 ?></div>
                             </div>
                         </div>
                     </div>
