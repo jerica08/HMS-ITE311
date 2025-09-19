@@ -125,6 +125,8 @@ $routes->group('receptionist', function($routes) {
     $routes->get('patient-registration/search', 'Receptionist\PatientRegistrationController::search');
     
     $routes->get('appointments', 'Receptionist::appointments');
+    // API: Doctors by department
+    $routes->get('doctors/by-department/(:segment)', 'Receptionist\\DoctorApiController::byDepartment/$1');
     $routes->get('check-in', 'Receptionist::checkIn');
     $routes->get('waiting-room', 'Receptionist::waitingRoom');
     $routes->get('insurance', 'Receptionist::insurance');

@@ -411,8 +411,7 @@
                   </li>
               </ul>          
             </nav>
-       
-           
+        
             <main class="content">
                 <h1 class="page-title"> Staff Management</h1>
                 <div class="page-actions">
@@ -631,8 +630,7 @@
                                             <option value="cardiology">Cardiology</option>
                                             <option value="neurology">Neurology</option>
                                             <option value="radiology">Radiology</option>
-                                            <option value="neurology">Neurology</option>
-                                            <option value="reception">Reception</option>
+                                            <option value="receptionist">Reception</option>
                                             <option value="it-support">IT Support</option>
                                             <option value="accounting">Accounting</option>
                                         </select>

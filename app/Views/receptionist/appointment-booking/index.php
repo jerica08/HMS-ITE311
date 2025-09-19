@@ -33,7 +33,6 @@
                 </div>
             </div>
         </header>
-
         <div class="main-container">
               <!-- Sidebar -->
             <nav class="sidebar">
@@ -57,18 +56,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/check-in') ?>" class="nav-link">
-                            <i class="fas fa-clipboard-check nav-icon"></i>
-                            Patient Check-in
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('receptionist/waiting-room') ?>" class="nav-link">
-                            <i class="fas fa-chair nav-icon"></i>
-                            Waiting Room
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Insurance Verification
@@ -89,36 +76,14 @@
                     <div class="card-body">
                         <form id="appointmentBookingForm" action="/receptionist/appointments/book" method="post" novalidate>
                             <?= csrf_field() ?>
+                            
                             <div class="form-grid">
+                                <!--Patient-->
                                 <div class="form-group">
                                     <label for="patient">Patient</label>
                                     <input type="text" id="patient" name="patient_search" placeholder="Search by name or ID" autocomplete="off" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="doctor">Doctor</label>
-                                    <select id="doctor" name="doctor_id" required>
-                                        <option value="">Select doctor</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="department">Department</label>
-                                    <select id="department" name="department_id" required>
-                                        <option value="">Select department</option>
-                                         <option value="emergency">Emergency</option>
-                                         <option value="cardiology">Cardiology</option>
-                                         <option value="laboratory">Laboratory</option>
-                                         <option value="radiology">Radiology</option>
-                                         <option value="dermatology">Dermatology</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="date">Date</label>
-                                    <input type="date" id="date" name="appointment_date" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="time">Time</label>
-                                    <input type="time" id="time" name="appointment_time" required>
-                                </div>
+                                 <!--Visit Type-->
                                 <div class="form-group">
                                     <label for="visitType">Visit Type</label>
                                     <select id="visitType" name="visit_type">
@@ -128,10 +93,41 @@
                                         <option value="urgent">Urgent</option>
                                     </select>
                                 </div>
+                                 <!--Department-->
+                                <div class="form-group">
+                                    <label for="department">Department</label>
+                                    <select id="department" name="department_id" required>
+                                        <option value="">Select department</option>
+                                        <option value="emergency">Emergency</option>
+                                        <option value="orthopedics">Orthopedics</option>
+                                        <option value="cardiology">Cardiology</option>
+                                        <option value="neurology">Neurology</option>
+                                        <option value="radiology">Radiology</option>
+                                    </select>
+                                </div>
+                                <!--Doctor-->
+                                <div class="form-group">
+                                    <label for="doctor">Doctor</label>
+                                    <select id="doctor" name="doctor_id" required>
+                                        <option value="">Select doctor</option>
+                                    </select>
+                                </div>
+                                <!--Date-->
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="appointment_date" required>
+                                </div>
+                                <!--Time-->
+                                <div class="form-group">
+                                    <label for="time">Time</label>
+                                    <input type="time" id="time" name="appointment_time" required>
+                                </div>
+                                <!--Reason for Visit-->
                                 <div class="form-group form-group-full">
                                     <label for="reason">Reason for Visit</label>
                                     <input type="text" id="reason" name="reason" placeholder="Brief description">
                                 </div>
+                                <!--Notes-->
                                 <div class="form-group form-group-full">
                                     <label for="notes">Notes</label>
                                     <textarea id="notes" name="notes" rows="3" placeholder="Optional notes"></textarea>
@@ -208,6 +204,79 @@
         </style>
 
         <script src="<?= base_url('js/logout.js') ?>"></script>
+        <script>
+        // Populate doctors based on selected department
+        document.addEventListener('DOMContentLoaded', function() {
+            const deptSel = document.getElementById('department');
+            const doctorSel = document.getElementById('doctor');
+
+            const setDoctorOptions = (doctors) => {
+                // Clear existing
+                doctorSel.innerHTML = '';
+                const placeholder = document.createElement('option');
+                placeholder.value = '';
+                placeholder.textContent = doctors?.length ? 'Select doctor' : 'No doctors available';
+                doctorSel.appendChild(placeholder);
+                if (!doctors || doctors.length === 0) {
+                    doctorSel.disabled = true;
+                    return;
+                }
+                // Sort: available first
+                const sorted = [...doctors].sort((a, b) => Number(b.available) - Number(a.available));
+                sorted.forEach(d => {
+                    const opt = document.createElement('option');
+                    opt.value = d.id;
+                    opt.textContent = d.available ? d.name : `${d.name} (Unavailable)`;
+                    if (!d.available) {
+                        opt.disabled = true;
+                        opt.title = 'This doctor is currently unavailable';
+                    }
+                    doctorSel.appendChild(opt);
+                });
+                doctorSel.disabled = false;
+            };
+
+            const fetchDoctors = async (deptVal) => {
+                if (!deptVal) {
+                    setDoctorOptions([]);
+                    return;
+                }
+                try {
+                    // Expect API under /receptionist/doctors/by-department/{dept}
+                    const res = await fetch(`<?= base_url('receptionist/doctors/by-department') ?>/${encodeURIComponent(deptVal.toLowerCase())}`, {
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    const data = await res.json();
+                    if (res.ok && data?.status === 'success') {
+                        setDoctorOptions(data.data || []);
+                    } else {
+                        console.error('Failed to load doctors', data);
+                        setDoctorOptions([]);
+                    }
+                } catch (e) {
+                    console.error('Error loading doctors', e);
+                    setDoctorOptions([]);
+                }
+            };
+
+            // Initialize state
+            doctorSel.disabled = true;
+            setDoctorOptions([]);
+
+            // Bind change
+            deptSel?.addEventListener('change', (e) => {
+                const dept = e.target.value;
+                // Reset doctor selection while loading
+                doctorSel.innerHTML = '';
+                const loadingOpt = document.createElement('option');
+                loadingOpt.value = '';
+                loadingOpt.textContent = 'Loading doctors...';
+                doctorSel.appendChild(loadingOpt);
+                doctorSel.disabled = true;
+                fetchDoctors(dept);
+            });
+        });
+        </script>
    
     </body>
     </html>

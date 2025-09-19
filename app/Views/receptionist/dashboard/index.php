@@ -58,19 +58,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/check-in') ?>" class="nav-link">
-
-                            <i class="fas fa-clipboard-check nav-icon"></i>
-                            Patient Check-in
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('receptionist/waiting-room') ?>" class="nav-link">
-                            <i class="fas fa-chair nav-icon"></i>
-                            Waiting Room
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
                             Insurance Verification
