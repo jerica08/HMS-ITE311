@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Admin Dashboard</title>
-        <link rel="stylesheet" href=<?= base_url('assets/css/dashboard-common.css') ?>>
+        <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body class="admin">
@@ -237,10 +237,10 @@
             </div>    
         </main>
     </div>
-    <script src="/js/session-manager.js"></script>
-    <script src="/js/utils.js"></script>
-    <script src="/js/admin-dashboard.js"></script>
-    <script src="/js/index.js"></script>
-    <script src="/js/logout.js"></script>
+    <script src="<?= base_url('js/session-manager.js') ?>"></script>
+    <script src="<?= base_url('js/utils.js') ?>"></script>
+    <script src="<?= base_url('js/admin-dashboard.js') ?>"></script>
+    <script src="<?= base_url('js/index.js') ?>"></script>
+    <script src="<?= base_url('js/logout.js') ?>"></script>
 </body>
 </html>
