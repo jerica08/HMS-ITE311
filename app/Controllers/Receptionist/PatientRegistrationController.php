@@ -224,19 +224,120 @@ class PatientRegistrationController extends ReceptionistBaseController
         }
 
         $searchTerm = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+        $patientType = $this->request->getGet('patient_type');
+        $page = (int)($this->request->getGet('page') ?? 1);
+        $perPage = 20;
+
         $patients = [];
+        $totalCount = 0;
+
+        // Build search query
+        $query = $this->patientModel;
 
         if ($searchTerm) {
-            $patients = $this->patientModel->searchPatients($searchTerm, 20);
+            $query = $query->groupStart()
+                          ->like('patient_id', $searchTerm)
+                          ->orLike('first_name', $searchTerm)
+                          ->orLike('last_name', $searchTerm)
+                          ->orLike('phone', $searchTerm)
+                          ->orLike('email', $searchTerm)
+                          ->groupEnd();
         }
+
+        if ($status) {
+            $query = $query->where('status', $status);
+        }
+
+        if ($patientType) {
+            $query = $query->where('patient_type', $patientType);
+        }
+
+        // Get total count for pagination
+        $totalCount = $query->countAllResults(false);
+
+        // Get paginated results
+        $patients = $query->orderBy('created_at', 'DESC')
+                         ->limit($perPage, ($page - 1) * $perPage)
+                         ->findAll();
+
+        // Calculate pagination info
+        $totalPages = ceil($totalCount / $perPage);
 
         // Prepare data for the view
         $data = array_merge($this->getCommonViewData(), [
             'patients' => $patients,
             'searchTerm' => $searchTerm,
+            'status' => $status,
+            'patientType' => $patientType,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalCount' => $totalCount,
+            'perPage' => $perPage,
             'title' => 'Search Patients'
         ]);
 
         return view('receptionist/patient-registration/search', $data);
+    }
+
+    /**
+     * API endpoint for patient search (AJAX)
+     */
+    public function searchApi()
+    {
+        // Check authentication
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) {
+            return $this->response->setJSON(['error' => 'Unauthorized'])->setStatusCode(401);
+        }
+
+        $searchTerm = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+        $patientType = $this->request->getGet('patient_type');
+        $limit = (int)($this->request->getGet('limit') ?? 10);
+
+        $query = $this->patientModel;
+
+        if ($searchTerm) {
+            $query = $query->groupStart()
+                          ->like('patient_id', $searchTerm)
+                          ->orLike('first_name', $searchTerm)
+                          ->orLike('last_name', $searchTerm)
+                          ->orLike('phone', $searchTerm)
+                          ->orLike('email', $searchTerm)
+                          ->groupEnd();
+        }
+
+        if ($status) {
+            $query = $query->where('status', $status);
+        }
+
+        if ($patientType) {
+            $query = $query->where('patient_type', $patientType);
+        }
+
+        $patients = $query->orderBy('created_at', 'DESC')
+                         ->limit($limit)
+                         ->findAll();
+
+        return $this->response->setJSON([
+            'patients' => $patients,
+            'count' => count($patients)
+        ]);
+    }
+
+    /**
+     * Get patient statistics for dashboard
+     */
+    public function getPatientStats()
+    {
+        // Check authentication
+        $authCheck = $this->checkReceptionistAuth();
+        if ($authCheck) {
+            return $this->response->setJSON(['error' => 'Unauthorized'])->setStatusCode(401);
+        }
+
+        $stats = $this->patientModel->getPatientStats();
+        return $this->response->setJSON($stats);
     }
 }

@@ -87,7 +87,7 @@
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern blue">
-                                <i class="fas fa-user-plus"></i>
+                                <i class="fas fa-calendar-check"></i>
                             </div>
                             <div>
                                 <h3 class="card-title-modern">Today's Appointments</h3>
@@ -109,14 +109,14 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="#" class="action-btn primary">View Schedule</a>
-                            <a href="#" class="action-btn secondary">New Appointment</a>
+                            <a href="<?= base_url('receptionist/appointments') ?>" class="action-btn primary">View Schedule</a>
+                            <a href="<?= base_url('receptionist/appointments/create') ?>" class="action-btn secondary">New Appointment</a>
                         </div>
                     </div>
                     <!--Patient Registration Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern blue">
+                            <div class="card-icon-modern green">
                                 <i class="fas fa-user-plus"></i>
                             </div>
                             <div>
@@ -126,144 +126,142 @@
                         </div>
                         <div class="card-metrics">
                             <div class="metrics">
-                                <div class="metric-value purple">0</div>
+                                <div class="metric-value green" id="registrations-today"><?= $trackingData['registrations_today'] ?? 0 ?></div>
                                 <div class="metric-label">Today</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">0</div>
-                                <div class="metric-label"> New This Week</div>
+                                <div class="metric-value blue" id="registrations-week"><?= $trackingData['registrations_this_week'] ?? 0 ?></div>
+                                <div class="metric-label">This Week</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value red">0</div>
-                                <div class="metric-label">Pending</div>
+                                <div class="metric-value orange" id="pending-patients"><?= $trackingData['active_patients'] ?? 0 ?></div>
+                                <div class="metric-label">Active</div>
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="#" class="action-btn primary">Register Patient</a>
-                            <a href="#" class="action-btn danger">View Pending</a>
+                            <a href="<?= base_url('receptionist/patient-registration/create') ?>" class="action-btn primary">Register Patient</a>
+                            <a href="<?= base_url('receptionist/patient-registration') ?>" class="action-btn secondary">View All</a>
                         </div>
                     </div>
-                    <!--Waiting Room Card-->
+                    <!--Patient Overview Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern blue">
-                                <i class="fas fa-user-plus"></i>
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-users"></i>
                             </div>
                             <div>
-                                <h3 class="card-title-modern">Waiting Room</h3>
-                                <p class="card-subtitle">Current waiting patients</p>
+                                <h3 class="card-title-modern">Patient Overview</h3>
+                                <p class="card-subtitle">Current patient status</p>
                             </div>
                         </div>
                         <div class="card-metrics">
                             <div class="metrics">
-                                <div class="metric-value purple">0</div>
-                                <div class="metric-label">Waiting</div>
+                                <div class="metric-value purple" id="total-patients"><?= $patientStats['total_patients'] ?? 0 ?></div>
+                                <div class="metric-label">Total</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value purple">0</div>
-                                <div class="metric-label">Avg Wait(min)</div>
+                                <div class="metric-value green" id="active-patients"><?= $patientStats['active_patients'] ?? 0 ?></div>
+                                <div class="metric-label">Active</div>
                             </div>
                             <div class="metric">
-                                <div class="metric-value red">0</div>
-                                <div class="metric-label">Overdue</div>
+                                <div class="metric-value blue" id="patients-month"><?= $patientStats['patients_this_month'] ?? 0 ?></div>
+                                <div class="metric-label">This Month</div>
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="#" class="action-btn primary">Check Status</a>
-                            <a href="#" class="action-btn danger">Alert Overdue</a>
+                            <a href="<?= base_url('receptionist/patient-registration/search') ?>" class="action-btn primary">Search Patients</a>
+                            <a href="<?= base_url('receptionist/waiting-room') ?>" class="action-btn secondary">Waiting Room</a>
                         </div>
                     </div>
                     <!--Insurance Verification-->
                     <div class="overview-card">
                         <div class="card-header-modern">
-                            <div class="card-icon-modern blue">
+                            <div class="card-icon-modern teal">
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                             <div class="card-info">
-                                <h3 class="card-title">Insurance Verification</h3>
-                                <p class="card-content">Insurance status checks</p>
+                                <h3 class="card-title">Insurance Status</h3>
+                                <p class="card-content">Insurance verification tracking</p>
                             </div>
                         </div>
-                    <div class="card-metrics">
+                        <div class="card-metrics">
                             <div class="metric">
-                                <div class="metric-value green">0</div>
+                                <div class="metric-value green" id="insured-patients"><?= $patientStats['insured_patients'] ?? 0 ?></div>
+                                <div class="metric-label">Insured</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value orange" id="uninsured-patients"><?= $patientStats['uninsured_patients'] ?? 0 ?></div>
+                                <div class="metric-label">Uninsured</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value blue">0</div>
                                 <div class="metric-label">Pending</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value green">0</div>
-                                <div class="metric-label">Verified</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value green">0</div>
-                                <div class="metric-label">Issues</div>
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="#" class="action-btn primary">Verify Insurance</a>
-                            <a href="#" class="action-btn danger">Resolve Issues</a>
+                            <a href="<?= base_url('receptionist/insurance') ?>" class="action-btn primary">Verify Insurance</a>
+                            <a href="<?= base_url('receptionist/insurance/pending') ?>" class="action-btn secondary">View Pending</a>
                         </div>
                     </div>
                 </div>
+
+                <!-- Recent Patient Registrations -->
                 <div class="table-container">
-                    <h3 style="margin-bottom: 1.5rem;">Today's Appointment Schedule</h3>
+                    <div class="table-header">
+                        <h3>Recent Patient Registrations</h3>
+                        <div class="table-actions">
+                            <button onclick="refreshDashboard()" class="btn btn-secondary">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                            <a href="<?= base_url('receptionist/patient-registration') ?>" class="btn btn-primary">
+                                <i class="fas fa-list"></i> View All
+                            </a>
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Time</th>
+                                <th>Patient ID</th>
                                 <th>Patient Name</th>
-                                <th>Doctor</th>
+                                <th>Age</th>
+                                <th>Gender</th>
                                 <th>Type</th>
-                                <th>Insurance</th>
+                                <th>Registration Date</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>09:00 AM</strong></td>
-                                <td>John Smith</td>
-                                <td>Dr. Johnson</td>
-                                <td>Follow-up</td>
-                                <td>Blue Cross</td>
-                                <td><span class="badge badge-success">Checked In</span></td>
-                                <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>09:30 AM</strong></td>
-                                <td>Maria Garcia</td>
-                                <td>Dr. Wilson</td>
-                                <td>Consultation</td>
-                                <td>Aetna</td>
-                                <td><span class="badge badge-warning">Waiting</span></td>
-                                <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check In</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>10:00 AM</strong></td>
-                                <td>Robert Johnson</td>
-                                <td>Dr. Brown</td>
-                                <td>Check-up</td>
-                                <td>Medicare</td>
-                                <td><span class="badge badge-info">Scheduled</span></td>
-                                <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check In</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>10:30 AM</strong></td>
-                                <td>Emily Davis</td>
-                                <td>Dr. Martinez</td>
-                                <td>Follow-up</td>
-                                <td>Cigna</td>
-                                <td><span class="badge badge-info">Scheduled</span></td>
-                                <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check In</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>11:00 AM</strong></td>
-                                <td>Michael Brown</td>
-                                <td>Dr. Lee</td>
-                                <td>New Patient</td>
-                                <td>Self-Pay</td>
-                                <td><span class="badge badge-danger">No Show</span></td>
-                                <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Contact</a></td>
-                            </tr>
+                        <tbody id="recent-patients-table">
+                            <?php if (!empty($trackingData['recent_registrations'])): ?>
+                                <?php foreach ($trackingData['recent_registrations'] as $patient): ?>
+                                    <tr>
+                                        <td><strong><?= esc($patient['patient_id']) ?></strong></td>
+                                        <td><?= esc($patient['first_name'] . ' ' . $patient['last_name']) ?></td>
+                                        <td><?= esc($patient['age'] ?? 'N/A') ?></td>
+                                        <td><?= esc($patient['gender']) ?></td>
+                                        <td>
+                                            <span class="badge badge-<?= $patient['patient_type'] == 'Emergency' ? 'danger' : ($patient['patient_type'] == 'Inpatient' ? 'warning' : 'info') ?>">
+                                                <?= esc($patient['patient_type']) ?>
+                                            </span>
+                                        </td>
+                                        <td><?= date('M j, Y g:i A', strtotime($patient['created_at'])) ?></td>
+                                        <td>
+                                            <span class="badge badge-<?= $patient['status'] == 'Active' ? 'success' : 'secondary' ?>">
+                                                <?= esc($patient['status']) ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="<?= base_url('receptionist/patient-registration/show/' . $patient['id']) ?>" class="btn btn-sm btn-secondary">
+                                                <i class="fas fa-eye"></i> View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted">No recent patient registrations found</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -284,6 +282,108 @@
             if(confirm('Are you sure you want to logout?')) {
                 window.location.href = '<?= base_url('auth/logout') ?>';
             }
+        }
+
+        // Real-time dashboard refresh functionality
+        function refreshDashboard() {
+            const refreshBtn = document.querySelector('button[onclick="refreshDashboard()"]');
+            const originalText = refreshBtn.innerHTML;
+            
+            // Show loading state
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+            refreshBtn.disabled = true;
+
+            fetch('<?= base_url('receptionist/dashboard/tracking-stats') ?>')
+                .then(response => response.json())
+                .then(data => {
+                    // Update tracking statistics
+                    updateStatistic('registrations-today', data.registrations_today);
+                    updateStatistic('registrations-week', data.registrations_this_week);
+                    updateStatistic('pending-patients', data.active_patients);
+                    updateStatistic('total-patients', data.total_patients);
+                    updateStatistic('registrations-month', data.registrations_this_month);
+                    updateStatistic('registrations-yesterday', data.registrations_yesterday);
+
+                    // Update recent registrations table if data is available
+                    if (data.recent_registrations) {
+                        updateRecentRegistrationsTable(data.recent_registrations);
+                    }
+
+                    // Show success message
+                    showNotification('Patient tracking data refreshed successfully!', 'success');
+                })
+                .catch(error => {
+                    console.error('Error refreshing tracking data:', error);
+                    showNotification('Failed to refresh tracking data', 'error');
+                })
+                .finally(() => {
+                    // Reset button state
+                    refreshBtn.innerHTML = originalText;
+                    refreshBtn.disabled = false;
+                });
+        }
+
+        function updateRecentRegistrationsTable(patients) {
+            const tbody = document.querySelector('#recent-patients-table');
+            if (!tbody) return;
+
+            if (patients.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">No recent patient registrations found</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = patients.map(patient => {
+                const statusClass = patient.status === 'Active' ? 'success' : 'secondary';
+                const typeClass = patient.patient_type === 'Emergency' ? 'danger' : 
+                                 patient.patient_type === 'Inpatient' ? 'warning' : 'info';
+                
+                return `
+                    <tr>
+                        <td><strong>${escapeHtml(patient.patient_id)}</strong></td>
+                        <td>${escapeHtml(patient.first_name)} ${escapeHtml(patient.last_name)}</td>
+                        <td>${patient.age || 'N/A'}</td>
+                        <td>${escapeHtml(patient.gender)}</td>
+                        <td>
+                            <span class="badge badge-${typeClass}">
+                                ${escapeHtml(patient.patient_type)}
+                            </span>
+                        </td>
+                        <td>${formatDate(patient.created_at)}</td>
+                        <td>
+                            <span class="badge badge-${statusClass}">
+                                ${escapeHtml(patient.status)}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="<?= base_url('receptionist/patient-registration/show/') ?>${patient.id}" 
+                               class="btn btn-sm btn-secondary">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
         }
     </script>
     <script src="<?= base_url('js/logout.js') ?>"></script>
