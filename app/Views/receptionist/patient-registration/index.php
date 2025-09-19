@@ -119,6 +119,7 @@
                                 <div class="form-group">
                                     <label for="dob">Date of Birth</label>
                                     <input type="date" id="dob" name="date_of_birth" value="<?= old('date_of_birth') ?>" required>
+                                    <small id="calculated-age" class="age-display"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">Gender</label>
@@ -264,9 +265,86 @@
         .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
         .alert ul { margin: 8px 0 0 0; padding-left: 20px; }
         .alert li { margin-bottom: 4px; }
+
+        /* Enhanced form validation styles */
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+        }
+
+        .field-error {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .field-error::before {
+            content: "⚠";
+            font-size: 0.75rem;
+        }
+
+        .age-display {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+
+        /* Loading and notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .notification-error {
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
         </style>
 
         <script src="<?= base_url('js/logout.js') ?>"></script>
+        <script src="<?= base_url('js/patient-registration.js') ?>"></script>
         
     </body>
     </html>

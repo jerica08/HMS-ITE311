@@ -93,6 +93,26 @@ $routes->group('admin', function($routes) {
     $routes->get('communication', 'Admin\CommunicationController::index'); 
 });
 
+$routes->group('receptionist', function($routes) {
+    $routes->get('dashboard', 'Receptionist\ReceptionistController::index');
+    $routes->get('dashboard/tracking-stats', 'Receptionist\ReceptionistController::getTrackingStats');
+    
+    // Patient Registration Routes
+    $routes->get('patient-registration', 'Receptionist\PatientRegistrationController::index');
+    $routes->get('patient-registration/create', 'Receptionist\PatientRegistrationController::create');
+    $routes->post('patient-registration/store', 'Receptionist\PatientRegistrationController::store');
+    $routes->get('patient-registration/show/(:num)', 'Receptionist\PatientRegistrationController::show/$1');
+    $routes->get('patient-registration/edit/(:num)', 'Receptionist\PatientRegistrationController::edit/$1');
+    $routes->post('patient-registration/update/(:num)', 'Receptionist\PatientRegistrationController::update/$1');
+    $routes->get('patient-registration/search', 'Receptionist\PatientRegistrationController::search');
+    $routes->get('patient-registration/api/search', 'Receptionist\PatientRegistrationController::searchApi');
+    $routes->get('patient-registration/api/stats', 'Receptionist\PatientRegistrationController::getPatientStats');
+    
+    $routes->get('appointments', 'Receptionist::appointments');
+    $routes->get('check-in', 'Receptionist::checkIn');
+    $routes->get('waiting-room', 'Receptionist::waitingRoom');
+    $routes->get('insurance', 'Receptionist::insurance');
+});
 
 $routes->group('doctor', function($routes) {
     $routes->get('dashboard', 'Doctor::index'); 
@@ -116,6 +136,7 @@ $routes->group('nurse', function($routes) {
     $routes->get('shift-report', 'Nurse\ShiftReportController::index');
 });
 
+<<<<<<< HEAD
 $routes->group('receptionist', function($routes) {
     $routes->get('dashboard', 'Receptionist::index');
     
@@ -136,6 +157,8 @@ $routes->group('receptionist', function($routes) {
     $routes->get('insurance', 'Receptionist::insurance');
 });
 
+=======
+>>>>>>> 613f0b4 (patient registration tracking on our receptionist)
 $routes->group('pharmacist', function($routes) {
     $routes->get('dashboard', 'Pharmacist::index');
 });
@@ -144,12 +167,9 @@ $routes->group('accountant', function($routes) {
     $routes->get('dashboard', 'Accountant::index');
 });
 
-
-
 $routes->group('it_staff', function($routes) {
     $routes->get('dashboard', 'it_staff::index');
 });
-
 
 $routes->group('laboratorist', function($routes) {
     $routes->get('dashboard', 'Laboratorist::index');
