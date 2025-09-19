@@ -130,36 +130,6 @@
                             <a href="#" class="action-btn danger">View Pending</a>
                         </div>
                     </div>
-                    <!--Waiting Room Card-->
-                    <div class="overview-card">
-                        <div class="card-header-modern">
-                            <div class="card-icon-modern blue">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                            <div>
-                                <h3 class="card-title-modern">Waiting Room</h3>
-                                <p class="card-subtitle">Current waiting patients</p>
-                            </div>
-                        </div>
-                        <div class="card-metrics">
-                            <div class="metrics">
-                                <div class="metric-value purple">0</div>
-                                <div class="metric-label">Waiting</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value purple">0</div>
-                                <div class="metric-label">Avg Wait(min)</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value red">0</div>
-                                <div class="metric-label">Overdue</div>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <a href="#" class="action-btn primary">Check Status</a>
-                            <a href="#" class="action-btn danger">Alert Overdue</a>
-                        </div>
-                    </div>
                     <!--Insurance Verification-->
                     <div class="overview-card">
                         <div class="card-header-modern">
@@ -208,7 +178,7 @@
                         <tbody>
                             <tr>
                                 <td><strong>09:00 AM</strong></td>
-                                <td>John Smith</td>
+                                <td>PATIENT1</td>
                                 <td>Dr. Johnson</td>
                                 <td>Follow-up</td>
                                 <td>Blue Cross</td>
@@ -217,7 +187,7 @@
                             </tr>
                             <tr>
                                 <td><strong>09:30 AM</strong></td>
-                                <td>Maria Garcia</td>
+                                <td>PATIENT2</td>
                                 <td>Dr. Wilson</td>
                                 <td>Consultation</td>
                                 <td>Aetna</td>
@@ -226,7 +196,7 @@
                             </tr>
                             <tr>
                                 <td><strong>10:00 AM</strong></td>
-                                <td>Robert Johnson</td>
+                                <td>PATIENT3</td>
                                 <td>Dr. Brown</td>
                                 <td>Check-up</td>
                                 <td>Medicare</td>
@@ -235,7 +205,7 @@
                             </tr>
                             <tr>
                                 <td><strong>10:30 AM</strong></td>
-                                <td>Emily Davis</td>
+                                <td>PATIENT4</td>
                                 <td>Dr. Martinez</td>
                                 <td>Follow-up</td>
                                 <td>Cigna</td>
@@ -244,7 +214,7 @@
                             </tr>
                             <tr>
                                 <td><strong>11:00 AM</strong></td>
-                                <td>Michael Brown</td>
+                                <td>PATIENT5</td>
                                 <td>Dr. Lee</td>
                                 <td>New Patient</td>
                                 <td>Self-Pay</td>
