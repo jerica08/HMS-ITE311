@@ -231,7 +231,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/patient') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/patient') ?>" class="nav-link active">
                             <i class="fas fa-user-injured nav-icon"></i>
                             Patient Management
                         </a>
@@ -340,97 +340,6 @@
                         </div>
                     </div>
                 </div>       
-             
-
-                <!--Patient Management Grid-->
-                <div class="patient-grid">
-                    <!-- Patient Flow Management -->
-                    <div class="patient-section">
-                        <div class="section-header">
-                            <div class="section-icon" style="background: #d5df10ff;">
-                                <i class="fas fa-route"></i>
-                            </div>
-                            <div>
-                                <div class="section-title">Patient Flow</div>
-                            </div>
-                        </div>
-
-                        <div class="patient-flow">
-                            <span>Emergency Admissions</span>
-                            <span class="flow-number">0</span>
-                        </div>
-                        <div class="patient-flow">
-                            <span>Scheduled Admissions</span>
-                            <span class="flow-number">0</span>
-                        </div>
-                        <div class="patient-flow">
-                            <span>Transfers In</span>
-                            <span class="flow-number">0</span>
-                        </div>
-                        <div class="patient-flow">
-                            <span>Discharges Today</span>
-                            <span class="flow-number">0</span>
-                        </div>
-                        <div class="patient-flow">
-                            <span>Transfers Out</span>
-                            <span class="flow-number">2</span>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn-primary btn-small" onclick="manageFlow()">
-                                <i class="fas fa-cog"></i> Manage Flow
-                            </button>
-                            <button class="btn btn-secondary btn-small" onclick="flowReports()">
-                                <i class="fas fa-chart-line"></i> Flow Reports
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Recent Admissions -->
-                    <div class="patient-section">
-                        <div class="section-header">
-                            <div class="section-icon" style="background: #22c55e;">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                            <div>
-                                <div class="section-title">Recent Admissions</div>
-                            </div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Example1</div>
-                                <div class="patient-details">General Ward - Room 205 | Surgery</div>
-                            </div>
-                            <div class="patient-status status-admitted">Admitted</div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Example2</div>
-                                <div class="patient-details">Cardiology - Room 412 | Chest Pain</div>
-                            </div>
-                            <div class="patient-status status-stable">Stable</div>
-                        </div>
-
-                        <div class="patient-item">
-                            <div class="patient-info">
-                                <div class="patient-name">Example3</div>
-                                <div class="patient-details">Emergency - Bay 3 | Accident</div>
-                            </div>
-                            <div class="patient-status status-emergency">Emergency</div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn-primary btn-small" onclick="viewAdmissions()">
-                                <i class="fas fa-list"></i> View All
-                            </button>
-                            <button class="btn btn-success btn-small" onclick="admitNew()">
-                                <i class="fas fa-plus"></i> New Admission
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="patient-view">         
                     <!--Filter and Actions-->    
