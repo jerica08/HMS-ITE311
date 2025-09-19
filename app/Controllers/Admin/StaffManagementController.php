@@ -26,29 +26,11 @@ class StaffManagementController extends AdminBaseController
 
     public function create()
     {
-        // Handle creating a new staff member with validation
+        // Handle creating a new staff member
         $staffModel = new \App\Models\StaffModel();
-        $data = $this->request->getPost([
-            'first_name', 'last_name', 'email', 'phone', 'department',
-            'role', 'employee_id', 'status', 'hire_date', 'notes'
-        ]);
-
-        $id = $staffModel->insert($data);
-        if ($id === false) {
-            return $this->response
-                ->setStatusCode(422)
-                ->setJSON([
-                    'status' => 'error',
-                    'message' => 'Validation failed',
-                    'errors' => $staffModel->errors(),
-                ]);
-        }
-
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Staff member created',
-            'id' => $id,
-        ]);
+        $data = $this->request->getPost();
+        $staffModel->insert($data);
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member created']);
     }
 
     public function edit($id)

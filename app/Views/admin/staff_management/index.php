@@ -418,7 +418,7 @@
                         <button type="button" id="openAddStaffBtn" class="btn btn-success" onclick="openAddStaffModal()">
                             <i class="fas fa-plus"></i> Add Staff
                         </button>
-                        <button class="btn btn-primary">
+                        <button type="button" id="openAssignShiftBtn" class="btn btn-primary" onclick="openAssignShiftModal()">
                             <i class="fas fa-plus"></i> Assign Shift
                         </button>
                         <button class="btn btn-warning">
@@ -426,9 +426,10 @@
                         </button>
                 </div><br>
 
+
                 <!--Dashboard overview cards-->
                 <div class="dashboard-overview">
-                    <!-- Total User Cards -->
+                    <!--Total Staff Cards-->
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern blue">
@@ -446,7 +447,7 @@
                         </div>
                     </div>
 
-                    <!-- Active User Card -->
+                    <!-- On Duty Card -->
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern purple">
@@ -464,7 +465,7 @@
                         </div>   
                     </div>
 
-                    <!-- Inactive User Card -->
+                    <!-- Overtime Card -->
                     <div class="overview-card">
                         <div class="card-header-modern">
                             <div class="card-icon-modern purple">
@@ -681,6 +682,78 @@
                     </div>
                 </div>
 
+                <!-- Assign Shift Modal (Doctors only) -->
+                <div id="assignShiftModal" class="hms-modal-overlay" aria-hidden="true">
+                    <div class="hms-modal" role="dialog" aria-modal="true" aria-labelledby="assignShiftTitle">
+                        <div class="hms-modal-header">
+                            <div class="hms-modal-title" id="assignShiftTitle">
+                                <i class="fas fa-user-md" style="color:#4f46e5"></i>
+                                Assign Shift (Doctors)
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="closeAssignShiftModal()" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="assignShiftForm" method="post" action="#">
+                            <?= csrf_field() ?>
+                            <div class="hms-modal-body">
+                                <div class="staff-alert" id="assignShiftInfo" style="display:none">
+                                    <div class="alert-header"><i class="fas fa-info-circle"></i> Info</div>
+                                    <div class="alert-content">This assignment modal is limited to doctors. Only doctors will appear in the list.</div>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="full">
+                                        <label for="doctor_id" class="form-label">Doctor</label>
+                                        <select id="doctor_id" name="doctor_id" class="form-select" required>
+                                            <option value="">Loading doctors...</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="shift_date" class="form-label">Date</label>
+                                        <input type="date" id="shift_date" name="shift_date" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label for="shift_type" class="form-label">Shift Type</label>
+                                        <select id="shift_type" name="shift_type" class="form-select" required>
+                                            <option value="morning">Morning (06:00 - 14:00)</option>
+                                            <option value="afternoon">Afternoon (14:00 - 22:00)</option>
+                                            <option value="night">Night (22:00 - 06:00)</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="start_time" class="form-label">Start Time</label>
+                                        <input type="time" id="start_time" name="start_time" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label for="end_time" class="form-label">End Time</label>
+                                        <input type="time" id="end_time" name="end_time" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label for="location" class="form-label">Department/Unit</label>
+                                        <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Emergency, Cardiology" required>
+                                    </div>
+                                    <div class="full">
+                                        <label for="notes_shift" class="form-label">Notes (optional)</label>
+                                        <textarea id="notes_shift" name="notes" rows="3" class="form-textarea" placeholder="Additional details..."></textarea>
+                                    </div>
+                                    <div class="full" style="display:flex;align-items:center;gap:0.5rem">
+                                        <input type="checkbox" id="repeat_weekly" name="repeat_weekly" value="1">
+                                        <label for="repeat_weekly" class="form-label" style="margin:0">Repeat weekly</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hms-modal-actions">
+                                <button type="button" class="btn btn-secondary" onclick="closeAssignShiftModal()">Cancel</button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Assign
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
                 <script>
                     const addStaffModal = document.getElementById('addStaffModal');
                     function openAddStaffModal() {
@@ -727,6 +800,90 @@
                             console.error(err);
                             alert('An error occurred while creating staff');
                         }
+                    });
+                    // Assign Shift (Doctors only)
+                    const assignShiftModal = document.getElementById('assignShiftModal');
+                    const doctorSelect = document.getElementById('doctor_id');
+                    const shiftTypeSelect = document.getElementById('shift_type');
+
+                    function openAssignShiftModal() {
+                        assignShiftModal.classList.add('active');
+                        assignShiftModal.setAttribute('aria-hidden', 'false');
+                        // Prefill date with today
+                        const today = new Date();
+                        const yyyy = today.getFullYear();
+                        const mm = String(today.getMonth() + 1).padStart(2, '0');
+                        const dd = String(today.getDate()).padStart(2, '0');
+                        document.getElementById('shift_date').value = `${yyyy}-${mm}-${dd}`;
+                        // Load doctors list (UI only, optional)
+                        loadDoctorsIntoSelect();
+                        // Sync default times to selected shift type
+                        syncTimesToShiftType();
+                    }
+                    function closeAssignShiftModal() {
+                        assignShiftModal.classList.remove('active');
+                        assignShiftModal.setAttribute('aria-hidden', 'true');
+                    }
+                    // Close on overlay click
+                    assignShiftModal?.addEventListener('click', (e) => {
+                        if (e.target === assignShiftModal) closeAssignShiftModal();
+                    });
+
+                    function syncTimesToShiftType() {
+                        const type = shiftTypeSelect?.value;
+                        const start = document.getElementById('start_time');
+                        const end = document.getElementById('end_time');
+                        if (!start || !end) return;
+                        if (type === 'morning') {
+                            start.value = '06:00';
+                            end.value = '14:00';
+                        } else if (type === 'afternoon') {
+                            start.value = '14:00';
+                            end.value = '22:00';
+                        } else if (type === 'night') {
+                            start.value = '22:00';
+                            end.value = '06:00';
+                        }
+                    }
+                    shiftTypeSelect?.addEventListener('change', () => {
+                        if (shiftTypeSelect.value !== 'custom') {
+                            syncTimesToShiftType();
+                        }
+                    });
+
+                    async function loadDoctorsIntoSelect() {
+                        if (!doctorSelect) return;
+                        try {
+                            // Attempt to load doctors from a backend endpoint (should return JSON: [{id, name}, ...])
+                            const res = await fetch('<?= base_url('admin/staff/doctors') ?>', { headers: { 'Accept': 'application/json' } });
+                            if (!res.ok) throw new Error('Failed to load doctors');
+                            const data = await res.json();
+                            const doctors = Array.isArray(data?.doctors) ? data.doctors : [];
+                            if (doctors.length === 0) throw new Error('No doctors list');
+                            doctorSelect.innerHTML = '<option value="">Select doctor</option>' +
+                                doctors.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+                        } catch (err) {
+                            // Fallback to static placeholders if endpoint not available
+                            doctorSelect.innerHTML = `
+                                <option value="">Select doctor</option>
+                                <option value="1">Dr. Staff1</option>
+                                <option value="2">Dr. Staff2</option>
+                                <option value="3">Dr. Staff3</option>
+                            `;
+                        }
+                    }
+
+                    const assignShiftForm = document.getElementById('assignShiftForm');
+                    assignShiftForm?.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const form = e.target;
+                        // UI-only demo submission
+                        const formData = new FormData(form);
+                        const payload = Object.fromEntries(formData.entries());
+                        console.log('Assign Shift payload (UI only):', payload);
+                        alert('Shift assigned (UI only). Backend integration pending.');
+                        form.reset();
+                        closeAssignShiftModal();
                     });
                 </script>
 
