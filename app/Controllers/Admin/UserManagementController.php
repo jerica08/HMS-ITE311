@@ -194,4 +194,31 @@ class UserManagementController extends AdminBaseController
         $result = $this->userService->getUserStats();
         return $this->response->setJSON($result);
     }
+
+    public function staffWithoutAccounts()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $db = \Config\Database::connect();
+        if (!$db->tableExists('staff') || !$db->tableExists('users')) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Required tables not found. Run migrations.',
+                'data' => []
+            ])->setStatusCode(500);
+        }
+
+        $builder = $db->table('staff s')
+            ->select('s.id, s.first_name, s.last_name, s.email, s.phone, s.department, s.role, s.employee_id')
+            ->join('users u', 'u.email = s.email OR (u.employee_id IS NOT NULL AND u.employee_id = s.employee_id)', 'left')
+            ->where('u.id IS NULL');
+
+        $rows = $builder->get()->getResultArray();
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'data' => $rows
+        ]);
+    }
 }

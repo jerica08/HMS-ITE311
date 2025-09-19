@@ -2,6 +2,15 @@
     <div style="background:#fff; padding:2rem; border-radius:8px; max-width:500px; margin:auto; position:relative;">
         <h2 id="modalTitle">Add New User</h2>
         <form id="userForm">
+            <div style="margin-bottom:1rem;">
+                <label for="link_staff">Link Staff (no user account yet)</label>
+                <select id="link_staff" name="link_staff" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                    <option value="">-- Select staff to link (optional) --</option>
+                </select>
+
+            </div>
+            <input type="hidden" id="employee_id" name="employee_id" />
+
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
                 <div>
                     <label for="first_name">First Name*</label>

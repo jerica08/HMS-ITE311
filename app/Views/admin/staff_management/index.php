@@ -223,8 +223,8 @@
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
         }
         
-        /* Enhanced modal styles aligned with dashboard theme */
-        .modal-overlay {
+        /* Enhanced modal styles aligned with dashboard theme (prefixed to avoid conflicts) */
+        .hms-modal-overlay {
             position: fixed;
             inset: 0;
             background: rgba(15, 23, 42, 0.55);
@@ -232,10 +232,10 @@
             align-items: center;
             justify-content: center;
             padding: 1rem;
-            z-index: 1000;
+            z-index: 9990; /* overlay below modal */
         }
-        .modal-overlay.active { display: flex; }
-        .modal {
+        .hms-modal-overlay.active { display: flex; }
+        .hms-modal {
             width: 100%;
             max-width: 560px;
             background: #ffffff;
@@ -243,8 +243,18 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             overflow: hidden;
             border: 1px solid #f1f5f9;
+            display: block !important; /* override any global modal rules */
+            position: fixed; /* ensure centered regardless of parent stacking contexts */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) !important;
+            opacity: 1 !important; /* ensure visible against possible framework defaults */
+            visibility: visible !important;
+            pointer-events: auto !important;
+            min-height: 120px;
+            outline: 1px solid rgba(79,70,229,0.25); /* debug outline */
         }
-        .modal-header {
+        .hms-modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -252,18 +262,18 @@
             border-bottom: 1px solid #e5e7eb;
             background: #f8f9ff;
         }
-        .modal-title {
+        .hms-modal-title {
             font-weight: 600;
             color: #1e293b;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        .modal-body { 
+        .hms-modal-body { 
             padding: 1rem 1.25rem; 
             color: #475569; 
         }
-        .modal-actions {
+        .hms-modal-actions {
             display: flex;
             gap: 0.5rem;
             justify-content: flex-end;
@@ -405,6 +415,17 @@
            
             <main class="content">
                 <h1 class="page-title"> Staff Management</h1>
+                <div class="page-actions">
+                        <button type="button" id="openAddStaffBtn" class="btn btn-success" onclick="openAddStaffModal()">
+                            <i class="fas fa-plus"></i> Add Staff
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Assign Shift
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-plus"></i> Approve Leave
+                        </button>
+                </div><br>
 
                 <!--Dashboard overview cards-->
                 <div class="dashboard-overview">
@@ -462,31 +483,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!--Quick Actions-->
-                <div class="quick-actions">
-                    <div class="actionsgrid">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-user-plus"></i> Add Staff
-                        </button>
-                        <button class="btn btn-success">
-                            <i class="fas fa-calendar-plus"></i> Assign Shift
-                        </button>
-                        <button class="btn btn-warning" >
-                            <i class="fas fa-clipboard-check"></i> Approve Leave
-                        </button>
-                        <button class="btn btn-secondary" >
-                            <i class="fas fa-user-clock"></i> Record Overtime
-                        </button>
-                        <button class="btn btn-info" >
-                            <i class="fas fa-certificate"></i> Upload Certification
-                        </button>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-user-shield"></i> Manage Roles
-                        </button>
-                    </div>
-                </div>
-
+                
                 <div class="staff-grid">
                 <!-- Current Shift Status -->
                 <div class="staff-section">
@@ -591,9 +588,149 @@
                         </button>
                     </div>
                 </div>
-            </div>
+                </div>
 
-    
+                <!-- Add Staff Modal -->
+                <div id="addStaffModal" class="hms-modal-overlay" aria-hidden="true">
+                    <div class="hms-modal" role="dialog" aria-modal="true" aria-labelledby="addStaffTitle">
+                        <div class="hms-modal-header">
+                            <div class="hms-modal-title" id="addStaffTitle">
+                                <i class="fas fa-user-plus" style="color:#4f46e5"></i>
+                                Add Staff
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="closeAddStaffModal()" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="addStaffForm" method="post" action="<?= base_url('admin/staff/create') ?>">
+                            <?= csrf_field() ?>
+                            <div class="hms-modal-body">
+                                <div class="form-grid">
+                                    <div>
+                                        <label class="form-label" for="first_name">First Name</label>
+                                        <input type="text" id="first_name" name="first_name" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="last_name">Last Name</label>
+                                        <input type="text" id="last_name" name="last_name" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="email">Email</label>
+                                        <input type="email" id="email" name="email" class="form-input" required>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="phone">Phone</label>
+                                        <input type="text" id="phone" name="phone" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="department">Department</label>
+                                         <select id="department" name="department" class="form-select" required>
+                                            <option value="">Select department</option>
+                                            <option value="emergency">Emergency</option>
+                                            <option value="orthopedics">Orthopedics</option>
+                                            <option value="cardiology">Cardiology</option>
+                                            <option value="neurology">Neurology</option>
+                                            <option value="radiology">Radiology</option>
+                                            <option value="neurology">Neurology</option>
+                                            <option value="reception">Reception</option>
+                                            <option value="it-support">IT Support</option>
+                                            <option value="accounting">Accounting</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="role">Role</label>
+                                        <select id="role" name="role" class="form-select" required>
+                                            <option value="">Select role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="doctor">Doctor</option>
+                                            <option value="nurse">Nurse</option>
+                                            <option value="pharmacist">Pharmacist</option>
+                                            <option value="receptionist">Receptionist</option>
+                                            <option value="laboratorist">Laboratorist</option>
+                                            <option value="it_staff">IT Staff</option>
+                                            <option value="accountant">Accountant</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="employee_id">Employee ID</label>
+                                        <input type="text" id="employee_id" name="employee_id" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="status">Status</label>
+                                        <select id="status" name="status" class="form-select">
+                                            <option value="active" selected>Active</option>
+                                            <option value="inactive">Inactive</option>
+                                            <option value="suspended">Suspended</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="hire_date">Hire Date</label>
+                                        <input type="date" id="hire_date" name="hire_date" class="form-input">
+                                    </div>
+                                    <div class="full">
+                                        <label class="form-label" for="notes">Notes</label>
+                                        <textarea id="notes" name="notes" rows="3" class="form-textarea" placeholder="Optional notes..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hms-modal-actions">
+                                <button type="button" class="btn btn-secondary" onclick="closeAddStaffModal()">Cancel</button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                    const addStaffModal = document.getElementById('addStaffModal');
+                    function openAddStaffModal() {
+                        addStaffModal.classList.add('active');
+                        addStaffModal.setAttribute('aria-hidden', 'false');
+                    }
+                    function closeAddStaffModal() {
+                        addStaffModal.classList.remove('active');
+                        addStaffModal.setAttribute('aria-hidden', 'true');
+                    }
+                    // Close on overlay click
+                    addStaffModal?.addEventListener('click', (e) => {
+                        if (e.target === addStaffModal) closeAddStaffModal();
+                    });
+
+                    // Submit via AJAX to keep page smooth
+                    const addStaffForm = document.getElementById('addStaffForm');
+                    // Fallback binding in case inline onclick is blocked by CSP
+                    document.getElementById('openAddStaffBtn')?.addEventListener('click', openAddStaffModal);
+                    addStaffForm?.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const form = e.target;
+                        const action = form.getAttribute('action');
+
+                        const formData = new FormData(form);
+                        try {
+                            const res = await fetch(action, {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                },
+                                body: formData
+                            });
+                            const data = await res.json();
+                            if (data?.status === 'success') {
+                                // Basic feedback; in future, refresh list/cards
+                                alert('Staff member created successfully');
+                                form.reset();
+                                closeAddStaffModal();
+                            } else {
+                                alert(data?.message || 'Failed to create staff');
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            alert('An error occurred while creating staff');
+                        }
+                    });
+                </script>
 
                 <script src="<?= base_url('js/logout.js') ?>"></script>
 

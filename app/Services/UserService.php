@@ -72,6 +72,11 @@ class UserService
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
+            // If employee_id provided (from linked staff), persist it
+            if (!empty($data['employee_id'])) {
+                $userData['employee_id'] = $data['employee_id'];
+            }
+
             log_message('info', 'Attempting to insert user data: ' . json_encode($userData));
 
             // Try direct database insert to avoid model validation issues

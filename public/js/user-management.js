@@ -90,11 +90,63 @@ function openAddUserModal() {
     document.getElementById('userForm').reset();
     // Clear any existing data-user-id attribute for create mode
     document.getElementById('userForm').removeAttribute('data-user-id');
+    // Load staff without accounts to help link existing staff
+    loadStaffWithoutAccounts();
     document.getElementById('userModal').style.display = 'block';
 }
 
 function closeUserModal() {
     document.getElementById('userModal').style.display = 'none';
+}
+
+// Load staff who don't have user accounts yet and populate the select
+async function loadStaffWithoutAccounts() {
+    const select = document.getElementById('link_staff');
+    if (!select) return;
+
+    // Clear options except the first placeholder
+    select.innerHTML = '<option value="">-- Select staff to link (optional) --</option>';
+
+    try {
+        const res = await fetch('/admin/users/staff-without-accounts', { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error('Failed to load staff list');
+        const data = await res.json();
+        const list = data?.data || [];
+        list.forEach(s => {
+            const opt = document.createElement('option');
+            const fullName = `${s.first_name || ''} ${s.last_name || ''}`.trim();
+            opt.value = String(s.id);
+            opt.textContent = `${fullName} • ${s.role || ''} • ${s.department || ''}`;
+            opt.dataset.firstName = s.first_name || '';
+            opt.dataset.lastName = s.last_name || '';
+            opt.dataset.email = s.email || '';
+            opt.dataset.phone = s.phone || '';
+            opt.dataset.department = s.department || '';
+            opt.dataset.role = s.role || '';
+            opt.dataset.employeeId = s.employee_id || '';
+            select.appendChild(opt);
+        });
+    } catch (e) {
+        console.error('Could not load staff without accounts:', e);
+    }
+}
+
+// When a staff is selected, autofill the user form fields
+function bindLinkStaffAutofill() {
+    const select = document.getElementById('link_staff');
+    if (!select) return;
+    select.addEventListener('change', () => {
+        const opt = select.options[select.selectedIndex];
+        if (!opt || !opt.value) return; // do nothing if placeholder
+        const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+        setVal('first_name', opt.dataset.firstName || '');
+        setVal('last_name', opt.dataset.lastName || '');
+        setVal('email', opt.dataset.email || '');
+        setVal('phone', opt.dataset.phone || '');
+        setVal('department', opt.dataset.department || '');
+        setVal('role', opt.dataset.role || '');
+        setVal('employee_id', opt.dataset.employeeId || '');
+    });
 }
 
 // Enhanced search functionality with debouncing
@@ -411,6 +463,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize keyboard shortcuts
     initializeKeyboardShortcuts();
+    // Bind staff linking autofill for Add User modal
+    bindLinkStaffAutofill();
     
     // Handle form submission for adding/editing users
     const userForm = document.getElementById('userForm');
@@ -426,7 +480,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 phone: formData.get('phone') || document.getElementById('phone').value,
                 password: formData.get('password') || document.getElementById('password').value,
                 role: formData.get('role') || document.getElementById('role').value,
-                department: formData.get('department') || document.getElementById('department').value
+                department: formData.get('department') || document.getElementById('department').value,
+                employee_id: formData.get('employee_id') || (document.getElementById('employee_id') ? document.getElementById('employee_id').value : '')
             };
 
             console.log('Form data being sent:', userData);

@@ -279,7 +279,7 @@
                         </a>
                     </li>
                 </ul>          
-            </nav>
+                 </nav>
         
             <!--Main Content-->
             <main class="content">

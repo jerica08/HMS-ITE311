@@ -110,6 +110,11 @@
            
             <main class="content">
                 <h1 class="page-title"> User Management</h1>
+                <div class="page-actions">
+                        <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
+                            <i class="fas fa-plus"></i> Add New User
+                        </button>
+                </div><br>
 
                 <!--Dashboard overview cards-->
                 <div class="dashboard-overview">
@@ -221,22 +226,6 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Action Buttons -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
-                    <div>
-                        <button type="button" class="btn btn-primary" onclick="openAddUserModal()">
-                            <i class="fas fa-plus"></i> Add New User
-                        </button>
-                        <button type="button" class="btn btn-secondary" onclick="bulkActions()">
-                            <i class="fas fa-cogs"></i> Bulk Actions
-                        </button>
-                        <button type="button" class="btn btn-secondary" onclick="exportUsers()">
-                            <i class="fas fa-download"></i> Export Users
-                        </button>
-                    </div>
-                </div>
-
                 <!--users Table-->
                 <div class="table-container">
                     <table class="table">

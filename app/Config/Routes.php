@@ -34,6 +34,7 @@ $routes->group('admin', function($routes) {
     $routes->get('users', 'Admin\UserManagementController::index');                    // View all users
     $routes->get('users/api', 'Admin\UserManagementController::api');          // Get users data (API)
     $routes->get('users/statistics', 'Admin\UserManagementController::statistics'); // Get user statistics (API)
+    $routes->get('users/staff-without-accounts', 'Admin\UserManagementController::staffWithoutAccounts'); // Staff without user accounts
     $routes->post('users', 'Admin\UserManagementController::create');              // Create new user (API)
     $routes->get('users/(:num)', 'Admin\UserManagementController::edit/$1');       // Get user data for editing (API)
     $routes->put('users/(:num)', 'Admin\UserManagementController::update/$1');     // Update user (API)
@@ -72,6 +73,12 @@ $routes->group('admin', function($routes) {
 
     // Staff Management Routes
     $routes->get('staff', 'Admin\StaffManagementController::index');
+    $routes->get('staff/api', 'Admin\StaffManagementController::api');
+    $routes->post('staff/create', 'Admin\StaffManagementController::create');
+    $routes->get('staff/edit/(:num)', 'Admin\StaffManagementController::edit/$1');
+    $routes->put('staff/update/(:num)', 'Admin\StaffManagementController::update/$1');
+    $routes->post('staff/update/(:num)', 'Admin\StaffManagementController::update/$1'); // fallback for browsers
+    $routes->delete('staff/delete/(:num)', 'Admin\StaffManagementController::delete/$1');
 
     // Resource Management Routes
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 
