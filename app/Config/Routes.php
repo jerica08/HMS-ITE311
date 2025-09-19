@@ -102,6 +102,8 @@ $routes->group('doctor', function($routes) {
     $routes->get('lab-results', 'Doctor\LabResultsController::index');
     $routes->get('ehr', 'Doctor\EHRController::index');
     $routes->get('mySchedule', 'Doctor\MyScheduleController::index');
+    // dashed alias for sidebar links
+    $routes->get('my-schedule', 'Doctor\MyScheduleController::index');
 });
 
 $routes->group('nurse', function($routes) {

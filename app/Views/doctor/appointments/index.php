@@ -184,7 +184,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('doctor/mySchedule') ?>" class="nav-link">
+                        <a href="<?= base_url('doctor/my-schedule') ?>" class="nav-link">
                             <i class="fas fa-clock nav-icon"></i>
                             My Schedule
                         </a>
