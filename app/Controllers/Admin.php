@@ -3,17 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\PatientModel;
 use App\Services\UserService;
 
 class Admin extends BaseController
 {
     protected $userModel;
     protected $userService;
+    protected $patientModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->userService = new UserService();
+        $this->patientModel = new PatientModel();
     }
 
     private function checkAdminAuth()
@@ -40,6 +43,9 @@ class Admin extends BaseController
         // Get user statistics for dashboard
         $userStats = $this->userService->getUserStats();
         
+        // Get patient statistics
+        $patientStats = $this->getPatientStats();
+        
         $data = [
             'currentUser' => $currentUser,
             'userStats' => $userStats['data'] ?? [
@@ -47,10 +53,41 @@ class Admin extends BaseController
                 'active_users' => 0,
                 'inactive_users' => 0,
                 'admin_users' => 0
-            ]
+            ],
+            'patientStats' => $patientStats
         ];
         
         return view('admin/dashboard/index', $data);
+    }
+
+    /**
+     * Get patient statistics for admin dashboard
+     */
+    private function getPatientStats()
+    {
+        try {
+            $db = db_connect();
+            $today = date('Y-m-d');
+
+            return [
+                'total_patients' => $db->query("SELECT COUNT(*) as count FROM patients")->getRow()->count,
+                'active_patients' => $db->query("SELECT COUNT(*) as count FROM patients WHERE status = 'Active'")->getRow()->count,
+                'registrations_today' => $db->query("SELECT COUNT(*) as count FROM patients WHERE DATE(created_at) = ?", [$today])->getRow()->count,
+                'outpatients' => $db->query("SELECT COUNT(*) as count FROM patients WHERE patient_type = 'Outpatient'")->getRow()->count,
+                'inpatients' => $db->query("SELECT COUNT(*) as count FROM patients WHERE patient_type = 'Inpatient'")->getRow()->count,
+                'emergency_patients' => $db->query("SELECT COUNT(*) as count FROM patients WHERE patient_type = 'Emergency'")->getRow()->count
+            ];
+        } catch (\Exception $e) {
+            log_message('error', "Error getting patient statistics: " . $e->getMessage());
+            return [
+                'total_patients' => 0,
+                'active_patients' => 0,
+                'registrations_today' => 0,
+                'outpatients' => 0,
+                'inpatients' => 0,
+                'emergency_patients' => 0
+            ];
+        }
     }
 
     // System Settings method
@@ -94,5 +131,14 @@ class Admin extends BaseController
 
         $result = $this->userService->getUserStats();
         return $this->response->setJSON($result);
+    }
+
+    public function getPatientStatistics()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        $patientStats = $this->getPatientStats();
+        return $this->response->setJSON($patientStats);
     }
 }
