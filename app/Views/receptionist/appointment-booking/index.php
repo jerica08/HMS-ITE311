@@ -90,43 +90,35 @@
                         <form id="appointmentBookingForm" action="/receptionist/appointments/book" method="post" novalidate>
                             <?= csrf_field() ?>
                             <div class="form-grid">
-                                 <!--Patient-->
                                 <div class="form-group">
                                     <label for="patient">Patient</label>
                                     <input type="text" id="patient" name="patient_search" placeholder="Search by name or ID" autocomplete="off" required>
                                 </div>
-                                 <!--Date-->
-                                <div class="form-group">
-                                    <label for="date">Date</label>
-                                    <input type="date" id="date" name="appointment_date" required>
-                                </div>
-                                 <!--Select Department-->
-                                <div class="form-group">
-                                    <label for="department">Department</label>
-                                    <select id="department" name="department_id" required>
-                                        <option value="">Select department</option>
-                                        <option value="laboratory">Laboratory</option>
-                                        <option value="cardiology">Cardiology</option>
-                                        <option value="neurology">Neurology</option>
-                                        <option value="orthopedics">Orthopedics</option>
-                                        <option value="radiology">Radiology</option>
-                                        <option value="pharmacy">Pharmacy</option>
-                                        <option value="psychiatry">Psychiatry</option>
-                                    </select>
-                                </div>
-                                 <!--Select Doctor-->
                                 <div class="form-group">
                                     <label for="doctor">Doctor</label>
                                     <select id="doctor" name="doctor_id" required>
                                         <option value="">Select doctor</option>
                                     </select>
                                 </div>
-                                 <!--Time-->
+                                <div class="form-group">
+                                    <label for="department">Department</label>
+                                    <select id="department" name="department_id" required>
+                                        <option value="">Select department</option>
+                                         <option value="emergency">Emergency</option>
+                                         <option value="cardiology">Cardiology</option>
+                                         <option value="laboratory">Laboratory</option>
+                                         <option value="radiology">Radiology</option>
+                                         <option value="dermatology">Dermatology</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="appointment_date" required>
+                                </div>
                                 <div class="form-group">
                                     <label for="time">Time</label>
                                     <input type="time" id="time" name="appointment_time" required>
                                 </div>
-                                <!--Visit Type-->
                                 <div class="form-group">
                                     <label for="visitType">Visit Type</label>
                                     <select id="visitType" name="visit_type">

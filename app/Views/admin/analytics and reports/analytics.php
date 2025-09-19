@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics & Reports Management - HMS Admin</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
+    <link rel="stylesheet" href="/assets/css/dashboard-common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .analytics-grid {
@@ -191,12 +191,12 @@
                           Staff Management
                       </a>
                   </li>
-                   <li class="nav-item">
-                      <a href="<?= base_url('admin/patient') ?>" class="nav-link">
-                          <i class="fas fa-user-injured nav-icon"></i>
-                          Patient Management
-                      </a>
-                  </li>
+                  <li class="nav-item">
+                        <a href="<?= base_url('admin/patient') ?>" class="nav-link">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patient Management
+                        </a>
+                    </li>
                   <li class="nav-item">
                       <a href="<?= base_url('admin/resource') ?>" class="nav-link">
                           <i class="fas fa-hospital nav-icon"></i>
@@ -406,7 +406,7 @@
             </div>
         </main>
     </div>
-    <script src="<?= base_url('js/analytics.js') ?>"></script>
-    <script src="<?= base_url('js/logout.js') ?>"></script>
+    <script src="/js/analytics.js"></script>
+    <script src="/js/logout.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Laboratory - Lab Reports - HMS</title>
+    <title>Laboratory - Test Results - HMS</title>
     <link rel="stylesheet" href="/assets/css/dashboard-common.css" />
     <link
       rel="stylesheet"
@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/laboratorist/test-results" class="nav-link">
+            <a href="#" class="nav-link active">
               <i class="fas fa-chart-line nav-icon"></i>
               Test Results
             </a>
@@ -68,7 +68,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="/laboratorist/lab-reports" class="nav-link">
               <i class="fas fa-file-alt nav-icon"></i>
               Lab Reports
             </a>
@@ -78,13 +78,13 @@
 
       <!-- Main Content -->
       <main class="content">
-        <h1 class="page-title">Lab Reports</h1>
+        <h1 class="page-title">Test Results</h1>
 
         <!-- Quick Actions -->
         <div class="quick-actions">
-          <a href="#" class="btn btn-primary"><i class="fas fa-file-export"></i> Generate Daily Report</a>
-          <a href="#" class="btn btn-secondary"><i class="fas fa-calendar"></i> Monthly Summary</a>
-          <a href="#" class="btn btn-secondary"><i class="fas fa-print"></i> Print Selected</a>
+          <a href="#" class="btn btn-primary"><i class="fas fa-share"></i> Release Selected</a>
+          <a href="#" class="btn btn-secondary"><i class="fas fa-envelope"></i> Notify Physicians</a>
+          <a href="#" class="btn btn-secondary"><i class="fas fa-download"></i> Export</a>
         </div>
 
         <!-- Filters -->
@@ -92,84 +92,77 @@
           <h3 style="margin-bottom: 1rem">Filters</h3>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem">
             <div>
-              <label style="display:block; font-weight:600; margin-bottom: .5rem">Report Type</label>
-              <select id="reportType" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px">
-                <option value="all">All</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Search</label>
+              <input type="text" id="search" placeholder="Sample ID, Patient, Test" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px" />
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Result Status</label>
+              <select id="resultStatus" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px">
+                <option value="">All</option>
+                <option value="ready">Ready</option>
+                <option value="critical">Critical</option>
+                <option value="hold">On Hold</option>
+                <option value="released">Released</option>
               </select>
             </div>
             <div>
-              <label style="display:block; font-weight:600; margin-bottom: .5rem">From</label>
-              <input type="date" id="fromDate" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px" />
-            </div>
-            <div>
-              <label style="display:block; font-weight:600; margin-bottom: .5rem">To</label>
-              <input type="date" id="toDate" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px" />
-            </div>
-            <div>
-              <label style="display:block; font-weight:600; margin-bottom: .5rem">Department</label>
-              <select id="department" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px">
-                <option value="all">All</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="hematology">Hematology</option>
-                <option value="microbiology">Microbiology</option>
-              </select>
+              <label style="display:block; font-weight:600; margin-bottom: .5rem">Date</label>
+              <input type="date" id="filterDate" style="width:100%; padding:.6rem; border:1px solid #e2e8f0; border-radius:8px" />
             </div>
           </div>
         </div>
 
-        <!-- Reports Table -->
+        <!-- Results Table -->
         <div class="table-container" style="margin-top: 1.5rem">
-          <h3 style="margin-bottom: 1rem">Generated Reports</h3>
+          <h3 style="margin-bottom: 1rem">Results</h3>
           <table class="table">
             <thead>
               <tr>
                 <th><input type="checkbox" /></th>
-                <th>Report ID</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Period</th>
-                <th>Generated</th>
+                <th>Sample ID</th>
+                <th>Patient</th>
+                <th>Test</th>
+                <th>Result</th>
+                <th>Reference</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td>REP-2025-0901</td>
-                <td>Daily Summary</td>
-                <td>Daily</td>
-                <td>2025-09-18</td>
-                <td>11:30 AM</td>
+                <td>LAB-2025-061</td>
+                <td>Maria Garcia</td>
+                <td>Complete Blood Count</td>
+                <td>WBC: 6.5, Hgb: 12.9</td>
+                <td>WBC: 4.5-11, Hgb: 12-16</td>
+                <td><span class="badge badge-success">Ready</span></td>
                 <td>
-                  <a href="#" class="btn btn-primary" style="padding:.3rem .8rem; font-size:.8rem"><i class="fas fa-eye"></i> View</a>
-                  <a href="#" class="btn btn-secondary" style="padding:.3rem .8rem; font-size:.8rem"><i class="fas fa-download"></i> Download</a>
+                  <a href="#" class="btn btn-primary" style="padding:.3rem .8rem; font-size:.8rem">Release</a>
                 </td>
               </tr>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td>REP-2025-0831</td>
-                <td>Monthly Summary - August</td>
-                <td>Monthly</td>
-                <td>2025-08-01 → 2025-08-31</td>
-                <td>Sep 1, 2025</td>
+                <td>LAB-2025-062</td>
+                <td>David Lee</td>
+                <td>Potassium</td>
+                <td>6.8 mEq/L</td>
+                <td>3.5-5.0 mEq/L</td>
+                <td><span class="badge badge-danger">Critical</span></td>
                 <td>
-                  <a href="#" class="btn btn-primary" style="padding:.3rem .8rem; font-size:.8rem"><i class="fas fa-eye"></i> View</a>
-                  <a href="#" class="btn btn-secondary" style="padding:.3rem .8rem; font-size:.8rem"><i class="fas fa-download"></i> Download</a>
+                  <a href="#" class="btn btn-danger" style="padding:.3rem .8rem; font-size:.8rem">Call</a>
                 </td>
               </tr>
               <tr>
                 <td><input type="checkbox" /></td>
-                <td>REP-2025-W37</td>
-                <td>Weekly Turnaround Time</td>
-                <td>Weekly</td>
-                <td>Week 37, 2025</td>
-                <td>Sep 15, 2025</td>
+                <td>LAB-2025-063</td>
+                <td>Lisa Anderson</td>
+                <td>Urinalysis</td>
+                <td>Normal</td>
+                <td>-</td>
+                <td><span class="badge badge-warning">On Hold</span></td>
                 <td>
-                  <a href="#" class="btn btn-primary" style="padding:.3rem .8rem; font-size:.8rem"><i class="fas fa-eye"></i> View</a>
-                  <a href="#" class="btn btn-secondary" style="padding:.3rem .8rem; font-size:.8rem"><i class="fas fa-download"></i> Download</a>
+                  <a href="#" class="btn btn-secondary" style="padding:.3rem .8rem; font-size:.8rem">Review</a>
                 </td>
               </tr>
             </tbody>

@@ -351,12 +351,12 @@
                           Staff Management
                       </a>
                   </li>
-                   <li class="nav-item">
-                      <a href="<?= base_url('admin/patient') ?>" class="nav-link">
-                          <i class="fas fa-user-injured nav-icon"></i>
-                          Patient Management
-                      </a>
-                  </li>
+                  <li class="nav-item">
+                        <a href="<?= base_url('admin/patient') ?>" class="nav-link">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patient Management
+                        </a>
+                    </li>
                   <li class="nav-item">
                       <a href="<?= base_url('admin/resource') ?>" class="nav-link">
                           <i class="fas fa-hospital nav-icon"></i>
@@ -465,7 +465,7 @@
 
                 <!--Quick Actions-->
                 <div class="quick-actions">
-                    <div class="action grid">
+                    <div class="actionsgrid">
                         <button class="btn btn-primary">
                             <i class="fas fa-user-plus"></i> Add Staff
                         </button>
@@ -592,6 +592,8 @@
                     </div>
                 </div>
             </div>
+
+    
 
                 <script src="<?= base_url('js/logout.js') ?>"></script>
 

@@ -97,13 +97,320 @@ function closeUserModal() {
     document.getElementById('userModal').style.display = 'none';
 }
 
+// Enhanced search functionality with debouncing
+let searchTimeout;
+function handleSearchInput() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        performDatabaseSearch();
+    }, 500); // Wait 500ms after user stops typing
+}
+
+// Perform real-time database search
+async function performDatabaseSearch() {
+    const searchInput = document.getElementById("searchInput");
+    const roleFilter = document.getElementById("roleFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    
+    if (!searchInput || !roleFilter || !statusFilter) {
+        console.error('Filter elements not found');
+        return;
+    }
+
+    let search = searchInput.value.trim();
+    let role = roleFilter.value;
+    let status = statusFilter.value;
+
+    // Show loading state
+    showSearchLoading(true);
+    showTableLoading(true);
+
+    try {
+        // Build query string for API call
+        let queryParams = new URLSearchParams();
+        if (search) queryParams.append('search', search);
+        if (role) queryParams.append('role', role);
+        if (status) queryParams.append('status', status);
+
+        console.log('Performing database search with params:', queryParams.toString());
+
+        // Make API call to get filtered users
+        const response = await fetch(`/admin/users/api?${queryParams.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log('Search results:', result);
+            
+            if (result.status === 'success') {
+                // Update the table with filtered results
+                updateUserTable(result.data || []);
+                // Update search result count
+                updateSearchResultCount(result.data ? result.data.length : 0);
+                // Update statistics
+                updateUserStats();
+            } else {
+                showNotification(result.message || 'Search failed', 'error');
+                updateUserTable([]);
+            }
+        } else {
+            console.error('Search request failed:', response.status);
+            showNotification('Search request failed. Please try again.', 'error');
+            updateUserTable([]);
+        }
+    } catch (error) {
+        console.error('Error performing search:', error);
+        showNotification('Network error during search. Please try again.', 'error');
+        updateUserTable([]);
+    } finally {
+        showSearchLoading(false);
+        showTableLoading(false);
+    }
+}
+
+// Apply filters function with database search
+function applyFilters() {
+    performDatabaseSearch();
+}
+
+// Clear all filters and reload all users
+async function clearFilters() {
+    console.log('Clearing all filters');
+    
+    // Clear form inputs
+    const searchInput = document.getElementById("searchInput");
+    const roleFilter = document.getElementById("roleFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    
+    if (searchInput) searchInput.value = '';
+    if (roleFilter) roleFilter.value = '';
+    if (statusFilter) statusFilter.value = '';
+    
+    // Load all users
+    await performDatabaseSearch();
+}
+
+// Update user table with new data
+function updateUserTable(users) {
+    const tableBody = document.getElementById('usersTableBody');
+    if (!tableBody) {
+        console.error('Users table body not found');
+        return;
+    }
+
+    if (!users || users.length === 0) {
+        // Show no results message
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                    <p>No users found matching your search criteria.</p>
+                    <button onclick="clearFilters()" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    // Build table rows
+    let tableHTML = '';
+    users.forEach(user => {
+        const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim();
+        const initials = `${(user.first_name || 'U').charAt(0)}${(user.last_name || 'U').charAt(0)}`.toUpperCase();
+        const userRole = (user.role || 'user').replace('_', ' ');
+        const userStatus = user.status || 'inactive';
+        
+        // Calculate last login display
+        let lastLoginDisplay = 'Never';
+        if (user.updated_at || user.created_at) {
+            const lastLogin = user.updated_at || user.created_at;
+            const diff = Math.floor((Date.now() - new Date(lastLogin).getTime()) / 1000);
+            if (diff < 3600) {
+                lastLoginDisplay = 'Less than 1 hour ago';
+            } else if (diff < 86400) {
+                lastLoginDisplay = Math.floor(diff / 3600) + ' hours ago';
+            } else {
+                lastLoginDisplay = new Date(lastLogin).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                });
+            }
+        }
+
+        tableHTML += `
+            <tr class="user-row">
+                <td><input type="checkbox" class="user-checkbox" data-user-id="${user.id}"></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="user-avatar">
+                            ${initials}
+                        </div>
+                        <div>
+                            <div style="font-weight: 600;">
+                                ${fullName || 'Unknown User'}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                ${user.email || ''}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                ID: ${user.employee_id || user.username || 'N/A'}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <span class="role-badge role-${userRole.replace(' ', '-').toLowerCase()}">
+                        ${userRole.charAt(0).toUpperCase() + userRole.slice(1)}
+                    </span>
+                </td>
+                <td>${user.department || 'N/A'}</td>
+                <td>
+                    <i class="fas fa-circle status-${userStatus}"></i> 
+                    ${userStatus.charAt(0).toUpperCase() + userStatus.slice(1)}
+                </td>
+                <td>${lastLoginDisplay}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-btn btn-edit" onclick="editUser(${user.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn btn-reset" onclick="resetPassword(${user.id})">
+                            <i class="fas fa-key"></i> Reset
+                        </button>
+                        <button class="action-btn btn-delete" onclick="deleteUser(${user.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+
+    tableBody.innerHTML = tableHTML;
+    console.log(`Updated table with ${users.length} users`);
+}
+
+// Show loading state for search
+function showSearchLoading(show) {
+    const applyButton = document.querySelector('button[onclick="applyFilters()"]');
+    if (applyButton) {
+        if (show) {
+            applyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+            applyButton.disabled = true;
+        } else {
+            applyButton.innerHTML = '<i class="fas fa-search"></i> Apply Filters';
+            applyButton.disabled = false;
+        }
+    }
+}
+
+// Show loading state for table
+function showTableLoading(show) {
+    const tableBody = document.getElementById('usersTableBody');
+    if (!tableBody) return;
+
+    if (show) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;"></i>
+                    <p>Searching users...</p>
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// Real-time search functionality
+function initializeRealTimeSearch() {
+    const searchInput = document.getElementById("searchInput");
+    const roleFilter = document.getElementById("roleFilter");
+    const statusFilter = document.getElementById("statusFilter");
+
+    if (searchInput) {
+        // Add event listener for real-time search
+        searchInput.addEventListener('input', handleSearchInput);
+        
+        // Add placeholder animation
+        let placeholderIndex = 0;
+        const placeholders = [
+            "Search by name, email, or ID...",
+            "Try typing a name...",
+            "Search by email address...",
+            "Enter employee ID..."
+        ];
+        
+        setInterval(() => {
+            if (document.activeElement !== searchInput) {
+                searchInput.placeholder = placeholders[placeholderIndex];
+                placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+            }
+        }, 3000);
+    }
+
+    if (roleFilter) {
+        roleFilter.addEventListener('change', performDatabaseSearch);
+    }
+
+    if (statusFilter) {
+        statusFilter.addEventListener('change', performDatabaseSearch);
+    }
+}
+
+// Enhanced keyboard shortcuts
+function initializeKeyboardShortcuts() {
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + F to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            const searchInput = document.getElementById("searchInput");
+            if (searchInput) {
+                searchInput.focus();
+                searchInput.select();
+            }
+        }
+        
+        // Escape to clear search
+        if (e.key === 'Escape') {
+            const searchInput = document.getElementById("searchInput");
+            if (searchInput && document.activeElement === searchInput) {
+                searchInput.value = '';
+                handleSearchInput();
+            }
+        }
+        
+        // Enter to apply filters when search is focused
+        if (e.key === 'Enter' && document.activeElement === document.getElementById("searchInput")) {
+            e.preventDefault();
+            applyFilters();
+        }
+    });
+}
+
 // Initialize user management functionality
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing user management functionality...');
+    
     // Update stats immediately
     updateUserStats();
     
     // Update stats every 30 seconds
     setInterval(updateUserStats, 30000);
+    
+    // Initialize search functionality
+    initializeRealTimeSearch();
+    
+    // Initialize keyboard shortcuts
+    initializeKeyboardShortcuts();
     
     // Handle form submission for adding/editing users
     const userForm = document.getElementById('userForm');
@@ -200,4 +507,47 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Add search result count display
+    updateSearchResultCount();
+    
+    // Load initial data
+    performDatabaseSearch();
 });
+
+// Function to update search result count
+function updateSearchResultCount(count = null) {
+    const searchInput = document.getElementById("searchInput");
+    const roleFilter = document.getElementById("roleFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    
+    const hasFilters = (searchInput && searchInput.value.trim()) || 
+                      (roleFilter && roleFilter.value) || 
+                      (statusFilter && statusFilter.value);
+    
+    if (hasFilters) {
+        // Create or update result count display
+        let resultCount = document.getElementById('searchResultCount');
+        if (!resultCount) {
+            resultCount = document.createElement('div');
+            resultCount.id = 'searchResultCount';
+            resultCount.style.cssText = 'margin: 1rem 0; padding: 0.5rem; background: #f8f9fa; border-radius: 4px; font-size: 0.9rem; color: #6c757d;';
+            
+            const tableContainer = document.querySelector('.table-container');
+            if (tableContainer) {
+                tableContainer.parentNode.insertBefore(resultCount, tableContainer);
+            }
+        }
+        
+        // Use provided count or count from DOM
+        const userCount = count !== null ? count : document.querySelectorAll('.user-row').length;
+        resultCount.innerHTML = `<i class="fas fa-search"></i> Found ${userCount} user${userCount !== 1 ? 's' : ''} matching your criteria`;
+        resultCount.style.display = 'block';
+    } else {
+        // Hide result count if no filters
+        const resultCount = document.getElementById('searchResultCount');
+        if (resultCount) {
+            resultCount.style.display = 'none';
+        }
+    }
+}
