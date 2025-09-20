@@ -137,7 +137,6 @@ $routes->group('nurse', function($routes) {
     $routes->get('shift-report', 'Nurse\ShiftReportController::index');
 });
 
-<<<<<<< HEAD
 $routes->group('receptionist', function($routes) {
     $routes->get('dashboard', 'Receptionist::index');
     
@@ -158,8 +157,7 @@ $routes->group('receptionist', function($routes) {
     $routes->get('insurance', 'Receptionist::insurance');
 });
 
-=======
->>>>>>> 613f0b4 (patient registration tracking on our receptionist)
+
 $routes->group('pharmacist', function($routes) {
     $routes->get('dashboard', 'Pharmacist::index');
 });
