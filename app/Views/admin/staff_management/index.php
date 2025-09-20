@@ -590,6 +590,39 @@
                 </div>
                 </div>
 
+                <!-- Staff List Table -->
+                <div class="staff-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#10b981;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="section-title">Staff Directory</div>
+                            <div style="color:#6b7280;font-size:0.9rem;">All registered staff members</div>
+                        </div>
+                    </div>
+
+                    <div style="overflow:auto;">
+                        <table style="width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                            <thead>
+                                <tr style="background:#f8fafc; color:#374151;">
+                                    <th style="text-align:left; padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">Name</th>
+                                    <th style="text-align:left; padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">Role</th>
+                                    <th style="text-align:left; padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">Department</th>
+                                    <th style="text-align:left; padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">Email</th>
+                                    <th style="text-align:left; padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">Status</th>
+                                    <th style="text-align:left; padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staffTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align:center; color:#6b7280; padding:1rem;">Loading staff...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <!-- Add Staff Modal -->
                 <div id="addStaffModal" class="hms-modal-overlay" aria-hidden="true">
                     <div class="hms-modal" role="dialog" aria-modal="true" aria-labelledby="addStaffTitle">
@@ -801,6 +834,48 @@
                             alert('An error occurred while creating staff');
                         }
                     });
+
+                    // Load Staff Table
+                    async function loadStaffTable() {
+                        const tbody = document.getElementById('staffTableBody');
+                        if (!tbody) return;
+                        try {
+                            const res = await fetch('<?= base_url('admin/staff/api') ?>', { headers: { 'Accept': 'application/json' } });
+                            if (!res.ok) throw new Error('Failed to load staff');
+                            const staff = await res.json();
+                            if (!Array.isArray(staff) || staff.length === 0) {
+                                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#6b7280; padding:1rem;">No staff found.</td></tr>';
+                                return;
+                            }
+                            tbody.innerHTML = staff.map(s => {
+                                const id = s.id ?? '';
+                                const name = `${s.first_name ?? ''} ${s.last_name ?? ''}`.trim();
+                                const role = s.role ?? '';
+                                const dept = s.department ?? '';
+                                const email = s.email ?? '';
+                                const status = s.status ?? '';
+                                const statusBadge = status ? `<span class="staff-status ${status === 'active' ? 'status-on-duty' : 'status-off-duty'}">${status}</span>` : '';
+                                const viewUrl = '<?= base_url('admin/staff') ?>/' + id + '/shifts';
+                                return `
+                                    <tr>
+                                        <td style="padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">${name || '-'}</td>
+                                        <td style="padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb; text-transform:capitalize;">${role || '-'}</td>
+                                        <td style="padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">${dept || '-'}</td>
+                                        <td style="padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">${email || '-'}</td>
+                                        <td style="padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">${statusBadge}</td>
+                                        <td style="padding:0.75rem 1rem; border-bottom:1px solid #e5e7eb;">
+                                            <a class="btn btn-primary btn-small" href="${viewUrl}"><i class="fas fa-calendar"></i> View Shifts</a>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('');
+                        } catch (err) {
+                            console.error(err);
+                            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ef4444; padding:1rem;">Failed to load staff.</td></tr>';
+                        }
+                    }
+                    // Initial load
+                    window.addEventListener('DOMContentLoaded', loadStaffTable);
                     // Assign Shift (Doctors only)
                     const assignShiftModal = document.getElementById('assignShiftModal');
                     const doctorSelect = document.getElementById('doctor_id');

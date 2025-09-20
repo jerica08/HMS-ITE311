@@ -79,6 +79,8 @@ $routes->group('admin', function($routes) {
     $routes->put('staff/update/(:num)', 'Admin\StaffManagementController::update/$1');
     $routes->post('staff/update/(:num)', 'Admin\StaffManagementController::update/$1'); // fallback for browsers
     $routes->delete('staff/delete/(:num)', 'Admin\StaffManagementController::delete/$1');
+    $routes->get('staff/(:num)/shifts', 'Admin\StaffManagementController::shifts/$1');
+    $routes->get('staff/(:num)/shifts/api', 'Admin\StaffManagementController::shiftsApi/$1');
 
     // Resource Management Routes
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 

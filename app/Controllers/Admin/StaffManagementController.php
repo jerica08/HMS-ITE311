@@ -57,4 +57,36 @@ class StaffManagementController extends AdminBaseController
         $staffModel->delete($id);
         return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member deleted']);
     }
-}   
+
+    public function shifts($id)
+    {
+        // Ensure admin auth and load common view data
+        if ($redirect = $this->checkAdminAuth()) {
+            return $redirect;
+        }
+
+        $viewData = $this->getCommonViewData();
+
+        // Load staff info for header/context
+        $staffModel = new \App\Models\StaffModel();
+        $staff = $staffModel->find($id);
+        if (!$staff) {
+            return redirect()->to(base_url('admin/staff'))
+                ->with('error', 'Staff member not found');
+        }
+
+        $viewData['staff'] = $staff;
+        return view('admin/staff_management/shifts', $viewData);
+    }
+
+    public function shiftsApi($id)
+    {
+        // Placeholder API for fetching shifts of a staff member
+        // In future, integrate with ShiftModel
+        $dummy = [
+            // Example structure
+            // ['date' => '2025-09-20', 'start' => '06:00', 'end' => '14:00', 'type' => 'morning', 'department' => 'Emergency']
+        ];
+        return $this->response->setJSON(['data' => $dummy]);
+    }
+}
