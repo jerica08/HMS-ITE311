@@ -259,7 +259,7 @@
                     </div>  
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value blue">1452</div>
+                            <div class="metric-value blue">0</div>
                         </div>
                     </div>
                 </div>
@@ -276,7 +276,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">350</div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>   
                 </div>
@@ -293,7 +293,7 @@
                     </div>
                     <div class="card-metrics">
                         <div class="metric">
-                            <div class="metric-value purple">$45,678</div>
+                            <div class="metric-value purple">0</div>
                         </div>
                     </div>
                 </div>
@@ -331,79 +331,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!--Report Filters-->    
-           <div class="report-filters">
-                <h3 style="margin-bottom: 1rem;">Report Filters</h3>
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <label>Date Range</label>
-                        <select clsas="filter-input" id="dateRange">
-                            <option value="today">Today</option>
-                            <option value="week">This Week</option>
-                            <option value="month" selected>This Month</option>
-                            <option value="quarter">This Quarter</option>
-                            <option value="year">This Year</option>
-                            <option value="custom">Custom Range</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Department</label>
-                        <select class="filter-input" id="department">
-                            <option value="">All Department</option>
-                            <option value="emergency">Emergency</option>
-                            <option value="cardiology">Cardiology</option>
-                            <option value="laboratory">Laboratory</option>
-                            <option value="pharmacy">Pharmacy</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Report Type</label>
-                        <select class="filter-input" id="reportType">
-                            <option value="overview">Overview</option>
-                            <option value="financial">Financial</option>
-                            <option value="operational">Operational</option>
-                            <option value="clinical">Clinical</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>&nbsp;</label>
-                        <button class="btn btn-primary" onclick="applyFilters()">
-                            <i class="fas fa-filter"></i> Apply Filters
-                        </button>
-                    </div>
-                </div>  
-                <div class="report-actions">
-                    <button class="btn btn-success" onclick="exportReport('pdf')">
-                        <i class="fas fa-file-pdf"></i> Export PDF
-                    </button>
-                    <button class="btn btn-secondary" onclick="exportReport('excel')">
-                        <i class="fas fa-file-excel"></i> Export Excel
-                    </button>
-                    <button class="btn btn-warning" onclick="scheduleReport()">
-                        <i class="fas fa-clock"></i> Schedule Report
-                    </button>
-                    <button class="btn btn-info" onclick="shareReport()">
-                        <i class="fas fa-share"></i> Share Report
-                    </button>
-                </div>
-            </div>
-
-            <!-- Charts Grid -->
-            <div class="analytics-grid">
-                <!-- Patient Flow Chart -->
-                <div class="chart-container full-width">
-                    <div class="chart-header">
-                        <div class="chart-title">Patient Flow Trends</div>
-                        <div class="chart-period">Last 30 Days</div>
-                    </div>
-                    
-                </div>
-
-                <!--For adding otehr features-->
-
-            </div>
+            </div>       
         </main>
     </div>
     <script src="/js/analytics.js"></script>

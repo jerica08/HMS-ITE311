@@ -129,6 +129,11 @@ $routes->group('doctor', function($routes) {
     $routes->get('mySchedule', 'Doctor\MyScheduleController::index');
     // dashed alias for sidebar links
     $routes->get('my-schedule', 'Doctor\MyScheduleController::index');
+    // Doctor shifts API and actions
+    $routes->get('mySchedule/shifts/api', 'Doctor\MyScheduleController::shiftsApi');
+    $routes->post('mySchedule/shifts', 'Doctor\MyScheduleController::createShift');
+    $routes->put('mySchedule/shifts/(:num)', 'Doctor\MyScheduleController::updateShift/$1');
+    $routes->post('mySchedule/shifts/(:num)', 'Doctor\MyScheduleController::updateShift/$1'); // fallback
 });
 
 $routes->group('nurse', function($routes) {

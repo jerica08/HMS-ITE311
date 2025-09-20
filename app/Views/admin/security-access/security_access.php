@@ -285,7 +285,7 @@
                             <p class="card-subtitle">Overall system security</p>
                         </div>
                     </div>
-                     <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #22c55e; text-align: center; padding: 1rem;">98.5%</div>
+                     <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #22c55e; text-align: center; padding: 1rem;">0%</div>
                     
                 </div>
 
@@ -300,7 +300,7 @@
                             <p class="card-subtitle">Currently user sessions</p>
                         </div>
                     </div>
-                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #2266c5; text-align: center; padding: 1rem;">156</div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #2266c5; text-align: center; padding: 1rem;">0</div>
                      
                 </div>
 
@@ -315,7 +315,7 @@
                             <p class="card-subtitle">Suspicious IPs</p>
                         </div>
                     </div>
-                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #c52222; text-align: center; padding: 1rem;">7</div>
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #c52222; text-align: center; padding: 1rem;">0</div>
                     
                 </div>
                 <!--2FA-->
@@ -329,127 +329,7 @@
                             <p class="card-subtitle">Users with 2FA</p>
                         </div>
                     </div>
-                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #cf7214; text-align: center; padding: 1rem;">89</div>
-                </div>
-            </div>
-
-            <div class="security-grid">
-                
-                <!--Access Permissions-->
-                <div class="security-section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fas fa-user-lock"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Access Permissions</div>
-                        </div>
-                    </div>
-
-                    <div class="permisiion-grid">
-                        <div class="permission card">
-                            <div class="permission-icon">
-                                <i class="fas fa-user-shiled"></i>
-                            </div>
-                            <div class="permission-title">Admin Access</div>
-                            <div class="permission-count">5</div>
-                        </div>
-                        <div class="permission card">
-                            <div class="permission-icon">
-                                <i class="fas fa-user-md"></i>
-                            </div>
-                            <div class="permission-title">Medical Staff</div>
-                            <div class="permission-count">89</div>
-                        </div>
-                        <div class="permission card">
-                            <div class="permission-icon">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <div class="permission-title">Support Staff</div>
-                            <div class="permission-count">34</div>
-                        </div>
-                        <div class="permission card">
-                            <div class="permission-icon">
-                                <i class="fas fa-user-clock"></i>
-                            </div>
-                            <div class="permission-title">Temporary Access</div>
-                            <div class="permission-count">34</div>
-                        </div>
-                    </div>
-        
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="">
-                            <i class="fs fa-file-alt"></i>Manage Permission
-                        </button>
-                        <button class="btn btn-primary btn-small" onclick="">
-                            <i class="fs fa-file-alt"></i>Review Access
-                        </button>
-                    </div>
-                </div>
-
-                <!--Login Security-->
-                <div class="security-section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </div>
-                        <div>
-                            <div class="section-title">Login Security</div>
-                        </div>
-                    </div>
-
-                    <div class="security-metric">
-                        <div class="metric-label">Password Strength</div>
-                        <div class="metric-value metric-good">Strong</div>
-                    </div>
-                     <div class="security-metric">
-                        <div class="metric-label">Failed Login Attempts</div>
-                        <div class="metric-value metric-good">10</div>
-                    </div>
-                    <div class="security-metric">
-                        <div class="metric-label">Firewall Status</div>
-                        <div class="metric-value metric-good">Active</div>
-                    </div>
-                    <div class="security-metric">
-                        <div class="metric-label">Vulnerability Scan</div>
-                        <div class="metric-value metric-good">Clean</div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary btn-small" onclick="runSecurityScan()">
-                            <i class="fs fa-file-alt"></i>Security Scan
-                        </button>
-                        <button class="btn btn-primary btn-small" onclick="generateSecurityReport()">
-                            <i class="fs fa-file-alt"></i>Generate Report
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!--Display here the Recent Login Attemps-->
-            <div class="access-table">
-                <div class="table-header">
-                    <h3> Recent Login Attemps</h3>
-                    <div style="display:flex;gap:0.5rem;">
-                        <button class="btn btn-secondary btn-small" onlcick="refreshLoginAttempts()">
-                            <i class="fas fa-refresh"></i> Refresh
-                        </button>
-                         <button class="btn btn-warning btn-small" onclick="blockSuspiciousIPs()">
-                            <i class="fas fa-ban"></i> Block Suspicious
-                        </button>
-                    </div>
-                </div>   
-                
-                 <div style="max-height: 400px; overflow-y: auto;">
-                    <div class="login-attempt">
-                        <div>
-                            <strong>Dr. John Smith</strong><br>
-                            <small>this is an example</small>
-                        </div>
-                        <div class="ip-address">192.168.1.45</div>
-                        <div>2 minutes ago</div>
-                        <div class="attempt-status status-success">Success</div>
-                    </div>                  
+                    <div class="stat-number" style="font-size: 2rem; font-weight: bold; color: #cf7214; text-align: center; padding: 1rem;">0</div>
                 </div>
             </div>
 
