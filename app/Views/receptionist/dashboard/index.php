@@ -130,8 +130,6 @@
                             <a href="<?= base_url('receptionist/patient-registration') ?>" class="action-btn secondary">View All</a>
                         </div>
                     </div>
-<<<<<<< HEAD
-=======
                     <!--Patient Overview Card-->
                     <div class="overview-card">
                         <div class="card-header-modern">
@@ -162,7 +160,6 @@
                             <a href="<?= base_url('receptionist/waiting-room') ?>" class="action-btn secondary">Waiting Room</a>
                         </div>
                     </div>
->>>>>>> 613f0b4 (patient registration tracking on our receptionist)
                     <!--Insurance Verification-->
                     <div class="overview-card">
                         <div class="card-header-modern">
@@ -221,54 +218,6 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-<<<<<<< HEAD
-                        <tbody>
-                            <tr>
-                                <td><strong>09:00 AM</strong></td>
-                                <td>PATIENT1</td>
-                                <td>Dr. Johnson</td>
-                                <td>Follow-up</td>
-                                <td>Blue Cross</td>
-                                <td><span class="badge badge-success">Checked In</span></td>
-                                <td><a href="#" class="btn btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>09:30 AM</strong></td>
-                                <td>PATIENT2</td>
-                                <td>Dr. Wilson</td>
-                                <td>Consultation</td>
-                                <td>Aetna</td>
-                                <td><span class="badge badge-warning">Waiting</span></td>
-                                <td><a href="#" class="btn btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check In</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>10:00 AM</strong></td>
-                                <td>PATIENT3</td>
-                                <td>Dr. Brown</td>
-                                <td>Check-up</td>
-                                <td>Medicare</td>
-                                <td><span class="badge badge-info">Scheduled</span></td>
-                                <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check In</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>10:30 AM</strong></td>
-                                <td>PATIENT4</td>
-                                <td>Dr. Martinez</td>
-                                <td>Follow-up</td>
-                                <td>Cigna</td>
-                                <td><span class="badge badge-info">Scheduled</span></td>
-                                <td><a href="#" class="btn btn-success" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Check In</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>11:00 AM</strong></td>
-                                <td>PATIENT5</td>
-                                <td>Dr. Lee</td>
-                                <td>New Patient</td>
-                                <td>Self-Pay</td>
-                                <td><span class="badge badge-danger">No Show</span></td>
-                                <td><a href="#" class="btn btn-warning" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Contact</a></td>
-                            </tr>
-=======
                         <tbody id="recent-patients-table">
                             <?php if (!empty($trackingData['recent_registrations'])): ?>
                                 <?php foreach ($trackingData['recent_registrations'] as $patient): ?>
@@ -300,7 +249,6 @@
                                     <td colspan="8" class="text-center text-muted">No recent patient registrations found</td>
                                 </tr>
                             <?php endif; ?>
->>>>>>> 613f0b4 (patient registration tracking on our receptionist)
                         </tbody>
                     </table>
                 </div>
