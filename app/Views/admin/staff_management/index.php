@@ -597,8 +597,8 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div>
-                            <div class="section-title">Staff Directory</div>
-                            <div style="color:#6b7280;font-size:0.9rem;">All registered staff members</div>
+                            <div class="section-title">Doctors Directory</div>
+                            <div style="color:#6b7280;font-size:0.9rem;">All registered doctors</div>
                         </div>
                     </div>
 
@@ -843,11 +843,12 @@
                             const res = await fetch('<?= base_url('admin/staff/api') ?>', { headers: { 'Accept': 'application/json' } });
                             if (!res.ok) throw new Error('Failed to load staff');
                             const staff = await res.json();
-                            if (!Array.isArray(staff) || staff.length === 0) {
-                                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#6b7280; padding:1rem;">No staff found.</td></tr>';
+                            const doctors = Array.isArray(staff) ? staff.filter(s => (s.role ?? '').toLowerCase() === 'doctor') : [];
+                            if (doctors.length === 0) {
+                                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#6b7280; padding:1rem;">No doctors found.</td></tr>';
                                 return;
                             }
-                            tbody.innerHTML = staff.map(s => {
+                            tbody.innerHTML = doctors.map(s => {
                                 const id = s.id ?? '';
                                 const name = `${s.first_name ?? ''} ${s.last_name ?? ''}`.trim();
                                 const role = s.role ?? '';
