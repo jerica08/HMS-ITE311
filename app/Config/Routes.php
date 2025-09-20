@@ -75,6 +75,7 @@ $routes->group('admin', function($routes) {
     // Staff Management Routes
     $routes->get('staff', 'Admin\StaffManagementController::index');
     $routes->get('staff/api', 'Admin\StaffManagementController::api');
+    $routes->get('staff/doctors', 'Admin\StaffManagementController::doctors');
     $routes->post('staff/create', 'Admin\StaffManagementController::create');
     $routes->get('staff/edit/(:num)', 'Admin\StaffManagementController::edit/$1');
     $routes->put('staff/update/(:num)', 'Admin\StaffManagementController::update/$1');
@@ -82,6 +83,7 @@ $routes->group('admin', function($routes) {
     $routes->delete('staff/delete/(:num)', 'Admin\StaffManagementController::delete/$1');
     $routes->get('staff/(:num)/shifts', 'Admin\StaffManagementController::shifts/$1');
     $routes->get('staff/(:num)/shifts/api', 'Admin\StaffManagementController::shiftsApi/$1');
+    $routes->post('staff/(:num)/shifts', 'Admin\StaffManagementController::createShift/$1');
 
     // Resource Management Routes
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 

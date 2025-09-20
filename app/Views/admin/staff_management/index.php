@@ -953,13 +953,33 @@
                     assignShiftForm?.addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const form = e.target;
-                        // UI-only demo submission
                         const formData = new FormData(form);
-                        const payload = Object.fromEntries(formData.entries());
-                        console.log('Assign Shift payload (UI only):', payload);
-                        alert('Shift assigned (UI only). Backend integration pending.');
-                        form.reset();
-                        closeAssignShiftModal();
+                        const doctorId = formData.get('doctor_id');
+                        if (!doctorId) {
+                            alert('Please select a doctor.');
+                            return;
+                        }
+                        const url = `<?= base_url('admin/staff') ?>/${doctorId}/shifts`;
+                        try {
+                            const res = await fetch(url, {
+                                method: 'POST',
+                                headers: { 'Accept': 'application/json' },
+                                body: formData
+                            });
+                            const data = await res.json();
+                            if (!res.ok || data?.status !== 'success') {
+                                const msg = data?.message || 'Failed to create shift';
+                                const errs = data?.errors ? ('\n' + JSON.stringify(data.errors)) : '';
+                                alert(msg + errs);
+                                return;
+                            }
+                            alert('Shift assigned successfully');
+                            form.reset();
+                            closeAssignShiftModal();
+                        } catch (err) {
+                            console.error(err);
+                            alert('An error occurred while assigning the shift');
+                        }
                     });
                 </script>
 

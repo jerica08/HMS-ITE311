@@ -81,12 +81,99 @@ class StaffManagementController extends AdminBaseController
 
     public function shiftsApi($id)
     {
-        // Placeholder API for fetching shifts of a staff member
-        // In future, integrate with ShiftModel
-        $dummy = [
-            // Example structure
-            // ['date' => '2025-09-20', 'start' => '06:00', 'end' => '14:00', 'type' => 'morning', 'department' => 'Emergency']
+        // Return actual shifts for a staff member
+        $shiftModel = new \App\Models\ShiftModel();
+        $rows = $shiftModel
+            ->where('staff_id', (int)$id)
+            ->orderBy('date', 'DESC')
+            ->orderBy('start_time', 'ASC')
+            ->findAll();
+
+        $data = array_map(function($r) {
+            return [
+                'date' => $r['date'] ?? null,
+                'start' => $r['start_time'] ?? null,
+                'end' => $r['end_time'] ?? null,
+                'type' => $r['shift_type'] ?? null,
+                'department' => $r['department'] ?? null,
+                'notes' => $r['notes'] ?? null,
+            ];
+        }, $rows);
+
+        return $this->response->setJSON(['data' => $data]);
+    }
+
+    public function doctors()
+    {
+        // Return active doctors for select options
+        $model = new \App\Models\StaffModel();
+        $rows = $model
+            ->select('id, first_name, last_name')
+            ->where('role', 'doctor')
+            ->where('status', 'active')
+            ->orderBy('last_name', 'ASC')
+            ->findAll();
+
+        $doctors = array_map(function($r) {
+            $first = trim($r['first_name'] ?? '');
+            $last = trim($r['last_name'] ?? '');
+            $name = trim(($last ? $last . ', ' : '') . $first);
+            if ($name === '') { $name = 'Doctor #' . ($r['id'] ?? ''); }
+            return [
+                'id' => $r['id'],
+                'name' => $name,
+            ];
+        }, $rows);
+
+        return $this->response->setJSON(['doctors' => $doctors]);
+    }
+
+    public function createShift($staffId)
+    {
+        // Ensure admin auth
+        if ($redirect = $this->checkAdminAuth()) {
+            return $redirect;
+        }
+
+        // Validate staff exists and is a doctor
+        $staffModel = new \App\Models\StaffModel();
+        $staff = $staffModel->find($staffId);
+        if (!$staff || strtolower($staff['role'] ?? '') !== 'doctor') {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid doctor selected.'
+            ]);
+        }
+
+        $payload = $this->request->getPost();
+        // Allow both FormData and JSON raw input
+        if (!$payload) {
+            $payload = $this->request->getJSON(true) ?? [];
+        }
+
+        $data = [
+            'staff_id' => (int)$staffId,
+            'date' => $payload['shift_date'] ?? null,
+            'shift_type' => $payload['shift_type'] ?? null,
+            'start_time' => $payload['start_time'] ?? null,
+            'end_time' => $payload['end_time'] ?? null,
+            'department' => $payload['location'] ?? ($payload['department'] ?? null),
+            'notes' => $payload['notes'] ?? ($payload['notes_shift'] ?? null),
+            'repeat_weekly' => isset($payload['repeat_weekly']) ? 1 : 0,
         ];
-        return $this->response->setJSON(['data' => $dummy]);
+
+        $shiftModel = new \App\Models\ShiftModel();
+        if (!$shiftModel->insert($data)) {
+            return $this->response->setStatusCode(422)->setJSON([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => $shiftModel->errors(),
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Shift created successfully'
+        ]);
     }
 }
