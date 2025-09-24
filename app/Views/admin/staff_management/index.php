@@ -356,7 +356,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="<?= base_url('admin/staff') ?>" class="nav-link active">
+                      <a href="<?= base_url('admin/staff') ?>" class="nav-link">
                           <i class="fas fa-user-tie nav-icon"></i>
                           Staff Management
                       </a>
@@ -386,7 +386,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="<?= base_url('admin/analytics') ?>" class="nav-link">
+                      <a href="<?= base_url('admin/analytics') ?>" class="nav-link active">
                           <i class="fas fa-chart-bar nav-icon"></i>
                           Analytics & Reports
                       </a>
@@ -410,7 +410,7 @@
                       </a>
                   </li>
               </ul>          
-            </nav>
+          </nav>
         
             <main class="content">
                 <h1 class="page-title"> Staff Management</h1>
