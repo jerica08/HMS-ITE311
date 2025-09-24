@@ -640,32 +640,71 @@
                             <div class="hms-modal-body">
                                 <div class="form-grid">
                                     <div>
-                                        <label class="form-label" for="first_name">First Name</label>
-                                        <input type="text" id="first_name" name="first_name" class="form-input" required>
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="last_name">Last Name</label>
-                                        <input type="text" id="last_name" name="last_name" class="form-input" required>
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="email">Email</label>
-                                        <input type="email" id="email" name="email" class="form-input" required>
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="phone">Phone</label>
-                                        <input type="text" id="phone" name="phone" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="employee_id">Employee ID</label>
-                                        <input type="text" id="employee_id" name="employee_id" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="hire_date">Hire Date</label>
-                                        <input type="date" id="hire_date" name="hire_date" class="form-input">
+                                        <label class="form-label" for="employee_code">Employee Code</label>
+                                        <input type="text" id="employee_code" name="employee_code" class="form-input" placeholder="e.g., DOC003">
                                     </div>
                                     <div class="full">
-                                        <label class="form-label" for="notes">Notes</label>
-                                        <textarea id="notes" name="notes" rows="3" class="form-textarea" placeholder="Optional notes..."></textarea>
+                                        <label class="form-label" for="full_name">Full Name</label>
+                                        <input type="text" id="full_name" name="full_name" class="form-input" placeholder="e.g., Juan Dela Cruz" required>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="gender">Gender</label>
+                                        <select id="gender" name="gender" class="form-select">
+                                            <option value="" selected>Select gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="dob">Date of Birth</label>
+                                        <input type="date" id="dob" name="dob" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="contact_no">Contact Number</label>
+                                        <input type="text" id="contact_no" name="contact_no" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="email">Email (optional)</label>
+                                        <input type="email" id="email" name="email" class="form-input" placeholder="name@example.com">
+                                    </div>
+                                    <div class="full">
+                                        <label class="form-label" for="address">Address</label>
+                                        <textarea id="address" name="address" rows="2" class="form-textarea" placeholder="House No., Street, Barangay, City, Province, ZIP"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="department">Department</label>
+                                        <select id="department" name="department" class="form-select">
+                                            <option value="" selected>Select department</option>
+                                            <option value="Administration">Administration</option>
+                                            <option value="Emergency">Emergency</option>
+                                            <option value="Cardiology">Cardiology</option>
+                                            <option value="Intensive Care Unit">Intensive Care Unit</option>
+                                            <option value="Outpatient">Outpatient</option>
+                                            <option value="Pharmacy">Pharmacy</option>
+                                            <option value="Laboratory">Laboratory</option>
+                                            <option value="Radiology">Radiology</option>
+                                            <option value="Pediatrics">Pediatrics</option>
+                                            <option value="Surgery">Surgery</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="designation">Designation / Role</label>
+                                        <select id="designation" name="designation" class="form-select" required>
+                                            <option value="" disabled selected>Select designation</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="doctor">Doctor</option>
+                                            <option value="nurse">Nurse</option>
+                                            <option value="pharmacist">Pharmacist</option>
+                                            <option value="receptionist">Receptionist</option>
+                                            <option value="laboratorist">Laboratorist</option>
+                                            <option value="it_staff">IT Staff</option>
+                                            <option value="accountant">Accountant</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="date_joined">Date of Joining</label>
+                                        <input type="date" id="date_joined" name="date_joined" class="form-input">
                                     </div>
                                 </div>
                             </div>

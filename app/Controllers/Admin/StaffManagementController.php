@@ -18,7 +18,6 @@ class StaffManagementController extends AdminBaseController
 
     public function api()
     {
-        // Handle API requests for staff data (e.g., return JSON)
         $staffModel = new \App\Models\StaffModel();
         $staff = $staffModel->findAll();
         return $this->response->setJSON($staff);
@@ -28,17 +27,55 @@ class StaffManagementController extends AdminBaseController
     {
         // Handle creating a new staff member
         $staffModel = new \App\Models\StaffModel();
-        $data = $this->request->getPost();
-        $staffModel->insert($data);
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member created']);
-    }
+        $payload = $this->request->getPost();
 
-    public function edit($id)
-    {
-        // Get staff member data for editing
-        $staffModel = new \App\Models\StaffModel();
-        $staff = $staffModel->find($id);
-        return $this->response->setJSON($staff);
+        // Map new form fields to model fields
+        $fullName = trim((string)($payload['full_name'] ?? ''));
+        $firstName = $fullName;
+        $lastName = '';
+        if ($fullName !== '' && strpos($fullName, ' ') !== false) {
+            $parts = preg_split('/\s+/', $fullName);
+            $lastName = array_pop($parts);
+            $firstName = trim(implode(' ', $parts));
+        }
+
+        $notesPieces = [];
+        if (!empty($payload['gender'])) { $notesPieces[] = 'Gender: ' . $payload['gender']; }
+        if (!empty($payload['dob'])) { $notesPieces[] = 'DOB: ' . $payload['dob']; }
+        if (!empty($payload['address'])) { $notesPieces[] = 'Address: ' . $payload['address']; }
+        $notes = implode(" | ", $notesPieces);
+
+        $data = [
+            'first_name'  => $firstName,
+            'last_name'   => $lastName,
+            'email'       => $payload['email'] ?? '',
+            'phone'       => $payload['contact_no'] ?? null,
+            'department'  => $payload['department'] ?? null,
+            'role'        => isset($payload['designation']) ? str_replace(' ', '_', strtolower(trim((string)$payload['designation']))) : null,
+            'employee_id' => $payload['employee_code'] ?? null, // If empty, model will auto-generate
+            'hire_date'   => $payload['date_joined'] ?? null,
+            'notes'       => $notes ?: null,
+            'status'      => 'active',
+        ];
+
+        // Insert will run validation and beforeInsert hooks
+        $id = $staffModel->insert($data);
+        if ($id === false) {
+            return $this->response
+                ->setStatusCode(422)
+                ->setJSON([
+                    'status' => 'error',
+                    'message' => 'Validation failed',
+                    'errors' => $staffModel->errors(),
+                ]);
+        }
+
+        $created = $staffModel->find($id);
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Staff member created',
+            'data' => $created,
+        ]);
     }
 
     public function update($id)

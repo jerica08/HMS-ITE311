@@ -27,6 +27,9 @@ class StaffModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+    // Auto hooks
+    protected $beforeInsert = ['setDefaults'];
+
     protected $validationRules = [
         'first_name'   => 'required|max_length[100]',
         'last_name'    => 'required|max_length[100]',
@@ -48,4 +51,70 @@ class StaffModel extends Model
             'is_unique' => 'Employee ID must be unique.'
         ],
     ];
+
+    /**
+     * Set default/derived fields before insert
+     */
+    protected function setDefaults(array $data)
+    {
+        if (!isset($data['data']) || !is_array($data['data'])) {
+            return $data;
+        }
+
+        // Normalize role to lowercase if provided
+        if (!empty($data['data']['role'])) {
+            $data['data']['role'] = strtolower(trim($data['data']['role']));
+        }
+
+        // Default status
+        if (empty($data['data']['status'])) {
+            $data['data']['status'] = 'active';
+        }
+
+        // Auto-generate employee_id if empty
+        if (empty($data['data']['employee_id'])) {
+            $role = $data['data']['role'] ?? null;
+            $data['data']['employee_id'] = $this->generateEmployeeId($role);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Generate a unique employee ID based on role prefix.
+     * Pattern: PREFIX + zero-padded sequence, e.g., DOC001
+     */
+    public function generateEmployeeId(?string $role): string
+    {
+        $prefixMap = [
+            'doctor' => 'DOC',
+            'nurse' => 'NUR',
+            'laboratorist' => 'LAB',
+            'pharmacist' => 'PHR',
+            'receptionist' => 'REC',
+            'it_staff' => 'IT',
+            'accountant' => 'ACC',
+            'admin' => 'ADM',
+        ];
+
+        $prefix = $prefixMap[strtolower((string)$role)] ?? 'EMP';
+
+        // Find the latest employee_id for this prefix
+        $builder = $this->db->table($this->table);
+        $row = $builder
+            ->select('employee_id')
+            ->like('employee_id', $prefix, 'after')
+            ->orderBy('employee_id', 'DESC')
+            ->get(1)
+            ->getRowArray();
+
+        $next = 1;
+        if ($row && !empty($row['employee_id'])) {
+            if (preg_match('/^[A-Z_]+(\d{1,})$/', $row['employee_id'], $m)) {
+                $next = (int)$m[1] + 1;
+            }
+        }
+
+        return $prefix . str_pad((string)$next, 3, '0', STR_PAD_LEFT);
+    }
 }

@@ -22,8 +22,8 @@ class StaffUserIntegration {
         // Load staff without accounts when page loads
         this.loadStaffWithoutAccounts();
 
-        // Setup staff selection change handler
-        const staffDropdown = document.getElementById('link_staff');
+        // Setup staff selection change handler (updated to staff_id)
+        const staffDropdown = document.getElementById('staff_id');
         if (staffDropdown) {
             staffDropdown.addEventListener('change', (e) => this.handleStaffSelection(e));
         }
@@ -49,11 +49,11 @@ class StaffUserIntegration {
             const response = await fetch(`${this.baseUrl}/admin/users/staff-without-accounts`);
             const data = await response.json();
 
-            const dropdown = document.getElementById('link_staff');
+            const dropdown = document.getElementById('staff_id');
             if (!dropdown) return;
 
             // Clear existing options
-            dropdown.innerHTML = '<option value="">-- Select staff to link (optional) --</option>';
+            dropdown.innerHTML = '<option value="">-- Select staff to link --</option>';
 
             if (data.status === 'success' && data.data && Array.isArray(data.data)) {
                 data.data.forEach(staff => {
@@ -94,19 +94,17 @@ class StaffUserIntegration {
     }
 
     populateFormWithStaffData(staff) {
-        // Auto-fill basic information
+        // Auto-fill hidden fields used by backend
         this.setFieldValue('first_name', staff.first_name);
         this.setFieldValue('last_name', staff.last_name);
         this.setFieldValue('email', staff.email);
-        this.setFieldValue('phone', staff.phone);
         this.setFieldValue('employee_id', staff.employee_id);
 
-        // Set role and department if they exist
-        if (staff.role) {
-            this.setFieldValue('role', staff.role);
-        }
-        if (staff.department) {
-            this.setFieldValue('department', staff.department);
+        // Suggest a username based on staff name if empty
+        const usernameEl = document.getElementById('username');
+        if (usernameEl && !usernameEl.value) {
+            const base = `${(staff.first_name || '').toLowerCase()}.${(staff.last_name || '').toLowerCase()}`.replace(/\s+/g, '');
+            if (base) usernameEl.value = base;
         }
 
         console.log('Form populated with staff data:', staff);
@@ -114,7 +112,7 @@ class StaffUserIntegration {
     }
 
     clearFormFields() {
-        const fieldsToKeep = ['link_staff', 'password', 'confirm_password'];
+        const fieldsToKeep = ['staff_id', 'password', 'confirm_password', 'username'];
         const form = document.getElementById('userForm');
         
         if (form) {
@@ -179,7 +177,7 @@ class StaffUserIntegration {
 
     // Method to get selected staff ID for form submission
     getSelectedStaffId() {
-        const dropdown = document.getElementById('link_staff');
+        const dropdown = document.getElementById('staff_id');
         return dropdown ? dropdown.value : null;
     }
 

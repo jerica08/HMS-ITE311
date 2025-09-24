@@ -15,13 +15,48 @@ class UserService
     }
 
     /**
-     * Create a new user
+     * Create a new user (staff-linked)
      */
     public function createUser(array $data): array
     {
         log_message('info', 'UserService::createUser called with data: ' . json_encode($data));
-        
-        // Validation
+
+        // 1) Try to enrich from staff
+        $staffModel = new StaffModel();
+        $staff = null;
+        try {
+            $db = \Config\Database::connect();
+            $hasStatus = $db->fieldExists('status', 'staff');
+
+            if (!empty($data['staff_id'])) {
+                $builder = $staffModel->where('id', (int)$data['staff_id']);
+                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
+                $staff = $builder->first();
+            }
+            if (!$staff && !empty($data['employee_id'])) {
+                $builder = $staffModel->where('employee_id', $data['employee_id']);
+                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
+                $staff = $builder->first();
+            }
+            if (!$staff && !empty($data['email'])) {
+                $builder = $staffModel->where('email', $data['email']);
+                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
+                $staff = $builder->first();
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Error checking staff linkage: ' . $e->getMessage());
+        }
+
+        if ($staff) {
+            $data['first_name'] = $data['first_name'] ?? ($staff['first_name'] ?? null);
+            $data['last_name']  = $data['last_name']  ?? ($staff['last_name'] ?? null);
+            $data['email']      = $data['email']      ?? ($staff['email'] ?? null);
+            $data['employee_id']= $data['employee_id'] ?? ($staff['employee_id'] ?? null);
+            $data['department'] = $data['department'] ?? ($staff['department'] ?? null);
+            $data['role']       = $data['role'] ?? ($staff['role'] ?? null);
+        }
+
+        // 2) Validate
         $validation = \Config\Services::validation();
         $validation->setRules([
             'first_name' => 'required|min_length[2]|max_length[50]',
@@ -30,7 +65,7 @@ class UserService
             'role' => 'required|in_list[admin,doctor,nurse,receptionist,laboratorist,pharmacist,accountant,it_staff]',
             'phone' => 'permit_empty|min_length[10]|max_length[15]',
             'department' => 'permit_empty|max_length[100]',
-            'password' => 'required|min_length[6]' // Require password with minimum 6 characters
+            'password' => 'required|min_length[6]'
         ]);
 
         if (!$validation->run($data)) {
@@ -42,51 +77,30 @@ class UserService
             ];
         }
 
-        // Enforce that a user can only be created for an existing Staff member
-        // Prefer matching by provided employee_id; otherwise, match by email
-        $staffModel = new StaffModel();
-        $staff = null;
         try {
-            $db = \Config\Database::connect();
-            $hasStatus = $db->fieldExists('status', 'staff');
-
-            if (!empty($data['employee_id'])) {
-                $builder = $staffModel->where('employee_id', $data['employee_id']);
-                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
-                $staff = $builder->first();
-            } elseif (!empty($data['email'])) {
-                $builder = $staffModel->where('email', $data['email']);
-                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
-                $staff = $builder->first();
+            // 3) Username: use provided if unique; else generate from name
+            $username = trim($data['username'] ?? '');
+            if ($username !== '') {
+                if ($this->userModel->where('username', $username)->first()) {
+                    $base = $username;
+                    $i = 1;
+                    while ($this->userModel->where('username', $username)->first()) {
+                        $username = $base . $i;
+                        $i++;
+                    }
+                }
+            } else {
+                $baseUsername = strtolower(($data['first_name'] ?? 'user') . '.' . ($data['last_name'] ?? 'account'));
+                $username = $baseUsername;
+                $counter = 1;
+                while ($this->userModel->where('username', $username)->first()) {
+                    $username = $baseUsername . $counter;
+                    $counter++;
+                }
             }
-        } catch (\Exception $e) {
-            log_message('error', 'Error checking staff linkage: ' . $e->getMessage());
-        }
 
-        if (!$staff) {
-            return [
-                'status' => 'error',
-                'message' => 'Cannot create account: no matching active staff record found. Please register the staff member first.'
-            ];
-        }
-
-        try {
-            // Generate unique username
-            $baseUsername = strtolower($data['first_name'] . '.' . $data['last_name']);
-            $username = $baseUsername;
-            $counter = 1;
-            
-            // Check for username uniqueness
-            while ($this->userModel->where('username', $username)->first()) {
-                $username = $baseUsername . $counter;
-                $counter++;
-            }
-            
-            // Use provided password
             $password = $data['password'];
-            
-            log_message('info', 'Generated username: ' . $username . ', password set: ' . $password);
-            
+
             $userData = [
                 'username' => $username,
                 'email' => $data['email'],
@@ -101,24 +115,20 @@ class UserService
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
-            // Persist the linked staff employee_id (prefer staff record to ensure correctness)
-            if (!empty($staff['employee_id'])) {
+            if ($staff && !empty($staff['employee_id'])) {
                 $userData['employee_id'] = $staff['employee_id'];
             } elseif (!empty($data['employee_id'])) {
                 $userData['employee_id'] = $data['employee_id'];
             }
 
-            log_message('info', 'Attempting to insert user data: ' . json_encode($userData));
-
-            // Try direct database insert to avoid model validation issues
+            // 4) Insert
             $db = \Config\Database::connect();
             $builder = $db->table('users');
             $result = $builder->insert($userData);
-            
+
             if ($result) {
                 $userId = $db->insertID();
                 log_message('info', 'User created successfully with ID: ' . $userId);
-                
                 return [
                     'status' => 'success',
                     'message' => 'User created successfully',
@@ -127,7 +137,6 @@ class UserService
             } else {
                 $error = $db->error();
                 log_message('error', 'Database insert failed. Error: ' . json_encode($error));
-                
                 return [
                     'status' => 'error',
                     'message' => 'Failed to create user - Database error: ' . ($error['message'] ?? 'Unknown error')

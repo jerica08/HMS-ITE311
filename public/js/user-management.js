@@ -101,11 +101,11 @@ function closeUserModal() {
 
 // Load staff who don't have user accounts yet and populate the select
 async function loadStaffWithoutAccounts() {
-    const select = document.getElementById('link_staff');
+    const select = document.getElementById('staff_id');
     if (!select) return;
 
     // Clear options except the first placeholder
-    select.innerHTML = '<option value="">-- Select staff to link (optional) --</option>';
+    select.innerHTML = '<option value="">-- Select staff to link --</option>';
 
     try {
         const res = await fetch('/admin/users/staff-without-accounts', { headers: { 'Accept': 'application/json' } });
@@ -133,7 +133,7 @@ async function loadStaffWithoutAccounts() {
 
 // When a staff is selected, autofill the user form fields
 function bindLinkStaffAutofill() {
-    const select = document.getElementById('link_staff');
+    const select = document.getElementById('staff_id');
     if (!select) return;
     select.addEventListener('change', () => {
         const opt = select.options[select.selectedIndex];
@@ -144,9 +144,12 @@ function bindLinkStaffAutofill() {
         setVal('first_name', get('firstName') || get('first_name'));
         setVal('last_name', get('lastName') || get('last_name'));
         setVal('email', get('email'));
-        setVal('phone', get('phone'));
-        setVal('department', opt.dataset.department || '');
-        setVal('role', opt.dataset.role || (opt.dataset.staff ? (JSON.parse(opt.dataset.staff)['role'] || '') : ''));
+        // Suggest username if empty
+        const usernameEl = document.getElementById('username');
+        if (usernameEl && !usernameEl.value) {
+            const base = `${(get('firstName') || '').toLowerCase()}.${(get('lastName') || '').toLowerCase()}`.replace(/\s+/g, '');
+            if (base) usernameEl.value = base;
+        }
         setVal('employee_id', opt.dataset.employeeId || (opt.dataset.staff ? (JSON.parse(opt.dataset.staff)['employee_id'] || '') : ''));
     });
 }
@@ -476,31 +479,36 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             const userData = {
-                first_name: formData.get('first_name') || document.getElementById('first_name').value,
-                last_name: formData.get('last_name') || document.getElementById('last_name').value,
-                email: formData.get('email') || document.getElementById('email').value,
-                phone: formData.get('phone') || document.getElementById('phone').value,
+                // Linkage
+                staff_id: formData.get('staff_id') || (document.getElementById('staff_id') ? document.getElementById('staff_id').value : ''),
+                employee_id: formData.get('employee_id') || (document.getElementById('employee_id') ? document.getElementById('employee_id').value : ''),
+                // Credentials
+                username: formData.get('username') || (document.getElementById('username') ? document.getElementById('username').value : ''),
                 password: formData.get('password') || document.getElementById('password').value,
                 role: formData.get('role') || document.getElementById('role').value,
-                department: formData.get('department') || document.getElementById('department').value,
-                employee_id: formData.get('employee_id') || (document.getElementById('employee_id') ? document.getElementById('employee_id').value : '')
+                // Identity (hidden fields populated from staff selection)
+                first_name: formData.get('first_name') || (document.getElementById('first_name') ? document.getElementById('first_name').value : ''),
+                last_name: formData.get('last_name') || (document.getElementById('last_name') ? document.getElementById('last_name').value : ''),
+                email: formData.get('email') || (document.getElementById('email') ? document.getElementById('email').value : ''),
             };
 
             console.log('Form data being sent:', userData);
 
             // Validate Required Fields
-            if (!userData.first_name || !userData.last_name || !userData.email || !userData.role || !userData.password) {
+            if (!userData.username || !userData.role || !userData.password) {
                 console.error('Validation failed: Missing required fields');
-                showNotification('Please fill in all required fields including password', 'error');
+                showNotification('Please fill in username, role, and password', 'error');
                 return;
             }
 
             // Validate Email Format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(userData.email)) {
-                console.error('Validation failed: Invalid email format');
-                showNotification('Please enter a valid email address', 'error');
-                return;
+            if (userData.email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(userData.email)) {
+                    console.error('Validation failed: Invalid email format');
+                    showNotification('Please enter a valid email address', 'error');
+                    return;
+                }
             }
 
             // Validate password length
