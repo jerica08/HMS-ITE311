@@ -656,44 +656,8 @@
                                         <input type="text" id="phone" name="phone" class="form-input">
                                     </div>
                                     <div>
-                                        <label class="form-label" for="department">Department</label>
-                                         <select id="department" name="department" class="form-select" required>
-                                            <option value="">Select department</option>
-                                            <option value="emergency">Emergency</option>
-                                            <option value="orthopedics">Orthopedics</option>
-                                            <option value="cardiology">Cardiology</option>
-                                            <option value="neurology">Neurology</option>
-                                            <option value="radiology">Radiology</option>
-                                            <option value="receptionist">Reception</option>
-                                            <option value="it-support">IT Support</option>
-                                            <option value="accounting">Accounting</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="role">Role</label>
-                                        <select id="role" name="role" class="form-select" required>
-                                            <option value="">Select role</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="doctor">Doctor</option>
-                                            <option value="nurse">Nurse</option>
-                                            <option value="pharmacist">Pharmacist</option>
-                                            <option value="receptionist">Receptionist</option>
-                                            <option value="laboratorist">Laboratorist</option>
-                                            <option value="it_staff">IT Staff</option>
-                                            <option value="accountant">Accountant</option>
-                                        </select>
-                                    </div>
-                                    <div>
                                         <label class="form-label" for="employee_id">Employee ID</label>
                                         <input type="text" id="employee_id" name="employee_id" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="status">Status</label>
-                                        <select id="status" name="status" class="form-select">
-                                            <option value="active" selected>Active</option>
-                                            <option value="inactive">Inactive</option>
-                                            <option value="suspended">Suspended</option>
-                                        </select>
                                     </div>
                                     <div>
                                         <label class="form-label" for="hire_date">Hire Date</label>

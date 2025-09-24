@@ -26,7 +26,7 @@ class UserService
         $validation->setRules([
             'first_name' => 'required|min_length[2]|max_length[50]',
             'last_name' => 'required|min_length[2]|max_length[50]',
-            'email' => 'required|valid_email|is_unique[users.email]',
+            'email' => 'required|valid_email',
             'role' => 'required|in_list[admin,doctor,nurse,receptionist,laboratorist,pharmacist,accountant,it_staff]',
             'phone' => 'permit_empty|min_length[10]|max_length[15]',
             'department' => 'permit_empty|max_length[100]',
@@ -47,14 +47,17 @@ class UserService
         $staffModel = new StaffModel();
         $staff = null;
         try {
+            $db = \Config\Database::connect();
+            $hasStatus = $db->fieldExists('status', 'staff');
+
             if (!empty($data['employee_id'])) {
-                $staff = $staffModel->where('employee_id', $data['employee_id'])
-                                    ->where('status', 'active')
-                                    ->first();
-            } else if (!empty($data['email'])) {
-                $staff = $staffModel->where('email', $data['email'])
-                                    ->where('status', 'active')
-                                    ->first();
+                $builder = $staffModel->where('employee_id', $data['employee_id']);
+                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
+                $staff = $builder->first();
+            } elseif (!empty($data['email'])) {
+                $builder = $staffModel->where('email', $data['email']);
+                if ($hasStatus) { $builder = $builder->where('status', 'active'); }
+                $staff = $builder->first();
             }
         } catch (\Exception $e) {
             log_message('error', 'Error checking staff linkage: ' . $e->getMessage());

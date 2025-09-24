@@ -152,14 +152,16 @@ class StaffManagementController extends AdminBaseController
         }
 
         $data = [
-            'staff_id' => (int)$staffId,
-            'date' => $payload['shift_date'] ?? null,
-            'shift_type' => $payload['shift_type'] ?? null,
-            'start_time' => $payload['start_time'] ?? null,
-            'end_time' => $payload['end_time'] ?? null,
-            'department' => $payload['location'] ?? ($payload['department'] ?? null),
-            'notes' => $payload['notes'] ?? ($payload['notes_shift'] ?? null),
-            'repeat_weekly' => isset($payload['repeat_weekly']) ? 1 : 0,
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'phone' => $this->request->getPost('phone'),
+            'employee_id' => $this->request->getPost('employee_id'),
+            'hire_date' => $this->request->getPost('hire_date'),
+            'notes' => $this->request->getPost('notes'),
+            'status' => 'active', // Default status
+            'role' => null, // Will be set when linked to user
+            'department' => null // Will be set when linked to user
         ];
 
         $shiftModel = new \App\Models\ShiftModel();

@@ -33,11 +33,11 @@
             </div>
             <div style="margin-bottom:1rem;">
                 <label for="password">Password*</label>
-                <input type="password" id="password" name="password" required placeholder="Enter password (min 6 characters)" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                <input type="password" id="password" name="password" required placeholder="Enter password (min 6 characters)" autocomplete="new-password" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
             </div>
             <div style="margin-bottom:1rem;">
                 <label for="confirm_password">Confirm Password*</label>
-                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Re-enter password" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Re-enter password" autocomplete="new-password" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
                 <div>
@@ -75,3 +75,4 @@
         </form>
     </div>
 </div>
+<script src="<?= base_url('js/staff-user-integration.js') ?>"></script>

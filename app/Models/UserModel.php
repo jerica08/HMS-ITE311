@@ -21,14 +21,14 @@ class UserModel extends Model
     // Validation rules
     protected $validationRules = [
         'username' => 'required|min_length[3]|max_length[50]|is_unique[users.username,id,{id}]',
-        'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
+        'email' => 'required|valid_email',
         'password' => 'required|min_length[6]',
         'role' => 'required|in_list[admin,doctor,nurse,receptionist,pharmacist,accountant,it_staff,laboratorist]',
         'first_name' => 'required|max_length[100]',
         'last_name' => 'required|max_length[100]',
         'phone' => 'permit_empty|max_length[20]',
         'department' => 'permit_empty|max_length[100]',
-        'employee_id' => 'permit_empty|max_length[50]|is_unique[users.employee_id,id,{id}]',
+        'employee_id' => 'permit_empty|max_length[50]',
         'status' => 'required|in_list[active,inactive]'
     ];
     

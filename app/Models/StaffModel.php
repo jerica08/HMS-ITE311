@@ -33,9 +33,9 @@ class StaffModel extends Model
         'email'        => 'required|valid_email|is_unique[staff.email,id,{id}]',
         'phone'        => 'permit_empty|max_length[20]',
         'department'   => 'permit_empty|max_length[100]',
-        'role'         => 'required|in_list[admin,doctor,nurse,pharmacist,receptionist,laboratorist,it_staff,accountant]',
+        'role'         => 'permit_empty|in_list[admin,doctor,nurse,pharmacist,receptionist,laboratorist,it_staff,accountant]',
         'employee_id'  => 'permit_empty|max_length[50]|is_unique[staff.employee_id,id,{id}]',
-        'status'       => 'required|in_list[active,inactive,suspended]',
+        'status'       => 'permit_empty|in_list[active,inactive,suspended]',
         'hire_date'    => 'permit_empty|valid_date',
         'notes'        => 'permit_empty',
     ];

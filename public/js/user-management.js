@@ -139,13 +139,15 @@ function bindLinkStaffAutofill() {
         const opt = select.options[select.selectedIndex];
         if (!opt || !opt.value) return; // do nothing if placeholder
         const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
-        setVal('first_name', opt.dataset.firstName || '');
-        setVal('last_name', opt.dataset.lastName || '');
-        setVal('email', opt.dataset.email || '');
-        setVal('phone', opt.dataset.phone || '');
+        // Prefer explicit data-* attributes; fallback to parsed JSON if present
+        const get = (key) => opt.dataset[key] || (opt.dataset.staff ? (JSON.parse(opt.dataset.staff)[key] || '') : '');
+        setVal('first_name', get('firstName') || get('first_name'));
+        setVal('last_name', get('lastName') || get('last_name'));
+        setVal('email', get('email'));
+        setVal('phone', get('phone'));
         setVal('department', opt.dataset.department || '');
-        setVal('role', opt.dataset.role || '');
-        setVal('employee_id', opt.dataset.employeeId || '');
+        setVal('role', opt.dataset.role || (opt.dataset.staff ? (JSON.parse(opt.dataset.staff)['role'] || '') : ''));
+        setVal('employee_id', opt.dataset.employeeId || (opt.dataset.staff ? (JSON.parse(opt.dataset.staff)['employee_id'] || '') : ''));
     });
 }
 
