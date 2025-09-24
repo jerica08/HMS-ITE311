@@ -52,7 +52,7 @@ class App extends BaseConfig
      * If your links do not seem to work, try one of the other delicious flavors:
      *
      *  'REQUEST_URI': Uses $_SERVER['REQUEST_URI']
-     * 'QUERY_STRING': Uses $_SERVER['QUERY_STRING']
+     *  'QUERY_STRING': Uses $_SERVER['QUERY_STRING']
      *    'PATH_INFO': Uses $_SERVER['PATH_INFO']
      *
      * WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
@@ -90,7 +90,7 @@ class App extends BaseConfig
      *
      * The Locale roughly represents the language and location that your visitor
      * is viewing the site from. It affects the language strings and other
-     * strings (like currency markers, numbers, etc), that your program
+     * strings (like currency markers, numbers, etc.), that your program
      * should run under for this request.
      */
     public string $defaultLocale = 'en';

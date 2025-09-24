@@ -58,7 +58,6 @@ class preload
                 '/system/Language/',
                 '/system/bootstrap.php',
                 '/system/util_bootstrap.php',
-                '/system/rewrite.php',
                 '/Views/',
                 // Errors occur.
                 '/system/ThirdParty/',
