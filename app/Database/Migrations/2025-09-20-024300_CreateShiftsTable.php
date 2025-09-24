@@ -7,6 +7,10 @@ class CreateShiftsTable extends Migration
 {
     public function up()
     {
+        // If table already exists, do nothing (idempotent)
+        if ($this->db->tableExists('shifts')) {
+            return;
+        }
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -62,7 +66,8 @@ class CreateShiftsTable extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addKey('staff_id');
         $this->forge->addForeignKey('staff_id', 'staff', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('shifts');
+        // Create table (safe, since we returned early when it exists)
+        $this->forge->createTable('shifts', true);
     }
 
     public function down()
