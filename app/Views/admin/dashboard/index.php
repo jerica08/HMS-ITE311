@@ -46,15 +46,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/users') ?>" class="nav-link">
-                            <i class="fas fa-users nav-icon"></i>
-                            User Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="<?= base_url('admin/staff') ?>" class="nav-link">
                             <i class="fas fa-user-tie nav-icon"></i>
                             Staff Management
+                        </a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin/users') ?>" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            User Management
                         </a>
                     </li>
                     <li class="nav-item">
