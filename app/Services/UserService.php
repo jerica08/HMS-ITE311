@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\UserModel;
+use App\Models\StaffModel;
 
 class UserService
 {
@@ -41,6 +42,31 @@ class UserService
             ];
         }
 
+        // Enforce that a user can only be created for an existing Staff member
+        // Prefer matching by provided employee_id; otherwise, match by email
+        $staffModel = new StaffModel();
+        $staff = null;
+        try {
+            if (!empty($data['employee_id'])) {
+                $staff = $staffModel->where('employee_id', $data['employee_id'])
+                                    ->where('status', 'active')
+                                    ->first();
+            } else if (!empty($data['email'])) {
+                $staff = $staffModel->where('email', $data['email'])
+                                    ->where('status', 'active')
+                                    ->first();
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Error checking staff linkage: ' . $e->getMessage());
+        }
+
+        if (!$staff) {
+            return [
+                'status' => 'error',
+                'message' => 'Cannot create account: no matching active staff record found. Please register the staff member first.'
+            ];
+        }
+
         try {
             // Generate unique username
             $baseUsername = strtolower($data['first_name'] . '.' . $data['last_name']);
@@ -72,8 +98,10 @@ class UserService
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
-            // If employee_id provided (from linked staff), persist it
-            if (!empty($data['employee_id'])) {
+            // Persist the linked staff employee_id (prefer staff record to ensure correctness)
+            if (!empty($staff['employee_id'])) {
+                $userData['employee_id'] = $staff['employee_id'];
+            } elseif (!empty($data['employee_id'])) {
                 $userData['employee_id'] = $data['employee_id'];
             }
 

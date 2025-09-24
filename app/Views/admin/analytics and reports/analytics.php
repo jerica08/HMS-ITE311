@@ -334,7 +334,7 @@
             </div>       
         </main>
     </div>
-    <script src="/js/analytics.js"></script>
+   <!-- <script src="/js/analytics.js"></script> -->
     <script src="/js/logout.js"></script>
 </body>
 </html>
