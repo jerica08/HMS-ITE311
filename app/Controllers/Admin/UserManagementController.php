@@ -4,16 +4,19 @@ namespace App\Controllers\Admin;
 
 use App\Models\UserModel;
 use App\Services\UserService;
+use App\Models\StaffModel;
 
 class UserManagementController extends AdminBaseController 
 {
     protected $userModel;
     protected $userService;
+    protected $staffModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->userService = new UserService();
+        $this->staffModel = new StaffModel();
     }
 
     public function index()
@@ -193,5 +196,40 @@ class UserManagementController extends AdminBaseController
 
         $result = $this->userService->getUserStats();
         return $this->response->setJSON($result);
+    }
+
+    /**
+     * API: Return staff members who do not yet have user accounts
+     * Matching is done by employee_id or email to ensure robust linking
+     */
+    public function staffWithoutAccounts()
+    {
+        $authCheck = $this->checkAdminAuth();
+        if ($authCheck) return $authCheck;
+
+        try {
+            $db = \Config\Database::connect();
+
+            // Build query: select staff where no user exists with same employee_id or email
+            $builder = $db->table('staff AS s')
+                ->select('s.id, s.first_name, s.last_name, s.email, s.phone, s.department, s.role, s.employee_id')
+                ->where('s.status', 'active')
+                ->where("NOT EXISTS (SELECT 1 FROM users u WHERE (u.employee_id IS NOT NULL AND u.employee_id = s.employee_id) OR (u.email IS NOT NULL AND u.email = s.email))", null, false)
+                ->orderBy('s.first_name', 'ASC')
+                ->orderBy('s.last_name', 'ASC');
+
+            $staff = $builder->get()->getResultArray();
+
+            return $this->response->setJSON([
+                'status' => 'success',
+                'data' => $staff,
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Error fetching staff without accounts: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Failed to fetch staff without accounts',
+            ])->setStatusCode(500);
+        }
     }
 }
