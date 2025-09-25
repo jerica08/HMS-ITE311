@@ -722,7 +722,7 @@
                     </div>
                 </div>
 
-                <!-- Assign Shift Modal (Doctors only) -->
+              <!-- Assign Shift Modal (Doctors only) -->
                 <div id="assignShiftModal" class="hms-modal-overlay" aria-hidden="true">
                     <div class="hms-modal" role="dialog" aria-modal="true" aria-labelledby="assignShiftTitle">
                         <div class="hms-modal-header">
@@ -749,38 +749,33 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label for="shift_date" class="form-label">Date</label>
+                                        <label for="shift_date" class="form-label">Shift Date</label>
                                         <input type="date" id="shift_date" name="shift_date" class="form-input" required>
                                     </div>
                                     <div>
-                                        <label for="shift_type" class="form-label">Shift Type</label>
-                                        <select id="shift_type" name="shift_type" class="form-select" required>
-                                            <option value="morning">Morning (06:00 - 14:00)</option>
-                                            <option value="afternoon">Afternoon (14:00 - 22:00)</option>
-                                            <option value="night">Night (22:00 - 06:00)</option>
-                                            <option value="custom">Custom</option>
-                                        </select>
-                                    </div>
-                                    <div>
                                         <label for="start_time" class="form-label">Start Time</label>
-                                        <input type="time" id="start_time" name="start_time" class="form-input" required>
+                                        <input type="time" id="start_time" name="shift_start" class="form-input" required>
                                     </div>
                                     <div>
                                         <label for="end_time" class="form-label">End Time</label>
-                                        <input type="time" id="end_time" name="end_time" class="form-input" required>
-                                    </div>
-                                    <div>
-                                        <label for="location" class="form-label">Department/Unit</label>
-                                        <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Emergency, Cardiology" required>
+                                        <input type="time" id="end_time" name="shift_end" class="form-input" required>
                                     </div>
                                     <div class="full">
-                                        <label for="notes_shift" class="form-label">Notes (optional)</label>
-                                        <textarea id="notes_shift" name="notes" rows="3" class="form-textarea" placeholder="Additional details..."></textarea>
+                                        <label for="department" class="form-label">Department</label>
+                                        <select id="department" name="department" class="form-select">
+                                            <option value="" selected>Select department</option>
+                                            <option value="Emergency">Emergency</option>
+                                            <option value="Cardiology">Cardiology</option>
+                                            <option value="Intensive Care Unit">Intensive Care Unit</option>
+                                            <option value="Outpatient">Outpatient</option>
+                                            <option value="Pharmacy">Pharmacy</option>
+                                            <option value="Laboratory">Laboratory</option>
+                                            <option value="Radiology">Radiology</option>
+                                            <option value="Pediatrics">Pediatrics</option>
+                                            <option value="Surgery">Surgery</option>
+                                        </select>
                                     </div>
-                                    <div class="full" style="display:flex;align-items:center;gap:0.5rem">
-                                        <input type="checkbox" id="repeat_weekly" name="repeat_weekly" value="1">
-                                        <label for="repeat_weekly" class="form-label" style="margin:0">Repeat weekly</label>
-                                    </div>
+                                    <input type="hidden" name="status" value="Scheduled">
                                 </div>
                             </div>
                             <div class="hms-modal-actions">
@@ -936,17 +931,17 @@
                         }
                     });
 
-                    async function loadDoctorsIntoSelect() {
+                     async function loadDoctorsIntoSelect() {
                         if (!doctorSelect) return;
                         try {
-                            // Attempt to load doctors from a backend endpoint (should return JSON: [{id, name}, ...])
+                            // Should return JSON: [{id, full_name}, ...]
                             const res = await fetch('<?= base_url('admin/staff/doctors') ?>', { headers: { 'Accept': 'application/json' } });
                             if (!res.ok) throw new Error('Failed to load doctors');
                             const data = await res.json();
                             const doctors = Array.isArray(data?.doctors) ? data.doctors : [];
                             if (doctors.length === 0) throw new Error('No doctors list');
                             doctorSelect.innerHTML = '<option value="">Select doctor</option>' +
-                                doctors.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+                                doctors.map(d => `<option value="${d.id}">${d.full_name}</option>`).join('');
                         } catch (err) {
                             // Fallback to static placeholders if endpoint not available
                             doctorSelect.innerHTML = `
