@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $table = 'users';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'user_id';
     protected $allowedFields = [
         'username', 'email', 'password', 'role', 'first_name', 'last_name', 
         'phone', 'department', 'employee_id', 'status', 'hire_date',
@@ -20,7 +20,7 @@ class UserModel extends Model
     
     // Validation rules
     protected $validationRules = [
-        'username' => 'required|min_length[3]|max_length[50]|is_unique[users.username,id,{id}]',
+        'username' => 'required|min_length[3]|max_length[50]|is_unique[users.username,user_id,{user_id}]',
         'email' => 'required|valid_email',
         'password' => 'required|min_length[6]',
         'role' => 'required|in_list[admin,doctor,nurse,receptionist,pharmacist,accountant,it_staff,laboratorist]',
@@ -93,19 +93,19 @@ class UserModel extends Model
     }
     
     // Toggle user status
-    public function toggleStatus($id)
+    public function toggleStatus($user_id)
     {
-        $user = $this->find($id);
+        $user = $this->find($user_id);
         if ($user) {
             $newStatus = $user['status'] === 'active' ? 'inactive' : 'active';
-            return $this->update($id, ['status' => $newStatus]);
+            return $this->update($user_id, ['status' => $newStatus]);
         }
         return false;
     }
     
     // Reset user password
-    public function resetUserPassword($id, $newPassword)
+    public function resetUserPassword($user_id, $newPassword)
     {
-        return $this->update($id, ['password' => $newPassword]);
+        return $this->update($user_id, ['password' => $newPassword]);
     }
 }

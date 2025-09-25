@@ -20,6 +20,11 @@ class CreateUserTable extends Migration
                 'constraint' => 11,
                 'unsigned'   => true,
             ],
+            'email' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => false,
+            ],
             'first_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
