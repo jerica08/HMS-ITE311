@@ -118,7 +118,11 @@ class UserManagementController extends AdminBaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request method']);
         }
 
-        $data = $this->request->getJSON(true);
+        $data = $this->request->getPost();
+            if (empty($data)) {
+                // fallback for JSON requests
+                $data = $this->request->getJSON(true);
+            }
         $result = $this->userService->createUser($data);
         
         return $this->response->setJSON($result);
