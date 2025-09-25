@@ -8,6 +8,10 @@ class StaffSeeder extends Seeder
 {
     public function run()
     {
+        $db = \Config\Database::connect();
+        $role = $db->table('role')->select('role_id')->where('role_name', 'Hospital Administrator')->get()->getRowArray();
+        $adminRoleId = $role['role_id'] ?? null;
+
         $data = [
             'employee_id' => 'EMP001',
             'first_name'  => 'Admin',
@@ -18,7 +22,7 @@ class StaffSeeder extends Seeder
             'email'       => 'admin@hospital.com',
             'address'     => 'Hospital Address',
             'department'  => 'Administration',
-            'designation' => 'Administrator',
+            'role_id'     => $adminRoleId,
             'date_joined' => date('Y-m-d'),
         ];
 

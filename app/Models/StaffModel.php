@@ -20,8 +20,7 @@ class StaffModel extends Model
         'email',
         'address',
         'department',
-        'designation',
-        'role',
+        'role_id',
         'date_joined',
     ];
 
@@ -37,8 +36,7 @@ class StaffModel extends Model
         'email'        => 'permit_empty|valid_email|is_unique[staff.email,staff_id,{staff_id}]',
         'contact_no'   => 'permit_empty|max_length[255]',
         'department'   => 'permit_empty|max_length[255]',
-        'designation'  => 'permit_empty|max_length[255]',
-        'role'         => 'permit_empty|in_list[admin,doctor,nurse,pharmacist,receptionist,laboratorist,it_staff,accountant]',
+        'role_id'      => 'permit_empty|is_natural_no_zero',
         'employee_id'  => 'permit_empty|max_length[255]|is_unique[staff.employee_id,staff_id,{staff_id}]',
         'date_joined'  => 'permit_empty|valid_date[Y-m-d]',
         'dob'          => 'permit_empty|valid_date[Y-m-d]',
@@ -64,15 +62,15 @@ class StaffModel extends Model
             return $data;
         }
 
-        // Normalize role to lowercase if provided
-        if (!empty($data['data']['role'])) {
-            $data['data']['role'] = strtolower(trim($data['data']['role']));
-        }
-
         // Auto-generate employee_id if empty
         if (empty($data['data']['employee_id'])) {
-            $role = $data['data']['role'] ?? null;
-            $data['data']['employee_id'] = $this->generateEmployeeId($role);
+            // Determine role name from role_id for prefix mapping
+            $roleId = $data['data']['role_id'] ?? null;
+            $roleName = null;
+            if (!empty($roleId)) {
+                $roleName = $this->getRoleNameById((int) $roleId);
+            }
+            $data['data']['employee_id'] = $this->generateEmployeeId($roleName);
         }
 
         return $data;
@@ -82,7 +80,7 @@ class StaffModel extends Model
      * Generate a unique employee ID based on role prefix.
      * Pattern: PREFIX + zero-padded sequence, e.g., DOC001
      */
-    public function generateEmployeeId(?string $role): string
+    public function generateEmployeeId(?string $roleName): string
     {
         $prefixMap = [
             'doctor' => 'DOC',
@@ -95,7 +93,26 @@ class StaffModel extends Model
             'admin' => 'ADM',
         ];
 
-        $prefix = $prefixMap[strtolower((string)$role)] ?? 'EMP';
+        // Normalize by expected keys. If we received role_name from the roles table,
+        // map common names to the expected keys above.
+        $key = null;
+        if ($roleName) {
+            $rn = strtolower(trim($roleName));
+            // Map human names from role table to our keys
+            $mapFromName = [
+                'hospital administrator' => 'admin',
+                'doctor' => 'doctor',
+                'nurse' => 'nurse',
+                'receptionist' => 'receptionist',
+                'laboratory staff' => 'laboratorist',
+                'pharmacist' => 'pharmacist',
+                'accountant' => 'accountant',
+                'it staff' => 'it_staff',
+            ];
+            $key = $mapFromName[$rn] ?? null;
+        }
+
+        $prefix = $key ? ($prefixMap[$key] ?? 'EMP') : 'EMP';
 
         // Find the latest employee_id for this prefix
         $builder = $this->db->table($this->table);
@@ -114,5 +131,18 @@ class StaffModel extends Model
         }
 
         return $prefix . str_pad((string)$next, 3, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Fetch role_name by role_id from the role table
+     */
+    protected function getRoleNameById(int $roleId): ?string
+    {
+        $row = $this->db->table('role')
+            ->select('role_name')
+            ->where('role_id', $roleId)
+            ->get()
+            ->getRowArray();
+        return $row['role_name'] ?? null;
     }
 }
