@@ -217,6 +217,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission for edit mode
     const userForm = document.getElementById('userForm');
     if (userForm) {
+        // Avoid duplicate event handlers if another script also binds
+        if (userForm.dataset.bound === '1') {
+            return;
+        }
+        userForm.dataset.bound = '1';
         userForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -237,15 +242,24 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('UserId truthy check:', !!userId);
             
             const formData = new FormData(this);
-            const userData = {
-                first_name: formData.get('first_name') || document.getElementById('first_name').value,
-                last_name: formData.get('last_name') || document.getElementById('last_name').value,
-                email: formData.get('email') || document.getElementById('email').value,
-                phone: formData.get('phone') || document.getElementById('phone').value,
-                role: formData.get('role') || document.getElementById('role').value,
-                department: formData.get('department') || document.getElementById('department').value,
-                password: formData.get('password') || document.getElementById('password').value
+            const safeGet = (name, fallbackId) => {
+                const v = formData.get(name);
+                if (v !== null && v !== undefined && String(v).length > 0) return v;
+                const el = fallbackId ? document.getElementById(fallbackId) : document.getElementById(name);
+                return el ? el.value : '';
             };
+            const userData = {
+                first_name: safeGet('first_name', 'first_name'),
+                last_name: safeGet('last_name', 'last_name'),
+                email: safeGet('email', 'email'),
+                role: safeGet('role', 'role'),
+                password: safeGet('password', 'password')
+            };
+            // Optional fields if present in the form (create vs edit UIs differ)
+            const phoneEl = document.getElementById('phone');
+            if (phoneEl) userData.phone = safeGet('phone', 'phone');
+            const deptEl = document.getElementById('department');
+            if (deptEl) userData.department = safeGet('department', 'department');
 
             console.log('Form data being sent:', userData);
 

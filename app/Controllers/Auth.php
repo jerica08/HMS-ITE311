@@ -52,14 +52,14 @@ class Auth extends BaseController
 			return redirect()->to('/login')->with('error', 'Selected role does not match your account');
 		}
 
-		// All validations passed, set session
-		session()->set([
-			'user_id'   => $user['id'],
-			'email'     => $user['email'],
-			'role'      => $user['role'],
-			'logged_in' => true,
-			'last_activity' => time(),
-		]);
+        // All validations passed, set session
+        session()->set([
+            'user_id'   => $user['user_id'],
+            'email'     => $user['email'],
+            'role'      => $user['role'],
+            'logged_in' => true,
+            'last_activity' => time(),
+        ]);
 
 		// Redirect based on role
 		switch ($user['role']) {

@@ -27,35 +27,64 @@ class StaffManagementController extends AdminBaseController
     {
         // Handle creating a new staff member
         $staffModel = new \App\Models\StaffModel();
+        // Accept both traditional form posts and raw JSON bodies
         $payload = $this->request->getPost();
-
-        // Map new form fields to model fields
-        $fullName = trim((string)($payload['full_name'] ?? ''));
-        $firstName = $fullName;
-        $lastName = '';
-        if ($fullName !== '' && strpos($fullName, ' ') !== false) {
-            $parts = preg_split('/\s+/', $fullName);
-            $lastName = array_pop($parts);
-            $firstName = trim(implode(' ', $parts));
+        if (!$payload || count($payload) === 0) {
+            $json = $this->request->getJSON(true);
+            if (is_array($json)) {
+                $payload = $json;
+            } else {
+                $payload = [];
+            }
         }
 
-        $notesPieces = [];
-        if (!empty($payload['gender'])) { $notesPieces[] = 'Gender: ' . $payload['gender']; }
-        if (!empty($payload['dob'])) { $notesPieces[] = 'DOB: ' . $payload['dob']; }
-        if (!empty($payload['address'])) { $notesPieces[] = 'Address: ' . $payload['address']; }
-        $notes = implode(" | ", $notesPieces);
+        // Map new form fields to model fields
+        // Support either full_name or explicit first_name/last_name
+        $firstName = trim((string)($payload['first_name'] ?? ''));
+        $lastName = trim((string)($payload['last_name'] ?? ''));
+        if ($firstName === '' && $lastName === '') {
+            $fullName = trim((string)($payload['full_name'] ?? ''));
+            if ($fullName !== '') {
+                $firstName = $fullName;
+                if (strpos($fullName, ' ') !== false) {
+                    $parts = preg_split('/\s+/', $fullName);
+                    $lastName = array_pop($parts);
+                    $firstName = trim(implode(' ', $parts));
+                }
+            }
+        }
+
+        // Normalize dates to Y-m-d for DB columns
+        $rawJoined = $payload['date_joined'] ?? null;
+        $dateJoined = null;
+        if (is_string($rawJoined) && $rawJoined !== '') {
+            $dt = \DateTime::createFromFormat('Y-m-d', $rawJoined) ?: \DateTime::createFromFormat('d/m/Y', $rawJoined);
+            if ($dt instanceof \DateTime) {
+                $dateJoined = $dt->format('Y-m-d');
+            }
+        }
+        $rawDob = $payload['dob'] ?? null;
+        $dob = null;
+        if (is_string($rawDob) && $rawDob !== '') {
+            $dd = \DateTime::createFromFormat('Y-m-d', $rawDob) ?: \DateTime::createFromFormat('d/m/Y', $rawDob);
+            if ($dd instanceof \DateTime) {
+                $dob = $dd->format('Y-m-d');
+            }
+        }
 
         $data = [
+            'employee_id' => $payload['employee_code'] ?? ($payload['employee_id'] ?? null),
             'first_name'  => $firstName,
             'last_name'   => $lastName,
-            'email'       => $payload['email'] ?? '',
-            'phone'       => $payload['contact_no'] ?? null,
+            'gender'      => isset($payload['gender']) ? strtolower((string)$payload['gender']) : null,
+            'dob'         => $dob,
+            'contact_no'  => $payload['contact_no'] ?? ($payload['phone'] ?? null),
+            'email'       => $payload['email'] ?? null,
+            'address'     => $payload['address'] ?? null,
             'department'  => $payload['department'] ?? null,
-            'role'        => isset($payload['designation']) ? str_replace(' ', '_', strtolower(trim((string)$payload['designation']))) : null,
-            'employee_id' => $payload['employee_code'] ?? null, // If empty, model will auto-generate
-            'hire_date'   => $payload['date_joined'] ?? null,
-            'notes'       => $notes ?: null,
-            'status'      => 'active',
+            'designation' => $payload['designation'] ?? null,
+            'role'        => isset($payload['designation']) ? str_replace(' ', '_', strtolower(trim((string)$payload['designation']))) : (isset($payload['role']) ? strtolower(trim((string)$payload['role'])) : null),
+            'date_joined' => $dateJoined,
         ];
 
         // Insert will run validation and beforeInsert hooks

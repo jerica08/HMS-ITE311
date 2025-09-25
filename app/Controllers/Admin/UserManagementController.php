@@ -224,25 +224,28 @@ class UserManagementController extends AdminBaseController
             $allActiveStaff = $staffBuilder->findAll();
 
             $staff = [];
+            $usersHasEmployeeId = $db->fieldExists('employee_id', 'users');
+            $usersHasEmail      = $db->fieldExists('email', 'users');
+
             foreach ($allActiveStaff as $s) {
                 $employeeId = $s['employee_id'] ?? null;
                 $email      = $s['email'] ?? null;
 
                 $hasUser = false;
-                if (!empty($employeeId)) {
+                if ($usersHasEmployeeId && !empty($employeeId)) {
                     $hasUser = (bool) $userModel->where('employee_id', $employeeId)->first();
                 }
-                if (!$hasUser && !empty($email)) {
+                if (!$hasUser && $usersHasEmail && !empty($email)) {
                     $hasUser = (bool) $userModel->where('email', $email)->first();
                 }
 
                 if (!$hasUser) {
                     $staff[] = [
-                        'id' => $s['id'] ?? null,
+                        'id' => $s['staff_id'] ?? ($s['id'] ?? null),
                         'first_name' => $s['first_name'] ?? null,
                         'last_name' => $s['last_name'] ?? null,
                         'email' => $s['email'] ?? null,
-                        'phone' => $s['phone'] ?? null,
+                        'phone' => $s['contact_no'] ?? ($s['phone'] ?? null),
                         'department' => $s['department'] ?? null,
                         'role' => $s['role'] ?? null,
                         'employee_id' => $s['employee_id'] ?? null,

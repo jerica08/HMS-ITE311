@@ -29,7 +29,7 @@ class UserService
             $hasStatus = $db->fieldExists('status', 'staff');
 
             if (!empty($data['staff_id'])) {
-                $builder = $staffModel->where('id', (int)$data['staff_id']);
+                $builder = $staffModel->where('staff_id', (int)$data['staff_id']);
                 if ($hasStatus) { $builder = $builder->where('status', 'active'); }
                 $staff = $builder->first();
             }
@@ -101,28 +101,58 @@ class UserService
 
             $password = $data['password'];
 
-            $userData = [
-                'username' => $username,
-                'email' => $data['email'],
-                'password' => password_hash($password, PASSWORD_DEFAULT),
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'phone' => $data['phone'] ?? null,
-                'role' => $data['role'],
-                'department' => $data['department'] ?? null,
-                'status' => 'active',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
+            // Detect columns that actually exist in the users table to avoid unknown column errors
+            $db = \Config\Database::connect();
+            $hasPhone       = $db->fieldExists('phone', 'users');
+            $hasDepartment  = $db->fieldExists('department', 'users');
+            $hasEmployeeId  = $db->fieldExists('employee_id', 'users');
+            $hasStatus      = $db->fieldExists('status', 'users');
+            $hasCreatedAt   = $db->fieldExists('created_at', 'users');
+            $hasUpdatedAt   = $db->fieldExists('updated_at', 'users');
 
-            if ($staff && !empty($staff['employee_id'])) {
-                $userData['employee_id'] = $staff['employee_id'];
-            } elseif (!empty($data['employee_id'])) {
-                $userData['employee_id'] = $data['employee_id'];
+            $userData = [
+                'username'   => $username,
+                'email'      => $data['email'],
+                'password'   => password_hash($password, PASSWORD_DEFAULT),
+                'first_name' => $data['first_name'],
+                'last_name'  => $data['last_name'],
+                'role'       => $data['role'],
+            ];
+            if ($hasPhone) {
+                $userData['phone'] = $data['phone'] ?? null;
+            }
+            if ($hasDepartment) {
+                $userData['department'] = $data['department'] ?? null;
+            }
+            if ($hasStatus) {
+                $userData['status'] = 'active';
+            }
+            if ($hasCreatedAt) {
+                $userData['created_at'] = date('Y-m-d H:i:s');
+            }
+            if ($hasUpdatedAt) {
+                $userData['updated_at'] = date('Y-m-d H:i:s');
+            }
+
+            if ($hasEmployeeId) {
+                if ($staff && !empty($staff['employee_id'])) {
+                    $userData['employee_id'] = $staff['employee_id'];
+                } elseif (!empty($data['employee_id'])) {
+                    $userData['employee_id'] = $data['employee_id'];
+                }
             }
 
             // 4) Insert
-            $db = \Config\Database::connect();
+            // Include staff_id when possible to satisfy FK constraints
+            $hasStaffId = $db->fieldExists('staff_id', 'users');
+            if ($hasStaffId) {
+                if (!empty($data['staff_id'])) {
+                    $userData['staff_id'] = (int) $data['staff_id'];
+                } elseif (!empty($staff['staff_id'])) {
+                    $userData['staff_id'] = (int) $staff['staff_id'];
+                }
+            }
+
             $builder = $db->table('users');
             $result = $builder->insert($userData);
 

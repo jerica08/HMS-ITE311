@@ -640,12 +640,16 @@
                             <div class="hms-modal-body">
                                 <div class="form-grid">
                                     <div>
-                                        <label class="form-label" for="employee_code">Employee Code</label>
-                                        <input type="text" id="employee_code" name="employee_code" class="form-input" placeholder="e.g., DOC003">
+                                        <label class="form-label" for="employee_id">Employee ID</label>
+                                        <input type="text" id="employee_id" name="employee_id" class="form-input" placeholder="e.g., DOC003">
                                     </div>
-                                    <div class="full">
-                                        <label class="form-label" for="full_name">Full Name</label>
-                                        <input type="text" id="full_name" name="full_name" class="form-input" placeholder="e.g., Juan Dela Cruz" required>
+                                    <div class="first_name">
+                                        <label class="form-label" for="first_name">First Name</label>
+                                        <input type="text" id="first_name" name="first_name" class="form-input" placeholder="e.g., Juan " required>
+                                    </div>
+                                    <div class="last_name">
+                                        <label class="form-label" for="last_name">Last Name</label>
+                                        <input type="text" id="last_name" name="last_name" class="form-input" placeholder="e.g., Dela Cruz" required>
                                     </div>
                                     <div>
                                         <label class="form-label" for="gender">Gender</label>
@@ -824,13 +828,15 @@
                                 body: formData
                             });
                             const data = await res.json();
-                            if (data?.status === 'success') {
+                            if (res.ok && data?.status === 'success') {
                                 // Basic feedback; in future, refresh list/cards
                                 alert('Staff member created successfully');
                                 form.reset();
                                 closeAddStaffModal();
                             } else {
-                                alert(data?.message || 'Failed to create staff');
+                                const errs = data?.errors ? Object.values(data.errors).join('\n- ') : null;
+                                const msg = data?.message || 'Failed to create staff';
+                                alert(errs ? `${msg}:\n- ${errs}` : msg);
                             }
                         } catch (err) {
                             console.error(err);

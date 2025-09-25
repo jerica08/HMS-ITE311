@@ -7,40 +7,43 @@ use CodeIgniter\Model;
 class StaffModel extends Model
 {
     protected $table = 'staff';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'staff_id';
     protected $returnType = 'array';
 
     protected $allowedFields = [
+        'employee_id',
         'first_name',
         'last_name',
+        'gender',
+        'dob',
+        'contact_no',
         'email',
-        'phone',
+        'address',
         'department',
+        'designation',
         'role',
-        'employee_id',
-        'status',
-        'hire_date',
-        'notes',
+        'date_joined',
     ];
 
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
+    // No created_at/updated_at columns on staff table by default
+    protected $useTimestamps = false;
 
     // Auto hooks
     protected $beforeInsert = ['setDefaults'];
 
     protected $validationRules = [
         'first_name'   => 'required|max_length[100]',
-        'last_name'    => 'required|max_length[100]',
-        'email'        => 'required|valid_email|is_unique[staff.email,id,{id}]',
-        'phone'        => 'permit_empty|max_length[20]',
-        'department'   => 'permit_empty|max_length[100]',
+        'last_name'    => 'permit_empty|max_length[100]',
+        'email'        => 'permit_empty|valid_email|is_unique[staff.email,staff_id,{staff_id}]',
+        'contact_no'   => 'permit_empty|max_length[255]',
+        'department'   => 'permit_empty|max_length[255]',
+        'designation'  => 'permit_empty|max_length[255]',
         'role'         => 'permit_empty|in_list[admin,doctor,nurse,pharmacist,receptionist,laboratorist,it_staff,accountant]',
-        'employee_id'  => 'permit_empty|max_length[50]|is_unique[staff.employee_id,id,{id}]',
-        'status'       => 'permit_empty|in_list[active,inactive,suspended]',
-        'hire_date'    => 'permit_empty|valid_date',
-        'notes'        => 'permit_empty',
+        'employee_id'  => 'permit_empty|max_length[255]|is_unique[staff.employee_id,staff_id,{staff_id}]',
+        'date_joined'  => 'permit_empty|valid_date[Y-m-d]',
+        'dob'          => 'permit_empty|valid_date[Y-m-d]',
+        'gender'       => 'permit_empty|in_list[male,female,other]',
+        'address'      => 'permit_empty',
     ];
 
     protected $validationMessages = [
@@ -64,11 +67,6 @@ class StaffModel extends Model
         // Normalize role to lowercase if provided
         if (!empty($data['data']['role'])) {
             $data['data']['role'] = strtolower(trim($data['data']['role']));
-        }
-
-        // Default status
-        if (empty($data['data']['status'])) {
-            $data['data']['status'] = 'active';
         }
 
         // Auto-generate employee_id if empty

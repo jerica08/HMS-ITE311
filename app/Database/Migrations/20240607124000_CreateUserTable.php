@@ -44,8 +44,14 @@ class CreateUserTable extends Migration
                 'constraint' => '255',
             ],
             'role' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type'       => 'ENUM',
+                'constraint' => ['admin', 'doctor', 'nurse', 'receptionist', 'pharmacist', 'accountant', 'it_staff', 'laboratorist'],
+                'default'    => 'admin',
+            ],
+            'status' => [
+                'type'       => 'ENUM',
+                'constraint' => ['active', 'inactive'],
+                'default'    => 'active',
             ],
             'created_at' => [
                 'type'    => 'DATETIME',

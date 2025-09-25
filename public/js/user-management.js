@@ -457,6 +457,14 @@ function initializeKeyboardShortcuts() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Initializing user management functionality...');
     
+    // Ensure only one modal submit handler exists
+    const uf = document.getElementById('userForm');
+    if (uf && uf.dataset.bound !== '1') {
+        // no-op; binding happens later in this file
+    } else if (uf) {
+        console.log('userForm already bound, skipping duplicate bind');
+    }
+    
     // Update stats immediately
     updateUserStats();
     
@@ -474,6 +482,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle form submission for adding/editing users
     const userForm = document.getElementById('userForm');
     if (userForm) {
+        // Prevent double-binding if another script (edit-user.js) already attached a handler
+        if (userForm.dataset.bound === '1') {
+            return;
+        }
+        userForm.dataset.bound = '1';
         userForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             

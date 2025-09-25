@@ -19,9 +19,14 @@ class CreateStaffTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'full_name' => [
+            'first_name' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'constraint' => '100',
+            ],
+            'last_name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+                'null'       => true,
             ],
             'gender' => [
                 'type'       => 'ENUM',
@@ -54,6 +59,11 @@ class CreateStaffTable extends Migration
             'designation' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
+                'null'       => true,
+            ],
+            'role' => [
+                'type'       => 'ENUM',
+                'constraint' => ['admin', 'doctor', 'nurse', 'pharmacist', 'receptionist', 'laboratorist', 'it_staff', 'accountant'],
                 'null'       => true,
             ],
             'date_joined' => [
