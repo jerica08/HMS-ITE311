@@ -25,21 +25,14 @@ class StaffManagementController extends AdminBaseController
 
     public function create()
     {
-        // Handle creating a new staff member
+        // Create a new staff member
         $staffModel = new \App\Models\StaffModel();
-        // Accept both traditional form posts and raw JSON bodies
         $payload = $this->request->getPost();
         if (!$payload || count($payload) === 0) {
-            $json = $this->request->getJSON(true);
-            if (is_array($json)) {
-                $payload = $json;
-            } else {
-                $payload = [];
-            }
+            $payload = $this->request->getJSON(true) ?? [];
         }
 
-        // Map new form fields to model fields
-        // Support either full_name or explicit first_name/last_name
+        // Names
         $firstName = trim((string)($payload['first_name'] ?? ''));
         $lastName = trim((string)($payload['last_name'] ?? ''));
         if ($firstName === '' && $lastName === '') {
@@ -54,22 +47,46 @@ class StaffManagementController extends AdminBaseController
             }
         }
 
-        // Normalize dates to Y-m-d for DB columns
+        // Dates
+        $dateJoined = null; $dob = null;
         $rawJoined = $payload['date_joined'] ?? null;
-        $dateJoined = null;
         if (is_string($rawJoined) && $rawJoined !== '') {
             $dt = \DateTime::createFromFormat('Y-m-d', $rawJoined) ?: \DateTime::createFromFormat('d/m/Y', $rawJoined);
-            if ($dt instanceof \DateTime) {
-                $dateJoined = $dt->format('Y-m-d');
-            }
+            if ($dt instanceof \DateTime) { $dateJoined = $dt->format('Y-m-d'); }
         }
         $rawDob = $payload['dob'] ?? null;
-        $dob = null;
         if (is_string($rawDob) && $rawDob !== '') {
             $dd = \DateTime::createFromFormat('Y-m-d', $rawDob) ?: \DateTime::createFromFormat('d/m/Y', $rawDob);
-            if ($dd instanceof \DateTime) {
-                $dob = $dd->format('Y-m-d');
-            }
+            if ($dd instanceof \DateTime) { $dob = $dd->format('Y-m-d'); }
+        }
+
+        // Resolve role/designation to role_id
+        $incomingRoleKey = null;
+        if (!empty($payload['role'])) {
+            $incomingRoleKey = strtolower(str_replace(' ', '_', trim((string)$payload['role'])));
+        } elseif (!empty($payload['designation'])) {
+            $incomingRoleKey = strtolower(str_replace(' ', '_', trim((string)$payload['designation'])));
+        }
+        $roleNameMap = [
+            'admin' => 'Hospital Administrator',
+            'doctor' => 'Doctor',
+            'nurse' => 'Nurse',
+            'receptionist' => 'Receptionist',
+            'laboratorist' => 'Laboratory Staff',
+            'pharmacist' => 'Pharmacist',
+            'accountant' => 'Accountant',
+            'it_staff' => 'IT Staff',
+        ];
+        $resolvedRoleId = null;
+        if ($incomingRoleKey && isset($roleNameMap[$incomingRoleKey])) {
+            $db = \Config\Database::connect();
+            $row = $db->table('role')->select('role_id')->where('role_name', $roleNameMap[$incomingRoleKey])->get()->getRowArray();
+            if ($row) { $resolvedRoleId = (int)$row['role_id']; }
+        }
+        if ($incomingRoleKey && $resolvedRoleId === null) {
+            return $this->response->setStatusCode(422)->setJSON([
+                'status' => 'error', 'message' => 'Invalid role provided. Please choose a valid role.'
+            ]);
         }
 
         $data = [
@@ -84,44 +101,61 @@ class StaffManagementController extends AdminBaseController
             'department'  => $payload['department'] ?? null,
             'designation' => $payload['designation'] ?? null,
             'role'        => isset($payload['designation']) ? str_replace(' ', '_', strtolower(trim((string)$payload['designation']))) : (isset($payload['role']) ? strtolower(trim((string)$payload['role'])) : null),
+            'role_id'     => $resolvedRoleId,
             'date_joined' => $dateJoined,
         ];
 
-        // Insert will run validation and beforeInsert hooks
-        $id = $staffModel->insert($data);
-        if ($id === false) {
-            return $this->response
-                ->setStatusCode(422)
-                ->setJSON([
-                    'status' => 'error',
-                    'message' => 'Validation failed',
-                    'errors' => $staffModel->errors(),
-                ]);
+        $newId = $staffModel->insert($data);
+        if ($newId === false) {
+            return $this->response->setStatusCode(422)->setJSON([
+                'status' => 'error', 'message' => 'Validation failed', 'errors' => $staffModel->errors(),
+            ]);
         }
-
-        $created = $staffModel->find($id);
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Staff member created',
-            'data' => $created,
-        ]);
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member created', 'data' => $staffModel->find($newId)]);
     }
 
     public function update($id)
     {
-        // Handle updating a staff member
+        // Update an existing staff member
         $staffModel = new \App\Models\StaffModel();
         $data = $this->request->getRawInput();
-        $staffModel->update($id, $data);
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member updated']);
-    }
 
-    public function delete($id)
-    {
-        // Handle deleting a staff member
-        $staffModel = new \App\Models\StaffModel();
-        $staffModel->delete($id);
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member deleted']);
+        if (!is_array($data)) { $data = []; }
+        // Resolve role/designation to role_id when present
+        if (isset($data['role']) || isset($data['designation'])) {
+            $incomingRoleKey = null;
+            if (!empty($data['role'])) {
+                $incomingRoleKey = strtolower(str_replace(' ', '_', trim((string)$data['role'])));
+            } elseif (!empty($data['designation'])) {
+                $incomingRoleKey = strtolower(str_replace(' ', '_', trim((string)$data['designation'])));
+            }
+            if ($incomingRoleKey) {
+                $roleNameMap = [
+                    'admin' => 'Hospital Administrator',
+                    'doctor' => 'Doctor',
+                    'nurse' => 'Nurse',
+                    'receptionist' => 'Receptionist',
+                    'laboratorist' => 'Laboratory Staff',
+                    'pharmacist' => 'Pharmacist',
+                    'accountant' => 'Accountant',
+                    'it_staff' => 'IT Staff',
+                ];
+                if (isset($roleNameMap[$incomingRoleKey])) {
+                    $db = \Config\Database::connect();
+                    $row = $db->table('role')->select('role_id')->where('role_name', $roleNameMap[$incomingRoleKey])->get()->getRowArray();
+                    if ($row) { $data['role_id'] = (int)$row['role_id']; }
+                    else {
+                        return $this->response->setStatusCode(422)->setJSON(['status' => 'error', 'message' => 'Invalid role provided. Please choose a valid role.']);
+                    }
+                }
+            }
+        }
+
+        $ok = $staffModel->update($id, $data);
+        if ($ok === false) {
+            return $this->response->setStatusCode(422)->setJSON(['status' => 'error', 'message' => 'Validation failed', 'errors' => $staffModel->errors()]);
+        }
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Staff member updated']);
     }
 
     public function shifts($id)

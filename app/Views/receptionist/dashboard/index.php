@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('receptionist/patient-registration') ?>" class="nav-link">
+                        <a href="<?= base_url('receptionist/index') ?>" class="nav-link">
                             <i class="fas fa-user-plus nav-icon"></i>
                             Patient Registration
                         </a>

@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Database\Migrations;
@@ -53,7 +54,7 @@ class CreateShiftsTable extends Migration
         ]);
 
         $this->forge->addKey('shift_id', true);
-        $this->forge->addForeignKey('staff_id', 'users', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('staff_id', 'staff', 'staff_id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('shifts');
     }
 

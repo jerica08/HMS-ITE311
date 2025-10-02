@@ -16,6 +16,8 @@ class FinancialManagementController extends AdminBaseController
             'currentUser' => $currentUser
         ];
 
-        return view('admin/financial/financial_management', $data);
+        // Corrected view path to match existing file structure
+        // File exists at: app/Views/admin/financial-management/financial_management.php
+        return view('admin/financial-management/financial_management', $data);
     }
 }
