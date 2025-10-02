@@ -134,6 +134,14 @@ class StaffModel extends Model
     }
 
     /**
+     * Get total staff count
+     */
+    public function getTotalStaff()
+    {
+        return $this->countAll();
+    }
+
+    /**
      * Fetch role_name by role_id from the role table
      */
     protected function getRoleNameById(int $roleId): ?string

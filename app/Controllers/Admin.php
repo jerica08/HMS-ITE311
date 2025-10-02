@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\PatientModel;
+use App\Models\StaffModel;
 use App\Services\UserService;
 
 class Admin extends BaseController
@@ -11,12 +12,14 @@ class Admin extends BaseController
     protected $userModel;
     protected $userService;
     protected $patientModel;
+    protected $staffModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->userService = new UserService();
         $this->patientModel = new PatientModel();
+        $this->staffModel = new StaffModel();
     }
 
     private function checkAdminAuth()
@@ -45,7 +48,10 @@ class Admin extends BaseController
         
         // Get patient statistics
         $patientStats = $this->getPatientStats();
-        
+
+        // Get staff statistics
+        $staffStats = $this->getStaffStats();
+
         $data = [
             'currentUser' => $currentUser,
             'userStats' => $userStats['data'] ?? [
@@ -54,7 +60,8 @@ class Admin extends BaseController
                 'inactive_users' => 0,
                 'admin_users' => 0
             ],
-            'patientStats' => $patientStats
+            'patientStats' => $patientStats,
+            'staffStats' => $staffStats
         ];
         
         return view('admin/dashboard/index', $data);
@@ -90,6 +97,25 @@ class Admin extends BaseController
         }
     }
 
+    /**
+     * Get staff statistics for admin dashboard
+     */
+    private function getStaffStats()
+    {
+        try {
+            $db = db_connect();
+
+            return [
+                'total_staff' => $db->query("SELECT COUNT(*) as count FROM staff")->getRow()->count,
+            ];
+        } catch (\Exception $e) {
+            log_message('error', "Error getting staff statistics: " . $e->getMessage());
+            return [
+                'total_staff' => 0,
+            ];
+        }
+    }
+
     // System Settings method
     
 
@@ -103,12 +129,14 @@ class Admin extends BaseController
         if ($authCheck) return $authCheck;
 
         $currentUser = $this->getCurrentUserData();
+        $staffStats = $this->getStaffStats();
         $data = [
             'title' => 'Staff Management',
-            'currentUser' => $currentUser
+            'currentUser' => $currentUser,
+            'staffStats' => $staffStats
         ];
 
-        return view('admin/staff-management/staff_management', $data);
+        return view('admin/staff_management/index', $data);
     }
 
     public function getUsersApi()

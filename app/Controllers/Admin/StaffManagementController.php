@@ -20,7 +20,8 @@ class StaffManagementController extends AdminBaseController
     {
         $staffModel = new \App\Models\StaffModel();
         $staff = $staffModel->findAll();
-        return $this->response->setJSON($staff);
+        $total = $staffModel->getTotalStaff();
+        return $this->response->setJSON(['total' => $total, 'staff' => $staff]);
     }
 
     public function create()

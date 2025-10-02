@@ -84,7 +84,7 @@ $routes->group('admin', function($routes) {
     $routes->get('staff/(:num)/shifts', 'Admin\StaffManagementController::shifts/$1');
     $routes->get('staff/(:num)/shifts/api', 'Admin\StaffManagementController::shiftsApi/$1');
     $routes->post('staff/(:num)/shifts', 'Admin\StaffManagementController::createShift/$1');
-
+    $routes->get('api/staff', 'StaffApi::index');
     // Resource Management Routes
     $routes->get('resource', 'Admin\ResourceManagementController::index'); 
 
