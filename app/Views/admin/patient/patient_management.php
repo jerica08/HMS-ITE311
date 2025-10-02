@@ -193,6 +193,12 @@
             <!--Main Content-->
             <main class="content">
                 <h1 class="page-title"> Patient Management</h1>
+                <div class="page-actions">
+                        <button type="button" id="openAddPatientsBtn" class="btn btn-primary" onclick="openAddPatientsModal()">
+                            <i class="fas fa-plus"></i> Add Patients
+                        </button>
+                </div><br>
+
 
                 <!--Dashboard overview cards-->
                 <div class="dashboard-overview">
@@ -315,14 +321,7 @@
                     <div class="patient-table">
                         <div class="table-header">
                             <h3>Patient Directory</h3>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button class="btn btn-secondary btn-small" onclick="refreshPatients()">
-                                    <i class="fas fa-refresh"></i> Refresh
-                                </button>
-                                <button class="btn btn-primary btn-small" onclick="addPatient()">
-                                    <i class="fas fa-plus"></i> Add Patient
-                                </button>
-                            </div>
+                           
                         </div>
                         <table class="table">
                             <thead>

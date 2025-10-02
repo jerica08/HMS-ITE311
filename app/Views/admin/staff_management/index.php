@@ -401,8 +401,8 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div>
-                            <div class="section-title">Doctors Directory</div>
-                            <div style="color:#6b7280;font-size:0.9rem;">All registered doctors</div>
+                            <div class="section-title">All Staff</div>
+                            <div style="color:#6b7280;font-size:0.9rem;">All registered staff</div>
                         </div>
                     </div>
 
