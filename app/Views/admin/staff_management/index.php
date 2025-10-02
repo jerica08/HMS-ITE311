@@ -237,13 +237,14 @@
         .hms-modal-overlay.active { display: flex; }
         .hms-modal {
             width: 100%;
-            max-width: 560px;
+            max-width: 960px;
             background: #ffffff;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             overflow: hidden;
             border: 1px solid #f1f5f9;
-            display: block !important; /* override any global modal rules */
+            display: flex !important; /* override any global modal rules */
+            flex-direction: column;
             position: fixed; /* ensure centered regardless of parent stacking contexts */
             left: 50%;
             top: 50%;
@@ -252,6 +253,9 @@
             visibility: visible !important;
             pointer-events: auto !important;
             min-height: 120px;
+            max-height: 90vh;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
             outline: 1px solid rgba(79,70,229,0.25); /* debug outline */
         }
         .hms-modal-header {
@@ -272,6 +276,10 @@
         .hms-modal-body { 
             padding: 1rem 1.25rem; 
             color: #475569; 
+            overflow-y: auto;
+            flex: 1 1 auto;
+            max-height: calc(90vh - 140px); /* leave room for header + actions */
+            -webkit-overflow-scrolling: touch;
         }
         .hms-modal-actions {
             display: flex;
