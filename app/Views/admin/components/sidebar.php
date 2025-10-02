@@ -1,4 +1,4 @@
-<!--Sidebar Component for Admin Pages-->
+<!--Sidebar Component -->
 <nav class="sidebar">
     <ul class="nav-menu">
         <li class="nav-item">
@@ -20,6 +20,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="<?= base_url('admin/patient') ?>" class="nav-link <?= (strpos(current_url(), 'admin/patient') !== false) ? 'active' : '' ?>">
+                <i class="fas fa-user-injured nav-icon"></i>
+                Patient Management
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="<?= base_url('admin/resource') ?>" class="nav-link <?= (strpos(current_url(), 'admin/resource') !== false) ? 'active' : '' ?>">
                 <i class="fas fa-hospital nav-icon"></i>
                 Resource Management
@@ -29,12 +35,6 @@
             <a href="<?= base_url('admin/financial') ?>" class="nav-link <?= (strpos(current_url(), 'admin/financial') !== false) ? 'active' : '' ?>">
                 <i class="fas fa-dollar-sign nav-icon"></i>
                 Financial Management
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="<?= base_url('admin/patient') ?>" class="nav-link <?= (strpos(current_url(), 'admin/patient') !== false) ? 'active' : '' ?>">
-                <i class="fas fa-user-injured nav-icon"></i>
-                Patient Management
             </a>
         </li>
         <li class="nav-item">
