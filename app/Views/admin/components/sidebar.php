@@ -8,15 +8,21 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="<?= base_url('admin/staff') ?>" class="nav-link <?= (strpos(current_url(), 'admin/staff') !== false) ? 'active' : '' ?>">
+                <i class="fas fa-user-tie nav-icon"></i>
+                Staff Management
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="<?= base_url('admin/users') ?>" class="nav-link <?= (strpos(current_url(), 'admin/users') !== false) ? 'active' : '' ?>">
                 <i class="fas fa-users nav-icon"></i>
                 User Management
             </a>
         </li>
-        <li class="nav-item">
-            <a href="<?= base_url('admin/staff') ?>" class="nav-link <?= (strpos(current_url(), 'admin/staff') !== false) ? 'active' : '' ?>">
-                <i class="fas fa-user-tie nav-icon"></i>
-                Staff Management
+         <li class="nav-item">
+            <a href="<?= base_url('admin/patient') ?>" class="nav-link <?= (strpos(current_url(), 'admin/patient') !== false) ? 'active' : '' ?>">
+                <i class="fas fa-user-injured nav-icon"></i>
+                Patient Management
             </a>
         </li>
         <li class="nav-item">
@@ -29,12 +35,6 @@
             <a href="<?= base_url('admin/financial') ?>" class="nav-link <?= (strpos(current_url(), 'admin/financial') !== false) ? 'active' : '' ?>">
                 <i class="fas fa-dollar-sign nav-icon"></i>
                 Financial Management
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="<?= base_url('admin/patient') ?>" class="nav-link <?= (strpos(current_url(), 'admin/patient') !== false) ? 'active' : '' ?>">
-                <i class="fas fa-user-injured nav-icon"></i>
-                Patient Management
             </a>
         </li>
         <li class="nav-item">
