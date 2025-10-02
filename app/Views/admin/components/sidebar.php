@@ -1,4 +1,4 @@
-<!--Sidebar Component -->
+<!--Sidebar Component for Admin Pages-->
 <nav class="sidebar">
     <ul class="nav-menu">
         <li class="nav-item">
@@ -19,7 +19,7 @@
                 User Management
             </a>
         </li>
-        <li class="nav-item">
+         <li class="nav-item">
             <a href="<?= base_url('admin/patient') ?>" class="nav-link <?= (strpos(current_url(), 'admin/patient') !== false) ? 'active' : '' ?>">
                 <i class="fas fa-user-injured nav-icon"></i>
                 Patient Management
