@@ -334,7 +334,7 @@
                     <!-- Patient List Table -->
                     <div class="patient-table">
                         <div class="table-header">
-                            <h3>Patient Directory</h3>
+                            <h3>Patients</h3>
                            
                         </div>
                         <table class="table">
@@ -384,11 +384,12 @@
                         <h2 id="patientModalTitle" style="margin:0; font-size:1.25rem;">Add New Patient</h2>
                     </div>
                 </div>
-                <form id="patientForm" onsubmit="event.preventDefault(); /* TODO: submit to backend */ closeAddPatientsModal();">
+                <form id="patientForm">
                     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; padding-bottom:5rem;">
                         <div>
                             <label for="first_name">First Name*</label>
                             <input type="text" id="first_name" name="first_name" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_first_name" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="middle_name">Middle Name</label>
@@ -397,10 +398,12 @@
                         <div>
                             <label for="last_name">Last Name*</label>
                             <input type="text" id="last_name" name="last_name" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_last_name" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="date_of_birth">Date of Birth*</label>
                             <input type="date" id="date_of_birth" name="date_of_birth" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_date_of_birth" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="age">Age</label>
@@ -414,20 +417,23 @@
                                 <option value="female">Female</option>
                                 <option value="other">Other</option>
                             </select>
+                            <small id="err_gender" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="civil_status">Civil Status</label>
-                            <select id="civil_status" name="civil_status" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <select id="civil_status" name="civil_status" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
                                 <option value="">Select...</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
                                 <option value="widowed">Widowed</option>
                                 <option value="separated">Separated</option>
                             </select>
+                            <small id="err_civil_status" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="phone">Phone</label>
-                            <input type="tel" id="phone" name="phone" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="tel" id="phone" name="phone" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_phone" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="email">Email</label>
@@ -435,23 +441,28 @@
                         </div>
                         <div style="grid-column: 1 / -1;">
                             <label for="address">Address</label>
-                            <input type="text" id="address" name="address" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" id="address" name="address" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_address" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="province">Province</label>
-                            <input type="text" id="province" name="province" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" id="province" name="province" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_province" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="city">City/Municipality</label>
-                            <input type="text" id="city" name="city" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" id="city" name="city" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_city" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="barangay">Barangay</label>
-                            <input type="text" id="barangay" name="barangay" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" id="barangay" name="barangay" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_barangay" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="zip_code">ZIP Code</label>
-                            <input type="text" id="zip_code" name="zip_code" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" id="zip_code" name="zip_code" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_zip_code" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="insurance_provider">Insurance Provider</label>
@@ -463,11 +474,13 @@
                         </div>
                         <div>
                             <label for="emergency_contact_name">Emergency Contact Name</label>
-                            <input type="text" id="emergency_contact_name" name="emergency_contact_name" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="text" id="emergency_contact_name" name="emergency_contact_name" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_emergency_contact_name" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="emergency_contact_phone">Emergency Contact Phone</label>
-                            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <small id="err_emergency_contact_phone" style="color:#dc2626"></small>
                         </div>
                         <div>
                             <label for="patient_type">Patient Type</label>
@@ -492,7 +505,7 @@
                     </div>
                     <div style="display:flex; gap:1rem; justify-content:flex-end; margin-top:1.5rem; position:sticky; bottom:0; background:#fff; padding-top:1rem; border-top:1px solid #e5e7eb;">
                         <button type="button" onclick="closeAddPatientsModal()" style="background:#6b7280; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:4px; cursor:pointer;">Cancel</button>
-                        <button type="submit" style="background:#2563eb; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:4px; cursor:pointer;">Save Patient</button>
+                        <button type="submit" id="savePatientBtn" style="background:#2563eb; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:4px; cursor:pointer;">Save Patient</button>
                     </div>
                 </form>
                 <button aria-label="Close" onclick="closeAddPatientsModal()" style="position:absolute; top:10px; right:10px; background:transparent; border:none; font-size:1.25rem; color:#6b7280; cursor:pointer;">
@@ -537,6 +550,71 @@
                 if (dob) {
                     dob.addEventListener('change', function(){ calcAge(this.value); });
                 }
+            })();
+
+            // Submit patient form to backend
+            (function(){
+                var form = document.getElementById('patientForm');
+                if (!form) return;
+                form.addEventListener('submit', async function(e){
+                    e.preventDefault();
+                    var btn = document.getElementById('savePatientBtn');
+                    if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
+
+                    // Collect values
+                    var getVal = function(id){ var el = document.getElementById(id); return el ? el.value : null; };
+                    var payload = {
+                        first_name: getVal('first_name'),
+                        middle_name: getVal('middle_name'),
+                        last_name: getVal('last_name'),
+                        date_of_birth: getVal('date_of_birth'),
+                        age: getVal('age'),
+                        gender: getVal('gender'),
+                        civil_status: getVal('civil_status'),
+                        phone: getVal('phone'),
+                        email: getVal('email'),
+                        address: getVal('address'),
+                        province: getVal('province'),
+                        city: getVal('city'),
+                        barangay: getVal('barangay'),
+                        zip_code: getVal('zip_code'),
+                        insurance_provider: getVal('insurance_provider'),
+                        insurance_number: getVal('insurance_number'),
+                        emergency_contact_name: getVal('emergency_contact_name'),
+                        emergency_contact_phone: getVal('emergency_contact_phone'),
+                        patient_type: getVal('patient_type'),
+                        status: getVal('status'),
+                        medical_notes: getVal('medical_notes')
+                    };
+
+                    try {
+                        var res = await fetch('/admin/patients', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify(payload),
+                            credentials: 'same-origin'
+                        });
+                        var result = await res.json().catch(function(){ return {}; });
+                        if (res.ok && result.status === 'success'){
+                            alert('Patient saved successfully');
+                            closeAddPatientsModal();
+                            // Reload to refresh counts/list
+                            window.location.reload();
+                        } else {
+                            var msg = result.message || 'Failed to save patient';
+                            if (result.errors){
+                                var details = Object.values(result.errors).join('\n');
+                                msg += '\n\n' + details;
+                            }
+                            alert(msg);
+                        }
+                    } catch (err){
+                        console.error('Error saving patient', err);
+                        alert('Network error. Please try again.');
+                    } finally {
+                        if (btn) { btn.disabled = false; btn.textContent = 'Save Patient'; }
+                    }
+                });
             })();
         </script>
         <script src="/js/logout.js"></script>

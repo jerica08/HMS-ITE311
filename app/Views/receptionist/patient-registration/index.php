@@ -1,350 +1,544 @@
-    <!DOCTYPE html>
-<html lang ="en">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width", initial-scale="1.0">
-        <title>Patients Registration</title>
-        <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-common.css') ?>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Patient Management - HMS Admin</title>
+        <link rel="stylesheet" href="/assets/css/dashboard-common.css">
+        <link rel="stylesheet" href="/assets/css/users.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
-    <body class="receptionist-theme">
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <h1><i class="fas fa-user-secret"></i>Receptionists</h1>
-                </div>
-               <div class="user-info">
-                    <div href="" class="fas fa-avatar" href=""></div>
-                    <div>
-                        <div style="font-weight: 600;">
-                            <?= \App\Helpers\UserHelper::getDisplayName($currentUser ?? null) ?>
-                        </div>
-                        <div style="font-size: 0.9rem;opacity:0.8">
-                            <?= \App\Helpers\UserHelper::getDisplayRole($currentUser ?? null) ?>
-                        </div>
-                    </div>
-                    <a class="btn btn-secondary" href="<?= base_url('profile') ?>" style="margin-left:.5rem;">
-                        <i class="fas fa-user"></i> Profile
-                    </a>
-                    <button class="logout-btn" onclick="handleLogout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <div class="main-container">
-                <  <!-- Sidebar -->
-            <nav class="sidebar">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                    <a href="<?= base_url('receptionist/dashboard') ?>" class="nav-link">
-                            <i class="fas fa-tachometer-alt nav-icon"></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('receptionist/patient-registration') ?>" class="nav-link active">
-                            <i class="fas fa-user-plus nav-icon"></i>
-                            Patient Registration
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('receptionist/appointments') ?>" class="nav-link">
-                            <i class="fas fa-calendar-alt nav-icon"></i>
-                            Appointment Booking
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('receptionist/insurance') ?>" class="nav-link">
-                            <i class="fas fa-shield-alt nav-icon"></i>
-                            Insurance Verification
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <main class="content">
-                <div class="content-header">
-                    <h2 class="page-title"><i class="fas fa-user-plus"></i> Patient Registration</h2>
-                    <p class="page-subtitle">Create a new patient profile and capture demographics, contact, and insurance information.</p>
-                </div>
-
-                <?php if (session()->getFlashdata('success')): ?>
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i>
-                        <?= session()->getFlashdata('success') ?>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <?= session()->getFlashdata('error') ?>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (session()->getFlashdata('errors')): ?>
-                    <div class="alert alert-error">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <strong>Please correct the following errors:</strong>
-                        <ul>
-                            <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                                <li><?= esc($error) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-                <section class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Patient Details</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="patientRegistrationForm" action="<?= base_url('receptionist/patient-registration/store') ?>" method="post" novalidate>
-                            <?= csrf_field() ?>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="firstName">First Name</label>
-                                    <input type="text" id="firstName" name="first_name" placeholder="e.g., Juan" value="<?= old('first_name') ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lastName">Last Name</label>
-                                    <input type="text" id="lastName" name="last_name" placeholder="e.g., Dela Cruz" value="<?= old('last_name') ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="middleName">Middle Name</label>
-                                    <input type="text" id="middleName" name="middle_name" placeholder="Optional" value="<?= old('middle_name') ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="dob">Date of Birth</label>
-                                    <input type="date" id="dob" name="date_of_birth" value="<?= old('date_of_birth') ?>" required>
-                                    <small id="calculated-age" class="age-display"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="gender">Gender</label>
-                                    <select id="gender" name="gender" required>
-                                        <option value="">Select gender</option>
-                                        <option value="Male" <?= old('gender') == 'Male' ? 'selected' : '' ?>>Male</option>
-                                        <option value="Female" <?= old('gender') == 'Female' ? 'selected' : '' ?>>Female</option>
-                                        <option value="Other" <?= old('gender') == 'Other' ? 'selected' : '' ?>>Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="civilStatus">Civil Status</label>
-                                    <select id="civilStatus" name="civil_status">
-                                        <option value="">Select status</option>
-                                        <option value="Single" <?= old('civil_status') == 'Single' ? 'selected' : '' ?>>Single</option>
-                                        <option value="Married" <?= old('civil_status') == 'Married' ? 'selected' : '' ?>>Married</option>
-                                        <option value="Divorced" <?= old('civil_status') == 'Divorced' ? 'selected' : '' ?>>Divorced</option>
-                                        <option value="Widowed" <?= old('civil_status') == 'Widowed' ? 'selected' : '' ?>>Widowed</option>
-                                        <option value="Separated" <?= old('civil_status') == 'Separated' ? 'selected' : '' ?>>Separated</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Mobile Number</label>
-                                    <input type="tel" id="phone" name="phone" placeholder="e.g., 09XXXXXXXXX" pattern="^[0-9\-\+\s\(\)]{7,}$" value="<?= old('phone') ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" placeholder="name@example.com" value="<?= old('email') ?>">
-                                </div>
-                                <div class="form-group form-group-full">
-                                    <label for="address">Address</label>
-                                    <input type="text" id="address" name="address" placeholder="House No., Street, Barangay, City/Municipality, Province" value="<?= old('address') ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="province">Province</label>
-                                    <input type="text" id="province" name="province" value="<?= old('province') ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="city">City/Municipality</label>
-                                    <input type="text" id="city" name="city" value="<?= old('city') ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="barangay">Barangay</label>
-                                    <input type="text" id="barangay" name="barangay" value="<?= old('barangay') ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="zip">ZIP Code</label>
-                                    <input type="text" id="zip" name="zip_code" pattern="^[0-9]{4,5}$" placeholder="e.g., 1000" value="<?= old('zip_code') ?>">
-                                </div>
-                            </div>
-
-                            <hr class="section-divider">
-
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="insuranceProvider">Insurance Provider</label>
-                                    <input type="text" id="insuranceProvider" name="insurance_provider" placeholder="e.g., PhilHealth" value="<?= old('insurance_provider') ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="insuranceNumber">Insurance Number</label>
-                                    <input type="text" id="insuranceNumber" name="insurance_number" placeholder="Policy/Member ID" value="<?= old('insurance_number') ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="emergencyName">Emergency Contact Name</label>
-                                    <input type="text" id="emergencyName" name="emergency_contact_name" placeholder="Full name" value="<?= old('emergency_contact_name') ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="emergencyPhone">Emergency Contact Number</label>
-                                    <input type="tel" id="emergencyPhone" name="emergency_contact_phone" placeholder="e.g., 09XXXXXXXXX" pattern="^[0-9\-\+\s\(\)]{7,}$" value="<?= old('emergency_contact_phone') ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="patientType">Patient Type</label>
-                                    <select id="patientType" name="patient_type">
-                                        <option value="Outpatient" <?= old('patient_type') == 'Outpatient' ? 'selected' : '' ?>>Outpatient</option>
-                                        <option value="Inpatient" <?= old('patient_type') == 'Inpatient' ? 'selected' : '' ?>>Inpatient</option>
-                                        <option value="Emergency" <?= old('patient_type') == 'Emergency' ? 'selected' : '' ?>>Emergency</option>
-                                    </select>
-                                </div>
-                                <div class="form-group form-group-full">
-                                    <label for="notes">Clinical Notes</label>
-                                    <textarea id="notes" name="medical_notes" rows="3" placeholder="Optional notes (allergies, conditions, etc.)"><?= old('medical_notes') ?></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Patient</button>
-                                <button type="reset" class="btn btn-secondary"><i class="fas fa-undo"></i> Reset</button>
-                            </div>
-                        </form>
-                    </div>
-                </section>
-            </main>
-        </div>
         <style>
-        .content { 
-            padding: 24px;
-            width: 100%; 
-            overflow: auto; 
-        }
-        .content-header { 
-            margin-bottom: 16px; 
-        }
-        .page-title { 
-            margin: 0 0 6px 0; 
-            font-weight: 700; 
-        }
-        .page-subtitle { 
-            margin: 0; 
-            opacity: 0.8; 
-        }
-        .card { 
-            background: var(--card-bg, #fff); 
-            border-radius: 12px; 
-            box-shadow: var(--shadow-md, 0 2px 12px rgba(0,0,0,0.06)); 
-            overflow: hidden; 
-        }
-        .card-header { 
-            padding: 16px 20px; 
-            border-bottom: 1px solid rgba(0,0,0,0.06); 
-            display: flex; align-items: center; 
-            justify-content: space-between; 
-        }
-        .card-title { margin: 0; font-size: 1.05rem; font-weight: 600; }
-        .card-body { padding: 20px; }
-        .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group-full { grid-column: 1 / -1; }
-        .form-group label { font-weight: 600; margin-bottom: 6px; }
-        .form-group input, .form-group select, .form-group textarea { padding: 10px 12px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; background: var(--input-bg, #fff); }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary, #2563eb); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-        .section-divider { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 16px 0; }
-        .form-actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 8px; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
-        .btn-primary { background: var(--primary, #2563eb); color: #fff; }
-        .btn-secondary { background: var(--muted, #e5e7eb); color: #111827; }
-        .btn:hover { filter: brightness(0.98); }
-        @media (max-width: 900px) { .form-grid { grid-template-columns: 1fr; } }
-        .main-container { display: flex; }
-        .sidebar { flex: 0 0 280px; }
-        .content { flex: 1 1 auto; }
-        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 8px; }
-        .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-        .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .alert ul { margin: 8px 0 0 0; padding-left: 20px; }
-        .alert li { margin-bottom: 4px; }
-
-        /* Enhanced form validation styles */
-        .form-group input.error,
-        .form-group select.error,
-        .form-group textarea.error {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
-        }
-
-        .field-error {
-            color: #dc2626;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+            .patient-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .patient-section {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background: #3b82f6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2rem;
+            }
+            .patient-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 0;
+                border-bottom: 1px solid #f3f4f6;
+            }
+            .patient-item:last-child {
+                border-bottom: none;
+            }
+            .patient-info {
+                flex: 1;
+            }
+            .patient-name {
+                font-weight: 500;
+                color: #1f2937;
+                margin-bottom: 0.25rem;
+            }
+            .patient-details {
+                font-size: 0.8rem;
+                color: #6b7280;
+            }
+            .patient-status {
+                padding: 0.25rem 0.75rem;
+                border-radius: 15px;
+                font-size: 0.8rem;
+                font-weight: 500;
+            }
+            .status-admitted { background: #fef3c7; color: #92400e; }
+            .status-discharged { background: #dcfce7; color: #166534; }
+            .status-critical { background: #fecaca; color: #991b1b; }
+            .status-stable { background: #dbeafe; color: #1e40af; }
+            .status-emergency { background: #fed7cc; color: #c2410c; }
+            .search-filters {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+            .filter-row {
+                display: flex;
+                gap: 1rem;
+                align-items: end;
+                flex-wrap: wrap;
+            }
+            .filter-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                min-width: 150px;
+            }
+            .filter-input {
+                padding: 0.5rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 5px;
+                font-size: 0.9rem;
+            }
+            .patient-table {
+                background: white;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .table-header {
+                background: #f8fafc;
+                padding: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .patient-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #4299e1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                font-size: 0.9rem;
+            }
+            .action-buttons {
+                display: flex;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            .btn-small {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            .critical-alert {
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-left: 4px solid #ef4444;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            .alert-header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 600;
+                color: #991b1b;
+                margin-bottom: 0.5rem;
+            }
+            .alert-content {
+                color: #7f1d1d;
+                font-size: 0.9rem;
+            }
+            .quick-actions {
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+            .actions-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            .patient-flow {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem;
+                background: #f8fafc;
+                border-radius: 6px;
+                margin: 0.5rem 0;
+                font-size: 0.9rem;
+            }
+            .flow-number {
+                font-weight: bold;
+                color: #3b82f6;
+            }
+            .hms-modal-header {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
         }
-
-        .field-error::before {
-            content: "⚠";
-            font-size: 0.75rem;
-        }
-
-        .age-display {
-            color: #6b7280;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-            font-style: italic;
-        }
-
-        /* Loading and notification styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 16px;
-            border-radius: 8px;
+        .hms-modal-title {
+            font-weight: 600;
+            color: #1e293b;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification-success {
-            background-color: #dcfce7;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
-
-        .notification-error {
-            background-color: #fef2f2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .fa-spinner {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            gap: 0.5rem;
         }
         </style>
+    </head>
+    <body class="admin">
+        <!--header-->
+        <?= view('admin/components/header', ['currentUser' => $currentUser ?? null]) ?> 
+        <!--Main Content-->
+        <div class="main-container">
+             <!--sidebar-->
+             <?= view('admin/components/sidebar') ?>    
+               
+            <!--Main Content-->
+            <main class="content">
+                <h1 class="page-title"> Patient Management</h1>
+                <div class="page-actions">
+                        <button type="button" id="openAddPatientsBtn" class="btn btn-primary" onclick="openAddPatientsModal()">
+                            <i class="fas fa-plus"></i> Add Patients
+                        </button>
+                </div><br>
 
-        <script src="<?= base_url('js/logout.js') ?>"></script>
-        <script src="<?= base_url('js/patient-registration.js') ?>"></script>
-        
+
+                <!--Dashboard overview cards-->
+                <div class="dashboard-overview">
+                    <!-- Total Patient Cards -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern blue">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Total Patient</h3>
+                                <p class="card-subtitle">All Registered Users</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value blue"><?= $patientStats['total_patients'] ?? 0 ?></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active User Card -->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">Admitted Patient</h3>
+                                <p class="card-subtitle">Currently active</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0</div>
+                            </div>
+                        </div>   
+                    </div>
+                    <!--Admin Users Card-->
+                    <div class="overview-card">
+                        <div class="card-header-modern">
+                            <div class="card-icon-modern purple">
+                                <i class="fas fa-calendar-plus"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title-modern">New Admissions</h3>
+                                <p class="card-subtitle">Today</p>
+                            </div>
+                        </div>
+                        <div class="card-metrics">
+                            <div class="metric">
+                                <div class="metric-value purple">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
+
+                <div class="patient-view">         
+                    <!--Filter and Actions-->    
+                    <div class="search-filter">
+                        <h3 style="margin-bottom: 1rem;">Patient Search & Filters</h3>
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <label> Search Patient</label>
+                                <input type="text" class="filter-input" placeholder="Search by name, email, or ID..." 
+                                    id="searchInput" value="">
+                            </div>
+                            <div class="filter-group">
+                                <label>Status Filter</label>
+                                <select class="filter-input" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="admitted">Admitted</option>
+                                    <option value="discharged">Dishcarge</option>
+                                    <option value="critical">Critical</option>
+                                    <option value="emergency">Emergency</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label> Role Filter</label>
+                                <select class="filter-input" id="roleFilter">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="nurse">Nurse</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="laboratorist">Laboratory Staff</option>
+                                    <option value="pharmacist">Pharmacist</option>
+                                    <option value="accountant">Accountant</option>
+                                    <option value="it_staff">IT Staff</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Department</label>
+                                <select class="filter-input" id="departmentFilter">
+                                    <option value="">All Departments</option>
+                                    <option value="emergency">Emergency</option>
+                                    <option value="icu">ICU</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="general">General Ward</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Date Range</label>
+                                <select class="filter-input" id="dateFilter">
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="custom">Custom Range</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-primary" onclick="applyFilters()">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>     
+                        </div>          
+                    </div><br>
+                    <!-- Patient List Table -->
+                    <div class="patient-table">
+                        <div class="table-header">
+                            <h3>Patient Directory</h3>
+                           
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>ID</th>
+                                    <th>Age</th>
+                                    <th>Department</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div class="patient-avatar">MS</div>
+                                            <div>
+                                                <div style="font-weight: 500;">Example1</div>
+                                                <div style="font-size: 0.8rem; color: #6b7280;">example@email.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>P-2024-0156</td>
+                                    <td>45</td>
+                                    <td>ICU</td>
+                                    <td>301</td>
+                                    <td><span class="patient-status status-critical">Critical</span></td>
+                                    <td>
+                                        <button class="btn btn-secondary btn-small">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- Add Patient Popup Modal (styled like Add User) -->
+        <div id="patientModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center;">
+            <div style="background:#fff; padding:2rem; border-radius:8px; max-width:960px; width:98%; margin:auto; position:relative; max-height:90vh; overflow:auto; box-sizing:border-box; -webkit-overflow-scrolling:touch;">
+                <div class="hms-modal-header">
+                    <div class="hms-modal-title">
+                        <i class="fas fa-user-plus" style="color:#4f46e5"></i>
+                        <h2 id="patientModalTitle" style="margin:0; font-size:1.25rem;">Add New Patient</h2>
+                    </div>
+                </div>
+                <form id="patientForm" onsubmit="event.preventDefault(); /* TODO: submit to backend */ closeAddPatientsModal();">
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; padding-bottom:5rem;">
+                        <div>
+                            <label for="first_name">First Name*</label>
+                            <input type="text" id="first_name" name="first_name" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="middle_name">Middle Name</label>
+                            <input type="text" id="middle_name" name="middle_name" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="last_name">Last Name*</label>
+                            <input type="text" id="last_name" name="last_name" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="date_of_birth">Date of Birth*</label>
+                            <input type="date" id="date_of_birth" name="date_of_birth" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" readonly style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px; background:#f9fafb;">
+                        </div>
+                        <div>
+                            <label for="gender">Gender*</label>
+                            <select id="gender" name="gender" required style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                <option value="">Select...</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="civil_status">Civil Status</label>
+                            <select id="civil_status" name="civil_status" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                <option value="">Select...</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="widowed">Widowed</option>
+                                <option value="separated">Separated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="province">Province</label>
+                            <input type="text" id="province" name="province" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="city">City/Municipality</label>
+                            <input type="text" id="city" name="city" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="barangay">Barangay</label>
+                            <input type="text" id="barangay" name="barangay" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="zip_code">ZIP Code</label>
+                            <input type="text" id="zip_code" name="zip_code" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="insurance_provider">Insurance Provider</label>
+                            <input type="text" id="insurance_provider" name="insurance_provider" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="insurance_number">Insurance Number</label>
+                            <input type="text" id="insurance_number" name="insurance_number" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="emergency_contact_name">Emergency Contact Name</label>
+                            <input type="text" id="emergency_contact_name" name="emergency_contact_name" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="emergency_contact_phone">Emergency Contact Phone</label>
+                            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label for="patient_type">Patient Type</label>
+                            <select id="patient_type" name="patient_type" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                <option value="">Select...</option>
+                                <option value="outpatient">Outpatient</option>
+                                <option value="inpatient">Inpatient</option>
+                                <option value="emergency">Emergency</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="status">Status</label>
+                            <select id="status" name="status" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label for="medical_notes">Medical Notes</label>
+                            <textarea id="medical_notes" name="medical_notes" rows="3" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;"></textarea>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:1rem; justify-content:flex-end; margin-top:1.5rem; position:sticky; bottom:0; background:#fff; padding-top:1rem; border-top:1px solid #e5e7eb;">
+                        <button type="button" onclick="closeAddPatientsModal()" style="background:#6b7280; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:4px; cursor:pointer;">Cancel</button>
+                        <button type="submit" style="background:#2563eb; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:4px; cursor:pointer;">Save Patient</button>
+                    </div>
+                </form>
+                <button aria-label="Close" onclick="closeAddPatientsModal()" style="position:absolute; top:10px; right:10px; background:transparent; border:none; font-size:1.25rem; color:#6b7280; cursor:pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function openAddPatientsModal() {
+                var m = document.getElementById('patientModal');
+                if (m) { m.style.display = 'flex'; }
+            }
+            function closeAddPatientsModal() {
+                var m = document.getElementById('patientModal');
+                if (m) { m.style.display = 'none'; }
+            }
+            // Close when clicking outside the dialog
+            document.addEventListener('click', function(e){
+                var m = document.getElementById('patientModal');
+                if (!m) return;
+                if (e.target === m) closeAddPatientsModal();
+            });
+            // Close on Escape
+            document.addEventListener('keydown', function(e){
+                if (e.key === 'Escape') closeAddPatientsModal();
+            });
+            // Auto-calc age from DOB
+            (function(){
+                var dob = document.getElementById('date_of_birth');
+                var age = document.getElementById('age');
+                function calcAge(value){
+                    if (!value) { age && (age.value = ''); return; }
+                    var d = new Date(value);
+                    if (isNaN(d.getTime())) { age && (age.value = ''); return; }
+                    var today = new Date();
+                    var a = today.getFullYear() - d.getFullYear();
+                    var m = today.getMonth() - d.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < d.getDate())) a--;
+                    if (age) age.value = a >= 0 ? a : '';
+                }
+                if (dob) {
+                    dob.addEventListener('change', function(){ calcAge(this.value); });
+                }
+            })();
+        </script>
+        <script src="/js/logout.js"></script>
     </body>
-    </html>
+</html>
